@@ -1,0 +1,5 @@
+poziadavky na triedu Automaton:
+- zvonka do nej hadzeme len idcka stavov
+- interne bude stavy vnimat ako nejake mnoziny prechodov moznych
+- na zaklade grafu s idckami stavov musi vediet vybudovat funkcny automat
+- musi vediet zakladne veci - porovnat dva automaty, determinizacia

@@ -12,4 +12,11 @@ import java.util.HashMap;
  *
  * @author raf
  */
-public class State extends HashMap<Character, State>{ }
+
+public class State extends HashMap<Character, State>{
+    
+    /* pridanie prechodu do stavu*/
+    public void addTransition(Character c,State s){
+        this.put(c,s);
+    }
+}
