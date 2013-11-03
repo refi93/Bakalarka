@@ -177,5 +177,12 @@ public class Automaton{
         // TODO
         return "NOT YET IMPLEMENTED";
     }
+    
+    
+    /* overi, ci je dany automat deterministicky */
+    public boolean isDeterministic(){
+        // TODO
+        return false;
+    }
     // more methods go here
 }     
