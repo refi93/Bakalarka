@@ -6,10 +6,10 @@
 
 package bakalarka;
 
+import java.util.HashMap;
+
 /**
  *
  * @author raf
  */
-public class DFA {
-    
-}
+public class State extends HashMap<Character, State>{ }
