@@ -21,11 +21,25 @@ class NoSuchStateException extends Exception
 {
       //Parameterless Constructor
       public NoSuchStateException(State s) {
-          System.out.println("No such state" + s.toString());
+          System.out.println("No such state" + s. toString());
       }
 
       //Constructor that accepts a message
       public NoSuchStateException(String message)
+      {
+         super(message);
+      }
+}
+
+class IdAlreadyExistsException extends Exception
+{
+      //Parameterless Constructor
+      public IdAlreadyExistsException(int id) {
+          System.out.println("ID " + id + " ALREADY EXISTS");
+      }
+
+      //Constructor that accepts a message
+      public IdAlreadyExistsException(String message)
       {
          super(message);
       }
@@ -99,18 +113,19 @@ public class Automaton{
     }
     
     
-    private void addState(State s){
-        // pridanie stavu do automatu
-    }
-    
-    public void addState(int id){
-        
+    public void addState(int stateId) throws Exception{
+        if (idStateMap.containsKey(stateId)){
+            throw new IdAlreadyExistsException(stateId);
+        }
+        State s = new State();
+        idStateMap. put(stateId, s);
+        stateIdMap. put(s, stateId);
     }
     
     /* pridanie prechodu do automatu prostrednictvom idciek stavov*/
-    public void addTransition(int idFrom,int idTo,Character c) throws NoSuchStateException{
-        State from = idStateMap.get(idFrom);
-        State to = idStateMap.get(idTo);
+    public void addTransition(int idFrom, int idTo, Character c) throws NoSuchStateException{
+        State from = idStateMap. get(idFrom);
+        State to = idStateMap. get(idTo);
        
         if ((from != null) && (to != null)){
             from.addTransition(c, to);
