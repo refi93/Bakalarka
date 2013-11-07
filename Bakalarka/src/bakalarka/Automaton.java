@@ -55,7 +55,6 @@ public class Automaton{
     private HashSet<State> finalStates; // mnozina akceptacnych stavov
     private State initialState; // pociatocny stav
     private State currentState; // aktualny stav
-    private HashSet<Character> alphabet = new HashSet(Arrays.asList(new Character[] { '0', '1'}))  ; // abeceda - pre nase ucely {0,1}
 
     
     public Automaton(Automaton a){
@@ -75,7 +74,7 @@ public class Automaton{
     /* vykonanie prechodu automatu - funguje len pre deterministicke - pre
     nedeterministicke si to pozrie len prvu moznost - nevetvi sa to*/
     public boolean doTransition(Character input){
-        if(!alphabet.contains(input)){ 
+        if(!Variables.alphabet.contains(input)){ 
             throw new IllegalArgumentException();
         }
         if(finalStates.contains(currentState)){ 

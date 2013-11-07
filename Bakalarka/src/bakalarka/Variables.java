@@ -12,6 +12,7 @@ import java.util.Arrays;
 /**
  *
  * @author raf
+ * trieda obsahujuca potrebne globalne premenne
  */
 public class Variables {
     
