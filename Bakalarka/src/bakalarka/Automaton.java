@@ -6,10 +6,12 @@
 
 package bakalarka;
 
+import static java.lang.System.in;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -70,7 +72,8 @@ public class Automaton{
         // konstruktor Automatu dany Stringom
     }
     
-    
+    /* vykonanie prechodu automatu - funguje len pre deterministicke - pre
+    nedeterministicke si to pozrie len prvu moznost - nevetvi sa to*/
     public boolean doTransition(Character input){
         if(!alphabet.contains(input)){ 
             throw new IllegalArgumentException();
@@ -79,7 +82,7 @@ public class Automaton{
             throw new IllegalStateException(); 
         }
 
-        currentState = currentState.get(input);
+        currentState = currentState.get(input).get(0);
 
         if(currentState == null){ 
             throw new IllegalStateException(); 
@@ -181,8 +184,17 @@ public class Automaton{
     
     /* overi, ci je dany automat deterministicky */
     public boolean isDeterministic(){
-        // TODO
-        return false;
+        for (State state : allStates) {
+            if (!state.isDeterministic()){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    /* vrati pocet stavov automatu */
+    public int getNumberOfStates(){
+        return allStates.size();
     }
     // more methods go here
 }     
