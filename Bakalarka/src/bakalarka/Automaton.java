@@ -7,6 +7,7 @@
 package bakalarka;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -64,14 +65,10 @@ public class Automaton{
     }
     
     
-    public Automaton(ArrayList<State> states){
-        // konstruktor dany mnozinou stavov
-    }
-    
-    
     public Automaton(String s){
         // konstruktor Automatu dany Stringom
     }
+    
     
     /* vykonanie prechodu automatu - funguje len pre deterministicke - pre
     nedeterministicke si to pozrie len prvu moznost - nevetvi sa to*/
@@ -162,9 +159,14 @@ public class Automaton{
         return false;
     }
     
-    public void determinize(){
+    public Automaton determinize() throws Exception{
         //TODO
         // determinizacia automatu
+        Automaton ret = new Automaton();
+        //zoznam stavov powerset automatu
+        ArrayList<HashSet<Object> > states = new ArrayList< >();
+        HashSet<Object> initialState = new HashSet<>(Arrays.asList(initialStateId));
+        return ret;  
     }
     
     

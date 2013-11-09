@@ -29,6 +29,10 @@ public class State extends HashMap<Character, ArrayList<Object> >{
         this.id = id;
     }
 
+    @Override
+    public String toString(){
+        return "MARHA";
+    }
     
     public boolean isDeterministic(){
         for(Character c: Variables.alphabet){

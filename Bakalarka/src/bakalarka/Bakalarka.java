@@ -26,6 +26,17 @@ public class Bakalarka {
         a.addTransition(0, 1, '0');
         a.addTransition(0, 0, '1');
         a.doTransition('1');
+        IntegerIdentificator x = new IntegerIdentificator(5);
+        IntegerIdentificator y = new IntegerIdentificator(109);
+        
+        PowersetIdentificator z = new PowersetIdentificator();
+        z.add(x);z.add(y);
+        
+        PowersetIdentificator z2 = (PowersetIdentificator)z.copy();
+        System.out.println(z == z2);
+        System.out.println(z.equals(z2));
+        z2.add(z.copy());
+        System.out.println(z2);
     }
     
 }
