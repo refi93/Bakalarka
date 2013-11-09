@@ -19,13 +19,19 @@ public class Bakalarka {
         Automaton a = new Automaton();
         int n = 5;
         for(int i = 0;i < n;i++){
-            a.addState(i);
+            a.addState(new IntegerIdentificator(i));
         }
-        a.setInitialState(0);
-        a.addFinalState(1);
-        a.addTransition(0, 1, '0');
-        a.addTransition(0, 0, '1');
-        a.doTransition('1');
+        
+        a.setInitialState(new IntegerIdentificator(0));
+        a.addFinalState(new IntegerIdentificator(1));
+        a.addTransition(new IntegerIdentificator(0), new IntegerIdentificator(1), '0');
+        a.addTransition(new IntegerIdentificator(0), new IntegerIdentificator(0), '1');
+        
+        Automaton b = new Automaton(a);
+        
+        a.doTransition('0');
+        
+        
         IntegerIdentificator x = new IntegerIdentificator(5);
         IntegerIdentificator y = new IntegerIdentificator(109);
         

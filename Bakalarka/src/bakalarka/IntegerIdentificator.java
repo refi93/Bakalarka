@@ -12,20 +12,30 @@ package bakalarka;
  * identifikator stavu dany cislom
  */
 public class IntegerIdentificator implements Identificator{
-    int value;
+    Integer value;
     
-    public IntegerIdentificator(int x){
+    
+    public IntegerIdentificator(Integer x){
         this.value = x;
     }
+    
     
     public IntegerIdentificator(IntegerIdentificator x){
         this.value = x.value;
     }
     
+    
+    @Override
+    public String toString(){
+        return value.toString();   
+    }
+    
+    
     @Override
     public Identificator copy() {
         return new IntegerIdentificator(this.value);
     }
+    
     
     /**
      *
@@ -36,6 +46,7 @@ public class IntegerIdentificator implements Identificator{
         return (new Integer(this.value)).hashCode();
     }
 
+    
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -45,9 +56,6 @@ public class IntegerIdentificator implements Identificator{
             return false;
         }
         final IntegerIdentificator other = (IntegerIdentificator) obj;
-        if (this.value != other.value) {
-            return false;
-        }
-        return true;
+        return this.value == other.value;
     }
 }

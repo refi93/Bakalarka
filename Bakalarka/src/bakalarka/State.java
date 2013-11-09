@@ -16,15 +16,15 @@ import java.util.HashMap;
  * stavov, na ktore sa da prejst
  */
 
-public class State extends HashMap<Character, ArrayList<Object> >{
+public class State extends HashMap<Character, ArrayList<Identificator> >{
     
     /* vrati, ci je dany stav "deterministicky", teda ci je jednoznacne 
     urcene, co bude nasledovat
     */
     
-    Object id; // idcko stavu
+    Identificator id; // idcko stavu
     
-    public State(Object id){
+    public State(Identificator id){
         super();
         this.id = id;
     }
@@ -32,6 +32,18 @@ public class State extends HashMap<Character, ArrayList<Object> >{
     @Override
     public String toString(){
         return "MARHA";
+    }
+    
+    public State copy(){
+        State ret = new State(this.id.copy());
+        for(Character c : Variables.alphabet){
+            if (this.get(c) != null){
+                for(Identificator transitionStateId : this.get(c)){
+                    ret.addTransition(c, transitionStateId.copy());
+                }
+            }
+        }
+        return ret;
     }
     
     public boolean isDeterministic(){
@@ -44,7 +56,7 @@ public class State extends HashMap<Character, ArrayList<Object> >{
     }
     
     /* pridanie prechodu do stavu*/
-    public void addTransition(Character c,Object stateId){
+    public void addTransition(Character c,Identificator stateId){
         ArrayList value = this.get(c);
         if (value == null){
             value = new ArrayList<>();

@@ -46,11 +46,11 @@ class IdAlreadyExistsException extends Exception
 
 
 public class Automaton{
-    private HashMap<Object,State> idStateMap; // tu si pamatame k idcku stav
-    private HashSet<Object> allStatesIds; // mnozina idcok vsetkych stavov
-    private HashSet<Object> finalStatesIds; // mnozina idciek akceptacnych stavov
-    private Object initialStateId; // pociatocny stav
-    private Object currentStateId; // aktualny stav
+    private HashMap<Identificator,State> idStateMap; // tu si pamatame k idcku stav
+    private HashSet<Identificator> allStatesIds; // mnozina idcok vsetkych stavov
+    private HashSet<Identificator> finalStatesIds; // mnozina idciek akceptacnych stavov
+    private Identificator initialStateId; // pociatocny stav
+    private Identificator currentStateId; // aktualny stav
 
     
     public Automaton(){
@@ -61,9 +61,23 @@ public class Automaton{
     }
     
     public Automaton(Automaton a){
+        this.initialStateId = a.initialStateId.copy();
+        this.currentStateId = a.currentStateId.copy();
         
+        
+        this.allStatesIds = new HashSet<Identificator>();
+        this.idStateMap = new HashMap<Identificator,State>();
+        for (Identificator id : a.allStatesIds){
+            this.allStatesIds.add(id.copy());
+            this.idStateMap.put(id.copy(), a.idStateMap.get(id).copy());
+        }
+        
+        this.finalStatesIds = new HashSet<Identificator>();
+        for (Identificator id : a.finalStatesIds){
+            this.finalStatesIds.add(id.copy());
+        }
     }
-    
+
     
     public Automaton(String s){
         // konstruktor Automatu dany Stringom
@@ -90,7 +104,7 @@ public class Automaton{
     
     /*nastavenie pociatocneho stavu pomocou idcka stavu - tento stav sa nastavi
     aj ako current state*/
-    public void setInitialState(Object stateId) throws NoSuchStateException{
+    public void setInitialState(Identificator stateId) throws NoSuchStateException{
         // nastavenie pociatocneho stavu
         if (idStateMap.get(stateId) != null){
             this.initialStateId = stateId;
@@ -103,7 +117,7 @@ public class Automaton{
     
     
     /* nastavenie aktualneho stavu automatu */
-    public void setCurrentState(Object stateId) throws NoSuchStateException{
+    public void setCurrentState(Identificator stateId) throws NoSuchStateException{
         if (idStateMap.get(stateId) != null){
             this.currentStateId = stateId;
         }
@@ -113,7 +127,7 @@ public class Automaton{
     }
     
     
-    public void addState(Object stateId) throws Exception{
+    public void addState(Identificator stateId) throws Exception{
         if (idStateMap.containsKey(stateId)){
             throw new IdAlreadyExistsException(stateId);
         }
@@ -123,7 +137,7 @@ public class Automaton{
     }
     
     /* pridanie prechodu do automatu prostrednictvom idciek stavov*/
-    public void addTransition(Object idFrom, Object idTo, Character c) throws NoSuchStateException, Exception{
+    public void addTransition(Identificator idFrom, Identificator idTo, Character c) throws NoSuchStateException, Exception{
         State from = idStateMap. get(idFrom);
         State to = idStateMap. get(idTo);
         
@@ -143,7 +157,7 @@ public class Automaton{
     
     
     /* pridanie akceptacneho stavu prostrednictvom idcka */
-    public void addFinalState(Object stateId) throws NoSuchStateException{
+    public void addFinalState(Identificator stateId) throws NoSuchStateException{
         State s = idStateMap.get(stateId);
         if (s != null){
             finalStatesIds.add(s.id);
@@ -162,11 +176,7 @@ public class Automaton{
     public Automaton determinize() throws Exception{
         //TODO
         // determinizacia automatu
-        Automaton ret = new Automaton();
-        //zoznam stavov powerset automatu
-        ArrayList<HashSet<Object> > states = new ArrayList< >();
-        HashSet<Object> initialState = new HashSet<>(Arrays.asList(initialStateId));
-        return ret;  
+        return new Automaton();
     }
     
     

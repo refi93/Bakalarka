@@ -13,8 +13,10 @@ package bakalarka;
  */
 public interface Identificator {
     abstract public Identificator copy();
+    
     @Override
     abstract public int hashCode();
+    
     @Override
     abstract public boolean equals(Object o);
 }
