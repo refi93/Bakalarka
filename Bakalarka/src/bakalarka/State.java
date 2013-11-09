@@ -8,6 +8,7 @@ package bakalarka;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  *
@@ -16,7 +17,7 @@ import java.util.HashMap;
  * stavov, na ktore sa da prejst
  */
 
-public class State extends HashMap<Character, ArrayList<Identificator> >{
+public class State extends HashMap<Character, HashSet<Identificator> >{
     
     /* vrati, ci je dany stav "deterministicky", teda ci je jednoznacne 
     urcene, co bude nasledovat
@@ -57,9 +58,9 @@ public class State extends HashMap<Character, ArrayList<Identificator> >{
     
     /* pridanie prechodu do stavu*/
     public void addTransition(Character c,Identificator stateId){
-        ArrayList value = this.get(c);
+        HashSet value = this.get(c);
         if (value == null){
-            value = new ArrayList<>();
+            value = new HashSet<>();
         }
         value.add(stateId);
         this.put(c, value);
@@ -84,5 +85,11 @@ public class State extends HashMap<Character, ArrayList<Identificator> >{
     @Override
     public int hashCode(){
         return id.hashCode();
+    }
+    
+    
+    /* ziskame stav, na ktory prejdeme, ked dostaneme znak c */
+    HashSet<Identificator> getTransition(Character c){
+        return this.get(c);
     }
 }

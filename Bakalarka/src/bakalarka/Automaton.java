@@ -10,6 +10,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Objects;
+import java.util.Queue;
+import java.util.Stack;
+
 
 /**
  *
@@ -82,6 +87,30 @@ public class Automaton{
     public Automaton(String s){
         // konstruktor Automatu dany Stringom
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 83 * hash + Objects.hashCode(this.idStateMap);
+        hash = 83 * hash + Objects.hashCode(this.allStatesIds);
+        hash = 83 * hash + Objects.hashCode(this.finalStatesIds);
+        hash = 83 * hash + Objects.hashCode(this.initialStateId);
+        hash = 83 * hash + Objects.hashCode(this.currentStateId);
+        return hash;
+    }
+
+  
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Automaton other = (Automaton) obj;
+        return this.hashCode() == other.hashCode();
+    }
     
     
     /* vykonanie prechodu automatu - funguje len pre deterministicke - pre
@@ -91,7 +120,7 @@ public class Automaton{
             throw new IllegalArgumentException();
         }
         
-        currentStateId = idStateMap.get(currentStateId).get(input).get(0);
+        currentStateId = idStateMap.get(currentStateId).get(input).iterator().next();
 
         if(currentStateId == null){ 
             throw new IllegalStateException(); 
@@ -128,7 +157,8 @@ public class Automaton{
     
     
     public void addState(Identificator stateId) throws Exception{
-        if (idStateMap.containsKey(stateId)){
+        if (allStatesIds.contains(stateId)){
+            System.out.println(allStatesIds + "MARHA");
             throw new IdAlreadyExistsException(stateId);
         }
         State s = new State(stateId);
@@ -173,9 +203,62 @@ public class Automaton{
         return false;
     }
     
+    public State getState(Identificator id){
+        return idStateMap.get(id);
+    }
+    
     public Automaton determinize() throws Exception{
         //TODO
         // determinizacia automatu
+        Automaton pom = new Automaton(this);
+        
+        Automaton ret = new Automaton();
+        
+        PowerSetIdentificator retInitialStateId = new PowerSetIdentificator();
+        retInitialStateId.add(this.initialStateId);
+        ret.addState(retInitialStateId);
+        ret.setInitialState(retInitialStateId);
+        
+        Queue<PowerSetIdentificator> queue = new LinkedList<>();
+        queue.add(retInitialStateId);
+        
+        
+        while (!queue.isEmpty()){
+            PowerSetIdentificator currentRetId = queue.peek();
+            
+            for (Character c : Variables.alphabet){ // prechadzame moznymi znakmi abecedy
+                PowerSetIdentificator newId = new PowerSetIdentificator();
+                boolean thisIsFinalState = false; 
+                
+                for (Identificator IdentificatorInPom : currentRetId){
+                    if (pom.getState(IdentificatorInPom).getTransition(c) != null){
+                        for(Identificator identificatorOfTransitionState : pom.getState(IdentificatorInPom).getTransition(c)){
+                            if (pom.finalStatesIds.contains(identificatorOfTransitionState)){
+                                thisIsFinalState = true;
+                            }
+                            newId.add(identificatorOfTransitionState);
+                        }
+                    }
+                }
+                if (!newId.isEmpty()){
+                    try{
+                        ret.addState(newId);
+                        queue.add(newId);
+                        if (thisIsFinalState){
+                            ret.finalStatesIds.add(newId);
+                        }
+                    }
+                    catch(Exception e){
+                        System.out.println("ale nic");
+                    }
+                    ret.addTransition(currentRetId, newId, c);
+                }
+            }
+            queue.remove();
+        }
+        
+        System.out.println(ret.allStatesIds);
+        
         return new Automaton();
     }
     

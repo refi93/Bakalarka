@@ -13,12 +13,12 @@ import java.util.HashSet;
  * @author raf
  * identifikator stavu dany potencnou mnozinou
  */
-public class PowersetIdentificator extends HashSet<Identificator> implements Identificator {
+public class PowerSetIdentificator extends HashSet<Identificator> implements Identificator {
 
     
     @Override
-    public PowersetIdentificator copy() {
-        PowersetIdentificator ret = new PowersetIdentificator();
+    public PowerSetIdentificator copy() {
+        PowerSetIdentificator ret = new PowerSetIdentificator();
         for(Identificator x:this){
             ret.add(x.copy());
         }
@@ -34,17 +34,8 @@ public class PowersetIdentificator extends HashSet<Identificator> implements Ide
     
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final PowersetIdentificator other = (PowersetIdentificator) obj;
-        if (this.hashCode() != other.hashCode()) {
-            return false;
-        }
-        return true;
+        
+        return super.equals(obj);
     }
     
 }
