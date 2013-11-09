@@ -6,13 +6,9 @@
 
 package bakalarka;
 
-import static java.lang.System.in;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
 
 /**
  *
@@ -22,8 +18,8 @@ import java.util.Set;
 class NoSuchStateException extends Exception
 {
       //Parameterless Constructor
-      public NoSuchStateException(State s) {
-          System.out.println("No such state" + s. toString());
+      public NoSuchStateException(Object stateId) {
+          System.out.println("No such state" + stateId. toString());
       }
 
       //Constructor that accepts a message
@@ -36,7 +32,7 @@ class NoSuchStateException extends Exception
 class IdAlreadyExistsException extends Exception
 {
       //Parameterless Constructor
-      public IdAlreadyExistsException(int id) {
+      public IdAlreadyExistsException(Object id) {
           System.out.println("ID " + id + " ALREADY EXISTS");
       }
 
@@ -49,16 +45,22 @@ class IdAlreadyExistsException extends Exception
 
 
 public class Automaton{
-    private HashMap<Integer,State> idStateMap; // tu si pamatame k idcku stav
-    private HashMap<State,Integer> stateIdMap; // tu si pamatame k stavu idcko
-    private HashSet<State> allStates; // mnozina vsetkych stavov
-    private HashSet<State> finalStates; // mnozina akceptacnych stavov
-    private State initialState; // pociatocny stav
-    private State currentState; // aktualny stav
+    private HashMap<Object,State> idStateMap; // tu si pamatame k idcku stav
+    private HashSet<Object> allStatesIds; // mnozina idcok vsetkych stavov
+    private HashSet<Object> finalStatesIds; // mnozina idciek akceptacnych stavov
+    private Object initialStateId; // pociatocny stav
+    private Object currentStateId; // aktualny stav
 
     
+    public Automaton(){
+        // parameterless konstruktor
+        idStateMap = new HashMap<>();
+        allStatesIds = new HashSet<>();
+        finalStatesIds = new HashSet<>();
+    }
+    
     public Automaton(Automaton a){
-        // konstruktor dany dalsim automatom
+        
     }
     
     
@@ -77,89 +79,81 @@ public class Automaton{
         if(!Variables.alphabet.contains(input)){ 
             throw new IllegalArgumentException();
         }
-        if(finalStates.contains(currentState)){ 
+        
+        currentStateId = idStateMap.get(currentStateId).get(input).get(0);
+
+        if(currentStateId == null){ 
             throw new IllegalStateException(); 
         }
-
-        currentState = currentState.get(input).get(0);
-
-        if(currentState == null){ 
-            throw new IllegalStateException(); 
-        }
-
-        return finalStates.contains(currentState);
+        
+        System.out.println(currentStateId);
+        return finalStatesIds.contains(currentStateId);
     }
 
     
-    /*nastavenie pociatocneho stavu pomocou premennej typu State*/
-    private void setInitialState(State s) throws NoSuchStateException{
+    /*nastavenie pociatocneho stavu pomocou idcka stavu - tento stav sa nastavi
+    aj ako current state*/
+    public void setInitialState(Object stateId) throws NoSuchStateException{
         // nastavenie pociatocneho stavu
-        if (allStates.contains(s)){
-            this.initialState = s;
+        if (idStateMap.get(stateId) != null){
+            this.initialStateId = stateId;
+            setCurrentState(stateId);
         }
         else{ // ak stav nie je v allStates
-            throw new NoSuchStateException(s);
+            throw new NoSuchStateException(stateId);
         }
     }
     
     
-    /*nastavenie pociatocneho stavu pomocou idcka stavu*/
-    public void setInitialState(int id) throws NoSuchStateException{
-        try{
-            State s = idStateMap.get(id);
-            setInitialState(s);
+    /* nastavenie aktualneho stavu automatu */
+    public void setCurrentState(Object stateId) throws NoSuchStateException{
+        if (idStateMap.get(stateId) != null){
+            this.currentStateId = stateId;
         }
-        catch(NoSuchStateException e){
-            throw new NoSuchStateException("ERROR: setting initial state failed");
+        else{ // ak stav nie je v allStates
+            throw new NoSuchStateException(stateId);
         }
     }
     
     
-    public void addState(int stateId) throws Exception{
+    public void addState(Object stateId) throws Exception{
         if (idStateMap.containsKey(stateId)){
             throw new IdAlreadyExistsException(stateId);
         }
-        State s = new State();
+        State s = new State(stateId);
         idStateMap. put(stateId, s);
-        stateIdMap. put(s, stateId);
+        allStatesIds.add(stateId);
     }
     
     /* pridanie prechodu do automatu prostrednictvom idciek stavov*/
-    public void addTransition(int idFrom, int idTo, Character c) throws NoSuchStateException{
+    public void addTransition(Object idFrom, Object idTo, Character c) throws NoSuchStateException, Exception{
         State from = idStateMap. get(idFrom);
         State to = idStateMap. get(idTo);
-       
+        
+        // vymazeme stare zaznamy, aby sme ich nasledne aktualizovali
+        idStateMap.remove(idFrom);
+        
         if ((from != null) && (to != null)){
-            from.addTransition(c, to);
-    
+            from.addTransition(c, idTo);
         }
         else{
             throw new NoSuchStateException("FAILED TO ADD TRANSITION");
         }
-    }
-    
-    
-    /* pridanie konecneho stavu */
-    private void addFinalState(State s){
-        finalStates.add(s);
+        
+        // vlozime naspat aktualizovany zaznam
+        idStateMap.put(idFrom, from);
     }
     
     
     /* pridanie akceptacneho stavu prostrednictvom idcka */
-    public void addFinalState(int stateId) throws NoSuchStateException{
+    public void addFinalState(Object stateId) throws NoSuchStateException{
         State s = idStateMap.get(stateId);
         if (s != null){
-            addFinalState(s);
+            finalStatesIds.add(s.id);
         }
         else{
             throw new NoSuchStateException("FAILED TO ADD FINAL STATE");
         }
-    }
-    
-    /* otestuje, ci ide o totozny automat */
-    public boolean equals(Automaton b){
-       // TODO
-       return true;
     }
     
     /* otestuje, ci ide o ekvivalentny automat */
@@ -183,8 +177,8 @@ public class Automaton{
     
     /* overi, ci je dany automat deterministicky */
     public boolean isDeterministic(){
-        for (State state : allStates) {
-            if (!state.isDeterministic()){
+        for (Object stateId : allStatesIds) {
+            if (!idStateMap.get(stateId).isDeterministic()){
                 return false;
             }
         }
@@ -193,7 +187,7 @@ public class Automaton{
     
     /* vrati pocet stavov automatu */
     public int getNumberOfStates(){
-        return allStates.size();
+        return allStatesIds.size();
     }
     // more methods go here
 }     

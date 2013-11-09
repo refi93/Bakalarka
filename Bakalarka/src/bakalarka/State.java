@@ -12,15 +12,24 @@ import java.util.HashMap;
 /**
  *
  * @author raf
- * tato trieda reprezentuje stav automatu - k znaku si pamatame mnozinu 
+ * tato trieda reprezentuje stav automatu - k znaku si pamatame mnozinu idciek 
  * stavov, na ktore sa da prejst
  */
 
-public class State extends HashMap<Character, ArrayList<State> >{
+public class State extends HashMap<Character, ArrayList<Object> >{
     
     /* vrati, ci je dany stav "deterministicky", teda ci je jednoznacne 
     urcene, co bude nasledovat
     */
+    
+    Object id; // idcko stavu
+    
+    public State(Object id){
+        super();
+        this.id = id;
+    }
+
+    
     public boolean isDeterministic(){
         for(Character c: Variables.alphabet){
             if ((this.get(c) != null) && (this.get(c).size() > 1)){
@@ -31,12 +40,33 @@ public class State extends HashMap<Character, ArrayList<State> >{
     }
     
     /* pridanie prechodu do stavu*/
-    public void addTransition(Character c,State s){
+    public void addTransition(Character c,Object stateId){
         ArrayList value = this.get(c);
         if (value == null){
             value = new ArrayList<>();
         }
-        value.add(s);
+        value.add(stateId);
         this.put(c, value);
+    }
+    
+    public boolean equals(State s){
+        return s.id.equals(this.id);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final State other = (State) obj;
+        return other.id.equals(this.id);
+    }
+    
+    @Override
+    public int hashCode(){
+        return id.hashCode();
     }
 }
