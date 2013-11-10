@@ -54,7 +54,8 @@ public class Automaton{
     private HashMap<Identificator,State> idStateMap; // tu si pamatame k idcku stav
     private HashSet<Identificator> allStatesIds; // mnozina idcok vsetkych stavov
     private HashSet<Identificator> finalStatesIds; // mnozina idciek akceptacnych stavov
-    private Identificator initialStateId; // pociatocny stav
+    private HashSet<Identificator> initialStatesIds; // pociatocne stavy - pripusta sa ich viac
+    // aj ked to neni celkom kosher, ale je to kvoli minimalizacii DKA cez reverz automatu
     private Identificator currentStateId; // aktualny stav
 
     
@@ -63,15 +64,22 @@ public class Automaton{
         idStateMap = new HashMap<>();
         allStatesIds = new HashSet<>();
         finalStatesIds = new HashSet<>();
+        initialStatesIds = new HashSet<>();
     }
     
-    public Automaton(Automaton a){
-        this.initialStateId = a.initialStateId.copy();
+    public Automaton(Automaton a){ // konstruktor ktoreho cielom je naklonovat automat a
         this.currentStateId = a.currentStateId.copy();
         
         
         this.allStatesIds = new HashSet<Identificator>();
+        this.initialStatesIds = new HashSet<Identificator>();
+        
         this.idStateMap = new HashMap<Identificator,State>();
+        
+        for (Identificator id : a.initialStatesIds){
+            this.initialStatesIds.add(id.copy());
+        }
+        
         for (Identificator id : a.allStatesIds){
             this.allStatesIds.add(id.copy());
             this.idStateMap.put(id.copy(), a.idStateMap.get(id).copy());
@@ -81,6 +89,7 @@ public class Automaton{
         for (Identificator id : a.finalStatesIds){
             this.finalStatesIds.add(id.copy());
         }
+        
     }
 
     
@@ -94,7 +103,7 @@ public class Automaton{
         hash = 83 * hash + Objects.hashCode(this.idStateMap);
         hash = 83 * hash + Objects.hashCode(this.allStatesIds);
         hash = 83 * hash + Objects.hashCode(this.finalStatesIds);
-        hash = 83 * hash + Objects.hashCode(this.initialStateId);
+        hash = 83 * hash + Objects.hashCode(this.initialStatesIds);
         hash = 83 * hash + Objects.hashCode(this.currentStateId);
         return hash;
     }
@@ -136,7 +145,8 @@ public class Automaton{
     public void setInitialState(Identificator stateId) throws NoSuchStateException{
         // nastavenie pociatocneho stavu
         if (idStateMap.get(stateId) != null){
-            this.initialStateId = stateId;
+            this.initialStatesIds.clear(); // vymazeme predosly pociatocny stav
+            this.initialStatesIds.add(stateId);
             setCurrentState(stateId);
         }
         else{ // ak stav nie je v allStates
@@ -158,7 +168,7 @@ public class Automaton{
     
     public void addState(Identificator stateId) throws Exception{
         if (allStatesIds.contains(stateId)){
-            System.out.println(allStatesIds + "MARHA");
+            //System.out.println(allStatesIds + "MARHA");
             throw new IdAlreadyExistsException(stateId);
         }
         State s = new State(stateId);
@@ -210,27 +220,34 @@ public class Automaton{
     public Automaton determinize() throws Exception{
         //TODO
         // determinizacia automatu
-        Automaton pom = new Automaton(this);
+        Automaton pom = new Automaton(this); // naklonujeme nas automat
         
-        Automaton ret = new Automaton();
+        Automaton ret = new Automaton(); // sem ulozime determinizovany automat
         
-        PowerSetIdentificator retInitialStateId = new PowerSetIdentificator();
-        retInitialStateId.add(this.initialStateId);
-        ret.addState(retInitialStateId);
-        ret.setInitialState(retInitialStateId);
+        // pociatocny stav determinizovaneho automatu je set obsahujuci pociatocne stavy nedeterminizovaneho
+        PowerSetIdentificator retInitialStatesIds = new PowerSetIdentificator(this.initialStatesIds);
         
+        ret.addState(retInitialStatesIds);
+        
+        ret.setInitialState(retInitialStatesIds);
+        ret.setCurrentState(retInitialStatesIds);
+        
+        // fronta - v nej si pamatame este neexpandovane stavy
         Queue<PowerSetIdentificator> queue = new LinkedList<>();
-        queue.add(retInitialStateId);
+        queue.add(retInitialStatesIds);
         
         
         while (!queue.isEmpty()){
+            // vyberieme z fronty prvy stav
             PowerSetIdentificator currentRetId = queue.peek();
             
             for (Character c : Variables.alphabet){ // prechadzame moznymi znakmi abecedy
                 PowerSetIdentificator newId = new PowerSetIdentificator();
                 boolean thisIsFinalState = false; 
                 
+                // prechadzame cez stavy stareho automatu obsiahnute v stave co prave expandujeme
                 for (Identificator IdentificatorInPom : currentRetId){
+                    
                     if (pom.getState(IdentificatorInPom).getTransition(c) != null){
                         for(Identificator identificatorOfTransitionState : pom.getState(IdentificatorInPom).getTransition(c)){
                             if (pom.finalStatesIds.contains(identificatorOfTransitionState)){
@@ -259,7 +276,7 @@ public class Automaton{
         
         System.out.println(ret.allStatesIds);
         
-        return new Automaton();
+        return ret;
     }
     
     

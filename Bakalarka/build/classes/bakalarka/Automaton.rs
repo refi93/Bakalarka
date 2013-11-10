@@ -1,0 +1,3 @@
+bakalarka.NoSuchStateException
+bakalarka.Automaton
+bakalarka.IdAlreadyExistsException

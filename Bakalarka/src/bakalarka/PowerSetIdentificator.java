@@ -16,6 +16,17 @@ import java.util.HashSet;
 public class PowerSetIdentificator extends HashSet<Identificator> implements Identificator {
 
     
+    public PowerSetIdentificator(HashSet<Identificator> statesSet){
+        this.clear();
+        for (Identificator id : statesSet){
+            this.add(id);
+        }
+    }
+    
+    public PowerSetIdentificator(){
+        super();
+    }
+    
     @Override
     public PowerSetIdentificator copy() {
         PowerSetIdentificator ret = new PowerSetIdentificator();

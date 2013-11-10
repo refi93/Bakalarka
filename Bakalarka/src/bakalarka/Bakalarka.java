@@ -45,7 +45,8 @@ public class Bakalarka {
         System.out.println(z.equals(z2));
         z2.add(z.copy());
         System.out.println(z2);
-        a.determinize();
+        Automaton detA = a.determinize();
+        detA.doTransition('1');
     }
     
 }
