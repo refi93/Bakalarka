@@ -6,14 +6,11 @@
 
 package bakalarka;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Objects;
 import java.util.Queue;
-import java.util.Stack;
 
 
 /**
@@ -71,10 +68,10 @@ public class Automaton{
         this.currentStateId = a.currentStateId.copy();
         
         
-        this.allStatesIds = new HashSet<Identificator>();
-        this.initialStatesIds = new HashSet<Identificator>();
+        this.allStatesIds = new HashSet<>();
+        this.initialStatesIds = new HashSet<>();
         
-        this.idStateMap = new HashMap<Identificator,State>();
+        this.idStateMap = new HashMap<>();
         
         for (Identificator id : a.initialStatesIds){
             this.initialStatesIds.add(id.copy());
@@ -85,7 +82,7 @@ public class Automaton{
             this.idStateMap.put(id.copy(), a.idStateMap.get(id).copy());
         }
         
-        this.finalStatesIds = new HashSet<Identificator>();
+        this.finalStatesIds = new HashSet<>();
         for (Identificator id : a.finalStatesIds){
             this.finalStatesIds.add(id.copy());
         }
@@ -125,6 +122,7 @@ public class Automaton{
     /* vykonanie prechodu automatu - funguje len pre deterministicke - pre
     nedeterministicke si to pozrie len prvu moznost - nevetvi sa to*/
     public boolean doTransition(Character input){
+        //System.out.println("Current state is" + this.currentStateId);
         if(!Variables.alphabet.contains(input)){ 
             throw new IllegalArgumentException();
         }
@@ -275,6 +273,34 @@ public class Automaton{
         }
         
         System.out.println(ret.allStatesIds);
+        
+        return ret;
+    }
+    
+    public Automaton reverse() throws Exception{
+        Automaton pom = new Automaton(this);
+        Automaton ret = new Automaton();
+        
+        ret.initialStatesIds = pom.finalStatesIds;
+        ret.finalStatesIds = pom.initialStatesIds;
+        // aktualny stav vysledneho automatu nastavime na niektory z jeho pociatocnych stavov
+        ret.currentStateId = ret.initialStatesIds.iterator().next();
+        
+        for (Identificator id : pom.allStatesIds){
+            ret.addState(id);
+        }
+        
+        
+        for(Identificator pomStateFromId : pom.allStatesIds){
+            State s = idStateMap.get(pomStateFromId);
+            for(Character c : Variables.alphabet){
+                if(s.get(c) != null){
+                    for(Identificator pomStateToId : s.get(c)){
+                        ret.addTransition(pomStateToId, pomStateFromId, c);
+                    }
+                }
+            }
+        }
         
         return ret;
     }

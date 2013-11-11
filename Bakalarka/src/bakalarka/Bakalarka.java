@@ -29,6 +29,10 @@ public class Bakalarka {
         a.addTransition(new IntegerIdentificator(0), new IntegerIdentificator(1), '1');
         a.addTransition(new IntegerIdentificator(1), new IntegerIdentificator(2), '0');
         
+        Automaton reversedA = a.reverse();
+        reversedA.doTransition('0');
+        System.out.println("dsdsad");
+        
         Automaton b = new Automaton(a);
         
         //a.doTransition('0');
