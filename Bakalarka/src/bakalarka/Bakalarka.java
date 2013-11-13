@@ -29,6 +29,26 @@ public class Bakalarka {
         a.addTransition(new IntegerIdentificator(0), new IntegerIdentificator(1), '1');
         a.addTransition(new IntegerIdentificator(1), new IntegerIdentificator(2), '0');
         
+        //a.replaceStateId(new IntegerIdentificator(0), new IntegerIdentificator(0));
+        
+        Automaton testMinimalizacie = new Automaton(a);
+        testMinimalizacie = testMinimalizacie.minimalDFA();
+        System.out.println("test minimalizacie: pred " + a + " po: "+  testMinimalizacie);
+        
+        Automaton test = new Automaton();
+        test.addState(new IntegerIdentificator(0));
+        test.addState(new IntegerIdentificator(1));
+        test.addTransition(new IntegerIdentificator(0), new IntegerIdentificator(1), '0');
+        test.addFinalState(new IntegerIdentificator(1));
+        test.setCurrentState(new IntegerIdentificator(0));
+        test.setInitialState(new IntegerIdentificator(0));
+        
+        Automaton skuska = test.determinize();
+        skuska = skuska.reverse();
+        skuska = skuska.determinize();
+        System.out.println(skuska);
+        
+        
         Automaton reversedA = a.reverse();
         reversedA.doTransition('0');
         System.out.println("dsdsad");

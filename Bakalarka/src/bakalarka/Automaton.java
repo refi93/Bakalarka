@@ -17,7 +17,7 @@ import java.util.Queue;
  *
  * @author raf
  */
-
+/* tato vynimka sa vyhodi, ked sa pokusime pouzit id neexistujuceho stavu */
 class NoSuchStateException extends Exception
 {
       //Parameterless Constructor
@@ -32,6 +32,7 @@ class NoSuchStateException extends Exception
       }
 }
 
+/* tato vynimka sa vyhodi ked sa pokusime pridat uz existujuce id stavu do automatu*/
 class IdAlreadyExistsException extends Exception
 {
       //Parameterless Constructor
@@ -41,6 +42,23 @@ class IdAlreadyExistsException extends Exception
 
       //Constructor that accepts a message
       public IdAlreadyExistsException(String message)
+      {
+         super(message);
+      }
+}
+
+/* tato vynimka sa vyhodi, ked sa pokusime nahradit existujuci stav nejakym
+inym, co uz tiez existuje v metode replaceStateId()
+*/
+class IdCollisionException extends Exception
+{
+      //Parameterless Constructor
+      public IdCollisionException(Identificator id) {
+          System.out.println("ID " + id + " ALREADY EXISTS");
+      }
+
+      //Constructor that accepts a message
+      public IdCollisionException(String message)
       {
          super(message);
       }
@@ -309,7 +327,7 @@ public class Automaton{
     @Override
     public String toString(){
         // TODO
-        return "NOT YET IMPLEMENTED";
+        return "The states are " + this.allStatesIds.toString();
     }
     
     
@@ -326,6 +344,72 @@ public class Automaton{
     /* vrati pocet stavov automatu */
     public int getNumberOfStates(){
         return allStatesIds.size();
+    }
+    
+    
+    /* vrati to minimalny DFA z nasho automatu */
+    public Automaton minimalDFA() throws Exception{
+        Automaton pom = new Automaton(this);
+        Automaton ret = pom.determinize().reverse().determinize().normalize();
+        return ret;
+    }
+    
+    
+    /* vrati automat s "normalne" pomenovanymi stavmi, cize to budu cele cisla a nie mnoziny */
+    public Automaton normalize() throws IdCollisionException, NoSuchStateException{
+        Automaton ret = new Automaton(this);
+        int counter = 0;
+        for (Identificator id : this.allStatesIds){ // this.allStatesIds, lebo ret.allStatesIds sa bude menit za behu cyklu a to by Java nerozchodila
+            ret.replaceStateId(id, new IntegerIdentificator(counter));
+            counter++;
+        }
+        return ret;
+    }
+    
+    /* zamena idcka nejakeho stavu v automate */
+    public void replaceStateId(Identificator oldId,Identificator newId) throws IdCollisionException, NoSuchStateException{
+        if (this.allStatesIds.contains(newId)){
+            throw new IdCollisionException(newId);
+        }
+        else if (!this.allStatesIds.contains(oldId)){
+            throw new NoSuchStateException(oldId);
+        }
+        else{
+            // najprv kazdemu stavu dame vediet, ze sa zmenilo idcko stavu
+            for (Identificator id : this.allStatesIds){
+                State s = this.idStateMap.get(id);
+                s.replaceStateId(oldId,newId);
+                this.idStateMap.remove(id);
+                if (id.equals(oldId)){ // ked ideme aktualizovat stav s idckom, ktore prave menime
+                    this.idStateMap.put(newId, s);
+                }
+                else{
+                    this.idStateMap.put(id, s);
+                }
+            }
+            
+            // potom prepiseme idcko stavu aj v nasej mnozine vsetkych stavov
+            this.allStatesIds.remove(oldId);
+            this.allStatesIds.add(newId);
+            
+            // aktualizujeme aj aktualny stav automatu
+            if (this.currentStateId.equals(oldId)){
+                this.currentStateId = newId;
+            }
+            
+            // aktualizujeme akceptacne stavy automatu
+            if (this.finalStatesIds.contains(oldId)){
+                this.finalStatesIds.remove(oldId);
+                this.finalStatesIds.add(newId);
+            }
+            
+            // aktualizujeme pociatocne stavy outomatu
+            if (this.initialStatesIds.contains(oldId)){
+                this.initialStatesIds.remove(oldId);
+                this.initialStatesIds.add(newId);
+            }
+        }
+        System.out.println(this.allStatesIds);
     }
     // more methods go here
 }     

@@ -24,15 +24,18 @@ public class State extends HashMap<Character, HashSet<Identificator> >{
     
     Identificator id; // idcko stavu
     
+    
     public State(Identificator id){
         super();
         this.id = id;
     }
 
+    
     @Override
     public String toString(){
         return "MARHA";
     }
+    
     
     public State copy(){
         State ret = new State(this.id.copy());
@@ -46,6 +49,7 @@ public class State extends HashMap<Character, HashSet<Identificator> >{
         return ret;
     }
     
+    
     public boolean isDeterministic(){
         for(Character c: Variables.alphabet){
             if ((this.get(c) != null) && (this.get(c).size() > 1)){
@@ -54,6 +58,7 @@ public class State extends HashMap<Character, HashSet<Identificator> >{
         }
         return true; 
     }
+    
     
     /* pridanie prechodu do stavu*/
     public void addTransition(Character c,Identificator stateId){
@@ -64,6 +69,7 @@ public class State extends HashMap<Character, HashSet<Identificator> >{
         value.add(stateId);
         this.put(c, value);
     }
+    
     
     public boolean equals(State s){
         return s.id.equals(this.id);
@@ -81,6 +87,7 @@ public class State extends HashMap<Character, HashSet<Identificator> >{
         return other.id.equals(this.id);
     }
     
+    
     @Override
     public int hashCode(){
         return id.hashCode();
@@ -90,5 +97,27 @@ public class State extends HashMap<Character, HashSet<Identificator> >{
     /* ziskame stav, na ktory prejdeme, ked dostaneme znak c */
     HashSet<Identificator> getTransition(Character c){
         return this.get(c);
+    }
+    
+    
+    /* zmeni identifikator stavu na zadany identifikator */
+    public void setIdentificator(Identificator id){
+        this.id = id;
+    }
+    
+    
+    /* touto metodou dame stavu vediet, ze v automate sa premenoval nejaky stav */
+    public void replaceStateId(Identificator oldId, Identificator newId){
+        if (this.id.equals(oldId)){ // ak je to prave tento stav, tak ho premenujeme
+            this.setIdentificator(newId);
+        }
+        for (Character c : Variables.alphabet){ // vsetky transitions prekontrolujeme a tie neaktualne premenujeme
+            if (this.get(c) != null){
+                if(this.get(c).contains(oldId)){
+                    this.get(c).remove(oldId);
+                    this.get(c).add(newId);
+                }
+            }
+        }
     }
 }
