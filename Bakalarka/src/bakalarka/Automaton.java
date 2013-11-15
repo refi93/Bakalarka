@@ -6,6 +6,8 @@
 
 package bakalarka;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -139,10 +141,14 @@ public class Automaton{
     
     /* vykonanie prechodu automatu - funguje len pre deterministicke - pre
     nedeterministicke si to pozrie len prvu moznost - nevetvi sa to*/
-    public boolean doTransition(Character input){
+    public boolean doTransition(Character input) throws NoSuchStateException{
         //System.out.println("Current state is" + this.currentStateId);
         if(!Variables.alphabet.contains(input)){ 
             throw new IllegalArgumentException();
+        }
+        
+        if (idStateMap.get(currentStateId).get(input) == null){
+            throw new NoSuchStateException("Can't make this transition");
         }
         
         currentStateId = idStateMap.get(currentStateId).get(input).iterator().next();
@@ -170,6 +176,16 @@ public class Automaton{
         }
     }
     
+    /* pridanie pociatocneho stavu prostrednictvom idcka */
+    public void addInitialState(Identificator stateId) throws NoSuchStateException{
+        State s = idStateMap.get(stateId);
+        if (s != null){
+            initialStatesIds.add(s.id);
+        }
+        else{
+            throw new NoSuchStateException("FAILED TO ADD FINAL STATE");
+        }
+    }
     
     /* nastavenie aktualneho stavu automatu */
     public void setCurrentState(Identificator stateId) throws NoSuchStateException{
@@ -236,6 +252,9 @@ public class Automaton{
     public Automaton determinize() throws Exception{
         //TODO
         // determinizacia automatu
+        // ak automat nema konecne alebo pociatocne stavy, tak proste vratime prazdny automat
+        if ((this.finalStatesIds.isEmpty()) || (this.initialStatesIds.isEmpty())) return new Automaton();
+        
         Automaton pom = new Automaton(this); // naklonujeme nas automat
         
         Automaton ret = new Automaton(); // sem ulozime determinizovany automat
@@ -301,6 +320,9 @@ public class Automaton{
         
         ret.initialStatesIds = pom.finalStatesIds;
         ret.finalStatesIds = pom.initialStatesIds;
+        
+        // ak nemame ziadne konecne alebo pociatocne stavy, tak vratime jednoducho prazdny automat
+        if ((ret.finalStatesIds.isEmpty()) || (ret.initialStatesIds.isEmpty())) return new Automaton();
         // aktualny stav vysledneho automatu nastavime na niektory z jeho pociatocnych stavov
         ret.currentStateId = ret.initialStatesIds.iterator().next();
         
@@ -410,6 +432,62 @@ public class Automaton{
             }
         }
         System.out.println(this.allStatesIds);
+    }
+    
+    
+    /* tato metoda vyrobi automat komplementarny k tomu nasmu - prehodi akceptacne
+    a neakceptacne stavy */
+    public Automaton complement(){
+        Automaton ret = new Automaton(this);
+        HashSet<Identificator> complementFinalStatesIds = new HashSet<>();
+        for(Identificator id : ret.allStatesIds){
+            if (!ret.finalStatesIds.contains(id)){
+                complementFinalStatesIds.add(id);
+            }
+        }
+        ret.finalStatesIds = complementFinalStatesIds;
+        return ret;
+    }
+    
+    /* vyratanie kartezskeho sucinu s druhym automatom */
+    public Automaton cartesianProduct(Automaton b) throws Exception{
+        Automaton pomA = new Automaton(this);
+        Automaton pomB = new Automaton(b);
+        Automaton ret = new Automaton();
+        
+        for (Identificator idA : pomA.allStatesIds){
+            for (Identificator idB : pomB.allStatesIds){
+                TupleIdentificator cartesian = new TupleIdentificator(idA,idB);
+                ret.addState(cartesian);
+                
+                if ((pomA.finalStatesIds.contains(idA)) && (pomB.finalStatesIds.contains(idB))){
+                    ret.addFinalState(cartesian);
+                }
+                
+                if ((pomA.initialStatesIds.contains(idA)) && (pomB.initialStatesIds.contains(idB))){
+                    ret.addInitialState(cartesian);
+                }
+            }
+        }
+        
+        for (Identificator idA : pomA.allStatesIds){
+            for (Identificator idB : pomB.allStatesIds){
+                for (Character c : Variables.alphabet){
+                    if (pomA.getState(idA).getTransition(c) != null){
+                        for (Identificator idATransition : pomA.getState(idA).getTransition(c)) {
+                            if (pomB.getState(idB).getTransition(c) != null){
+                                for (Identificator idBTransition : pomB.getState(idB).getTransition(c)){
+                                    ret.addTransition(new TupleIdentificator(idA,idB), new TupleIdentificator(idATransition,idBTransition), c);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        ret.currentStateId = ret.initialStatesIds.iterator().next();
+        return ret;
     }
     // more methods go here
 }     

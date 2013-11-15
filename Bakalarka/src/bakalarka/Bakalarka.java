@@ -48,6 +48,11 @@ public class Bakalarka {
         skuska = skuska.determinize();
         System.out.println(skuska);
         
+        Automaton tryCartesian;
+        tryCartesian = a.cartesianProduct(test);
+        System.out.println("tryCartesian: " + tryCartesian);
+        System.out.println("tryCartesian making 1 transition: ");
+        tryCartesian.doTransition('0');
         
         Automaton reversedA = a.reverse();
         reversedA.doTransition('0');
@@ -71,6 +76,8 @@ public class Bakalarka {
         System.out.println(z2);
         Automaton detA = a.determinize();
         detA.doTransition('1');
+        
+        
     }
     
 }
