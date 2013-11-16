@@ -33,7 +33,7 @@ public class State extends HashMap<Character, HashSet<Identificator> >{
     
     @Override
     public String toString(){
-        return "MARHA";
+        return "state " + id.toString();
     }
     
     

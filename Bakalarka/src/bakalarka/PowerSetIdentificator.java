@@ -25,6 +25,8 @@ public class PowerSetIdentificator extends HashSet<Identificator> implements Ide
     
     public PowerSetIdentificator(){
         super();
+        this.add(new IntegerIdentificator(1));
+        this.remove(new IntegerIdentificator(1));
     }
     
     @Override

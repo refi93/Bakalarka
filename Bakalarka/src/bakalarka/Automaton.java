@@ -157,7 +157,7 @@ public class Automaton{
             throw new IllegalStateException(); 
         }
         
-        System.out.println(currentStateId);
+        //.out.println(currentStateId);
         return finalStatesIds.contains(currentStateId);
     }
 
@@ -239,11 +239,6 @@ public class Automaton{
         }
     }
     
-    /* otestuje, ci ide o ekvivalentny automat */
-    public boolean equiv(Automaton b){
-        // TODO
-        return false;
-    }
     
     public State getState(Identificator id){
         return idStateMap.get(id);
@@ -305,12 +300,24 @@ public class Automaton{
                     }
                     ret.addTransition(currentRetId, newId, c);
                 }
+                else{
+                    if (!ret.allStatesIds.contains(newId)){
+                        ret.addState(newId);
+                    }
+                    ret.addTransition(currentRetId, newId, c);
+                }
             }
             queue.remove();
         }
         
-        System.out.println(ret.allStatesIds);
-        
+        //.out.println(ret.allStatesIds);
+        // ak niektore stavy smeruju do prazdnej mnoziny, tak tej prazdnej mnozine nastavime, nech sa cykli do seba na kazdom pismene
+        PowerSetIdentificator emptyState = new PowerSetIdentificator();
+        if (ret.allStatesIds.contains(emptyState)){
+            for (Character c : Variables.alphabet){
+                ret.addTransition(emptyState, emptyState, c);
+            }
+        }
         return ret;
     }
     
@@ -349,7 +356,18 @@ public class Automaton{
     @Override
     public String toString(){
         // TODO
-        return "The states are " + this.allStatesIds.toString();
+        String ret = "The states are " + this.allStatesIds.toString() + "\n" +
+                "The transitions: \n";
+        for (Identificator id : this.allStatesIds){
+            for (Character c : Variables.alphabet){
+                if (this.getState(id).getTransition(c) != null){
+                    ret = ret + id.toString() + "-" + c + "->" + this.getState(id).getTransition(c) + "\n";
+                }
+            }
+        }
+        ret = ret + "The initial states: " + this.initialStatesIds.toString() + "\n";
+        ret = ret + "The final states: " + this.finalStatesIds.toString() + "\n";
+        return ret;
     }
     
     
@@ -431,7 +449,7 @@ public class Automaton{
                 this.initialStatesIds.add(newId);
             }
         }
-        System.out.println(this.allStatesIds);
+        //System.out.println(this.allStatesIds);
     }
     
     
@@ -450,7 +468,7 @@ public class Automaton{
     }
     
     /* vyratanie kartezskeho sucinu s druhym automatom */
-    public Automaton cartesianProduct(Automaton b) throws Exception{
+    public Automaton intersect(Automaton b) throws Exception{
         Automaton pomA = new Automaton(this);
         Automaton pomB = new Automaton(b);
         Automaton ret = new Automaton();
@@ -499,6 +517,7 @@ public class Automaton{
 
     /* vrati true, ak automat akceptuje prazdny jazyk, inak false */
     public boolean emptyLanguage(){
+        // prazdnost jazyka zistujeme prehladavanim do sirky
         if ((this.finalStatesIds.isEmpty()) || (this.initialStatesIds.isEmpty())){
             return true;
         }
@@ -533,6 +552,16 @@ public class Automaton{
         }
             
         return true;
+    }
+    
+    /* vrati true, ak nas automat je ekvivalentny automatu b, inak false */
+    boolean equivalent(Automaton b) throws Exception{
+        // zdeterminizujeme oba automaty a porovname, ci prienik s komplementom je prazdny
+        Automaton detA = this.minimalDFA();
+        Automaton detB = b.minimalDFA();
+        Automaton pom1 = detA.intersect(detB.complement());
+        Automaton pom2 = detB.intersect(detA.complement());
+        return ((pom1.emptyLanguage()) && (pom2.emptyLanguage()));
     }
     
     // more methods go here
