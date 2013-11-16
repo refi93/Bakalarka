@@ -455,6 +455,7 @@ public class Automaton{
         Automaton pomB = new Automaton(b);
         Automaton ret = new Automaton();
         
+        // vytvorime stav pre kazdu dvojicu stavov z A a B
         for (Identificator idA : pomA.allStatesIds){
             for (Identificator idB : pomB.allStatesIds){
                 TupleIdentificator cartesian = new TupleIdentificator(idA,idB);
@@ -470,6 +471,7 @@ public class Automaton{
             }
         }
         
+        // [a,b] -c-> [a',b'] <-> [a] -c-> [a'] a zaroven [b]-c->[b'], kde c je znak z abecedy
         for (Identificator idA : pomA.allStatesIds){
             for (Identificator idB : pomB.allStatesIds){
                 for (Character c : Variables.alphabet){
@@ -486,8 +488,52 @@ public class Automaton{
             }
         }
         
+        // ak automat nema pociatocne stavy, vratime prazdny automat
+        if (ret.initialStatesIds.isEmpty()){
+            return new Automaton();
+        }
+        // nastavime aktualny stav na pociatocny
         ret.currentStateId = ret.initialStatesIds.iterator().next();
         return ret;
     }
+
+    /* vrati true, ak automat akceptuje prazdny jazyk, inak false */
+    public boolean emptyLanguage(){
+        if ((this.finalStatesIds.isEmpty()) || (this.initialStatesIds.isEmpty())){
+            return true;
+        }
+        
+        Queue<Identificator> queue = new LinkedList<>();
+        HashSet<Identificator> seen = new HashSet<>();
+        
+        for(Identificator id : this.initialStatesIds){
+            queue.add(id);
+            seen.add(id);
+        }
+        
+        
+        while(!queue.isEmpty()){
+            Identificator currentStateId = queue.peek();
+            
+            if (this.finalStatesIds.contains(currentStateId)){
+                return false;
+            }
+            
+            for(Character c : Variables.alphabet){
+                if (this.getState(currentStateId).getTransition(c) != null){
+                    for(Identificator id : this.getState(currentStateId).getTransition(c)){
+                        if(!seen.contains(id)){
+                            queue.add(id);
+                            seen.add(id);
+                        }
+                    }
+                }
+            }
+            queue.remove();
+        }
+            
+        return true;
+    }
+    
     // more methods go here
 }     

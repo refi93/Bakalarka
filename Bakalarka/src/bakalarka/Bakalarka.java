@@ -29,6 +29,7 @@ public class Bakalarka {
         a.addTransition(new IntegerIdentificator(0), new IntegerIdentificator(1), '1');
         a.addTransition(new IntegerIdentificator(1), new IntegerIdentificator(2), '0');
         
+        System.out.println("A is empty: " + a.emptyLanguage());
         //a.replaceStateId(new IntegerIdentificator(0), new IntegerIdentificator(0));
         
         Automaton testMinimalizacie = new Automaton(a);
