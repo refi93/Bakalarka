@@ -17,6 +17,7 @@ public class MatrixIterator {
     int n;
     long state;
     
+    
     public MatrixIterator(int n){
         this.n = n;
         state = 0;
@@ -26,6 +27,14 @@ public class MatrixIterator {
     /* vrati nasledujucu maticu v lexikografickom poradi */
     public Matrix next() throws Exception{
         if (!this.hasNext()) throw new Exception("Iterator overflow");
+        Matrix ret = this.current();
+        state++;
+        return ret;
+    }
+    
+    
+    /* ako next, len nezmeni to state */
+    public Matrix current() throws Exception{
         Matrix ret = new Matrix(n);
         long pom = state;
         for(int i = 0;i < n;i++){
@@ -34,13 +43,11 @@ public class MatrixIterator {
                 pom /= 2;
             }
         }
-        state++;
         return ret;
     }
     
-    
     public boolean hasNext(){
-        return (state < Math.pow(2, n * n));
+        return (state < Math.pow(2, n * n) - 1);
     }
     
     

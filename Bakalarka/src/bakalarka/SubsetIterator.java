@@ -26,6 +26,7 @@ public class SubsetIterator {
         }
         state = 0;
     }
+
     
     public SubsetIterator(ArrayList<Identificator> allElements){
         this.allElements = new ArrayList<>();
@@ -37,6 +38,14 @@ public class SubsetIterator {
     
     
     public HashSet<Identificator> next(){
+        HashSet<Identificator> ret = this.current();
+        this.state++;
+        return ret;
+        
+    }
+    
+    /* ako next, len sa nezmeni state po vykonani */
+    public HashSet<Identificator> current(){
         HashSet<Identificator> ret = new HashSet<>();
         long pom = state;
         for(int i = 0;i < allElements.size();i++){
@@ -45,12 +54,10 @@ public class SubsetIterator {
             }
             pom /= 2;
         }
-        state++;
         return ret;
     }
     
-    
     public boolean hasNext(){
-        return (state < Math.pow(2,allElements.size()));
+        return (state < Math.pow(2,allElements.size()) - 1);
     }
 }

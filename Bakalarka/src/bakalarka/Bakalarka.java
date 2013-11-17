@@ -69,6 +69,15 @@ public class Bakalarka {
         System.out.println(hashM);
         
         System.out.println("skuska konstruktora: " + skuskaKonstruktora);
+        
+        
+        AutomatonIterator it = new AutomatonIterator(2);
+        int counter = 0;
+        while(it.hasNext()){
+            it.next();
+            counter++;
+        }
+        System.out.println(counter);
     }
     
 }
