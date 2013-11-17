@@ -50,9 +50,11 @@ public class State extends HashMap<Character, HashSet<Identificator> >{
     }
     
     
+    /* vrati true ak je dany stav deterministicky, t.j. pre kazde psimeno ma 
+    urceny prave jeden prechod, inak to vrati false */
     public boolean isDeterministic(){
         for(Character c: Variables.alphabet){
-            if ((this.get(c) != null) && (this.get(c).size() > 1)){
+            if ((this.get(c) == null) || (this.get(c).size() != 1)){
                 return false;
             }
         }
