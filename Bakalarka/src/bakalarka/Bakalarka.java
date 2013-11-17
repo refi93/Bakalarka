@@ -6,6 +6,9 @@
 
 package bakalarka;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  *
  * @author raf
@@ -43,7 +46,7 @@ public class Bakalarka {
         System.out.println("test1: " + a.equivalent(test));
         System.out.println("test2: " + a.equivalent(a));
         
-        
+        System.out.println(a.minimalDFA().equivalent(a));
     }
     
 }

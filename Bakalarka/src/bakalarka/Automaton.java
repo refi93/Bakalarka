@@ -34,6 +34,7 @@ class NoSuchStateException extends Exception
       }
 }
 
+
 /* tato vynimka sa vyhodi ked sa pokusime pridat uz existujuce id stavu do automatu*/
 class IdAlreadyExistsException extends Exception
 {
@@ -48,6 +49,7 @@ class IdAlreadyExistsException extends Exception
          super(message);
       }
 }
+
 
 /* tato vynimka sa vyhodi, ked sa pokusime nahradit existujuci stav nejakym
 inym, co uz tiez existuje v metode replaceStateId()
@@ -84,6 +86,7 @@ public class Automaton{
         initialStatesIds = new HashSet<>();
     }
     
+    
     public Automaton(Automaton a){ // konstruktor ktoreho cielom je naklonovat automat a
         this.currentStateId = a.currentStateId.copy();
         
@@ -114,6 +117,7 @@ public class Automaton{
         // konstruktor Automatu dany Stringom
     }
 
+    
     @Override
     public int hashCode() {
         int hash = 7;
@@ -176,6 +180,7 @@ public class Automaton{
         }
     }
     
+    
     /* pridanie pociatocneho stavu prostrednictvom idcka */
     public void addInitialState(Identificator stateId) throws NoSuchStateException{
         State s = idStateMap.get(stateId);
@@ -186,6 +191,7 @@ public class Automaton{
             throw new NoSuchStateException("FAILED TO ADD FINAL STATE");
         }
     }
+    
     
     /* nastavenie aktualneho stavu automatu */
     public void setCurrentState(Identificator stateId) throws NoSuchStateException{
@@ -207,6 +213,7 @@ public class Automaton{
         idStateMap. put(stateId, s);
         allStatesIds.add(stateId);
     }
+    
     
     /* pridanie prechodu do automatu prostrednictvom idciek stavov*/
     public void addTransition(Identificator idFrom, Identificator idTo, Character c) throws NoSuchStateException, Exception{
@@ -243,6 +250,7 @@ public class Automaton{
     public State getState(Identificator id){
         return idStateMap.get(id);
     }
+    
     
     public Automaton determinize() throws Exception{
         //TODO
@@ -321,6 +329,7 @@ public class Automaton{
         return ret;
     }
     
+    
     public Automaton reverse() throws Exception{
         Automaton pom = new Automaton(this);
         Automaton ret = new Automaton();
@@ -390,7 +399,7 @@ public class Automaton{
     /* vrati to minimalny DFA z nasho automatu */
     public Automaton minimalDFA() throws Exception{
         Automaton pom = new Automaton(this);
-        Automaton ret = pom.determinize().reverse().determinize().normalize();
+        Automaton ret = pom.reverse().determinize().reverse().determinize().normalize();
         return ret;
     }
     
@@ -405,6 +414,7 @@ public class Automaton{
         }
         return ret;
     }
+    
     
     /* zamena idcka nejakeho stavu v automate */
     public void replaceStateId(Identificator oldId,Identificator newId) throws IdCollisionException, NoSuchStateException{
@@ -467,6 +477,7 @@ public class Automaton{
         return ret;
     }
     
+    
     /* vyratanie kartezskeho sucinu s druhym automatom */
     public Automaton intersect(Automaton b) throws Exception{
         Automaton pomA = new Automaton(this);
@@ -515,6 +526,7 @@ public class Automaton{
         return ret;
     }
 
+    
     /* vrati true, ak automat akceptuje prazdny jazyk, inak false */
     public boolean emptyLanguage(){
         // prazdnost jazyka zistujeme prehladavanim do sirky
@@ -533,7 +545,6 @@ public class Automaton{
         
         while(!queue.isEmpty()){
             Identificator currentStateId = queue.peek();
-            
             if (this.finalStatesIds.contains(currentStateId)){
                 return false;
             }
@@ -553,6 +564,7 @@ public class Automaton{
             
         return true;
     }
+    
     
     /* vrati true, ak nas automat je ekvivalentny automatu b, inak false */
     boolean equivalent(Automaton b) throws Exception{
