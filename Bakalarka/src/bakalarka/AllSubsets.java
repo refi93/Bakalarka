@@ -19,6 +19,13 @@ public class AllSubsets {
     ArrayList<Identificator> allElements;
     long state;
     
+    public AllSubsets(int n){
+        this.allElements = new ArrayList<>();
+        for(int i = 0;i < n;i++){
+            this.allElements.add(new IntegerIdentificator(i));
+        }
+        state = 0;
+    }
     
     public AllSubsets(ArrayList<Identificator> allElements){
         this.allElements = new ArrayList<>();

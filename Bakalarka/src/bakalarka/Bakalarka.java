@@ -8,6 +8,7 @@ package bakalarka;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 /**
  *
@@ -47,6 +48,27 @@ public class Bakalarka {
         System.out.println("test2: " + a.equivalent(a));
         
         System.out.println(a.minimalDFA().equivalent(a));
+        
+        AllMatrices allMat = new AllMatrices(5);
+        for(int i = 0;i < 1000;i++){
+            allMat.next();
+        }
+        
+        
+        AllSubsets allSub = new AllSubsets(5);
+        for(int i = 0;i < 15;i++){
+            allSub.next(); 
+        }
+        
+        HashMap<Character,Matrix> hashM = new HashMap<>();
+        hashM.put('0', allMat.next());
+        hashM.put('1', allMat.next());
+        
+        Automaton skuskaKonstruktora = new Automaton(hashM,new IntegerIdentificator(0),allSub.next());
+        
+        System.out.println(hashM);
+        
+        System.out.println("skuska konstruktora: " + skuskaKonstruktora);
     }
     
 }
