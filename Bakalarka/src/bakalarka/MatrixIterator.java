@@ -13,11 +13,11 @@ package bakalarka;
 
 
 /* trieda reprezentujuca vsetky matice rozmeru n x n */
-public class AllMatrices {
+public class MatrixIterator {
     int n;
     long state;
     
-    public AllMatrices(int n){
+    public MatrixIterator(int n){
         this.n = n;
         state = 0;
     }
@@ -45,8 +45,8 @@ public class AllMatrices {
     
     
     /* metoda na skopirovanie AllMatrices iteratora */
-    public AllMatrices copy(){
-        AllMatrices ret = new AllMatrices(this.n);
+    public MatrixIterator copy(){
+        MatrixIterator ret = new MatrixIterator(this.n);
         ret.state = this.state;
         return ret;
     }

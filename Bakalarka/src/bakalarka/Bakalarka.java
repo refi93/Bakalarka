@@ -49,13 +49,13 @@ public class Bakalarka {
         
         System.out.println(a.minimalDFA().equivalent(a));
         
-        AllMatrices allMat = new AllMatrices(5);
+        MatrixIterator allMat = new MatrixIterator(5);
         for(int i = 0;i < 1000;i++){
             allMat.next();
         }
         
         
-        AllSubsets allSub = new AllSubsets(5);
+        SubsetIterator allSub = new SubsetIterator(5);
         for(int i = 0;i < 15;i++){
             allSub.next(); 
         }

@@ -15,11 +15,11 @@ import java.util.HashSet;
  */
 
 /* trieda, ktorej ulohou je vratit vsetky podmnoziny nejakeho ArrayListu */
-public class AllSubsets {
+public class SubsetIterator {
     ArrayList<Identificator> allElements;
     long state;
     
-    public AllSubsets(int n){
+    public SubsetIterator(int n){
         this.allElements = new ArrayList<>();
         for(int i = 0;i < n;i++){
             this.allElements.add(new IntegerIdentificator(i));
@@ -27,7 +27,7 @@ public class AllSubsets {
         state = 0;
     }
     
-    public AllSubsets(ArrayList<Identificator> allElements){
+    public SubsetIterator(ArrayList<Identificator> allElements){
         this.allElements = new ArrayList<>();
         for(Identificator id : allElements){
             this.allElements.add(id);
