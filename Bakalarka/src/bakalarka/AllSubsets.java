@@ -7,6 +7,7 @@
 package bakalarka;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  *
@@ -28,8 +29,8 @@ public class AllSubsets {
     }
     
     
-    public ArrayList<Identificator> next(){
-        ArrayList<Identificator> ret = new ArrayList<>();
+    public HashSet<Identificator> next(){
+        HashSet<Identificator> ret = new HashSet<>();
         long pom = state;
         for(int i = 0;i < allElements.size();i++){
             if (pom % 2 == 1){

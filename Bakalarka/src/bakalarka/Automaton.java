@@ -87,6 +87,36 @@ public class Automaton{
     }
     
     
+    /* konstruktor automatu na zaklade matice prechodov, mnoziny akc. stavov a pociatocneho stavu */
+    public Automaton(HashMap<Character,Matrix> transitionMap, Identificator initialStateId, HashSet<Identificator> finalStatesIds) throws Exception{
+        this.idStateMap = new HashMap<>();
+        this.allStatesIds = new HashSet<>();
+        this.finalStatesIds = new HashSet<>();
+        this.initialStatesIds = new HashSet<>();
+        
+        int n = transitionMap.get(Variables.alphabet.get(0)).n;
+        for (int i = 0;i < n;i++){
+            this.addState(new IntegerIdentificator(i));
+        }
+        
+        for (Character c : Variables.alphabet){
+            Matrix transitionsIds = transitionMap.get(c);
+            for (int i = 0;i < n;i++){
+                for (int j = 0;j < n;j++){
+                    if (transitionsIds.get(i, j)){
+                        this.addTransition(new IntegerIdentificator(i), new IntegerIdentificator(j), c);
+                    }
+                }
+            }
+        }
+        
+        for (Identificator id: finalStatesIds){
+            this.finalStatesIds.add(id);
+        }
+        
+        this.setInitialStateId(initialStateId);
+    }
+    
     public Automaton(Automaton a){ // konstruktor ktoreho cielom je naklonovat automat a
         this.currentStateId = a.currentStateId.copy();
         
@@ -168,7 +198,7 @@ public class Automaton{
     
     /*nastavenie pociatocneho stavu pomocou idcka stavu - tento stav sa nastavi
     aj ako current state*/
-    public void setInitialState(Identificator stateId) throws NoSuchStateException{
+    public void setInitialStateId(Identificator stateId) throws NoSuchStateException{
         // nastavenie pociatocneho stavu
         if (idStateMap.get(stateId) != null){
             this.initialStatesIds.clear(); // vymazeme predosly pociatocny stav
@@ -204,7 +234,7 @@ public class Automaton{
     }
     
     
-    public void addState(Identificator stateId) throws Exception{
+    public final void addState(Identificator stateId) throws Exception{
         if (allStatesIds.contains(stateId)){
             //System.out.println(allStatesIds + "MARHA");
             throw new IdAlreadyExistsException(stateId);
@@ -216,7 +246,7 @@ public class Automaton{
     
     
     /* pridanie prechodu do automatu prostrednictvom idciek stavov*/
-    public void addTransition(Identificator idFrom, Identificator idTo, Character c) throws NoSuchStateException, Exception{
+    public final void addTransition(Identificator idFrom, Identificator idTo, Character c) throws NoSuchStateException, Exception{
         State from = idStateMap. get(idFrom);
         State to = idStateMap. get(idTo);
         
@@ -267,7 +297,7 @@ public class Automaton{
         
         ret.addState(retInitialStatesIds);
         
-        ret.setInitialState(retInitialStatesIds);
+        ret.setInitialStateId(retInitialStatesIds);
         ret.setCurrentState(retInitialStatesIds);
         
         // fronta - v nej si pamatame este neexpandovane stavy

@@ -14,8 +14,5 @@ import java.util.HashSet;
  * @author raf
  */
 public class GenerateAutomaton {
-    HashSet<Matrix> allMatrices = new HashSet<>();
-    private void generateAllMatrices(int n){
-        
-    }
+    
 }

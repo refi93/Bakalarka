@@ -25,7 +25,7 @@ public class Bakalarka {
             a.addState(new IntegerIdentificator(i));
         }
         
-        a.setInitialState(new IntegerIdentificator(0));
+        a.setInitialStateId(new IntegerIdentificator(0));
         a.addFinalState(new IntegerIdentificator(1));
         a.addTransition(new IntegerIdentificator(0), new IntegerIdentificator(1), '0');
         a.addTransition(new IntegerIdentificator(0), new IntegerIdentificator(0), '1');
@@ -39,7 +39,7 @@ public class Bakalarka {
         test.addTransition(new IntegerIdentificator(0), new IntegerIdentificator(1), '0');
         test.addFinalState(new IntegerIdentificator(1));
         test.setCurrentState(new IntegerIdentificator(0));
-        test.setInitialState(new IntegerIdentificator(0));
+        test.setInitialStateId(new IntegerIdentificator(0));
         
         System.out.println("a: " + a);
         System.out.println("test: " + test);
