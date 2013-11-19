@@ -6,6 +6,8 @@
 
 package bakalarka;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 /**
@@ -16,16 +18,19 @@ public class Bakalarka {
 
     
     public static void main(String[] args) throws Exception {
+
+        /*Automaton a = new Automaton();
+        a.addState(0);
+        a.addState(1);
+        a.addTransition(0, 0, '0');
+        a.setInitialStateId(0);
+        a.addFinalState(0);
+        a.addFinalState(1);
         
-        Iterator co = new AutomatonIterator(3);
-        int counter = 0;
-        while(co.hasNext()){
-            counter++;
-            co.next();
-        }
-        System.out.println(counter);
+        System.out.println("a: " + a);
+        System.out.println("detA" + a.reverse());
+        System.out.println("minDetA" + a.minimalDFA().normalize());
         
-        /*
         // TODO code application logic here
         Automaton a = new Automaton();
         int n = 5;
@@ -33,19 +38,34 @@ public class Bakalarka {
             a.addState(new IntegerIdentificator(i));
         }
         
-        a.setInitialStateId(new IntegerIdentificator(0));
-        a.addFinalState(new IntegerIdentificator(1));
-        a.addTransition(new IntegerIdentificator(0), new IntegerIdentificator(1), '0');
-        a.addTransition(new IntegerIdentificator(0), new IntegerIdentificator(0), '1');
-        a.addTransition(new IntegerIdentificator(0), new IntegerIdentificator(1), '1');
-        a.addTransition(new IntegerIdentificator(1), new IntegerIdentificator(2), '0');
+        a.setInitialStateId(0);
+        a.addFinalState(1);
+        a.addTransition(0, 1, '0');
+        a.addTransition(0, 0, '1');
+        a.addTransition(0, 1, '1');
+        a.addTransition(1, 2, '0');
         
+        Automaton b = new Automaton();
+        n = 5;
+        for(int i = 0;i < n;i++){
+            b.addState(new IntegerIdentificator(i));
+        }
+        
+        b.setInitialStateId(0);
+        b.addFinalState(1);
+        b.addTransition(0, 1, '0');
+        b.addTransition(0, 0, '1');
+        //b.addTransition(0, 1, '1');
+        //a.addTransition(1, 2, '0');
+        
+        
+        System.out.println(a.equivalent(b)+ "LOLO");
         
         Automaton test = new Automaton();
-        test.addState(new IntegerIdentificator(0));
-        test.addState(new IntegerIdentificator(1));
-        test.addTransition(new IntegerIdentificator(0), new IntegerIdentificator(1), '0');
-        test.addFinalState(new IntegerIdentificator(1));
+        test.addState(0);
+        test.addState(1);
+        test.addTransition(0, 1, '0');
+        test.addFinalState(1);
         test.setCurrentState(new IntegerIdentificator(0));
         test.setInitialStateId(new IntegerIdentificator(0));
         
@@ -79,29 +99,29 @@ public class Bakalarka {
         
         
         Automaton skuskaDeter = new Automaton();
-        skuskaDeter.addState(new IntegerIdentificator(0));
-        skuskaDeter.addState(new IntegerIdentificator(1));
-        skuskaDeter.addState(new IntegerIdentificator(2));
-        skuskaDeter.addState(new IntegerIdentificator(3));
-        skuskaDeter.addTransition(new IntegerIdentificator(0), new IntegerIdentificator(1), '0');
-        skuskaDeter.addTransition(new IntegerIdentificator(0), new IntegerIdentificator(2), '0');
-        skuskaDeter.addTransition(new IntegerIdentificator(0), new IntegerIdentificator(2), '1');
-        skuskaDeter.addTransition(new IntegerIdentificator(1), new IntegerIdentificator(2), '0');
-        skuskaDeter.addTransition(new IntegerIdentificator(2), new IntegerIdentificator(1), '0');
-        skuskaDeter.addTransition(new IntegerIdentificator(2), new IntegerIdentificator(2), '0');
-        skuskaDeter.addTransition(new IntegerIdentificator(1), new IntegerIdentificator(3), '1');
-        skuskaDeter.addTransition(new IntegerIdentificator(2), new IntegerIdentificator(3), '1');
-        skuskaDeter.setInitialStateId(new IntegerIdentificator(0));
-        skuskaDeter.addFinalState(new IntegerIdentificator(3));
+        skuskaDeter.addState(0);
+        skuskaDeter.addState(1);
+        skuskaDeter.addState(2);
+        skuskaDeter.addState(3);
+        skuskaDeter.addTransition(0, 1, '0');
+        skuskaDeter.addTransition(0, 2, '0');
+        skuskaDeter.addTransition(0, 2, '1');
+        skuskaDeter.addTransition(1, 2, '0');
+        skuskaDeter.addTransition(2, 1, '0');
+        skuskaDeter.addTransition(2, 2, '0');
+        skuskaDeter.addTransition(2, 3, '1');
+        skuskaDeter.addTransition(2, 3, '1');
+        skuskaDeter.setInitialStateId(0);
+        skuskaDeter.addFinalState(3);
         
         System.out.println(skuskaDeter);
         Automaton x = skuskaDeter.determinize();
         System.out.println(x);
-        
-        
+        System.out.println(skuskaDeter.equivalent(a));
+        */
         ArrayList<Automaton> allMinNFA = new ArrayList<>();
         int counter = 0;
-        for(int i = 1;i <= 1;i++){
+        for(int i = 1;i <= 3;i++){
             AutomatonIterator it = new AutomatonIterator(i);
             while(it.hasNext()){
                 Automaton current = it.next();
@@ -113,21 +133,8 @@ public class Bakalarka {
                         break;
                     }
                 }
-                if (isNew || true){
+                if (isNew){
                     allMinNFA.add(current);
-                    if (counter == 21){
-                        System.out.println(current);
-                        System.out.println(current.minimalDFA());
-                        System.out.println(current.determinize());
-                        System.out.println(current.equivalent(current.minimalDFA()));
-                        return;
-                    }
-                    if (counter >= 0){
-                        System.out.println("---------------");
-                        System.out.println(current);
-                        System.out.println(current.determinize());
-                        System.out.println("---------------");
-                    }
                     System.out.println(counter + " " + allMinNFA.size());
                 }
                 counter++;
@@ -137,7 +144,7 @@ public class Bakalarka {
                 }
             }
         }
-        System.out.println(allMinNFA.size());*/
+        System.out.println(allMinNFA.size());
     }
     
 }

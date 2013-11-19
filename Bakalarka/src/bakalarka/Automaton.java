@@ -186,6 +186,10 @@ public class Automaton{
         }
     }
     
+    /* wrapper setInitialStateId to int */
+    public void setInitialStateId(int stateId) throws NoSuchStateException{
+        this.setInitialStateId(new IntegerIdentificator(stateId));
+    }
     
     /* pridanie pociatocneho stavu prostrednictvom idcka */
     public void addInitialState(Identificator stateId) throws NoSuchStateException{
@@ -223,6 +227,12 @@ public class Automaton{
     }
     
     
+    /* wrapper addState to int */
+    public void addState(int stateId) throws Exception{
+        this.addState(new IntegerIdentificator(stateId));
+    }
+    
+    
     /* pridanie prechodu do automatu prostrednictvom idciek stavov*/
     public final void addTransition(Identificator idFrom, Identificator idTo, Character c) throws NoSuchStateException, Exception{
         State from = idStateMap. get(idFrom);
@@ -242,6 +252,10 @@ public class Automaton{
         idStateMap.put(idFrom, from);
     }
     
+    public void addTransition(int idFrom, int idTo, Character c) throws Exception{
+        this.addTransition(new IntegerIdentificator(idFrom), new IntegerIdentificator(idTo), c);
+    }
+    
     
     /* pridanie akceptacneho stavu prostrednictvom idcka */
     public void addFinalState(Identificator stateId) throws NoSuchStateException{
@@ -254,6 +268,10 @@ public class Automaton{
         }
     }
     
+    /* wrapper addFinalState() to int */
+    public void addFinalState(int stateId) throws NoSuchStateException{
+        this.addFinalState(new IntegerIdentificator(stateId));
+    }
     
     public State getState(Identificator id){
         return idStateMap.get(id);
@@ -281,6 +299,12 @@ public class Automaton{
         // fronta - v nej si pamatame este neexpandovane stavy
         Queue<PowerSetIdentificator> queue = new LinkedList<>();
         queue.add(retInitialStatesIds);
+        // overime, ci pociatocne stavy nie su zaroven aj niektory z nich akceptacne
+        for(Identificator id : retInitialStatesIds){
+            if (pom.finalStatesIds.contains(id)){
+                ret.addFinalState(retInitialStatesIds);
+            }
+        }
         
         
         while (!queue.isEmpty()){
@@ -295,7 +319,9 @@ public class Automaton{
                 for (Identificator IdentificatorInPom : currentRetId){
                     
                     if (pom.getState(IdentificatorInPom).getTransition(c) != null){
+                        // iterujeme cez vsetkych susedov aktualneho stavu cez pismeno c
                         for(Identificator identificatorOfTransitionState : pom.getState(IdentificatorInPom).getTransition(c)){
+                            // overime, ci prave generovany stav nie je aj akceptacny
                             if (pom.finalStatesIds.contains(identificatorOfTransitionState)){
                                 thisIsFinalState = true;
                             }
@@ -303,25 +329,26 @@ public class Automaton{
                         }
                     }
                 }
-                if (!newId.isEmpty()){
+                if (!newId.isEmpty()){ // ak je vysledny stav neprazdny, pridame ho
                     try{
-                        ret.addState(newId);
-                        queue.add(newId);
                         if (thisIsFinalState){
                             ret.finalStatesIds.add(newId);
                         }
+                        ret.addState(newId);
+                        queue.add(newId);
                     }
                     catch(Exception e){
                         //System.out.println("ale nic");
                     }
                     ret.addTransition(currentRetId, newId, c);
                 }
-                else{
-                    if (!ret.allStatesIds.contains(newId)){
-                        ret.addState(newId);
-                    }
-                    ret.addTransition(currentRetId, newId, c);
-                }
+                // toto chcelo byt pridanie odpadoveho stavu - zbytocne
+                //else{
+                    //if (!ret.allStatesIds.contains(newId)){
+                        //ret.addState(newId);
+                    //}
+                    //ret.addTransition(currentRetId, newId, c);
+                //}
             }
             queue.remove();
         }
@@ -407,7 +434,7 @@ public class Automaton{
     /* vrati to minimalny DFA z nasho automatu */
     public Automaton minimalDFA() throws Exception{
         Automaton pom = new Automaton(this);
-        Automaton ret = pom.reverse().determinize().reverse().determinize();
+        Automaton ret = pom.determinize().reverse().determinize().reverse().determinize();
         return ret;
     }
     
@@ -579,8 +606,8 @@ public class Automaton{
     /* vrati true, ak nas automat je ekvivalentny automatu b, inak false */
     boolean equivalent(Automaton b) throws Exception{
         // zdeterminizujeme oba automaty a porovname, ci prienik s komplementom je prazdny
-        Automaton detA = this.minimalDFA();
-        Automaton detB = b.minimalDFA();
+        Automaton detA = this.determinize();
+        Automaton detB = b.determinize();
         
         boolean aEmpty = detA.emptyLanguage();
         boolean bEmpty = detB.emptyLanguage();

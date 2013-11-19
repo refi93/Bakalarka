@@ -23,3 +23,5 @@ The initial states: [[[0]]]
 The final states: [[[0], [0, 1]]]
 
 equivalent() sa nesprava rovnako, ked mu dame minimalDFA ako ked mu dame determinize(), pricom by na tom nemalo zalezat
+
+co ak determinizujeme a je viac pociatocnych stavov, len jeden z nich je mrtvy, t.j. neakceptacny - vid priklad hore, pre ktory standardna konstrukcia minDFA nejde, treba este pridat determinizaciu na zaciatok
