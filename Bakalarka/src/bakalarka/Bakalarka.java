@@ -119,6 +119,8 @@ public class Bakalarka {
         System.out.println(x);
         System.out.println(skuskaDeter.equivalent(a));
         */
+        
+        
         ArrayList<Automaton> allMinNFA = new ArrayList<>();
         int counter = 0;
         for(int i = 1;i <= 3;i++){
@@ -134,12 +136,19 @@ public class Bakalarka {
                     }
                 }
                 if (isNew){
+                    System.out.println("----------------");
                     allMinNFA.add(current);
-                    System.out.println(counter + " " + allMinNFA.size());
+                    System.out.println(counter + "\nmin NFA: \n" + current);
+                    
+                    Automaton detCurrent = current.minimalDFA().normalize();
+                    System.out.println("min DFA: \n" + detCurrent);
+                    
+                    System.out.println(current.getNumberOfStates() + " vs " + detCurrent.getNumberOfStates());
+                    System.out.println("----------------");
                 }
                 counter++;
-                if(counter % 1000 == 0){
-                    System.out.println("COUNTER " + counter);
+                if(counter % 10000 == 0){
+                    //System.out.println("COUNTER " + counter);
                     //return;
                 }
             }

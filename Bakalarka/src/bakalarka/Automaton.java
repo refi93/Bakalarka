@@ -278,7 +278,7 @@ public class Automaton{
     }
     
     
-    public Automaton determinize() throws Exception{
+    public Automaton determinize(boolean allowTrashState) throws Exception{
         //TODO
         // determinizacia automatu
         // ak automat nema konecne alebo pociatocne stavy, tak proste vratime prazdny automat
@@ -343,12 +343,12 @@ public class Automaton{
                     ret.addTransition(currentRetId, newId, c);
                 }
                 // toto chcelo byt pridanie odpadoveho stavu - zbytocne
-                //else{
-                    //if (!ret.allStatesIds.contains(newId)){
-                        //ret.addState(newId);
-                    //}
-                    //ret.addTransition(currentRetId, newId, c);
-                //}
+                else if (allowTrashState){
+                    if (!ret.allStatesIds.contains(newId)){
+                        ret.addState(newId);
+                    }
+                    ret.addTransition(currentRetId, newId, c);
+                }
             }
             queue.remove();
         }
@@ -434,7 +434,8 @@ public class Automaton{
     /* vrati to minimalny DFA z nasho automatu */
     public Automaton minimalDFA() throws Exception{
         Automaton pom = new Automaton(this);
-        Automaton ret = pom.determinize().reverse().determinize().reverse().determinize();
+        // odpadove stavy tu nie su vitane, preto false
+        Automaton ret = pom.determinize(false).reverse().determinize(false).reverse().determinize(false);
         return ret;
     }
     
@@ -606,8 +607,9 @@ public class Automaton{
     /* vrati true, ak nas automat je ekvivalentny automatu b, inak false */
     boolean equivalent(Automaton b) throws Exception{
         // zdeterminizujeme oba automaty a porovname, ci prienik s komplementom je prazdny
-        Automaton detA = this.determinize();
-        Automaton detB = b.determinize();
+        // na komplement treba odpadove stavy
+        Automaton detA = this.determinize(true);
+        Automaton detB = b.determinize(true);
         
         boolean aEmpty = detA.emptyLanguage();
         boolean bEmpty = detB.emptyLanguage();
