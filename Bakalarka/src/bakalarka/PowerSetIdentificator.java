@@ -15,6 +15,7 @@ import java.util.HashSet;
  */
 public class PowerSetIdentificator extends HashSet<Identificator> implements Identificator {
 
+    int hash_cache = -1;
     
     public PowerSetIdentificator(HashSet<Identificator> statesSet){
         this.clear();
@@ -25,8 +26,6 @@ public class PowerSetIdentificator extends HashSet<Identificator> implements Ide
     
     public PowerSetIdentificator(){
         super();
-        this.add(new IntegerIdentificator(1));
-        this.remove(new IntegerIdentificator(1));
     }
     
     @Override
@@ -35,20 +34,39 @@ public class PowerSetIdentificator extends HashSet<Identificator> implements Ide
         for(Identificator x:this){
             ret.add(x.copy());
         }
+        ret.hash_cache = this.hash_cache;
         return ret;
     }
-    
+
+    @Override
+    public boolean add(Identificator x){
+        this.hash_cache = -1; // resetneme cachenutu hash_value
+        return super.add(x);
+    }
     
     @Override
     public int hashCode(){
-        return super.hashCode();
+        if (hash_cache != -1){
+            return hash_cache;
+        }
+        else{
+            hash_cache = super.hashCode();
+            return hash_cache;
+        }
     }
     
     
     @Override
     public boolean equals(Object obj) {
-        
-        return super.equals(obj);
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final PowerSetIdentificator other = (PowerSetIdentificator) obj;
+        if (other.hashCode() != this.hashCode()) return false;
+        return super.equals(other);
     }
     
 }

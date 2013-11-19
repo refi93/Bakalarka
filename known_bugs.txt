@@ -1,0 +1,25 @@
+spisane bugy:
+
+AutomatonIterator vracia o 1 automat menej akoby mal - posledny vynecha
+minimalDFA nevracia vzdy minimalny DFA - protipriklad:
+
+Povodny DFA:
+The states are [0, 1]
+The transitions: 
+0-0->[0]
+The initial states: [0]
+The final states: [0, 1]
+
+minimal DFA:
+The states are [[], [[0]], [[0], [0, 1]]]
+The transitions: 
+[]-0->[[]]
+[]-1->[[]]
+[[0]]-0->[[[0], [0, 1]]]
+[[0]]-1->[[]]
+[[0], [0, 1]]-0->[[[0], [0, 1]]]
+[[0], [0, 1]]-1->[[]]
+The initial states: [[[0]]]
+The final states: [[[0], [0, 1]]]
+
+equivalent() sa nesprava rovnako, ked mu dame minimalDFA ako ked mu dame determinize(), pricom by na tom nemalo zalezat

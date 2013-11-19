@@ -16,6 +16,7 @@ import java.util.ArrayList;
 /* Identifikator vyjadrujuci usporiadanu n-ticu */
 public class TupleIdentificator extends ArrayList<Identificator> implements Identificator {
 
+    
     public TupleIdentificator(Identificator a, Identificator b){
         this.clear();
         this.add(a);
@@ -44,6 +45,14 @@ public class TupleIdentificator extends ArrayList<Identificator> implements Iden
     
     @Override
     public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final TupleIdentificator other = (TupleIdentificator) obj;
+        if (this.hashCode()!=other.hashCode()) return false;
         return super.equals(obj);
     }
     

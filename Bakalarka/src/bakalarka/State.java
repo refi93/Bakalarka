@@ -72,10 +72,6 @@ public class State extends HashMap<Character, HashSet<Identificator> >{
         this.put(c, value);
     }
     
-    
-    public boolean equals(State s){
-        return s.id.equals(this.id);
-    }
 
     @Override
     public boolean equals(Object obj) {

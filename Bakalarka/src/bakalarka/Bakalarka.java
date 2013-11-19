@@ -6,9 +6,7 @@
 
 package bakalarka;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  *
@@ -19,6 +17,15 @@ public class Bakalarka {
     
     public static void main(String[] args) throws Exception {
         
+        Iterator co = new AutomatonIterator(3);
+        int counter = 0;
+        while(co.hasNext()){
+            counter++;
+            co.next();
+        }
+        System.out.println(counter);
+        
+        /*
         // TODO code application logic here
         Automaton a = new Automaton();
         int n = 5;
@@ -71,13 +78,66 @@ public class Bakalarka {
         System.out.println("skuska konstruktora: " + skuskaKonstruktora);
         
         
-        AutomatonIterator it = new AutomatonIterator(2);
+        Automaton skuskaDeter = new Automaton();
+        skuskaDeter.addState(new IntegerIdentificator(0));
+        skuskaDeter.addState(new IntegerIdentificator(1));
+        skuskaDeter.addState(new IntegerIdentificator(2));
+        skuskaDeter.addState(new IntegerIdentificator(3));
+        skuskaDeter.addTransition(new IntegerIdentificator(0), new IntegerIdentificator(1), '0');
+        skuskaDeter.addTransition(new IntegerIdentificator(0), new IntegerIdentificator(2), '0');
+        skuskaDeter.addTransition(new IntegerIdentificator(0), new IntegerIdentificator(2), '1');
+        skuskaDeter.addTransition(new IntegerIdentificator(1), new IntegerIdentificator(2), '0');
+        skuskaDeter.addTransition(new IntegerIdentificator(2), new IntegerIdentificator(1), '0');
+        skuskaDeter.addTransition(new IntegerIdentificator(2), new IntegerIdentificator(2), '0');
+        skuskaDeter.addTransition(new IntegerIdentificator(1), new IntegerIdentificator(3), '1');
+        skuskaDeter.addTransition(new IntegerIdentificator(2), new IntegerIdentificator(3), '1');
+        skuskaDeter.setInitialStateId(new IntegerIdentificator(0));
+        skuskaDeter.addFinalState(new IntegerIdentificator(3));
+        
+        System.out.println(skuskaDeter);
+        Automaton x = skuskaDeter.determinize();
+        System.out.println(x);
+        
+        
+        ArrayList<Automaton> allMinNFA = new ArrayList<>();
         int counter = 0;
-        while(it.hasNext()){
-            it.next();
-            counter++;
+        for(int i = 1;i <= 1;i++){
+            AutomatonIterator it = new AutomatonIterator(i);
+            while(it.hasNext()){
+                Automaton current = it.next();
+                boolean isNew = true;
+                for(Automaton previous : allMinNFA){
+                    //System.out.println(previous);
+                    if(previous.equivalent(current)){
+                        isNew = false;
+                        break;
+                    }
+                }
+                if (isNew || true){
+                    allMinNFA.add(current);
+                    if (counter == 21){
+                        System.out.println(current);
+                        System.out.println(current.minimalDFA());
+                        System.out.println(current.determinize());
+                        System.out.println(current.equivalent(current.minimalDFA()));
+                        return;
+                    }
+                    if (counter >= 0){
+                        System.out.println("---------------");
+                        System.out.println(current);
+                        System.out.println(current.determinize());
+                        System.out.println("---------------");
+                    }
+                    System.out.println(counter + " " + allMinNFA.size());
+                }
+                counter++;
+                if(counter % 1000 == 0){
+                    System.out.println("COUNTER " + counter);
+                    //return;
+                }
+            }
         }
-        System.out.println(counter);
+        System.out.println(allMinNFA.size());*/
     }
     
 }

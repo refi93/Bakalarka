@@ -6,6 +6,8 @@
 
 package bakalarka;
 
+import java.util.Iterator;
+
 /**
  *
  * @author raf
@@ -13,7 +15,7 @@ package bakalarka;
 
 
 /* trieda reprezentujuca vsetky matice rozmeru n x n */
-public class MatrixIterator {
+public class MatrixIterator implements Iterator<Matrix>{
     int n;
     long state;
     
@@ -25,16 +27,9 @@ public class MatrixIterator {
     
     
     /* vrati nasledujucu maticu v lexikografickom poradi */
-    public Matrix next() throws Exception{
-        if (!this.hasNext()) throw new Exception("Iterator overflow");
-        Matrix ret = this.current();
-        state++;
-        return ret;
-    }
-    
-    
-    /* ako next, len nezmeni to state */
-    public Matrix current() throws Exception{
+    @Override
+    public Matrix next(){
+        if (!this.hasNext()) return null;
         Matrix ret = new Matrix(n);
         long pom = state;
         for(int i = 0;i < n;i++){
@@ -43,11 +38,14 @@ public class MatrixIterator {
                 pom /= 2;
             }
         }
+        state++;
         return ret;
     }
+
     
+    @Override
     public boolean hasNext(){
-        return (state < Math.pow(2, n * n) - 1);
+        return (state < Math.pow(2, n * n));
     }
     
     
@@ -56,5 +54,10 @@ public class MatrixIterator {
         MatrixIterator ret = new MatrixIterator(this.n);
         ret.state = this.state;
         return ret;
+    }
+
+    @Override
+    public void remove() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

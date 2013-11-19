@@ -8,6 +8,7 @@ package bakalarka;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 
 /**
  *
@@ -15,7 +16,7 @@ import java.util.HashSet;
  */
 
 /* trieda, ktorej ulohou je vratit vsetky podmnoziny nejakeho ArrayListu */
-public class SubsetIterator {
+public class SubsetIterator implements Iterator{
     ArrayList<Identificator> allElements;
     long state;
     
@@ -37,15 +38,9 @@ public class SubsetIterator {
     }
     
     
+    @Override
     public HashSet<Identificator> next(){
-        HashSet<Identificator> ret = this.current();
-        this.state++;
-        return ret;
-        
-    }
-    
-    /* ako next, len sa nezmeni state po vykonani */
-    public HashSet<Identificator> current(){
+        if (!this.hasNext()) return null;
         HashSet<Identificator> ret = new HashSet<>();
         long pom = state;
         for(int i = 0;i < allElements.size();i++){
@@ -54,10 +49,20 @@ public class SubsetIterator {
             }
             pom /= 2;
         }
+        this.state++;
         return ret;
+        
     }
     
+    
+    @Override
     public boolean hasNext(){
-        return (state < Math.pow(2,allElements.size()) - 1);
+        return (state < Math.pow(2,allElements.size()));
+    }
+
+    
+    @Override
+    public void remove() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

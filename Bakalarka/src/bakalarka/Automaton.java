@@ -11,6 +11,8 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Objects;
 import java.util.Queue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -38,7 +40,7 @@ class IdAlreadyExistsException extends Exception
 {
       //Parameterless Constructor
       public IdAlreadyExistsException(Object id) {
-          System.out.println("ID " + id + " ALREADY EXISTS");
+          //System.out.println("ID " + id + " ALREADY EXISTS");
       }
 
       //Constructor that accepts a message
@@ -56,7 +58,7 @@ class IdCollisionException extends Exception
 {
       //Parameterless Constructor
       public IdCollisionException(Identificator id) {
-          System.out.println("ID " + id + " ALREADY EXISTS");
+          System.out.println("ID " + id + " collides");
       }
 
       //Constructor that accepts a message
@@ -116,8 +118,9 @@ public class Automaton{
     }
     
     public Automaton(Automaton a){ // konstruktor ktoreho cielom je naklonovat automat a
-        this.currentStateId = a.currentStateId.copy();
-        
+        if (this.currentStateId != null){
+            this.currentStateId = a.currentStateId.copy();
+        }
         
         this.allStatesIds = new HashSet<>();
         this.initialStatesIds = new HashSet<>();
@@ -143,31 +146,6 @@ public class Automaton{
     
     public Automaton(String s){
         // konstruktor Automatu dany Stringom
-    }
-
-    
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 83 * hash + Objects.hashCode(this.idStateMap);
-        hash = 83 * hash + Objects.hashCode(this.allStatesIds);
-        hash = 83 * hash + Objects.hashCode(this.finalStatesIds);
-        hash = 83 * hash + Objects.hashCode(this.initialStatesIds);
-        hash = 83 * hash + Objects.hashCode(this.currentStateId);
-        return hash;
-    }
-
-  
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Automaton other = (Automaton) obj;
-        return this.hashCode() == other.hashCode();
     }
     
     
@@ -231,15 +209,17 @@ public class Automaton{
         }
     }
     
-    
-    public final void addState(Identificator stateId) throws Exception{
+    /* vrati true, ak sa podarilo vlozit stav, inak vrati false - ak stav uz vlozeny bol */
+    public final boolean addState(Identificator stateId) throws Exception{
         if (allStatesIds.contains(stateId)){
             //System.out.println(allStatesIds + "MARHA");
             throw new IdAlreadyExistsException(stateId);
+            //return false;
         }
         State s = new State(stateId);
         idStateMap. put(stateId, s);
         allStatesIds.add(stateId);
+        return true;
     }
     
     
@@ -332,7 +312,7 @@ public class Automaton{
                         }
                     }
                     catch(Exception e){
-                        System.out.println("ale nic");
+                        //System.out.println("ale nic");
                     }
                     ret.addTransition(currentRetId, newId, c);
                 }
@@ -427,7 +407,7 @@ public class Automaton{
     /* vrati to minimalny DFA z nasho automatu */
     public Automaton minimalDFA() throws Exception{
         Automaton pom = new Automaton(this);
-        Automaton ret = pom.reverse().determinize().reverse().determinize().normalize();
+        Automaton ret = pom.reverse().determinize().reverse().determinize();
         return ret;
     }
     
@@ -471,8 +451,10 @@ public class Automaton{
             this.allStatesIds.add(newId);
             
             // aktualizujeme aj aktualny stav automatu
-            if (this.currentStateId.equals(oldId)){
-                this.currentStateId = newId;
+            if(this.currentStateId != null){
+                if (this.currentStateId.equals(oldId)){
+                    this.currentStateId = newId;
+                }
             }
             
             // aktualizujeme akceptacne stavy automatu
@@ -599,6 +581,17 @@ public class Automaton{
         // zdeterminizujeme oba automaty a porovname, ci prienik s komplementom je prazdny
         Automaton detA = this.minimalDFA();
         Automaton detB = b.minimalDFA();
+        
+        boolean aEmpty = detA.emptyLanguage();
+        boolean bEmpty = detB.emptyLanguage();
+        
+        if (((aEmpty) && (!bEmpty)) || ((!aEmpty) && (bEmpty))){
+            return false;
+        }
+        else if (aEmpty && bEmpty){
+            return true;
+        }
+        
         Automaton pom1 = detA.intersect(detB.complement());
         Automaton pom2 = detB.intersect(detA.complement());
         return ((pom1.emptyLanguage()) && (pom2.emptyLanguage()));
