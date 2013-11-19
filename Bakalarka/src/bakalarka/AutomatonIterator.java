@@ -54,7 +54,8 @@ public class AutomatonIterator implements Iterator{
         this.allSubsetsIterator = new SubsetIterator(n);
         this.currentFinalStatesIds = this.allSubsetsIterator.next();
         
-        this.allStatesIterator = new IntegerIterator(n);
+        // staci uvazovat len stav 0 ako pociatocny, ostatne pripady su len nejake izomorfne k tomu
+        this.allStatesIterator = new IntegerIterator(1);
         this.currentInitialStateId = this.allStatesIterator.next();
     }
     
@@ -72,7 +73,7 @@ public class AutomatonIterator implements Iterator{
         }
         
         if (!this.allStatesIterator.hasNext()){
-            this.allStatesIterator = new IntegerIterator(this.numberOfStates);
+            this.allStatesIterator = new IntegerIterator(1);
             this.currentInitialStateId = this.allStatesIterator.next();
             
             if(!this.allSubsetsIterator.hasNext()){

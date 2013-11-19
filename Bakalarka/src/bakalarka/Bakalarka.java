@@ -120,7 +120,6 @@ public class Bakalarka {
         System.out.println(skuskaDeter.equivalent(a));
         */
         
-        
         ArrayList<Automaton> allMinNFA = new ArrayList<>();
         int counter = 0;
         for(int i = 1;i <= 3;i++){
