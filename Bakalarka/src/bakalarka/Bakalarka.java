@@ -30,7 +30,7 @@ public class Bakalarka {
         System.out.println("a: " + a);
         System.out.println("detA" + a.reverse());
         System.out.println("minDetA" + a.minimalDFA().normalize());
-        
+        */
         // TODO code application logic here
         Automaton a = new Automaton();
         int n = 5;
@@ -45,6 +45,8 @@ public class Bakalarka {
         a.addTransition(0, 1, '1');
         a.addTransition(1, 2, '0');
         
+        System.out.println(a.allWordsOfLength(4));
+        /*
         Automaton b = new Automaton();
         n = 5;
         for(int i = 0;i < n;i++){
@@ -119,7 +121,7 @@ public class Bakalarka {
         System.out.println(x);
         System.out.println(skuskaDeter.equivalent(a));
         */
-        
+        /*
         ArrayList<Automaton> allMinNFA = new ArrayList<>();
         int counter = 0;
         for(int i = 1;i <= 3;i++){
@@ -152,7 +154,7 @@ public class Bakalarka {
                 }
             }
         }
-        System.out.println(allMinNFA.size());
+        System.out.println(allMinNFA.size());*/
     }
     
 }

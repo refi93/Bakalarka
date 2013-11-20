@@ -6,6 +6,7 @@
 
 package bakalarka;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -626,5 +627,32 @@ public class Automaton{
         return ((pom1.emptyLanguage()) && (pom2.emptyLanguage()));
     }
     
+    
+    /* prehladavanie vsetkych moznych vygenerovanych slov do hlbky, resp. dlzky maxDepth 
+       najdene slova sa ulozia do HashSetu generatedWords
+    */
+    private void dfsWordsSearch(int maxDepth, Identificator stateId, String currentWord, HashSet<String> generatedWords){
+        if((maxDepth >= 0)&&(this.finalStatesIds.contains(stateId))){
+            generatedWords.add(currentWord);
+        }
+        if (maxDepth == 0){
+            return;
+        }
+        for(Character c : Variables.alphabet){
+            if(this.getState(stateId).getTransition(c) != null){
+                for(Identificator id : this.getState(stateId).getTransition(c)){
+                    dfsWordsSearch(maxDepth - 1,id,currentWord + c,generatedWords);
+                }
+            }
+        }
+    }
+    
+    public HashSet<String> allWordsOfLength(int n){
+        HashSet<String> ret = new HashSet<>();
+        for(Identificator id : this.initialStatesIds){
+            dfsWordsSearch(n, id, "", ret);
+        }
+        return ret;
+    }
     // more methods go here
 }     
