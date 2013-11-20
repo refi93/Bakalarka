@@ -9,6 +9,7 @@ package bakalarka;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  *
@@ -30,7 +31,7 @@ public class Bakalarka {
         System.out.println("a: " + a);
         System.out.println("detA" + a.reverse());
         System.out.println("minDetA" + a.minimalDFA().normalize());
-        */
+        *//*
         // TODO code application logic here
         Automaton a = new Automaton();
         int n = 5;
@@ -46,7 +47,7 @@ public class Bakalarka {
         a.addTransition(1, 2, '0');
         
         System.out.println(a.allWordsOfLength(4));
-        /*
+        *//*
         Automaton b = new Automaton();
         n = 5;
         for(int i = 0;i < n;i++){
@@ -121,24 +122,36 @@ public class Bakalarka {
         System.out.println(x);
         System.out.println(skuskaDeter.equivalent(a));
         */
-        /*
+        
         ArrayList<Automaton> allMinNFA = new ArrayList<>();
+        HashMap<Integer,ArrayList<Automaton> > AutomatonClasses = new HashMap<>();
+        
         int counter = 0;
         for(int i = 1;i <= 3;i++){
             AutomatonIterator it = new AutomatonIterator(i);
             while(it.hasNext()){
                 Automaton current = it.next();
                 boolean isNew = true;
-                for(Automaton previous : allMinNFA){
-                    //System.out.println(previous);
-                    if(previous.equivalent(current)){
-                        isNew = false;
-                        break;
+                int hash = current.allWordsOfLength(3).hashCode();
+                if(AutomatonClasses.get(hash) != null){
+                    for(Automaton previous : AutomatonClasses.get(hash)){
+                        //System.out.println(previous);
+                        if(previous.equivalent(current)){
+                            isNew = false;
+                            break;
+                        }
                     }
                 }
                 if (isNew){
                     System.out.println("----------------");
                     allMinNFA.add(current);
+                    if (AutomatonClasses.get(hash) != null){
+                        AutomatonClasses.get(hash).add(current);
+                    }
+                    else{
+                        AutomatonClasses.put(hash, new ArrayList<Automaton>());
+                        AutomatonClasses.get(hash).add(current);
+                    }
                     System.out.println(counter + "\nmin NFA: \n" + current);
                     
                     Automaton detCurrent = current.minimalDFA().normalize();
@@ -154,7 +167,7 @@ public class Bakalarka {
                 }
             }
         }
-        System.out.println(allMinNFA.size());*/
+        System.out.println(allMinNFA.size());
     }
     
 }
