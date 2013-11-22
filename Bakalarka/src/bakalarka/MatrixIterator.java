@@ -7,6 +7,7 @@
 package bakalarka;
 
 import java.util.Iterator;
+import java.util.Random;
 
 /**
  *
@@ -18,11 +19,15 @@ import java.util.Iterator;
 public class MatrixIterator implements Iterator<Matrix>{
     int n;
     long state;
+    Random generator;
+    long limit;
     
     
     public MatrixIterator(int n){
         this.n = n;
-        state = 0;
+        this.state = 0;
+        this.generator = new Random();
+        this.limit = (long)Math.pow(2, n * n);
     }
     
     
@@ -45,9 +50,17 @@ public class MatrixIterator implements Iterator<Matrix>{
     
     @Override
     public boolean hasNext(){
-        return (state < Math.pow(2, n * n));
+        return (state < limit);
     }
     
+    /* vrati nahodnu maticu */
+    public Matrix random(){
+        long pom = this.state; // ulozime si stav iteratora
+        this.state = generator.nextLong() % this.limit;
+        Matrix ret = this.next();
+        this.state = pom; // obnovime stav iteratora na povodny
+        return ret;
+    }
     
     /* metoda na skopirovanie AllMatrices iteratora */
     public MatrixIterator copy(){

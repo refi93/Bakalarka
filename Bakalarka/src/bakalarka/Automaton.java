@@ -6,14 +6,10 @@
 
 package bakalarka;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Objects;
 import java.util.Queue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 /**
@@ -436,7 +432,7 @@ public class Automaton{
     public Automaton minimalDFA() throws Exception{
         Automaton pom = new Automaton(this);
         // odpadove stavy tu nie su vitane, preto false
-        Automaton ret = pom.determinize(false).reverse().determinize(false).reverse().determinize(false);
+        Automaton ret = pom.determinize(Variables.disableTrashState).reverse().determinize(Variables.disableTrashState).reverse().determinize(Variables.allowTrashState);
         return ret;
     }
     
@@ -609,8 +605,8 @@ public class Automaton{
     boolean equivalent(Automaton b) throws Exception{
         // zdeterminizujeme oba automaty a porovname, ci prienik s komplementom je prazdny
         // na komplement treba odpadove stavy
-        Automaton detA = this.determinize(true);
-        Automaton detB = b.determinize(true);
+        Automaton detA = this.determinize(Variables.allowTrashState);
+        Automaton detB = b.determinize(Variables.allowTrashState);
         
         boolean aEmpty = detA.emptyLanguage();
         boolean bEmpty = detB.emptyLanguage();
@@ -654,5 +650,12 @@ public class Automaton{
         }
         return ret;
     }
+
+    /* hashCode automatu - je to vlastne hashCode slov do dlzky 4, ktore vygeneruje */
+    @Override
+    public int hashCode(){
+        return allWordsOfLength(4).hashCode();
+    }
+    
     // more methods go here
 }     

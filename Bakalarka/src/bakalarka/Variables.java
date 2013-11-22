@@ -8,6 +8,7 @@ package bakalarka;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 /**
  *
@@ -18,4 +19,7 @@ public class Variables {
     
     /* abeceda */
     static ArrayList<Character> alphabet = new ArrayList<>(Arrays.asList('0','1'));
+    static boolean allowTrashState = true;
+    static boolean disableTrashState = false;
+    static Random generator = new Random();
 }

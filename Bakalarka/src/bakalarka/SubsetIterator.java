@@ -9,6 +9,7 @@ package bakalarka;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Random;
 
 /**
  *
@@ -19,6 +20,7 @@ import java.util.Iterator;
 public class SubsetIterator implements Iterator{
     ArrayList<Identificator> allElements;
     long state;
+    long limit;
     
     public SubsetIterator(int n){
         this.allElements = new ArrayList<>();
@@ -26,6 +28,7 @@ public class SubsetIterator implements Iterator{
             this.allElements.add(new IntegerIdentificator(i));
         }
         state = 0;
+        this.limit = (long)Math.pow(2,allElements.size());
     }
 
     
@@ -57,9 +60,17 @@ public class SubsetIterator implements Iterator{
     
     @Override
     public boolean hasNext(){
-        return (state < Math.pow(2,allElements.size()));
+        return (state < limit);
     }
 
+    /* vrati nahodnu podmnozinu */
+    public HashSet<Identificator> random(){
+        long pom = this.state;
+        this.state = Variables.generator.nextLong() % this.limit;
+        HashSet<Identificator> ret = this.next();
+        this.state = pom;
+        return ret;
+    }
     
     @Override
     public void remove() {

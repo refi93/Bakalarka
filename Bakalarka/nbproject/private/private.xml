@@ -5,12 +5,16 @@
         <group>
             <file>file:/home/raf/NetBeansProjects/Bakalarka/src/bakalarka/Identificator.java</file>
             <file>file:/home/raf/NetBeansProjects/Bakalarka/src/bakalarka/Bakalarka.java</file>
-            <file>file:/home/raf/NetBeansProjects/Bakalarka/src/bakalarka/GenerateAutomaton.java</file>
+            <file>file:/home/raf/NetBeansProjects/Bakalarka/src/bakalarka/Matrix.java</file>
+            <file>file:/home/raf/NetBeansProjects/Bakalarka/src/bakalarka/IntegerIterator.java</file>
             <file>file:/home/raf/NetBeansProjects/Bakalarka/src/bakalarka/PowerSetIdentificator.java</file>
             <file>file:/home/raf/NetBeansProjects/Bakalarka/src/bakalarka/IntegerIdentificator.java</file>
+            <file>file:/home/raf/NetBeansProjects/Bakalarka/src/bakalarka/SubsetIterator.java</file>
+            <file>file:/home/raf/NetBeansProjects/Bakalarka/src/bakalarka/MatrixIterator.java</file>
             <file>file:/home/raf/NetBeansProjects/Bakalarka/src/bakalarka/Automaton.java</file>
             <file>file:/home/raf/NetBeansProjects/Bakalarka/src/bakalarka/State.java</file>
             <file>file:/home/raf/NetBeansProjects/Bakalarka/src/bakalarka/Variables.java</file>
+            <file>file:/home/raf/NetBeansProjects/Bakalarka/src/bakalarka/AutomatonIterator.java</file>
         </group>
     </open-files>
 </project-private>

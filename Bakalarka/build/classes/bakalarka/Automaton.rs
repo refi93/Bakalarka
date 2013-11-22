@@ -1,4 +1,0 @@
-bakalarka.NoSuchStateException
-bakalarka.Automaton
-bakalarka.IdAlreadyExistsException
-bakalarka.IdCollisionException
