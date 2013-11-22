@@ -8,8 +8,7 @@ package bakalarka;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+
 
 /**
  *
@@ -19,7 +18,6 @@ public class Bakalarka {
 
     
     public static void main(String[] args) throws Exception {
-        
         ArrayList<Automaton> allMinNFA = new ArrayList<>();
         HashMap<Integer,ArrayList<Automaton> > AutomatonClasses = new HashMap<>();
         

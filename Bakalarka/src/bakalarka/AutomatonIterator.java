@@ -33,7 +33,7 @@ public class AutomatonIterator implements Iterator{
     // pocet stavov, ktory uvazujeme
     Integer numberOfStates;
     boolean hasNext;
-
+    
     
     public AutomatonIterator(int n) throws Exception{
         if (n == 0) {
@@ -102,6 +102,8 @@ public class AutomatonIterator implements Iterator{
         return ret;
     }
     
+    
+    
     /* na zistenie, ci este mame nieco vypisat */
     private boolean checkNext(){
         boolean ret = this.hasNext;
@@ -123,6 +125,18 @@ public class AutomatonIterator implements Iterator{
     public boolean hasNext(){
         if (this.numberOfStates == 0) return false;
         return hasNext;
+    }
+    
+    public Automaton random() throws Exception{
+        MatrixIterator matrixIt = new MatrixIterator(this.numberOfStates);
+        SubsetIterator subsetIt = new SubsetIterator(this.numberOfStates);
+        HashMap<Character,Matrix> transitions = new HashMap<>();
+        
+        for (Character c : Variables.alphabet){
+            transitions.put(c,matrixIt.random());
+        }
+        
+        return new Automaton(transitions,new IntegerIdentificator(0),subsetIt.random());
     }
 
     @Override
