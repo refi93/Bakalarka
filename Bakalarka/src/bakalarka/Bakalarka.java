@@ -20,7 +20,15 @@ public class Bakalarka {
     public static void main(String[] args) throws Exception {
         
 
-        ArrayList<Automaton> allMinNFA = new ArrayList<>();
+        Matrix x = new Matrix(5,6);
+        x.set(1, 3, true);
+        //x.set(0, 1, true);
+        //x.set(1, 2, true);
+        //x.set(2, 3, true);
+        //x.set(3, 3, true);
+        System.out.println(x.toString() + x.getNumericRepresentation());
+        
+        /*ArrayList<Automaton> allMinNFA = new ArrayList<>();
         HashMap<Integer,ArrayList<Automaton> > AutomatonClasses = new HashMap<>();
         
         int counter = 0;
@@ -59,7 +67,7 @@ public class Bakalarka {
                 counter++;
             }
         }
-        System.out.println(allMinNFA.size());
+        System.out.println(allMinNFA.size());*/
     }
     
 }

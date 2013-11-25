@@ -17,7 +17,10 @@ import java.util.ArrayList;
 public class TupleIdentificator extends ArrayList<Identificator> implements Identificator {
 
     
+    int hash_cache; // cachovany hash
+    
     public TupleIdentificator(Identificator a, Identificator b){
+        this.hash_cache = -1;
         this.clear();
         this.add(a);
         this.add(b);
@@ -25,12 +28,13 @@ public class TupleIdentificator extends ArrayList<Identificator> implements Iden
     
     public TupleIdentificator(){
         super();
+        this.hash_cache = -1;
     }
     
     @Override
     public TupleIdentificator copy() {
         TupleIdentificator ret = new TupleIdentificator();
-        for(Identificator x:this){
+        for(Identificator x : this){
             ret.add(x.copy());
         }
         return ret;
@@ -39,7 +43,13 @@ public class TupleIdentificator extends ArrayList<Identificator> implements Iden
     
     @Override
     public int hashCode(){
-        return super.hashCode();
+        if (this.hash_cache != -1){
+            return this.hash_cache;
+        }
+        else{
+            this.hash_cache = super.hashCode();
+            return this.hash_cache;
+        }
     }
     
     
