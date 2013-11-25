@@ -118,4 +118,9 @@ public class State extends HashMap<Character, HashSet<Identificator> >{
             }
         }
     }
+    
+    /* vrati idcko stavu */
+    public Identificator getId(){
+        return this.id;
+    }
 }

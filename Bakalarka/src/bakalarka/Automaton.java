@@ -602,7 +602,7 @@ public class Automaton{
     
     
     /* vrati true, ak nas automat je ekvivalentny automatu b, inak false */
-    boolean equivalent(Automaton b) throws Exception{
+    public boolean equivalent(Automaton b) throws Exception{
         // zdeterminizujeme oba automaty a porovname, ci prienik s komplementom je prazdny
         // na komplement treba odpadove stavy
         Automaton detA = this.determinize(Variables.allowTrashState);

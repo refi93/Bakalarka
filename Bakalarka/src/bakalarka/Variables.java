@@ -19,7 +19,9 @@ public class Variables {
     
     /* abeceda */
     static ArrayList<Character> alphabet = new ArrayList<>(Arrays.asList('0','1'));
-    static boolean allowTrashState = true;
+    
+    static boolean allowTrashState = true; // ci sa maju povolit odpadove stavy pri determinizacii 
     static boolean disableTrashState = false;
-    static Random generator = new Random();
+    
+    static Random generator = new Random(); // zdroj nahody
 }

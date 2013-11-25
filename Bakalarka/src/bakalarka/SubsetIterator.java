@@ -9,7 +9,6 @@ package bakalarka;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Random;
 
 /**
  *
@@ -22,22 +21,15 @@ public class SubsetIterator implements Iterator{
     long state;
     long limit;
     
+    
     public SubsetIterator(int n){
         this.allElements = new ArrayList<>();
         for(int i = 0;i < n;i++){
             this.allElements.add(new IntegerIdentificator(i));
         }
-        state = 0;
-        this.limit = (long)Math.pow(2,allElements.size());
-    }
-
-    
-    public SubsetIterator(ArrayList<Identificator> allElements){
-        this.allElements = new ArrayList<>();
-        for(Identificator id : allElements){
-            this.allElements.add(id);
-        }
-        state = 0;
+        state = 1;
+        //this.limit = (long)Math.pow(2,allElements.size());
+        this.limit = 2 * n;
     }
     
     
@@ -46,11 +38,15 @@ public class SubsetIterator implements Iterator{
         if (!this.hasNext()) return null;
         HashSet<Identificator> ret = new HashSet<>();
         long pom = state;
-        for(int i = 0;i < allElements.size();i++){
-            if (pom % 2 == 1){
-                ret.add(this.allElements.get(i));
-            }
-            pom /= 2;
+        
+        if (pom % 2 == 1){
+            ret.add(this.allElements.get(0));
+        }
+        
+        pom /= 2;
+        
+        for(int i = 1;i <= pom;i++){
+            ret.add(this.allElements.get(i));
         }
         this.state++;
         return ret;

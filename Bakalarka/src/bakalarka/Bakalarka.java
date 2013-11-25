@@ -18,6 +18,8 @@ public class Bakalarka {
 
     
     public static void main(String[] args) throws Exception {
+        
+
         ArrayList<Automaton> allMinNFA = new ArrayList<>();
         HashMap<Integer,ArrayList<Automaton> > AutomatonClasses = new HashMap<>();
         
@@ -55,10 +57,6 @@ public class Bakalarka {
                     System.out.println("----------------");
                 }
                 counter++;
-                if(counter % 10000 == 0){
-                    //System.out.println("COUNTER " + counter);
-                    //return;
-                }
             }
         }
         System.out.println(allMinNFA.size());
