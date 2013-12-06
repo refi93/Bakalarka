@@ -8,6 +8,7 @@ package bakalarka;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Random;
 
 /**
@@ -25,4 +26,5 @@ public class Variables {
     
     static Random generator = new Random(); // zdroj nahody
     static String outputFile = "./out.txt"; // kam sa posiela vystup z programu
+    static HashMap<String, Long> WordToNumberMap;
 }

@@ -31,6 +31,24 @@ public class MatrixIterator implements Iterator<Matrix>{
     }
     
     
+    public MatrixIterator(int n, long limit){
+        this.n = n;
+        this.state = 0;
+        this.generator = new Random();
+        this.limit = limit;
+    }
+    
+    
+    /* konstruktor dany inym iteratorom - aby sme vedeli podla neho nastavit tento iterator */
+    public MatrixIterator(int n, MatrixIterator otherIt){
+        this.n = n;
+        this.state = 0;
+        this.generator = new Random();
+        //this.limit = otherIt.limit;
+        this.limit = Math.min(otherIt.limit, otherIt.state + 1);
+    }
+    
+    
     /* vrati nasledujucu maticu v lexikografickom poradi */
     @Override
     public Matrix next(){
@@ -66,6 +84,7 @@ public class MatrixIterator implements Iterator<Matrix>{
     public MatrixIterator copy(){
         MatrixIterator ret = new MatrixIterator(this.n);
         ret.state = this.state;
+        ret.limit = this.limit;
         return ret;
     }
 

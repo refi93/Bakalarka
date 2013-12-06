@@ -34,4 +34,8 @@ public class FastPrint {
         out.write(s + "\n");
     }
     
+    void close() throws IOException{
+        out.close();
+    }
+    
 }

@@ -8,6 +8,7 @@ package bakalarka;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 
 /**
@@ -21,38 +22,24 @@ public class Bakalarka {
         
         FastPrint out = new FastPrint();
 
-        ArrayList<Automaton> allMinNFA = new ArrayList<>();
-        HashMap<Integer,ArrayList<Automaton> > AutomatonClasses = new HashMap<>();
+        
+        MinimalAutomatonHashMap minimalNFAs = new MinimalAutomatonHashMap();
         
         long counter = 0;
         long start = System.nanoTime();
-        for(int i = 1;i <= 3;i++){
+        for(int i = 1;i <= 2;i++){
             AutomatonIterator it = new AutomatonIterator(i);
             while(it.hasNext()){
                 if (counter % 100000 == 0){
                     System.err.printf("%d, time: %d s%n", counter, (System.nanoTime() - start) / 1000000000);
                 }
                 Automaton current = it.next();
-                boolean isNew = true;
-                int hash = current.hashCode();
-                if(AutomatonClasses.get(hash) != null){
-                    for(Automaton previous : AutomatonClasses.get(hash)){
-                        if(previous.equivalent(current)){
-                            isNew = false;
-                            break;
-                        }
-                    }
-                }
+                
+                // pokusime sa vlozit automat, ak je novy, tak ho vypiseme
+                boolean isNew = minimalNFAs.tryToInsert(current);
+                
                 if (isNew){
                     out.println("----------------");
-                    allMinNFA.add(current);
-                    if (AutomatonClasses.get(hash) != null){
-                        AutomatonClasses.get(hash).add(current);
-                    }
-                    else{
-                        AutomatonClasses.put(hash, new ArrayList<Automaton>());
-                        AutomatonClasses.get(hash).add(current);
-                    }
                     out.println(counter + "\nmin NFA: \n" + current);
                     
                     Automaton detCurrent = current.minimalDFA().normalize();
@@ -60,13 +47,31 @@ public class Bakalarka {
                     
                     out.println(current.getNumberOfStates() + " vs " + detCurrent.getNumberOfStates());
                     out.println("----------------");
+                    
+                    // teraz prehodime prechody na 0 a 1 - tento automat je potencialne tiez minimalny
+                         
+                    Automaton switchedOne = current.switchLetters();
+                    boolean isNewTheSwitchedOne = minimalNFAs.tryToInsert(switchedOne);
+                    if (isNewTheSwitchedOne){
+                        out.println("----------------");
+                        out.println(counter + "\nmin NFA: \n" + switchedOne);
+                    
+                        Automaton detSwitchedOne = switchedOne.minimalDFA().normalize();
+                        out.println("min DFA: \n" + detSwitchedOne);
+                    
+                        out.println(switchedOne.getNumberOfStates() + " vs " + detSwitchedOne.getNumberOfStates());
+                        out.println("----------------");
+                    }
+                    
                 }
                 counter++;
             }
         }
-        out.println(new Integer(allMinNFA.size()).toString());
-        System.err.printf("%d languages found%n", allMinNFA.size());
-
+        
+        out.println(new Integer(minimalNFAs.allMinNFAs.size()).toString());
+        System.err.printf("%d languages found%n", minimalNFAs.allMinNFAs.size());
+        System.out.println(counter);
+        out.close();
     }
     
 }

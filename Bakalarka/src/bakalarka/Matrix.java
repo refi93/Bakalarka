@@ -69,19 +69,20 @@ public class Matrix {
     
     @Override
     public String toString(){
-        String ret = new String();
+        StringBuilder ret = new StringBuilder();
+        ret.append("\n");
         for (int i = 0;i < this.n;i++){
             for (int j = 0;j < this.n;j++){
                 if (this.matrix[i][j]){
-                    System.out.print("1 ");
+                    ret .append("1 ");
                 }
                 else{
-                    System.out.print("0 ");
+                    ret.append("0 ");
                 }
             }
-            System.out.println();
+            ret.append("\n");
         }
-        return ret;
+        return ret.toString();
     }
     
 

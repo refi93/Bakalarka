@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -85,13 +87,36 @@ public class Automaton{
         initialStatesIds = new HashSet<>();
     }
     
-    
+    /* vymeni prechody na 1 a na 0 v automate - predpoklad je, ze uz mame transition map zadany
+    ako dvojicu matic v konstruktore automatu
+    */
+    public Automaton switchLetters() throws Exception{
+        HashMap<Character,Matrix> switchedLettersTransitionMap = new HashMap<>();
+        if (this.transitionMap != null){
+            /* !!!! only works on 2-letter alphabet */
+            if (Variables.alphabet.size() != 2) try {
+                throw new Exception("You have to disable some optimisations due to alphabet size - look for !!!! in comments");
+            } catch (Exception ex) {
+                Logger.getLogger(AutomatonIterator.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            for(int i = 0;i < 2;i++){
+                switchedLettersTransitionMap.put(Variables.alphabet.get(i), transitionMap.get(Variables.alphabet.get(1 - i)));
+            }
+            return new Automaton(switchedLettersTransitionMap,this.initialStatesIds.iterator().next(),this.finalStatesIds);
+        }
+        else {
+            throw new Exception("THIS AUTOMATON HAS NOT TRANSITION MAP IN MATRIX");
+        }
+    }
+    /* transition map zadany ako dvojica matic */
+    HashMap<Character,Matrix> transitionMap;
     /* konstruktor automatu na zaklade matice prechodov, mnoziny akc. stavov a pociatocneho stavu */
     public Automaton(HashMap<Character,Matrix> transitionMap, Identificator initialStateId, HashSet<Identificator> finalStatesIds) throws Exception{
         this.idStateMap = new HashMap<>();
         this.allStatesIds = new HashSet<>();
         this.finalStatesIds = new HashSet<>();
         this.initialStatesIds = new HashSet<>();
+        this.transitionMap = transitionMap;
         
         int n = transitionMap.get(Variables.alphabet.get(0)).n;
         for (int i = 0;i < n;i++){
@@ -140,11 +165,6 @@ public class Automaton{
             this.finalStatesIds.add(id.copy());
         }
         
-    }
-
-    
-    public Automaton(String s){
-        // konstruktor Automatu dany Stringom
     }
     
     
@@ -433,6 +453,15 @@ public class Automaton{
         return allStatesIds.size();
     }
     
+    /* vrati pociatocne stavy */
+    public HashSet<Identificator> getInitialStatesIds(){
+        return this.initialStatesIds;
+    }
+    
+    /* vrati konecne stavy */
+    public HashSet<Identificator> getFinalStatesIds(){
+        return this.finalStatesIds;
+    }
     
     /* vrati to minimalny DFA z nasho automatu */
     public Automaton minimalDFA() throws Exception{

@@ -19,12 +19,13 @@ import java.util.logging.Logger;
  */
 public class AutomatonIterator implements Iterator{
     
-    // tu sa budu postupne generovat vsetky mozne matice prechodov
-    HashMap<Character, MatrixIterator> allTransitionsIterator;
     // tu sa budu postupne generovat vsetky mozne mnoziny akceptacnych stavov
     SubsetIterator allSubsetsIterator;
     // iterator postupne cez vsetky mozne stavy
     IntegerIterator allStatesIterator;
+    
+    // iterator cez vsetky mozne delta-funkcie
+    TransitionsIterator allTransitionsIterator;
 
     HashMap<Character,Matrix> currentTransitions;
     HashSet<Identificator> currentFinalStatesIds;
@@ -42,13 +43,8 @@ public class AutomatonIterator implements Iterator{
         this.hasNext = true;
         this.numberOfStates = n;
         
-        this.allTransitionsIterator = new HashMap<>();
-        this.currentTransitions = new HashMap<>();
-        for(Character c : Variables.alphabet){
-            MatrixIterator it = new MatrixIterator(n);
-            this.currentTransitions.put(c, it.next());
-            this.allTransitionsIterator.put(c, it);
-        }
+        this.allTransitionsIterator = new TransitionsIterator(n);
+        this.currentTransitions = allTransitionsIterator.next();
         
         this.allSubsetsIterator = new SubsetIterator(n);
         this.currentFinalStatesIds = this.allSubsetsIterator.next();
@@ -78,17 +74,7 @@ public class AutomatonIterator implements Iterator{
             if(!this.allSubsetsIterator.hasNext()){
                 this.allSubsetsIterator = new SubsetIterator(this.numberOfStates);
                 this.currentFinalStatesIds = this.allSubsetsIterator.next();
-                for(Character c : Variables.alphabet){
-                    if(!this.allTransitionsIterator.get(c).hasNext()){
-                        MatrixIterator it = new MatrixIterator(this.numberOfStates);
-                        this.currentTransitions.put(c, it.next());
-                        this.allTransitionsIterator.put(c,it);
-                    }
-                    else{
-                        this.currentTransitions.put(c, this.allTransitionsIterator.get(c).next());
-                        break;
-                    }
-                }
+                this.currentTransitions = this.allTransitionsIterator.next();
             }
             else{
                 this.currentFinalStatesIds = this.allSubsetsIterator.next();
@@ -110,11 +96,9 @@ public class AutomatonIterator implements Iterator{
             hasNext = true;
             return hasNext;
         }
-        for(Character c : Variables.alphabet){
-            if (this.allTransitionsIterator.get(c).hasNext()) {
-                hasNext = true;
-                return hasNext;
-            }
+        if (this.allTransitionsIterator.hasNext()) {
+            hasNext = true;
+            return hasNext;
         }
         hasNext = false;
         return ret;
