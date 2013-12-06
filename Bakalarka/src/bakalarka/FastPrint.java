@@ -18,29 +18,20 @@ import java.lang.management.ManagementFactory;
  *
  * @author raf
  */
+
+/* trieda starajuca sa o vypisovanie */
 public class FastPrint {
     
     String processId;
     BufferedWriter out;
     
-    //FileOutputStream out;
-    //BufferedOutputStream bos;
     
     public FastPrint() throws FileNotFoundException, IOException{
-        //processId = ManagementFactory.getRuntimeMXBean().getName().split("@")[0];
-        out = new BufferedWriter(new FileWriter("./out.txt"), 32768);
-        //this.processId = ManagementFactory.getRuntimeMXBean().getName().split("@")[0];
-        //this.out = new FileOutputStream("/proc/" + this.processId + "/fd/1");
-        //bos = new BufferedOutputStream(out);
+        out = new BufferedWriter(new FileWriter(Variables.outputFile), 32768);
     }
         
     void println(String s) throws IOException{
-        //final byte[] str = (s + "\n").getBytes();
-        //bos.write(str);
         out.write(s + "\n");
     }
     
-    void close() throws IOException{
-        //bos.close();
-    }
 }

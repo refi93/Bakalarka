@@ -24,4 +24,5 @@ public class Variables {
     static boolean disableTrashState = false;
     
     static Random generator = new Random(); // zdroj nahody
+    static String outputFile = "./out.txt"; // kam sa posiela vystup z programu
 }

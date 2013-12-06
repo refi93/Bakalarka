@@ -6,7 +6,6 @@
 
 package bakalarka;
 
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -65,8 +64,9 @@ public class Bakalarka {
                 counter++;
             }
         }
-        System.out.println(allMinNFA.size());
-        out.close();
+        out.println(new Integer(allMinNFA.size()).toString());
+        System.err.printf("%d languages found%n", allMinNFA.size());
+
     }
     
 }

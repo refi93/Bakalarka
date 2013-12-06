@@ -662,7 +662,7 @@ public class Automaton{
     @Override
     public int hashCode(){
         if (hash_cache == -1){
-            hash_cache = allWordsOfLength(4).hashCode();
+            hash_cache = allWordsOfLength(5).hashCode();
         }
         return hash_cache;
     }
