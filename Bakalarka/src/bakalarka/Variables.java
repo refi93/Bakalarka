@@ -9,6 +9,7 @@ package bakalarka;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Random;
 
 /**
@@ -26,5 +27,23 @@ public class Variables {
     
     static Random generator = new Random(); // zdroj nahody
     static String outputFile = "./out.txt"; // kam sa posiela vystup z programu
-    static HashMap<String, Long> WordToNumberMap;
+    static HashMap<String, Long> WordToNumberMap; //mapa, kde si k slovu pamatame cislo - aby sme vedeli efektivne hashovat do bitSetu
+    
+    
+    static void initializeWordToNumberMap() throws Exception{
+        WordToNumberMap = new HashMap<>();
+        Automaton a = new Automaton();
+        a.addState(0);
+        a.setInitialStateId(0);
+        a.addFinalState(0);
+        a.addTransition(0, 0, Variables.alphabet.get(0));
+        a.addTransition(0, 0, Variables.alphabet.get(1));
+        HashSet<String> words = a.allWordsOfLength(5);
+        long counter = 0;
+        for(String word : words){
+            WordToNumberMap.put(word, counter);
+            counter++;
+        }
+    }
+    
 }

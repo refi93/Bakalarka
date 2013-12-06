@@ -77,7 +77,7 @@ public class Automaton{
     private Identificator currentStateId; // aktualny stav
     
     /* hash_cache - premenna, kde si zapamatame hashCode automatu, aby sme ho nemuseli opakovane ratat */
-    int hash_cache = -1;
+    long hash_cache = -1;
     
     public Automaton(){
         // parameterless konstruktor
@@ -93,6 +93,7 @@ public class Automaton{
     public Automaton switchLetters() throws Exception{
         HashMap<Character,Matrix> switchedLettersTransitionMap = new HashMap<>();
         if (this.transitionMap != null){
+            
             /* !!!! this improvement works only on 2-letter alphabet */
             if (Variables.alphabet.size() != 2) try {
                 throw new Exception("You have to disable some optimisations due to alphabet size - look for !!!! in comments");
@@ -100,6 +101,7 @@ public class Automaton{
                 Logger.getLogger(AutomatonIterator.class.getName()).log(Level.SEVERE, null, ex);
             }
             /*------------------*/
+            
             for(int i = 0;i < 2;i++){
                 switchedLettersTransitionMap.put(Variables.alphabet.get(i), transitionMap.get(Variables.alphabet.get(1 - i)));
             }
@@ -689,10 +691,14 @@ public class Automaton{
 
     
     /* hashCode automatu - je to vlastne hashCode slov do dlzky 4, ktore vygeneruje */
-    @Override
-    public int hashCode(){
+    public long myHashCode(){
         if (hash_cache == -1){
-            hash_cache = allWordsOfLength(5).hashCode();
+            hash_cache = 0;
+            HashSet<String> words = allWordsOfLength(5);
+            for(String word : words){
+                long pos = Variables.WordToNumberMap.get(word);
+                hash_cache = hash_cache | (((long)1) << pos);
+            }
         }
         return hash_cache;
     }

@@ -16,8 +16,9 @@ import java.util.HashMap;
  * a dokazeme do nej aj vlozit nejake NFA a ona rozhodne, ci uz tam neni
  */
 public class MinimalAutomatonHashMap {
-    HashMap<Integer,ArrayList<Automaton> > AutomatonClasses = new HashMap<>();
+    HashMap<Long,ArrayList<Automaton> > AutomatonClasses = new HashMap<>();
     ArrayList<Automaton> allMinNFAs;
+    //int max = 0;
     
     public MinimalAutomatonHashMap(){
         this.AutomatonClasses = new HashMap<>();
@@ -26,13 +27,27 @@ public class MinimalAutomatonHashMap {
     
     public boolean tryToInsert(Automaton a) throws Exception{
         boolean isNew = true;
-        int hash = a.hashCode();
+        long hash = a.myHashCode();
         if (AutomatonClasses.get(hash) != null) {
             for (Automaton previous : AutomatonClasses.get(hash)) {
                 if (previous.equivalent(a)) {
                     isNew = false;
                     break;
                 }
+                /*
+                na ratanie "bezpecnej dlzky slov" - dlzky, pri ktorej uz 2 automaty nebudu kolidovat
+                else{
+                    int i = 4;
+                    while(true){
+                        if (i > max) max = i;
+                        if (!previous.allWordsOfLength(i).equals(a.allWordsOfLength(i))){
+                            //System.out.println("COLLISION");
+                            //System.out.println(a.toString() + previous.toString());
+                            break;
+                        }
+                        i++;
+                    }
+                }*/
             }
         }
         if (isNew) {

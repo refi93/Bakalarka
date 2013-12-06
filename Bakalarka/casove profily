@@ -17,3 +17,28 @@ ked sa hashuje slovami do dlzky 5
 1200000, time: 523 s
 1300000, time: 575 s
 45113 languages found
+
+ked sa zacala zahadzovat polka delta-funkcii:
+0, time: 0 s
+100000, time: 47 s
+200000, time: 103 s
+300000, time: 148 s
+400000, time: 200 s
+500000, time: 254 s
+600000, time: 306 s
+45113 languages found
+659643
+
+ked sa vylepsila hashovacia funkcia na tu Zemcovu srandu s OR a SHIFT:
+
+0, time: 0 s
+100000, time: 41 s
+200000, time: 87 s
+300000, time: 124 s
+400000, time: 167 s
+500000, time: 208 s
+600000, time: 248 s
+659643
+45113 languages found
+BUILD SUCCESSFUL (total time: 4 minutes 37 seconds)
+

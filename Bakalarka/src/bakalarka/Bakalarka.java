@@ -6,10 +6,6 @@
 
 package bakalarka;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-
 
 /**
  *
@@ -19,6 +15,8 @@ public class Bakalarka {
 
     
     public static void main(String[] args) throws Exception {
+        Variables.initializeWordToNumberMap(); // nainizializovanie mapy, kde si k slovu pamatame cislo - aby sme vedeli efektivne hashovat
+        
         
         FastPrint out = new FastPrint();
 
@@ -71,6 +69,7 @@ public class Bakalarka {
         out.println(new Integer(minimalNFAs.allMinNFAs.size()).toString());
         System.err.printf("%d languages found%n", minimalNFAs.allMinNFAs.size());
         System.out.println(counter);
+        //System.out.println("Safe length of words: " + minimalNFAs.max);
         out.close();
     }
     
