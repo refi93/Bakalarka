@@ -27,7 +27,7 @@ public class Bakalarka {
         
         long counter = 0;
         long start = System.nanoTime();
-        for(int i = 1;i <= 2;i++){
+        for(int i = 1;i <= 3;i++){
             AutomatonIterator it = new AutomatonIterator(i);
             while(it.hasNext()){
                 if (counter % 100000 == 0){

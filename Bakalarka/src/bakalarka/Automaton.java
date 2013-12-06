@@ -93,12 +93,13 @@ public class Automaton{
     public Automaton switchLetters() throws Exception{
         HashMap<Character,Matrix> switchedLettersTransitionMap = new HashMap<>();
         if (this.transitionMap != null){
-            /* !!!! only works on 2-letter alphabet */
+            /* !!!! this improvement works only on 2-letter alphabet */
             if (Variables.alphabet.size() != 2) try {
                 throw new Exception("You have to disable some optimisations due to alphabet size - look for !!!! in comments");
             } catch (Exception ex) {
                 Logger.getLogger(AutomatonIterator.class.getName()).log(Level.SEVERE, null, ex);
             }
+            /*------------------*/
             for(int i = 0;i < 2;i++){
                 switchedLettersTransitionMap.put(Variables.alphabet.get(i), transitionMap.get(Variables.alphabet.get(1 - i)));
             }
