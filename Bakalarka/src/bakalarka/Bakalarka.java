@@ -6,6 +6,7 @@
 
 package bakalarka;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -19,22 +20,19 @@ public class Bakalarka {
     
     public static void main(String[] args) throws Exception {
         
+        FastPrint out = new FastPrint();
 
-        Matrix x = new Matrix(5,6);
-        x.set(1, 3, true);
-        //x.set(0, 1, true);
-        //x.set(1, 2, true);
-        //x.set(2, 3, true);
-        //x.set(3, 3, true);
-        System.out.println(x.toString() + x.getNumericRepresentation());
-        
-        /*ArrayList<Automaton> allMinNFA = new ArrayList<>();
+        ArrayList<Automaton> allMinNFA = new ArrayList<>();
         HashMap<Integer,ArrayList<Automaton> > AutomatonClasses = new HashMap<>();
         
-        int counter = 0;
+        long counter = 0;
+        long start = System.nanoTime();
         for(int i = 1;i <= 3;i++){
             AutomatonIterator it = new AutomatonIterator(i);
             while(it.hasNext()){
+                if (counter % 100000 == 0){
+                    System.err.printf("%d, time: %d s%n", counter, (System.nanoTime() - start) / 1000000000);
+                }
                 Automaton current = it.next();
                 boolean isNew = true;
                 int hash = current.hashCode();
@@ -47,7 +45,7 @@ public class Bakalarka {
                     }
                 }
                 if (isNew){
-                    System.out.println("----------------");
+                    out.println("----------------");
                     allMinNFA.add(current);
                     if (AutomatonClasses.get(hash) != null){
                         AutomatonClasses.get(hash).add(current);
@@ -56,18 +54,19 @@ public class Bakalarka {
                         AutomatonClasses.put(hash, new ArrayList<Automaton>());
                         AutomatonClasses.get(hash).add(current);
                     }
-                    System.out.println(counter + "\nmin NFA: \n" + current);
+                    out.println(counter + "\nmin NFA: \n" + current);
                     
                     Automaton detCurrent = current.minimalDFA().normalize();
-                    System.out.println("min DFA: \n" + detCurrent);
+                    out.println("min DFA: \n" + detCurrent);
                     
-                    System.out.println(current.getNumberOfStates() + " vs " + detCurrent.getNumberOfStates());
-                    System.out.println("----------------");
+                    out.println(current.getNumberOfStates() + " vs " + detCurrent.getNumberOfStates());
+                    out.println("----------------");
                 }
                 counter++;
             }
         }
-        System.out.println(allMinNFA.size());*/
+        System.out.println(allMinNFA.size());
+        out.close();
     }
     
 }

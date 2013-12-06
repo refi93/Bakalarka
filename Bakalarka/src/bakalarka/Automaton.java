@@ -73,7 +73,9 @@ public class Automaton{
     private HashSet<Identificator> initialStatesIds; // pociatocne stavy - pripusta sa ich viac
     // aj ked to neni celkom kosher, ale je to kvoli minimalizacii DKA cez reverz automatu
     private Identificator currentStateId; // aktualny stav
-
+    
+    /* hash_cache - premenna, kde si zapamatame hashCode automatu, aby sme ho nemuseli opakovane ratat */
+    int hash_cache = -1;
     
     public Automaton(){
         // parameterless konstruktor
@@ -181,6 +183,7 @@ public class Automaton{
         else{ // ak stav nie je v allStates
             throw new NoSuchStateException(stateId);
         }
+        this.hash_cache = -1; // resetnutie hash_cache po zmene automatu
     }
     
     /* wrapper setInitialStateId to int */
@@ -197,6 +200,7 @@ public class Automaton{
         else{
             throw new NoSuchStateException("FAILED TO ADD FINAL STATE");
         }
+        this.hash_cache = -1; // resetnutie hash_cache po zmene automatu
     }
     
     
@@ -220,6 +224,7 @@ public class Automaton{
         State s = new State(stateId);
         idStateMap. put(stateId, s);
         allStatesIds.add(stateId);
+        this.hash_cache = -1; // resetnutie hash_cache po zmene automatu
         return true;
     }
     
@@ -244,7 +249,7 @@ public class Automaton{
         else{
             throw new NoSuchStateException("FAILED TO ADD TRANSITION");
         }
-        
+        this.hash_cache = -1; // resetnutie hash_cache po zmene automatu
         // vlozime naspat aktualizovany zaznam
         idStateMap.put(idFrom, from);
     }
@@ -263,6 +268,7 @@ public class Automaton{
         else{
             throw new NoSuchStateException("FAILED TO ADD FINAL STATE");
         }
+        this.hash_cache = -1; // resetnutie hash_cache po zmene automatu
     }
     
     /* wrapper addFinalState() to int */
@@ -651,10 +657,14 @@ public class Automaton{
         return ret;
     }
 
+    
     /* hashCode automatu - je to vlastne hashCode slov do dlzky 4, ktore vygeneruje */
     @Override
     public int hashCode(){
-        return allWordsOfLength(4).hashCode();
+        if (hash_cache == -1){
+            hash_cache = allWordsOfLength(4).hashCode();
+        }
+        return hash_cache;
     }
     
     // more methods go here
