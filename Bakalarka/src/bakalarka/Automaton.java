@@ -6,6 +6,7 @@
 
 package bakalarka;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -75,6 +76,7 @@ public class Automaton{
     private HashSet<Identificator> initialStatesIds; // pociatocne stavy - pripusta sa ich viac
     // aj ked to neni celkom kosher, ale je to kvoli minimalizacii DKA cez reverz automatu
     private Identificator currentStateId; // aktualny stav
+    private int numberOfTransitions = 0; // pocet prechodov
     
     /* hash_cache - premenna, kde si zapamatame hashCode automatu, aby sme ho nemuseli opakovane ratat */
     long hash_cache = -1;
@@ -85,6 +87,7 @@ public class Automaton{
         allStatesIds = new HashSet<>();
         finalStatesIds = new HashSet<>();
         initialStatesIds = new HashSet<>();
+        numberOfTransitions = 0;
     }
     
     /* vymeni prechody na 1 a na 0 v automate - predpoklad je, ze uz mame transition map zadany
@@ -157,7 +160,7 @@ public class Automaton{
         for (Identificator id : a.initialStatesIds){
             this.initialStatesIds.add(id.copy());
         }
-        
+        this.numberOfTransitions = a.numberOfTransitions; // pocet prechodov je rovnaky
         for (Identificator id : a.allStatesIds){
             this.allStatesIds.add(id.copy());
             this.idStateMap.put(id.copy(), a.idStateMap.get(id).copy());
@@ -267,7 +270,9 @@ public class Automaton{
         idStateMap.remove(idFrom);
         
         if ((from != null) && (to != null)){
-            from.addTransition(c, idTo);
+            boolean isNew = from.addTransition(c, idTo);
+            // ak je pridany prechod novy, poznacime si, ze pocet prechodov narastol
+            if (isNew) this.numberOfTransitions++;
         }
         else{
             throw new NoSuchStateException("FAILED TO ADD TRANSITION");
@@ -303,12 +308,22 @@ public class Automaton{
         return idStateMap.get(id);
     }
     
+    // tu si pamatame, ci a ako sme determinizovali niekedy predtym tento automat
+    Automaton cacheDeterminized = null;
     
     public Automaton determinize(boolean allowTrashState) throws Exception{
-        //TODO
+        
+        // ak sme tento automat determinizovali uz niekedy predty, tak to vyuzijeme
+        if (cacheDeterminized != null) {
+            return cacheDeterminized;
+        }
         // determinizacia automatu
         // ak automat nema konecne alebo pociatocne stavy, tak proste vratime prazdny automat
-        if ((this.finalStatesIds.isEmpty()) || (this.initialStatesIds.isEmpty())) return new Automaton();
+        if ((this.finalStatesIds.isEmpty()) || (this.initialStatesIds.isEmpty())){
+            Automaton ret = new Automaton();
+            ret.addState(new PowerSetIdentificator());
+            return ret;
+        }
         
         Automaton pom = new Automaton(this); // naklonujeme nas automat
         
@@ -387,6 +402,7 @@ public class Automaton{
                 ret.addTransition(emptyState, emptyState, c);
             }
         }
+        this.cacheDeterminized = ret;
         return ret;
     }
     
@@ -438,6 +454,31 @@ public class Automaton{
         ret = ret + "The initial states: " + this.initialStatesIds.toString() + "\n";
         ret = ret + "The final states: " + this.finalStatesIds.toString() + "\n";
         return ret;
+    }
+    
+
+    /* metoda na vypisanie automatu - lepsie parsovatelne ako to, co vypise toString() */
+    public void print(FastPrint out) throws IOException{
+        // vypis poctu stavov
+        out.println(new Integer(this.allStatesIds.size()).toString());
+        // vypis poctu konecnych stavov
+        out.println(new Integer(this.finalStatesIds.size()).toString());
+        // vypis konecnych stavov
+        for(Identificator id : this.finalStatesIds){
+            out.println(id.toString());
+        }
+        
+        out.println(new Integer(this.numberOfTransitions).toString());
+        for (Identificator idFrom : this.allStatesIds){
+            for (Character c : Variables.alphabet){
+                if (this.getState(idFrom).getTransition(c) != null){
+                    for(Identificator idTo : this.getState(idFrom).getTransition(c)){
+                        out.println(idFrom.toString() + " " + idTo.toString() + " "+ c);
+                    }
+                }
+            }
+        }
+        out.println("");
     }
     
     
@@ -695,9 +736,14 @@ public class Automaton{
         if (hash_cache == -1){
             hash_cache = 0;
             HashSet<String> words = allWordsOfLength(5);
-            for(String word : words){
-                long pos = Variables.WordToNumberMap.get(word);
-                hash_cache = hash_cache | (((long)1) << pos);
+            if (Variables.alphabet.size() == 2){
+                for(String word : words){
+                    long pos = Variables.WordToNumberMap.get(word);
+                    hash_cache = hash_cache | (((long)1) << pos);
+                }
+            }
+            else {
+                hash_cache = words.hashCode();
             }
         }
         return hash_cache;

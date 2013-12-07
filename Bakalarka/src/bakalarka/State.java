@@ -62,14 +62,18 @@ public class State extends HashMap<Character, HashSet<Identificator> >{
     }
     
     
-    /* pridanie prechodu do stavu*/
-    public void addTransition(Character c,Identificator stateId){
+    /* pridanie prechodu do stavu
+        navratova hodnota je true, ak tam ten zaznam este neexistoval
+    */
+    public boolean addTransition(Character c,Identificator stateId){
         HashSet value = this.get(c);
         if (value == null){
             value = new HashSet<>();
         }
+        boolean ret = !value.contains(stateId); // ci tam uz je tento prechod
         value.add(stateId);
         this.put(c, value);
+        return ret;
     }
     
 

@@ -48,20 +48,11 @@ public class TransitionsIterator implements Iterator {
             if (!it.hasNext()) {
                 it = new MatrixIterator(this.numberOfStates);
 
-                /* pozor optimalizacia specialne pre 2-znakovu abecedu */
-                /* !!!! this improvement works only on 2-letter alphabet */
-                if (Variables.alphabet.size() != 2) {
-                    try {
-                        throw new Exception("You have to disable some optimisations due to alphabet size - look for !!!! in comments");
-                    } catch (Exception ex) {
-                        Logger.getLogger(AutomatonIterator.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-                /*------------------*/
-
-                if (c.equals(Variables.alphabet.get(0))) {
+                // toto funguje len na 2-pismenkovej abecede - prehodenie 1 a 0 v delta-funckii
+                if (c.equals(Variables.alphabet.get(0)) && (Variables.alphabet.size() == 2)) {
                     it = new MatrixIterator(this.numberOfStates, this.TransitionMatrixIterators.get(Variables.alphabet.get(1)));
                 }
+                // ---------------------------
 
                 it.skip();
                 this.TransitionMatrixIterators.put(c, it);
@@ -97,21 +88,14 @@ public class TransitionsIterator implements Iterator {
             if (!it.hasNext()) {
                 it = new MatrixIterator(this.numberOfStates);
 
-                /* pozor optimalizacia specialne pre 2-znakovu abecedu */
-                /* !!!! this improvement works only on 2-letter alphabet */
-                if (Variables.alphabet.size() != 2) {
-                    try {
-                        throw new Exception("You have to disable some optimisations due to alphabet size - look for !!!! in comments");
-                    } catch (Exception ex) {
-                        Logger.getLogger(AutomatonIterator.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-                /*------------------*/
+                // toto funguje len na 2-pismenkovej abecede - prehodenie 1 a 0 v delta-funckii
 
-                if (c.equals(Variables.alphabet.get(0))) {
+                if ((c.equals(Variables.alphabet.get(0))) && (Variables.alphabet.size() == 2)) {
                     it = new MatrixIterator(this.numberOfStates, this.TransitionMatrixIterators.get(Variables.alphabet.get(1)));
                 }
-
+                
+                // --------------------------
+                
                 Matrix m = it.next();
                 this.TransitionMatrixIterators.put(c, it);
                 this.currentMatrices.put(c, m);

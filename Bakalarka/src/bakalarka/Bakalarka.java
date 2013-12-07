@@ -6,6 +6,7 @@
 
 package bakalarka;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -15,6 +16,7 @@ import java.util.ArrayList;
  */
 
 public class Bakalarka {
+    
 
     /* tato metoda ma za ulohu postupne stromovo spojit zoznamy kandidatov na minimalne NKA */
     public static MinimalAutomatonHashMap treeMerge(ArrayList<MinimalAutomatonHashMap> listOfCandidates) throws InterruptedException{
@@ -51,21 +53,50 @@ public class Bakalarka {
     }
     
     
+    /* Automaton a - automat na vypisanie
+       long counter - pocitadlo - poradie toho automatu
+       FastPrint out - kam sa ma vypisovat ten automat
+    */
+    public static void printAutomaton(Automaton a, long counter, FastPrint out) throws IOException, Exception{
+        out.println("/" + counter);
+        a.print(out);
+        Automaton detA = a.minimalDFA().normalize();
+        detA.print(out);
+        out.println("|" + a.getNumberOfStates() + " vs " + detA.getNumberOfStates() + "|\n");
+        /*out.println("----------------");
+        out.println(counter + "\nmin NFA: \n" + a);
+        
+        Automaton detA = a.minimalDFA().normalize();
+        out.println("min DFA: \n" + detA);
+
+        out.println(a.getNumberOfStates() + " vs " + detA.getNumberOfStates());
+        out.println("----------------");*/
+    }
+    
+    
     public static void main(String[] args) throws Exception {
         Variables.initialize(); // nainizializovanie mapy a niektorych premennych, kde si k slovu pamatame cislo - aby sme vedeli efektivne hashovat
-        
-        
         FastPrint out = new FastPrint();
-
         
         MinimalAutomatonHashMap minimalNFAs = new MinimalAutomatonHashMap();
         
         long counter = 0;
         long start = System.nanoTime();
         
-        for (int i = 1; i <= 3; i++) {
+        // vypis do suboru, aby bol jasny format
+        out.println(
+                "initial state is fixed to 0 the format of output is the following\n"
+                + "/number of the automaton"
+                + "number of states\n"
+                + "number of final states followed by final states enumeration\n"
+                + "number of transitions followed by its enumeration\n"
+                + "from_state to_state character\n"
+                + "|minNFA number of states vs minDFA number of states|\n"
+                + "begin of output:"
+                );
+        
+        for (int i = 1; i <= 2; i++) {
             // najprv rozdelime pracu slaveom
-            //AutomatonIterator it = new AutomatonIterator(i);
             ArrayList<AutomatonAnalyzerThread> slaves = new ArrayList<>();
             for(int j = 0;j < Variables.numberOfCores;j++){
                 slaves.add(new AutomatonAnalyzerThread(i,j));
@@ -96,32 +127,21 @@ public class Bakalarka {
                 boolean isNew = Variables.allMinimalNFAs.tryToInsert(current);
                 if (isNew) {
                     counter++;
-                    out.println("----------------");
-                    out.println(counter + "\nmin NFA: \n" + current);
-
-                    Automaton detCurrent = current.minimalDFA().normalize();
-                    out.println("min DFA: \n" + detCurrent);
-
-                    out.println(current.getNumberOfStates() + " vs " + detCurrent.getNumberOfStates());
-                    out.println("----------------");
-
-                    // teraz prehodime prechody na 0 a 1 - tento automat je potencialne tiez minimalny
-                    Automaton switchedOne = current.switchLetters();
-                    boolean isNewTheSwitchedOne = Variables.allMinimalNFAs.tryToInsert(switchedOne);
-                    if (isNewTheSwitchedOne) {
-                        counter++;
-                        out.println("----------------");
-                        out.println(counter + "\nmin NFA: \n" + switchedOne);
-
-                        Automaton detSwitchedOne = switchedOne.minimalDFA().normalize();
-                        out.println("min DFA: \n" + detSwitchedOne);
-
-                        out.println(switchedOne.getNumberOfStates() + " vs " + detSwitchedOne.getNumberOfStates());
-                        out.println("----------------");
+                    printAutomaton(current, counter, out);
+                    
+                    // optimalizacia spojena s vymenou 1 a 0 v delta funckii pre 2-pismenkovu abecedu
+                    if (Variables.alphabet.size() == 2){
+                        // teraz prehodime prechody na 0 a 1 - tento automat je potencialne tiez minimalny
+                        Automaton switchedOne = current.switchLetters();
+                        boolean isNewTheSwitchedOne = Variables.allMinimalNFAs.tryToInsert(switchedOne);
+                        if (isNewTheSwitchedOne) {
+                            counter++;
+                            printAutomaton(switchedOne, counter, out);
+                        }
                     }
-
                 }
             }
+            System.err.printf("%d languages found%n", Variables.allMinimalNFAs.allMinNFAs.size());
         }
         
         out.println(new Integer(Variables.allMinimalNFAs.allMinNFAs.size()).toString());

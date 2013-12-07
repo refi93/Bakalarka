@@ -41,17 +41,20 @@ public class Variables {
     static void initialize() throws Exception{
         start = System.nanoTime(); // nastavime cas startu programu
         WordToNumberMap = new HashMap<>();
-        Automaton a = new Automaton();
-        a.addState(0);
-        a.setInitialStateId(0);
-        a.addFinalState(0);
-        a.addTransition(0, 0, Variables.alphabet.get(0));
-        a.addTransition(0, 0, Variables.alphabet.get(1));
-        HashSet<String> words = a.allWordsOfLength(5);
-        long counter = 0;
-        for(String word : words){
-            WordToNumberMap.put(word, counter);
-            counter++;
+        // toto ma zmysel len pre 2-pismenkovu abecedu
+        if(Variables.alphabet.size() == 2){
+            Automaton a = new Automaton();
+            a.addState(0);
+            a.setInitialStateId(0);
+            a.addFinalState(0);
+            a.addTransition(0, 0, Variables.alphabet.get(0));
+            a.addTransition(0, 0, Variables.alphabet.get(1));
+            HashSet<String> words = a.allWordsOfLength(5);
+            long counter = 0;
+            for(String word : words){
+                WordToNumberMap.put(word, counter);
+                counter++;
+            }
         }
     }
     

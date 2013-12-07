@@ -20,6 +20,7 @@ public class AutomatonAnalyzerThread extends Thread {
     AutomatonIterator it;
     int id, numberOfWorkers;
     
+    
     /* numberOfStates - pocet stavov v automatoch, ktore sa budu generovat
        id - na zaklade idcka thread vie, ktore automaty sa maju ratat - idcko
         udava modulo, pri ktorom sa zarata automat - pozri run()
@@ -30,6 +31,7 @@ public class AutomatonAnalyzerThread extends Thread {
         this.id = id;
         this.numberOfWorkers = Variables.numberOfCores;
     }
+    
     
     @Override
     public void run(){
