@@ -25,7 +25,6 @@ public class FastPrint {
     String processId;
     BufferedWriter out;
     
-    
     public FastPrint() throws FileNotFoundException, IOException{
         out = new BufferedWriter(new FileWriter(Variables.outputFile), 32768);
     }

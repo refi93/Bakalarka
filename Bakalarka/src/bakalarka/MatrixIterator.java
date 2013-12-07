@@ -64,6 +64,11 @@ public class MatrixIterator implements Iterator<Matrix>{
         state++;
         return ret;
     }
+    
+    public void skip(){
+        if (!this.hasNext()) return;
+        state++;
+    }
 
     
     @Override

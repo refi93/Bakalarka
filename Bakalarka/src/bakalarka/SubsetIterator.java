@@ -32,6 +32,10 @@ public class SubsetIterator implements Iterator{
         this.limit = 2 * n;
     }
     
+    public void skip(){
+        if (!this.hasNext()) return;
+        this.state++;
+    }
     
     @Override
     public HashSet<Identificator> next(){

@@ -19,6 +19,8 @@ import java.util.Random;
  */
 public class Variables {
     
+    static int numberOfCores = 2;
+    
     /* abeceda */
     static ArrayList<Character> alphabet = new ArrayList<>(Arrays.asList('0','1'));
     
@@ -29,8 +31,14 @@ public class Variables {
     static String outputFile = "./out.txt"; // kam sa posiela vystup z programu
     static HashMap<String, Long> WordToNumberMap; //mapa, kde si k slovu pamatame cislo - aby sme vedeli efektivne hashovat do bitSetu
     
+    static MinimalAutomatonHashMap allMinimalNFAs = new MinimalAutomatonHashMap(); // tu si pamatame vsetky mensie doteraz ziskane NFA, resp. min. DFA k nim
+    
+    static long start = 0;
+    
+    static Long counter = (long)0; // pocitadlo poctu vygenerovanych automatov
     
     static void initializeWordToNumberMap() throws Exception{
+        start = System.nanoTime(); // nastavime cas startu programu
         WordToNumberMap = new HashMap<>();
         Automaton a = new Automaton();
         a.addState(0);

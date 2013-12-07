@@ -37,6 +37,40 @@ public class TransitionsIterator implements Iterator {
         this.state = 0;
     }
 
+    
+    public void skip() {
+
+        for (Character c : Variables.alphabet) {
+            MatrixIterator it = this.TransitionMatrixIterators.get(c);
+            if (!it.hasNext()) {
+                it = new MatrixIterator(this.numberOfStates);
+
+                /* pozor optimalizacia specialne pre 2-znakovu abecedu */
+                /* !!!! this improvement works only on 2-letter alphabet */
+                if (Variables.alphabet.size() != 2) {
+                    try {
+                        throw new Exception("You have to disable some optimisations due to alphabet size - look for !!!! in comments");
+                    } catch (Exception ex) {
+                        Logger.getLogger(AutomatonIterator.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                /*------------------*/
+
+                if (c.equals(Variables.alphabet.get(0))) {
+                    it = new MatrixIterator(this.numberOfStates, this.TransitionMatrixIterators.get(Variables.alphabet.get(1)));
+                }
+
+                it.skip();
+                this.TransitionMatrixIterators.put(c, it);
+            } else {
+                it.skip();
+                break;
+            }
+        }
+
+        this.state++;
+    }
+    
     @Override
     public boolean hasNext() {
         for (Character c : Variables.alphabet) {

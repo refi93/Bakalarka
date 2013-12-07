@@ -54,10 +54,41 @@ public class AutomatonIterator implements Iterator{
         this.currentInitialStateId = this.allStatesIterator.next();
     }
     
+    /* spravime krok v iteratore, ale bez navratovej hodnoty */
+    public void skip(){
+        if (!this.hasNext()) return;
+        this.checkNext();
+        
+        
+        if (!this.allStatesIterator.hasNext()){
+            this.allStatesIterator = new IntegerIterator(1);
+            this.allStatesIterator.skip();
+            
+            if(!this.allSubsetsIterator.hasNext()){
+                this.allSubsetsIterator = new SubsetIterator(this.numberOfStates);
+                this.allSubsetsIterator.skip();
+                this.allTransitionsIterator.skip();
+            }
+            else{
+                this.allSubsetsIterator.skip();
+            }
+        }
+        else{
+            this.allStatesIterator.skip();
+        }
+    }
     
     /* vrati nasledujuci automat s danym poctom stavov v poradi */
     @Override
     public Automaton next(){
+        // vypisovanie pocitadla po 100 000 nextoch
+        synchronized(Variables.counter){
+            if (Variables.counter % 100000 == 0) {
+                System.err.printf("%d, time: %d s%n", Variables.counter, (System.nanoTime() - Variables.start) / 1000000000);
+            }
+            Variables.counter++;
+        }
+        
         if (!this.hasNext()) return null;
         this.checkNext();
         Automaton ret = new Automaton();

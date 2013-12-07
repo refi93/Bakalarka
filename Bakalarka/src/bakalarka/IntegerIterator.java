@@ -28,6 +28,10 @@ public class IntegerIterator implements Iterator {
         return (this.value < this.range);
     }
 
+    public void skip(){
+        this.value++;
+    }
+    
     @Override
     public IntegerIdentificator next() {
         int ret = this.value;
