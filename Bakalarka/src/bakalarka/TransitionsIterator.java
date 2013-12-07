@@ -39,7 +39,10 @@ public class TransitionsIterator implements Iterator {
 
     
     public void skip() {
-
+        if (Variables.alphabet.size() == 2){
+            this.next();
+            return;
+        }
         for (Character c : Variables.alphabet) {
             MatrixIterator it = this.TransitionMatrixIterators.get(c);
             if (!it.hasNext()) {

@@ -6,6 +6,8 @@
 
 package bakalarka;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -57,8 +59,8 @@ public class AutomatonIterator implements Iterator{
     /* spravime krok v iteratore, ale bez navratovej hodnoty */
     public void skip(){
         if (!this.hasNext()) return;
-        this.checkNext();
         
+        this.checkNext();
         
         if (!this.allStatesIterator.hasNext()){
             this.allStatesIterator = new IntegerIterator(1);
@@ -66,15 +68,15 @@ public class AutomatonIterator implements Iterator{
             
             if(!this.allSubsetsIterator.hasNext()){
                 this.allSubsetsIterator = new SubsetIterator(this.numberOfStates);
-                this.allSubsetsIterator.skip();
-                this.allTransitionsIterator.skip();
+                this.currentFinalStatesIds = this.allSubsetsIterator.next();
+                this.currentTransitions = this.allTransitionsIterator.next();
             }
             else{
-                this.allSubsetsIterator.skip();
+                this.currentFinalStatesIds = this.allSubsetsIterator.next();
             }
         }
         else{
-            this.allStatesIterator.skip();
+            this.currentInitialStateId = this.allStatesIterator.next();
         }
     }
     
@@ -82,11 +84,12 @@ public class AutomatonIterator implements Iterator{
     @Override
     public Automaton next(){
         // vypisovanie pocitadla po 100 000 nextoch
+        // zalockujeme counter, aby ho ostatne thready nemohli menit
         synchronized(Variables.counter){
-            if (Variables.counter % 100000 == 0) {
-                System.err.printf("%d, time: %d s%n", Variables.counter, (System.nanoTime() - Variables.start) / 1000000000);
+            if (Variables.counter++ % 100000 == 0) {
+                int seconds = (int)((System.nanoTime() - Variables.start) / 1000000000);
+                System.err.printf("%d automata generated, time: %s %n", Variables.counter - 1, Functions.getFormattedTime(seconds));
             }
-            Variables.counter++;
         }
         
         if (!this.hasNext()) return null;

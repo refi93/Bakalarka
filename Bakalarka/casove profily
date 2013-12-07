@@ -46,16 +46,19 @@ BUILD SUCCESSFUL (total time: 4 minutes 37 seconds)
 po pridani multithreadovania:
 
 run:
-0, time: 0 s
-100000, time: 20 s
-200000, time: 44 s
-300000, time: 67 s
-400000, time: 95 s
-500000, time: 123 s
-600000, time: 149 s
+0 automata generated, time: 0s 
+Merging candidates started for 1 states at time: 0s
+Merging candidates started for 2 states at time: 0s
+100000 automata generated, time: 19s 
+200000 automata generated, time: 39s 
+300000 automata generated, time: 58s 
+400000 automata generated, time: 01m 20s 
+500000 automata generated, time: 01m 41s 
+600000 automata generated, time: 02m 06s 
+Merging candidates started for 3 states at time: 02m 26s
 45113 languages found
-659643
-BUILD SUCCESSFUL (total time: 3 minutes 44 seconds)
+659646
+BUILD SUCCESSFUL (total time: 3 minutes 23 seconds)
 
 -------------------
 dlzka, pri ktorej uz nekoliduju NKA 3-stavove:
@@ -67,7 +70,7 @@ dlzka, pri ktorej uz nekoliduju NKA 3-stavove:
 500000, time: 796 s
 600000, time: 1025 s
 45113 languages found
-659643
+659643 (pri automatoch do 1 stavu sa tu negenroval automat pre prazdny jazyk - uz je to fixnute - generuju sa o 3 automaty viac)
 Safe length of words: 11
 
 a 2-stavove:
@@ -84,4 +87,21 @@ a 1-stavove:
 Safe length of words: 1
 BUILD SUCCESSFUL (total time: 0 seconds)
 ---------------------------------------
+
+Ked som zapol multithreading 12 threadov:
+
+run:
+0, time: 0 s
+100000, time: 22 s
+200000, time: 42 s
+300000, time: 63 s
+400000, time: 85 s
+500000, time: 109 s
+600000, time: 136 s
+45113 languages found
+659614
+BUILD SUCCESSFUL (total time: 3 minutes 49 seconds)
+
+
+
 

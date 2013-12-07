@@ -19,7 +19,7 @@ import java.util.Random;
  */
 public class Variables {
     
-    static int numberOfCores = 2;
+    static int numberOfCores = Runtime.getRuntime().availableProcessors(); // pocet jadier cpu
     
     /* abeceda */
     static ArrayList<Character> alphabet = new ArrayList<>(Arrays.asList('0','1'));
@@ -37,7 +37,8 @@ public class Variables {
     
     static Long counter = (long)0; // pocitadlo poctu vygenerovanych automatov
     
-    static void initializeWordToNumberMap() throws Exception{
+    // sluzi na inicializaciu niektorych premennych - mapy so slovami, casu, ...
+    static void initialize() throws Exception{
         start = System.nanoTime(); // nastavime cas startu programu
         WordToNumberMap = new HashMap<>();
         Automaton a = new Automaton();

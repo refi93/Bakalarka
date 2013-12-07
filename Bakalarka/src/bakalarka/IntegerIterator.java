@@ -29,6 +29,10 @@ public class IntegerIterator implements Iterator {
     }
 
     public void skip(){
+        if (Variables.alphabet.size() == 2){
+            this.next();
+            return;
+        }
         this.value++;
     }
     

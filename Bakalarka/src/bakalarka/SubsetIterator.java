@@ -27,12 +27,19 @@ public class SubsetIterator implements Iterator{
         for(int i = 0;i < n;i++){
             this.allElements.add(new IntegerIdentificator(i));
         }
-        state = 1;
+        state = 1; // od 1 zaciname, lebo ignorujeme prazdnu mnozinu akceptacnych stavov
+        if (n == 1){
+            state = 0; // ak ale mame len 1-stavove, automaty, tam je dolezita aj prazdna mnozina
+        }
         //this.limit = (long)Math.pow(2,allElements.size());
         this.limit = 2 * n;
     }
     
     public void skip(){
+        if (Variables.alphabet.size() == 2){
+            this.next();
+            return;
+        }
         if (!this.hasNext()) return;
         this.state++;
     }
