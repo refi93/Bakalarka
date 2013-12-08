@@ -35,7 +35,7 @@ public class Variables {
     
     static long start = 0;
     
-    static Long counter = (long)0; // pocitadlo poctu vygenerovanych automatov
+    static Long counterOfTestedAutomata = (long)0; // pocitadlo poctu vygenerovanych automatov
     
     // sluzi na inicializaciu niektorych premennych - mapy so slovami, casu, ...
     static void initialize() throws Exception{

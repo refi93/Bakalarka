@@ -40,7 +40,9 @@ public class AutomatonAnalyzerThread extends Thread {
             if(counter % numberOfWorkers == id){
                 Automaton a = it.next();
                 try {
-                    minimalNFAs.tryToInsert(a);
+                    if (!Variables.allMinimalNFAs.containsEquivalent(a)){
+                        minimalNFAs.tryToInsert(a);
+                    }
                 } catch (Exception ex) {
                     Logger.getLogger(AutomatonAnalyzerThread.class.getName()).log(Level.SEVERE, null, ex);
                 }

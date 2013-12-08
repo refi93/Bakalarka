@@ -25,31 +25,29 @@ public class MinimalAutomatonHashMap {
         this.allMinNFAs = new ArrayList<>();
     }
     
-    public boolean tryToInsert(Automaton a) throws Exception{
-        boolean isNew = true;
+    
+    /* overi, ci sa tu nenachadza uz nejaky iny ekvivalentny automat */
+    public boolean containsEquivalent(Automaton a) throws Exception{
+        boolean ret = false;
         long hash = a.myHashCode();
         if (AutomatonClasses.get(hash) != null) {
             for (Automaton previous : AutomatonClasses.get(hash)) {
                 if (previous.equivalent(a)) {
-                    isNew = false;
+                    ret = true;
                     break;
                 }
-                /*
-                na ratanie "bezpecnej dlzky slov" - dlzky, pri ktorej uz 2 automaty nebudu kolidovat
-                else{
-                    int i = 4;
-                    while(true){
-                        if (i > max) max = i;
-                        if (!previous.allWordsOfLength(i).equals(a.allWordsOfLength(i))){
-                            //System.out.println("COLLISION");
-                            //System.out.println(a.toString() + previous.toString());
-                            break;
-                        }
-                        i++;
-                    }
-                }*/
             }
         }
+        return ret;
+    }
+    
+    
+    /* ked sme si isty, ze dany automat je minimalny, tak ho mozme vlozit nasilu
+    pomocou tejto metody
+    */
+    public void forceInsert(Automaton a) throws Exception{
+        boolean isNew = true;
+        long hash = a.myHashCode();
         if (isNew) {
             allMinNFAs.add(a);
             if (AutomatonClasses.get(hash) != null) {
@@ -58,6 +56,14 @@ public class MinimalAutomatonHashMap {
                 AutomatonClasses.put(hash, new ArrayList<Automaton>());
                 AutomatonClasses.get(hash).add(a);
             }
+        }
+    }
+    
+    
+    public boolean tryToInsert(Automaton a) throws Exception{
+        boolean isNew = !this.containsEquivalent(a);
+        if (isNew){
+            this.forceInsert(a);
         }
         return isNew;
     }

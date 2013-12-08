@@ -39,7 +39,9 @@ public class MatrixIterator implements Iterator<Matrix>{
     }
     
     
-    /* konstruktor dany inym iteratorom - aby sme vedeli podla neho nastavit tento iterator */
+    /* konstruktor dany inym iteratorom - aby sme vedeli podla neho nastavit tento iterator 
+        vyuziva sa to pri 2-psimenkovej abecede aby sa usetrilo - potom sa prehodia prechody na 1 a 0
+    */
     public MatrixIterator(int n, MatrixIterator otherIt){
         this.n = n;
         this.state = 0;
