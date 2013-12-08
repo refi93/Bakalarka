@@ -19,8 +19,8 @@ public class Bakalarka {
     
     
     public static void main(String[] args) throws Exception {
-        Experiments.GenerateAllNFAsOfSize(2);
-        System.out.println(Experiments.SafeWordLengthExperiment(2));
+        Experiments.GenerateAllNFAsOfSize(3);
+        //System.out.println(Experiments.SafeWordLengthExperiment(2));
     }
     
 }
