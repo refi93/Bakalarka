@@ -6,8 +6,6 @@
 
 package bakalarka;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -104,11 +102,17 @@ public class AutomatonIterator implements Iterator{
         if (!this.allStatesIterator.hasNext()){
             this.allStatesIterator = new IntegerIterator(1);
             this.currentInitialStateId = this.allStatesIterator.next();
-            
+            //ROZROBENY POKUS ZAHADZOVAT NESUVISLE DELTA FUNKCIE - NEJAK TO NEJDE
             if(!this.allSubsetsIterator.hasNext()){
                 this.allSubsetsIterator = new SubsetIterator(this.numberOfStates);
                 this.currentFinalStatesIds = this.allSubsetsIterator.next();
-                this.currentTransitions = this.allTransitionsIterator.next();
+                //if(!this.allTransitionsIterator.hasNext()) checkNext();
+                //while(this.allTransitionsIterator.hasNext()){
+                    this.currentTransitions = this.allTransitionsIterator.next();
+                    //if (this.currentTransitions.get('0').union(this.currentTransitions.get('1')).connected()){
+                        //break;
+                    //}
+                //}
             }
             else{
                 this.currentFinalStatesIds = this.allSubsetsIterator.next();

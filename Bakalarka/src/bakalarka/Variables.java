@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Random;
+import java.util.TreeSet;
 
 /**
  *
@@ -29,13 +30,15 @@ public class Variables {
     
     static Random generator = new Random(); // zdroj nahody
     static String outputFile = "./out.txt"; // kam sa posiela vystup z programu
-    static HashMap<String, Long> WordToNumberMap; //mapa, kde si k slovu pamatame cislo - aby sme vedeli efektivne hashovat do bitSetu
+    static HashMap<BinaryWord, Integer> WordToNumberMap; //mapa, kde si k slovu pamatame cislo - aby sme vedeli efektivne hashovat do bitSetu
     
     static MinimalAutomatonHashMap allMinimalNFAs = new MinimalAutomatonHashMap(); // tu si pamatame vsetky mensie doteraz ziskane NFA, resp. min. DFA k nim
     
     static long start = 0;
     
     static Long counterOfTestedAutomata = (long)0; // pocitadlo poctu vygenerovanych automatov
+    
+    public static int HashWordLength = 5; // dlzka slova, po ktoru hashujeme 
     
     // sluzi na inicializaciu niektorych premennych - mapy so slovami, casu, ...
     static void initialize() throws Exception{
@@ -44,18 +47,22 @@ public class Variables {
         // toto ma zmysel len pre 2-pismenkovu abecedu
         if(Variables.alphabet.size() == 2){
             Automaton a = new Automaton();
+            // spravime si automat pre Sigma*
             a.addState(0);
             a.setInitialStateId(0);
             a.addFinalState(0);
             a.addTransition(0, 0, Variables.alphabet.get(0));
             a.addTransition(0, 0, Variables.alphabet.get(1));
-            HashSet<String> words = a.allWordsOfLength(5);
-            long counter = 0;
-            for(String word : words){
+            HashSet<BinaryWord> words = a.allWordsOfLength(Variables.HashWordLength);
+            // slova ulozime do mapy a priradime k nim cislo
+            int counter = 0;
+            for(BinaryWord word : words){
                 WordToNumberMap.put(word, counter);
                 counter++;
             }
         }
     }
+    
+    public static Long connectedCount = (long)0;
     
 }

@@ -1,0 +1,238 @@
+run:
+0 automata generated, time: 0s 
+Merging candidates started for 1 states at time: 0s
+Merging ended, time: 0s
+4 languages found
+Merging candidates started for 2 states at time: 0s
+Merging ended, time: 0s
+213 languages found
+100000 automata generated, time: 18s 
+200000 automata generated, time: 37s 
+300000 automata generated, time: 55s 
+400000 automata generated, time: 01m 16s 
+500000 automata generated, time: 01m 35s 
+600000 automata generated, time: 01m 57s 
+Merging candidates started for 3 states at time: 02m 11s
+Merging ended, time: 02m 17s
+10000 minimal NFAs proceeded
+20000 minimal NFAs proceeded
+30000 minimal NFAs proceeded
+40000 minimal NFAs proceeded
+45113 languages found
+700000 automata generated, time: 03m 09s 
+800000 automata generated, time: 03m 19s 
+900000 automata generated, time: 03m 30s 
+1000000 automata generated, time: 03m 40s 
+1100000 automata generated, time: 03m 50s 
+1200000 automata generated, time: 04m 04s 
+1300000 automata generated, time: 04m 19s 
+1400000 automata generated, time: 04m 34s 
+1500000 automata generated, time: 04m 52s 
+1600000 automata generated, time: 05m 12s 
+1700000 automata generated, time: 05m 34s 
+1800000 automata generated, time: 05m 53s 
+1900000 automata generated, time: 06m 15s 
+2000000 automata generated, time: 06m 36s 
+2100000 automata generated, time: 06m 58s 
+2200000 automata generated, time: 07m 19s 
+2300000 automata generated, time: 07m 43s 
+2400000 automata generated, time: 08m 11s 
+2500000 automata generated, time: 08m 36s 
+2600000 automata generated, time: 09m 06s 
+2700000 automata generated, time: 09m 34s 
+2800000 automata generated, time: 09m 56s 
+2900000 automata generated, time: 10m 23s 
+3000000 automata generated, time: 10m 52s 
+3100000 automata generated, time: 11m 17s 
+3200000 automata generated, time: 11m 44s 
+3300000 automata generated, time: 12m 09s 
+3400000 automata generated, time: 12m 35s 
+3500000 automata generated, time: 12m 59s 
+3600000 automata generated, time: 13m 31s 
+3700000 automata generated, time: 14m 02s 
+3800000 automata generated, time: 14m 34s 
+3900000 automata generated, time: 15m 05s 
+4000000 automata generated, time: 15m 38s 
+4100000 automata generated, time: 16m 15s 
+4200000 automata generated, time: 16m 46s 
+4300000 automata generated, time: 17m 13s 
+4400000 automata generated, time: 17m 44s 
+4500000 automata generated, time: 18m 17s 
+4600000 automata generated, time: 18m 48s 
+4700000 automata generated, time: 19m 19s 
+4800000 automata generated, time: 19m 49s 
+4900000 automata generated, time: 20m 14s 
+5000000 automata generated, time: 20m 42s 
+5100000 automata generated, time: 21m 04s 
+5200000 automata generated, time: 21m 28s 
+5300000 automata generated, time: 21m 51s 
+5400000 automata generated, time: 22m 14s 
+5500000 automata generated, time: 22m 41s 
+5600000 automata generated, time: 23m 03s 
+5700000 automata generated, time: 23m 28s 
+5800000 automata generated, time: 23m 57s 
+5900000 automata generated, time: 24m 32s 
+6000000 automata generated, time: 25m 05s 
+6100000 automata generated, time: 25m 28s 
+6200000 automata generated, time: 25m 51s 
+6300000 automata generated, time: 26m 14s 
+6400000 automata generated, time: 26m 38s 
+6500000 automata generated, time: 27m 04s 
+6600000 automata generated, time: 27m 29s 
+6700000 automata generated, time: 27m 52s 
+6800000 automata generated, time: 28m 16s 
+6900000 automata generated, time: 28m 43s 
+7000000 automata generated, time: 29m 14s 
+7100000 automata generated, time: 29m 41s 
+7200000 automata generated, time: 30m 08s 
+7300000 automata generated, time: 30m 32s 
+7400000 automata generated, time: 30m 59s 
+7500000 automata generated, time: 31m 29s 
+7600000 automata generated, time: 31m 59s 
+7700000 automata generated, time: 32m 27s 
+7800000 automata generated, time: 32m 54s 
+7900000 automata generated, time: 33m 23s 
+8000000 automata generated, time: 33m 52s 
+8100000 automata generated, time: 34m 31s 
+8200000 automata generated, time: 35m 17s 
+8300000 automata generated, time: 35m 49s 
+8400000 automata generated, time: 36m 20s 
+8500000 automata generated, time: 36m 46s 
+8600000 automata generated, time: 37m 12s 
+8700000 automata generated, time: 37m 40s 
+8800000 automata generated, time: 38m 13s 
+8900000 automata generated, time: 38m 45s 
+9000000 automata generated, time: 39m 14s 
+9100000 automata generated, time: 39m 43s 
+9200000 automata generated, time: 40m 12s 
+9300000 automata generated, time: 40m 41s 
+9400000 automata generated, time: 41m 13s 
+9500000 automata generated, time: 41m 44s 
+9600000 automata generated, time: 42m 13s 
+9700000 automata generated, time: 42m 47s 
+9800000 automata generated, time: 43m 12s 
+9900000 automata generated, time: 43m 37s 
+10000000 automata generated, time: 44m 05s 
+10100000 automata generated, time: 44m 37s 
+10200000 automata generated, time: 45m 07s 
+10300000 automata generated, time: 45m 39s 
+10400000 automata generated, time: 46m 14s 
+10500000 automata generated, time: 46m 44s 
+10600000 automata generated, time: 47m 10s 
+10700000 automata generated, time: 47m 40s 
+10800000 automata generated, time: 48m 14s 
+10900000 automata generated, time: 49m 00s 
+11000000 automata generated, time: 49m 45s 
+11100000 automata generated, time: 50m 19s 
+11200000 automata generated, time: 50m 52s 
+11300000 automata generated, time: 51m 19s 
+11400000 automata generated, time: 51m 46s 
+11500000 automata generated, time: 52m 15s 
+11600000 automata generated, time: 52m 46s 
+11700000 automata generated, time: 53m 20s 
+11800000 automata generated, time: 53m 53s 
+11900000 automata generated, time: 54m 26s 
+12000000 automata generated, time: 54m 58s 
+12100000 automata generated, time: 55m 27s 
+12200000 automata generated, time: 55m 57s 
+12300000 automata generated, time: 56m 29s 
+12400000 automata generated, time: 57m 02s 
+12500000 automata generated, time: 57m 35s 
+12600000 automata generated, time: 58m 07s 
+12700000 automata generated, time: 58m 37s 
+12800000 automata generated, time: 59m 06s 
+12900000 automata generated, time: 59m 34s 
+13000000 automata generated, time: 01h 00m 02s 
+13100000 automata generated, time: 01h 00m 35s 
+13200000 automata generated, time: 01h 01m 07s 
+13300000 automata generated, time: 01h 01m 42s 
+13400000 automata generated, time: 01h 02m 15s 
+13500000 automata generated, time: 01h 02m 48s 
+13600000 automata generated, time: 01h 03m 22s 
+13700000 automata generated, time: 01h 03m 55s 
+13800000 automata generated, time: 01h 04m 29s 
+13900000 automata generated, time: 01h 05m 03s 
+14000000 automata generated, time: 01h 05m 40s 
+14100000 automata generated, time: 01h 06m 28s 
+14200000 automata generated, time: 01h 07m 13s 
+14300000 automata generated, time: 01h 07m 51s 
+14400000 automata generated, time: 01h 08m 26s 
+14500000 automata generated, time: 01h 08m 57s 
+14600000 automata generated, time: 01h 09m 26s 
+14700000 automata generated, time: 01h 09m 55s 
+14800000 automata generated, time: 01h 10m 26s 
+14900000 automata generated, time: 01h 11m 00s 
+15000000 automata generated, time: 01h 11m 35s 
+15100000 automata generated, time: 01h 12m 11s 
+15200000 automata generated, time: 01h 12m 46s 
+15300000 automata generated, time: 01h 13m 21s 
+15400000 automata generated, time: 01h 13m 56s 
+15500000 automata generated, time: 01h 14m 30s 
+15600000 automata generated, time: 01h 15m 04s 
+15700000 automata generated, time: 01h 15m 40s 
+15800000 automata generated, time: 01h 16m 16s 
+15900000 automata generated, time: 01h 16m 43s 
+16000000 automata generated, time: 01h 17m 07s 
+16100000 automata generated, time: 01h 17m 35s 
+16200000 automata generated, time: 01h 18m 11s 
+16300000 automata generated, time: 01h 18m 48s 
+16400000 automata generated, time: 01h 19m 28s 
+16500000 automata generated, time: 01h 20m 00s 
+16600000 automata generated, time: 01h 20m 47s 
+16700000 automata generated, time: 01h 24m 59s 
+16800000 automata generated, time: 01h 30m 07s 
+16900000 automata generated, time: 01h 35m 16s 
+17000000 automata generated, time: 01h 40m 11s 
+17100000 automata generated, time: 01h 44m 59s 
+17200000 automata generated, time: 01h 49m 20s 
+17300000 automata generated, time: 01h 54m 25s 
+17400000 automata generated, time: 01h 59m 44s 
+17500000 automata generated, time: 02h 05m 39s 
+17600000 automata generated, time: 02h 11m 01s 
+17700000 automata generated, time: 02h 15m 03s 
+17800000 automata generated, time: 02h 19m 24s 
+17900000 automata generated, time: 02h 23m 17s 
+18000000 automata generated, time: 02h 27m 01s 
+18100000 automata generated, time: 02h 31m 24s 
+18200000 automata generated, time: 02h 36m 16s 
+18300000 automata generated, time: 02h 41m 20s 
+18400000 automata generated, time: 02h 46m 23s 
+18500000 automata generated, time: 02h 51m 29s 
+18600000 automata generated, time: 02h 56m 38s 
+18700000 automata generated, time: 03h 02m 16s 
+18800000 automata generated, time: 03h 08m 03s 
+18900000 automata generated, time: 03h 13m 34s 
+19000000 automata generated, time: 03h 18m 50s 
+19100000 automata generated, time: 03h 23m 16s 
+19200000 automata generated, time: 03h 28m 48s 
+19300000 automata generated, time: 03h 33m 56s 
+19400000 automata generated, time: 03h 39m 44s 
+19500000 automata generated, time: 03h 44m 20s 
+19600000 automata generated, time: 03h 49m 34s 
+19700000 automata generated, time: 03h 54m 29s 
+19800000 automata generated, time: 03h 59m 04s 
+19900000 automata generated, time: 04h 03m 57s 
+20000000 automata generated, time: 04h 07m 33s 
+20100000 automata generated, time: 04h 11m 40s 
+20200000 automata generated, time: 04h 16m 28s 
+20300000 automata generated, time: 04h 20m 30s 
+20400000 automata generated, time: 04h 25m 05s 
+20500000 automata generated, time: 04h 30m 01s 
+20600000 automata generated, time: 04h 35m 21s 
+20700000 automata generated, time: 04h 40m 45s 
+20800000 automata generated, time: 04h 47m 02s 
+20900000 automata generated, time: 04h 53m 04s 
+21000000 automata generated, time: 04h 59m 48s 
+21100000 automata generated, time: 05h 06m 37s 
+21200000 automata generated, time: 05h 12m 56s 
+21300000 automata generated, time: 05h 20m 04s 
+21400000 automata generated, time: 05h 26m 20s 
+21500000 automata generated, time: 05h 32m 47s 
+21600000 automata generated, time: 05h 39m 55s 
+21700000 automata generated, time: 05h 45m 59s 
+21800000 automata generated, time: 05h 53m 39s 
+21900000 automata generated, time: 06h 00m 33s 
+22000000 automata generated, time: 06h 06m 28s 
+22100000 automata generated, time: 06h 12m 40s 
+22200000 automata generated, time: 06h 18m 50s 
+22300000 automata generated, time: 06h 25m 22s 

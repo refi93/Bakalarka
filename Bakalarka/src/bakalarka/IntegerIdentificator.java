@@ -25,6 +25,10 @@ public class IntegerIdentificator implements Identificator{
     }
     
     
+    public int getValue(){
+        return this.value;
+    }
+    
     @Override
     public String toString(){
         return value.toString();   

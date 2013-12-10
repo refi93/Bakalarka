@@ -6,6 +6,7 @@
 
 package bakalarka;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -16,7 +17,7 @@ import java.util.HashMap;
  * a dokazeme do nej aj vlozit nejake NFA a ona rozhodne, ci uz tam neni
  */
 public class MinimalAutomatonHashMap {
-    HashMap<Long,ArrayList<Automaton> > AutomatonClasses = new HashMap<>();
+    HashMap<BigInteger,ArrayList<Automaton> > AutomatonClasses = new HashMap<>();
     ArrayList<Automaton> allMinNFAs;
     //int max = 0;
     
@@ -29,7 +30,7 @@ public class MinimalAutomatonHashMap {
     /* overi, ci sa tu nenachadza uz nejaky iny ekvivalentny automat */
     public boolean containsEquivalent(Automaton a) throws Exception{
         boolean ret = false;
-        long hash = a.myHashCode();
+        BigInteger hash = a.myHashCode();
         if (AutomatonClasses.get(hash) != null) {
             for (Automaton previous : AutomatonClasses.get(hash)) {
                 if (previous.equivalent(a)) {
@@ -47,7 +48,7 @@ public class MinimalAutomatonHashMap {
     */
     public void forceInsert(Automaton a) throws Exception{
         boolean isNew = true;
-        long hash = a.myHashCode();
+        BigInteger hash = a.myHashCode();
         if (isNew) {
             allMinNFAs.add(a);
             if (AutomatonClasses.get(hash) != null) {

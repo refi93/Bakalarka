@@ -22,7 +22,7 @@ public class Matrix {
     int n;
     private long numericRepresentation; // matica reprezentovana ako cislo
     
-    // konstruktor stvorcovej matice nxn
+    // konstruktor nulovej stvorcovej matice nxn
     // dohoda: matica[r][c] znamena pritomnost orientovanej hrany r -> c
     public Matrix(int n){
         this.numericRepresentation = 0;
@@ -53,10 +53,11 @@ public class Matrix {
     
     
     public void set(int r, int c, boolean val){
-        long prev = (long)Math.pow(2, n*r + c) * (this.matrix[r][c]?1:0);
+        long prev = (long)(((long)1 << (n*r + c)) * (this.matrix[r][c]?1:0));
         this.matrix[r][c] = val;
-        this.numericRepresentation = this.numericRepresentation - prev + (long)Math.pow(2, n*r + c);
+        this.numericRepresentation = this.numericRepresentation - prev + (long)(((long)1 << (n*r + c))* (val?1:0));
     }
+    
     
     /* vrati to reprezentaciu matice ako cele cislo */
     public long getNumericRepresentation(){
@@ -113,14 +114,13 @@ public class Matrix {
         seen.add(0);
         
         while(!queue.isEmpty()){
-            int current = queue.peek();
+            int current = queue.remove();
             for(int i = 0;i < this.matrix[current].length;i++){
                 if ((matrix[current][i]) && (!seen.contains(i))){
                     seen.add(i);
                     queue.add(i);
                 }
             }
-            queue.remove();
         }
         
         for(int i = 0;i < this.n;i++){
@@ -128,5 +128,12 @@ public class Matrix {
         }
         
         return true;
+    }
+    
+    Matrix union(Matrix other){
+        //System.out.println(other.numericRepresentation);
+        //System.out.println(this.numericRepresentation);
+        //System.out.println(other.numericRepresentation | this.numericRepresentation);
+        return new Matrix(this.n, other.numericRepresentation | this.numericRepresentation);
     }
 }

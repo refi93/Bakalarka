@@ -6,8 +6,6 @@
 
 package bakalarka;
 
-import java.io.IOException;
-import java.util.ArrayList;
 
 
 /**
@@ -19,8 +17,11 @@ public class Bakalarka {
     
     
     public static void main(String[] args) throws Exception {
+        //Variables.initialize();
+        //System.out.println(Variables.WordToNumberMap);
         Experiments.GenerateAllNFAsOfSize(3);
         //System.out.println(Experiments.SafeWordLengthExperiment(2));
+        //System.out.println(Variables.connectedCount);
     }
     
 }

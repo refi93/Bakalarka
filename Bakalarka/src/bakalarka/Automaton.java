@@ -7,6 +7,7 @@
 package bakalarka;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -78,8 +79,9 @@ public class Automaton{
     private Identificator currentStateId; // aktualny stav
     private int numberOfTransitions = 0; // pocet prechodov
     
-    /* hash_cache - premenna, kde si zapamatame hashCode automatu, aby sme ho nemuseli opakovane ratat */
-    long hash_cache = -1;
+     /* transition map zadany ako dvojica matic */
+    HashMap<Character,Matrix> transitionMap;
+    
     
     public Automaton(){
         // parameterless konstruktor
@@ -114,8 +116,8 @@ public class Automaton{
             throw new Exception("THIS AUTOMATON HAS NOT TRANSITION MAP IN MATRIX");
         }
     }
-    /* transition map zadany ako dvojica matic */
-    HashMap<Character,Matrix> transitionMap;
+    
+    
     /* konstruktor automatu na zaklade matice prechodov, mnoziny akc. stavov a pociatocneho stavu */
     public Automaton(HashMap<Character,Matrix> transitionMap, Identificator initialStateId, HashSet<Identificator> finalStatesIds) throws Exception{
         this.idStateMap = new HashMap<>();
@@ -209,7 +211,7 @@ public class Automaton{
         else{ // ak stav nie je v allStates
             throw new NoSuchStateException(stateId);
         }
-        this.hash_cache = -1; // resetnutie hash_cache po zmene automatu
+        this.hash_cache = BigInteger.valueOf(-1); // resetnutie hash_cache po zmene automatu
     }
     
     /* wrapper setInitialStateId to int */
@@ -226,7 +228,7 @@ public class Automaton{
         else{
             throw new NoSuchStateException("FAILED TO ADD FINAL STATE");
         }
-        this.hash_cache = -1; // resetnutie hash_cache po zmene automatu
+        this.hash_cache = BigInteger.valueOf(-1); // resetnutie hash_cache po zmene automatu
     }
     
     
@@ -250,7 +252,7 @@ public class Automaton{
         State s = new State(stateId);
         idStateMap. put(stateId, s);
         allStatesIds.add(stateId);
-        this.hash_cache = -1; // resetnutie hash_cache po zmene automatu
+        this.hash_cache = BigInteger.valueOf(-1); // resetnutie hash_cache po zmene automatu
         return true;
     }
     
@@ -277,7 +279,7 @@ public class Automaton{
         else{
             throw new NoSuchStateException("FAILED TO ADD TRANSITION");
         }
-        this.hash_cache = -1; // resetnutie hash_cache po zmene automatu
+        this.hash_cache = BigInteger.valueOf(-1); // resetnutie hash_cache po zmene automatu
         // vlozime naspat aktualizovany zaznam
         idStateMap.put(idFrom, from);
     }
@@ -296,7 +298,7 @@ public class Automaton{
         else{
             throw new NoSuchStateException("FAILED TO ADD FINAL STATE");
         }
-        this.hash_cache = -1; // resetnutie hash_cache po zmene automatu
+        this.hash_cache = BigInteger.valueOf(-1); // resetnutie hash_cache po zmene automatu
     }
     
     /* wrapper addFinalState() to int */
@@ -706,45 +708,66 @@ public class Automaton{
     /* prehladavanie vsetkych moznych vygenerovanych slov do hlbky, resp. dlzky maxDepth 
        najdene slova sa ulozia do HashSetu generatedWords
     */
-    private void dfsWordsSearch(int maxDepth, Identificator stateId, String currentWord, HashSet<String> generatedWords){
+    private void dfsWordsSearch(int maxDepth, Identificator stateId, BinaryWord currentWord, HashSet<BinaryWord> generatedWords) throws Exception{
         if((maxDepth >= 0)&&(this.finalStatesIds.contains(stateId))){
-            generatedWords.add(currentWord);
+            generatedWords.add(new BinaryWord(currentWord));
         }
         if (maxDepth == 0){
             return;
         }
-        for(Character c : Variables.alphabet){
-            if(this.getState(stateId).getTransition(c) != null){
-                for(Identificator id : this.getState(stateId).getTransition(c)){
-                    dfsWordsSearch(maxDepth - 1,id,currentWord + c,generatedWords);
+        
+        
+        // pokial su stavy cele cisla a pokial mame danu tranisition map
+        if((this.transitionMap != null) && (stateId.getClass() == IntegerIdentificator.class)){
+            for(Character c : Variables.alphabet){
+                for(int id = 0;id < this.getNumberOfStates();id++){
+                    if(this.transitionMap.get(c).get(((IntegerIdentificator) stateId).getValue(),id)){
+                        dfsWordsSearch(maxDepth - 1,new IntegerIdentificator(id),currentWord.append(Character.getNumericValue(c)),generatedWords);
+                        currentWord.cutLast();
+                    }
+                }
+            }
+        }
+        else{
+            for(Character c : Variables.alphabet){
+                if(this.getState(stateId).getTransition(c) != null){
+                    for(Identificator id : this.getState(stateId).getTransition(c)){
+                        dfsWordsSearch(maxDepth - 1,id,currentWord.append(Character.getNumericValue(c)),generatedWords);
+                        currentWord.cutLast();
+                    }
                 }
             }
         }
     }
     
-    public HashSet<String> allWordsOfLength(int n){
-        HashSet<String> ret = new HashSet<>();
+    public HashSet<BinaryWord> allWordsOfLength(int n) throws Exception{
+        HashSet<BinaryWord> ret = new HashSet<>();
         for(Identificator id : this.initialStatesIds){
-            dfsWordsSearch(n, id, "", ret);
+            dfsWordsSearch(n, id, new BinaryWord(), ret);
         }
         return ret;
     }
 
     
+    /* hash_cache - premenna, kde si zapamatame hashCode automatu, aby sme ho nemuseli opakovane ratat */
+    BigInteger hash_cache = BigInteger.valueOf(-1);
+    
     /* hashCode automatu - je to vlastne hashCode slov do dlzky 4, ktore vygeneruje */
-    public long myHashCode(){
-        if (hash_cache == -1){
-            hash_cache = 0;
-            HashSet<String> words = allWordsOfLength(5);
+    public BigInteger myHashCode() throws Exception{
+        if (hash_cache.equals(BigInteger.valueOf(-1))){
+            hash_cache = BigInteger.valueOf(0);
+            HashSet<BinaryWord> words = allWordsOfLength(Variables.HashWordLength);
             if (Variables.alphabet.size() == 2){
-                for(String word : words){
-                    long pos = Variables.WordToNumberMap.get(word);
-                    hash_cache = hash_cache | (((long)1) << pos);
+                for(BinaryWord word : words){
+                    int pos = Variables.WordToNumberMap.get(word);
+                    hash_cache = hash_cache.setBit(pos);
+                    //hash_cache = hash_cache | (((long)1) << pos);
                 }
             }
             else {
-                hash_cache = words.hashCode();
+                hash_cache = BigInteger.valueOf(words.hashCode());
             }
+            this.allWordsOfLength(Variables.HashWordLength);
         }
         return hash_cache;
     }
