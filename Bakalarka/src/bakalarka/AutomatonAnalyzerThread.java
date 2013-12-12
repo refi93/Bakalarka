@@ -39,6 +39,14 @@ public class AutomatonAnalyzerThread extends Thread {
         while(it.hasNext()){
             if(counter % numberOfWorkers == id){
                 Automaton a = it.next();
+                // vypisovanie pocitadla po 100 000 nextoch
+                // zalockujeme counter, aby ho ostatne thready nemohli menit
+                synchronized(Variables.counterOfTestedAutomata){
+                    if (Variables.counterOfTestedAutomata++ % 100000 == 0) {
+                        int seconds = (int)((System.nanoTime() - Variables.start) / 1000000000);
+                        System.err.printf("%d automata generated, time: %s %n", Variables.counterOfTestedAutomata - 1, Functions.getFormattedTime(seconds));
+                    }
+                }
                 try {
                     if (!Variables.allMinimalNFAs.containsEquivalent(a)){
                         minimalNFAs.tryToInsert(a);

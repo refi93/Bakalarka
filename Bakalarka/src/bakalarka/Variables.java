@@ -11,7 +11,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Random;
-import java.util.TreeSet;
 
 /**
  *
@@ -36,7 +35,7 @@ public class Variables {
     
     static long start = 0;
     
-    static Long counterOfTestedAutomata = (long)0; // pocitadlo poctu vygenerovanych automatov
+    static Long counterOfTestedAutomata = (long)0; // pocitadlo vygenerovanych automatov
     
     public static int HashWordLength = 5; // dlzka slova, po ktoru hashujeme 
     

@@ -24,7 +24,6 @@ public class MergeThread extends Thread{
     @Override
     public void run(){
         
-        // a teraz druhych
         for(Automaton a : candidates2.allMinNFAs){
             try {
                 candidates1.tryToInsert(a);
@@ -33,5 +32,8 @@ public class MergeThread extends Thread{
             }
         }
         result = candidates1;
+        candidates2.AutomatonClasses.clear();
+        candidates2.allMinNFAs.clear();
+        System.err.printf("Merged %d automata%n",candidates1.allMinNFAs.size());
     }
 }

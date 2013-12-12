@@ -81,14 +81,6 @@ public class AutomatonIterator implements Iterator{
     /* vrati nasledujuci automat s danym poctom stavov v poradi */
     @Override
     public Automaton next(){
-        // vypisovanie pocitadla po 100 000 nextoch
-        // zalockujeme counter, aby ho ostatne thready nemohli menit
-        synchronized(Variables.counterOfTestedAutomata){
-            if (Variables.counterOfTestedAutomata++ % 100000 == 0) {
-                int seconds = (int)((System.nanoTime() - Variables.start) / 1000000000);
-                System.err.printf("%d automata generated, time: %s %n", Variables.counterOfTestedAutomata - 1, Functions.getFormattedTime(seconds));
-            }
-        }
         
         if (!this.hasNext()) return null;
         this.checkNext();

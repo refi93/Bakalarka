@@ -1,0 +1,32 @@
+Hashovanie do dlzky 5, optimalizovane dfs na slova a format slov - BinaryWord namiesto String
+
+run:
+0 automata generated, time: 0s 
+Merging candidates started for 1 states at time: 0s
+Number of candidates lists: 2
+Merged 4 automata
+Merging ended, time: 0s
+4 languages found
+Merging candidates started for 2 states at time: 0s
+Number of candidates lists: 2
+Merged 122 automata
+Merging ended, time: 0s
+213 languages found
+100000 automata generated, time: 17s 
+200000 automata generated, time: 34s 
+300000 automata generated, time: 50s 
+400000 automata generated, time: 01m 08s 
+500000 automata generated, time: 01m 26s 
+600000 automata generated, time: 01m 44s 
+Merging candidates started for 3 states at time: 01m 56s
+Number of candidates lists: 2
+Merged 28463 automata
+Merging ended, time: 02m 01s
+10000 minimal NFAs proceeded
+20000 minimal NFAs proceeded
+30000 minimal NFAs proceeded
+40000 minimal NFAs proceeded
+45113 languages found
+659646 automata tested
+Generating automata ended at time: 02m 56s
+BUILD SUCCESSFUL (total time: 2 minutes 56 seconds)

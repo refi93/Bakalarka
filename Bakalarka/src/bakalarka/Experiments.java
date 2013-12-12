@@ -7,6 +7,7 @@
 package bakalarka;
 
 import java.io.IOException;
+import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
 
 /**
@@ -23,6 +24,7 @@ public class Experiments {
         }
         
         while(listOfCandidates.size() != 1){
+            System.err.printf("Number of candidates lists: %d%n", listOfCandidates.size());
             int pocetZoznamov = listOfCandidates.size();
             ArrayList<MergeThread> mergers = new ArrayList<>();
             

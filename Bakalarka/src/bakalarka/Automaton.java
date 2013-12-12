@@ -767,7 +767,6 @@ public class Automaton{
             else {
                 hash_cache = BigInteger.valueOf(words.hashCode());
             }
-            this.allWordsOfLength(Variables.HashWordLength);
         }
         return hash_cache;
     }

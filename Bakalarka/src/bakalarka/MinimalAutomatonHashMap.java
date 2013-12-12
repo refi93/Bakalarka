@@ -19,7 +19,8 @@ import java.util.HashMap;
 public class MinimalAutomatonHashMap {
     HashMap<BigInteger,ArrayList<Automaton> > AutomatonClasses = new HashMap<>();
     ArrayList<Automaton> allMinNFAs;
-    //int max = 0;
+    public int comparison_count = 0;
+    int max_collisions = 0;
     
     public MinimalAutomatonHashMap(){
         this.AutomatonClasses = new HashMap<>();
@@ -33,6 +34,7 @@ public class MinimalAutomatonHashMap {
         BigInteger hash = a.myHashCode();
         if (AutomatonClasses.get(hash) != null) {
             for (Automaton previous : AutomatonClasses.get(hash)) {
+                comparison_count++;
                 if (previous.equivalent(a)) {
                     ret = true;
                     break;
@@ -57,6 +59,11 @@ public class MinimalAutomatonHashMap {
                 AutomatonClasses.put(hash, new ArrayList<Automaton>());
                 AutomatonClasses.get(hash).add(a);
             }
+            
+            /*if (AutomatonClasses.get(hash).size() > max_collisions){
+                max_collisions = AutomatonClasses.get(hash).size();
+                System.out.println(max_collisions);
+            }*/
         }
     }
     
