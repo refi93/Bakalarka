@@ -107,7 +107,7 @@ public class Matrix {
         return this.n == other.n;
     }
     
-    boolean connected(){
+    boolean isConnected(){
         Queue<Integer> queue = new LinkedList<>();
         HashSet<Integer> seen = new HashSet<>();
         queue.add(0); 

@@ -93,13 +93,23 @@ public class TransitionsIterator implements Iterator {
                     it = new MatrixIterator(this.numberOfStates, this.TransitionMatrixIterators.get(Variables.alphabet.get(1)));
                 }
                 
-                // --------------------------
-                
                 Matrix m = it.next();
+                
+                // --------------------------
                 this.TransitionMatrixIterators.put(c, it);
                 this.currentMatrices.put(c, m);
             } else {
-                this.currentMatrices.put(c, it.next());
+                Matrix m = it.next();
+                
+                // optimalizacia pre 2-pismenkovu abecedu - zahadzujeme nesuvisle delta-funkcie
+                if ((Variables.alphabet.size() == 2) && (c.equals('0'))){
+                    while(it.hasNext() && (!m.union(this.currentMatrices.get('1')).isConnected())){
+                        m = it.next();
+                    }
+                }
+                // koniec optimalizacie
+                
+                this.currentMatrices.put(c, m);
                 break;
             }
         }
