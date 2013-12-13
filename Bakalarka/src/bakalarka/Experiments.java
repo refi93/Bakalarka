@@ -112,7 +112,7 @@ public class Experiments {
             // pozbierame pracu od slaveov a pospajame vysledky dokopy
             ArrayList<MinimalAutomatonHashMap> candidates = new ArrayList<>();
             for(AutomatonAnalyzerThread slave : slaves) {
-                candidates.add(slave.minimalNFAs);
+                candidates.add(slave.minimalNFAsResult);
             }
             MinimalAutomatonHashMap result = treeMerge(candidates);
             

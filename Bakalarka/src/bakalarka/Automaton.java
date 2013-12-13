@@ -756,7 +756,7 @@ public class Automaton{
     public BigInteger myHashCode() throws Exception{
         if (hash_cache.equals(BigInteger.valueOf(-1))){
             hash_cache = BigInteger.valueOf(0);
-            HashSet<BinaryWord> words = allWordsOfLength(Variables.HashWordLength);
+            HashSet<BinaryWord> words = allWordsOfLength(Variables.hashWordLength);
             if (Variables.alphabet.size() == 2){
                 for(BinaryWord word : words){
                     int pos = Variables.WordToNumberMap.get(word);

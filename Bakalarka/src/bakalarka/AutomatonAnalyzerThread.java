@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  * sluzi na vytvorenie threadu, ktory samostatne analyzuje nejaku cast automatov
  */
 public class AutomatonAnalyzerThread extends Thread {
-    MinimalAutomatonHashMap minimalNFAs;
+    MinimalAutomatonHashMap minimalNFAsResult;
     AutomatonIterator it;
     int id, numberOfWorkers;
     
@@ -26,7 +26,7 @@ public class AutomatonAnalyzerThread extends Thread {
         udava modulo, pri ktorom sa zarata automat - pozri run()
     */
     public AutomatonAnalyzerThread(int numberOfStates, int id) throws Exception{
-        this.minimalNFAs = new MinimalAutomatonHashMap();
+        this.minimalNFAsResult = new MinimalAutomatonHashMap();
         this.it = new AutomatonIterator(numberOfStates);
         this.id = id;
         this.numberOfWorkers = Variables.numberOfCores;
@@ -35,6 +35,9 @@ public class AutomatonAnalyzerThread extends Thread {
     
     @Override
     public void run(){
+        // tuto si ukladame minimalne NFA co mame aktualne
+        MinimalAutomatonHashMap minimalNFAsCurrent = new MinimalAutomatonHashMap();
+        
         int counter = 0;
         while(it.hasNext()){
             if(counter % numberOfWorkers == id){
@@ -45,11 +48,21 @@ public class AutomatonAnalyzerThread extends Thread {
                     if (Variables.counterOfTestedAutomata++ % 100000 == 0) {
                         int seconds = (int)((System.nanoTime() - Variables.start) / 1000000000);
                         System.err.printf("%d automata generated, time: %s %n", Variables.counterOfTestedAutomata - 1, Functions.getFormattedTime(seconds));
+                        System.out.println("thread id: " + this.id + ", currently " + minimalNFAsCurrent.allMinNFAs.size() + " in MinimalAutomatonHashMap");
                     }
                 }
                 try {
                     if (!Variables.allMinimalNFAs.containsEquivalent(a)){
-                        minimalNFAs.tryToInsert(a);
+                        minimalNFAsCurrent.tryToInsert(a);
+                        
+                        // ked mnozina s priebeznymi vysledkami je uz moc plna, tak ju "vysypeme" do hlavnej mnoziny a priebezne vysledky odznova ratame
+                        if(minimalNFAsCurrent.allMinNFAs.size() > Variables.hashMapSizeThreshold){
+                            MergeThread mt = new MergeThread(this.minimalNFAsResult,minimalNFAsCurrent);
+                            mt.start();
+                            mt.join();
+                            this.minimalNFAsResult = mt.result;
+                            minimalNFAsCurrent = new MinimalAutomatonHashMap();
+                        }
                     }
                 } catch (Exception ex) {
                     Logger.getLogger(AutomatonAnalyzerThread.class.getName()).log(Level.SEVERE, null, ex);
@@ -60,5 +73,15 @@ public class AutomatonAnalyzerThread extends Thread {
             }
             counter++;
         }
+        
+        // na zaver este pripojime priebezne vysledky k tym celkovym
+        MergeThread mt = new MergeThread(minimalNFAsResult,minimalNFAsCurrent);
+        mt.start();
+        try {
+            mt.join();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(AutomatonAnalyzerThread.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.minimalNFAsResult = mt.result;
     }
 }

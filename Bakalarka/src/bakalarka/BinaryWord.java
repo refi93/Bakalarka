@@ -18,7 +18,7 @@ public class BinaryWord {
     public int length;
     
     // tato trieda tu je len kvoli hashovaniu, tak preto nastavime max dlzku takto
-    private int MAX_LEN = Variables.HashWordLength;
+    private int MAX_LEN = Variables.hashWordLength;
     
     
     /* prazdny konstruktor */

@@ -37,7 +37,9 @@ public class Variables {
     
     static Long counterOfTestedAutomata = (long)0; // pocitadlo vygenerovanych automatov
     
-    public static int HashWordLength = 5; // dlzka slova, po ktoru hashujeme 
+    public static int hashWordLength = 5; // dlzka slova, po ktoru hashujeme 
+    
+    public static int hashMapSizeThreshold = 4747; // velkost hashMapy, pri ktorej sa uz oplati hashMapu vyprazdnit pri vypoctoch aby sa zrychlili
     
     // sluzi na inicializaciu niektorych premennych - mapy so slovami, casu, ...
     static void initialize() throws Exception{
@@ -52,7 +54,7 @@ public class Variables {
             a.addFinalState(0);
             a.addTransition(0, 0, Variables.alphabet.get(0));
             a.addTransition(0, 0, Variables.alphabet.get(1));
-            HashSet<BinaryWord> words = a.allWordsOfLength(Variables.HashWordLength);
+            HashSet<BinaryWord> words = a.allWordsOfLength(Variables.hashWordLength);
             // slova ulozime do mapy a priradime k nim cislo
             int counter = 0;
             for(BinaryWord word : words){
