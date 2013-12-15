@@ -35,10 +35,9 @@ public class AutomatonAnalyzerThread extends Thread {
     
     @Override
     public void run(){
-        // tuto si ukladame minimalne NFA co mame aktualne
+        int counter = 0;
         MinimalAutomatonHashMap minimalNFAsCurrent = new MinimalAutomatonHashMap();
         
-        int counter = 0;
         while(it.hasNext()){
             if(counter % numberOfWorkers == id){
                 Automaton a = it.next();
@@ -48,20 +47,17 @@ public class AutomatonAnalyzerThread extends Thread {
                     if (Variables.counterOfTestedAutomata++ % 100000 == 0) {
                         int seconds = (int)((System.nanoTime() - Variables.start) / 1000000000);
                         System.err.printf("%d automata generated, time: %s %n", Variables.counterOfTestedAutomata - 1, Functions.getFormattedTime(seconds));
-                        System.out.println("thread id: " + this.id + ", currently " + minimalNFAsCurrent.allMinNFAs.size() + " in MinimalAutomatonHashMap");
                     }
                 }
                 try {
                     if (!Variables.allMinimalNFAs.containsEquivalent(a)){
-                        minimalNFAsCurrent.tryToInsert(a);
-                        
-                        // ked mnozina s priebeznymi vysledkami je uz moc plna, tak ju "vysypeme" do hlavnej mnoziny a priebezne vysledky odznova ratame
-                        if(minimalNFAsCurrent.allMinNFAs.size() > Variables.hashMapSizeThreshold){
-                            MergeThread mt = new MergeThread(this.minimalNFAsResult,minimalNFAsCurrent);
-                            mt.start();
-                            mt.join();
-                            this.minimalNFAsResult = mt.result;
-                            minimalNFAsCurrent = new MinimalAutomatonHashMap();
+                        if(!minimalNFAsCurrent.containsEquivalent(a)){
+                            minimalNFAsCurrent.forceInsert(a);
+                            // ak presiahneme velkost hashMapy, tak ju vysypeme do vysledkov a zacneme plnit odznova
+                            if (minimalNFAsCurrent.size() > Variables.hashMapSizeThreshold){
+                                minimalNFAsResult = MergeThread.merge(minimalNFAsCurrent, minimalNFAsResult);
+                                minimalNFAsCurrent = new MinimalAutomatonHashMap();
+                            }
                         }
                     }
                 } catch (Exception ex) {
@@ -74,14 +70,12 @@ public class AutomatonAnalyzerThread extends Thread {
             counter++;
         }
         
-        // na zaver este pripojime priebezne vysledky k tym celkovym
-        MergeThread mt = new MergeThread(minimalNFAsResult,minimalNFAsCurrent);
-        mt.start();
+        
+        // nakoniec do vysledku pripojime doterajsie vypocty
         try {
-            mt.join();
+            minimalNFAsResult = MergeThread.merge(minimalNFAsResult, minimalNFAsCurrent);
         } catch (InterruptedException ex) {
             Logger.getLogger(AutomatonAnalyzerThread.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.minimalNFAsResult = mt.result;
     }
 }

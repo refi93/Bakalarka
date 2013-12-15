@@ -21,6 +21,7 @@ public class MinimalAutomatonHashMap {
     ArrayList<Automaton> allMinNFAs;
     public int comparison_count = 0;
     int max_collisions = 0;
+    private long size = 0;
     
     public MinimalAutomatonHashMap(){
         this.AutomatonClasses = new HashMap<>();
@@ -48,23 +49,21 @@ public class MinimalAutomatonHashMap {
     /* ked sme si isty, ze dany automat je minimalny, tak ho mozme vlozit nasilu
     pomocou tejto metody
     */
-    public void forceInsert(Automaton a) throws Exception{
-        boolean isNew = true;
+    public void forceInsert(Automaton a) throws Exception {
         BigInteger hash = a.myHashCode();
-        if (isNew) {
-            allMinNFAs.add(a);
-            if (AutomatonClasses.get(hash) != null) {
-                AutomatonClasses.get(hash).add(a);
-            } else {
-                AutomatonClasses.put(hash, new ArrayList<Automaton>());
-                AutomatonClasses.get(hash).add(a);
-            }
-            
-            /*if (AutomatonClasses.get(hash).size() > max_collisions){
-                max_collisions = AutomatonClasses.get(hash).size();
-                System.out.println(max_collisions);
-            }*/
+        allMinNFAs.add(a);
+        this.size++;
+        if (AutomatonClasses.get(hash) != null) {
+            AutomatonClasses.get(hash).add(a);
+        } else {
+            AutomatonClasses.put(hash, new ArrayList<Automaton>());
+            AutomatonClasses.get(hash).add(a);
         }
+
+        /*if (AutomatonClasses.get(hash).size() > max_collisions){
+         max_collisions = AutomatonClasses.get(hash).size();
+         System.out.println(max_collisions);
+         }*/
     }
     
     
@@ -74,5 +73,18 @@ public class MinimalAutomatonHashMap {
             this.forceInsert(a);
         }
         return isNew;
+    }
+    
+    
+    public void clear(){
+        this.AutomatonClasses.clear();
+        this.allMinNFAs.clear();
+        this.size = 0;
+        this.max_collisions = 0;
+        this.comparison_count = 0;
+    }
+    
+    public long size(){
+        return this.size;
     }
 }

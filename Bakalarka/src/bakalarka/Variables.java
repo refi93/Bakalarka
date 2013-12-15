@@ -38,8 +38,7 @@ public class Variables {
     static Long counterOfTestedAutomata = (long)0; // pocitadlo vygenerovanych automatov
     
     public static int hashWordLength = 5; // dlzka slova, po ktoru hashujeme 
-    
-    public static int hashMapSizeThreshold = 4747; // velkost hashMapy, pri ktorej sa uz oplati hashMapu vyprazdnit pri vypoctoch aby sa zrychlili
+    public static long hashMapSizeThreshold = 100000; // maximalna dlzka hashMapy pocas vypoctov, aby to bolo prakticke
     
     // sluzi na inicializaciu niektorych premennych - mapy so slovami, casu, ...
     static void initialize() throws Exception{

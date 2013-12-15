@@ -1,0 +1,331 @@
+run:
+0 automata generated, time: 0s 
+thread id: 0, currently 0 in MinimalAutomatonHashMap
+Merged 3 automata
+Merged 1 automata
+Merging candidates started for 1 states at time: 0s
+Number of candidates lists: 2
+Merged 4 automata
+Merging ended, time: 0s
+4 languages found
+Merged 63 automata
+Merged 72 automata
+Merging candidates started for 2 states at time: 0s
+Number of candidates lists: 2
+Merged 122 automata
+Merging ended, time: 0s
+213 languages found
+Merged 4748 automata
+Merged 4748 automata
+100000 automata generated, time: 18s 
+thread id: 1, currently 2563 in MinimalAutomatonHashMap
+Merged 8254 automata
+Merged 8320 automata
+200000 automata generated, time: 36s 
+thread id: 1, currently 2675 in MinimalAutomatonHashMap
+Merged 12211 automata
+Merged 12215 automata
+300000 automata generated, time: 55s 
+thread id: 1, currently 2081 in MinimalAutomatonHashMap
+Merged 15219 automata
+Merged 15191 automata
+400000 automata generated, time: 01m 14s 
+thread id: 0, currently 1704 in MinimalAutomatonHashMap
+500000 automata generated, time: 01m 30s 
+thread id: 1, currently 4390 in MinimalAutomatonHashMap
+Merged 17053 automata
+Merged 17157 automata
+Merged 17174 automata
+Merging candidates started for 3 states at time: 01m 45s
+Number of candidates lists: 2
+Merged 28463 automata
+Merging ended, time: 01m 49s
+10000 minimal NFAs proceeded
+20000 minimal NFAs proceeded
+30000 minimal NFAs proceeded
+40000 minimal NFAs proceeded
+45113 languages found
+600000 automata generated, time: 02m 44s 
+thread id: 0, currently 27 in MinimalAutomatonHashMap
+700000 automata generated, time: 02m 56s 
+thread id: 0, currently 29 in MinimalAutomatonHashMap
+thread id: 1, currently 30 in MinimalAutomatonHashMap
+800000 automata generated, time: 03m 08s 
+900000 automata generated, time: 03m 22s 
+thread id: 0, currently 30 in MinimalAutomatonHashMap
+1000000 automata generated, time: 03m 39s 
+thread id: 1, currently 61 in MinimalAutomatonHashMap
+1100000 automata generated, time: 04m 00s 
+thread id: 0, currently 264 in MinimalAutomatonHashMap
+1200000 automata generated, time: 04m 21s 
+thread id: 0, currently 660 in MinimalAutomatonHashMap
+1300000 automata generated, time: 04m 43s 
+thread id: 1, currently 806 in MinimalAutomatonHashMap
+1400000 automata generated, time: 05m 05s 
+thread id: 0, currently 805 in MinimalAutomatonHashMap
+1500000 automata generated, time: 05m 27s 
+thread id: 1, currently 1141 in MinimalAutomatonHashMap
+1600000 automata generated, time: 05m 49s 
+thread id: 0, currently 1256 in MinimalAutomatonHashMap
+1700000 automata generated, time: 06m 15s 
+thread id: 0, currently 1615 in MinimalAutomatonHashMap
+thread id: 1, currently 1872 in MinimalAutomatonHashMap
+1800000 automata generated, time: 06m 38s 
+1900000 automata generated, time: 07m 06s 
+thread id: 0, currently 2332 in MinimalAutomatonHashMap
+2000000 automata generated, time: 07m 32s 
+thread id: 1, currently 2941 in MinimalAutomatonHashMap
+2100000 automata generated, time: 07m 55s 
+thread id: 0, currently 2593 in MinimalAutomatonHashMap
+2200000 automata generated, time: 08m 21s 
+thread id: 0, currently 2842 in MinimalAutomatonHashMap
+2300000 automata generated, time: 08m 45s 
+thread id: 0, currently 2938 in MinimalAutomatonHashMap
+2400000 automata generated, time: 09m 07s 
+thread id: 1, currently 3371 in MinimalAutomatonHashMap
+2500000 automata generated, time: 09m 32s 
+thread id: 1, currently 3562 in MinimalAutomatonHashMap
+2600000 automata generated, time: 09m 57s 
+thread id: 0, currently 3228 in MinimalAutomatonHashMap
+2700000 automata generated, time: 10m 26s 
+thread id: 0, currently 3317 in MinimalAutomatonHashMap
+2800000 automata generated, time: 11m 04s 
+thread id: 0, currently 3451 in MinimalAutomatonHashMap
+2900000 automata generated, time: 11m 38s 
+thread id: 1, currently 4014 in MinimalAutomatonHashMap
+3000000 automata generated, time: 12m 06s 
+thread id: 0, currently 3629 in MinimalAutomatonHashMap
+3100000 automata generated, time: 12m 39s 
+thread id: 1, currently 4308 in MinimalAutomatonHashMap
+3200000 automata generated, time: 13m 09s 
+thread id: 0, currently 3803 in MinimalAutomatonHashMap
+3300000 automata generated, time: 13m 34s 
+thread id: 1, currently 4323 in MinimalAutomatonHashMap
+3400000 automata generated, time: 14m 06s 
+thread id: 0, currently 3844 in MinimalAutomatonHashMap
+3500000 automata generated, time: 14m 35s 
+thread id: 1, currently 4363 in MinimalAutomatonHashMap
+3600000 automata generated, time: 15m 04s 
+thread id: 0, currently 3885 in MinimalAutomatonHashMap
+3700000 automata generated, time: 15m 31s 
+thread id: 1, currently 4411 in MinimalAutomatonHashMap
+3800000 automata generated, time: 16m 00s 
+thread id: 1, currently 4565 in MinimalAutomatonHashMap
+3900000 automata generated, time: 16m 34s 
+thread id: 1, currently 4719 in MinimalAutomatonHashMap
+Merged 4748 automata
+4000000 automata generated, time: 17m 00s 
+thread id: 1, currently 54 in MinimalAutomatonHashMap
+4100000 automata generated, time: 17m 25s 
+thread id: 1, currently 233 in MinimalAutomatonHashMap
+4200000 automata generated, time: 17m 53s 
+thread id: 0, currently 4375 in MinimalAutomatonHashMap
+4300000 automata generated, time: 18m 18s 
+thread id: 1, currently 406 in MinimalAutomatonHashMap
+4400000 automata generated, time: 18m 43s 
+thread id: 1, currently 450 in MinimalAutomatonHashMap
+Merged 4748 automata
+4500000 automata generated, time: 19m 24s 
+thread id: 0, currently 448 in MinimalAutomatonHashMap
+4600000 automata generated, time: 20m 02s 
+thread id: 1, currently 1488 in MinimalAutomatonHashMap
+4700000 automata generated, time: 20m 27s 
+thread id: 1, currently 1536 in MinimalAutomatonHashMap
+4800000 automata generated, time: 20m 52s 
+thread id: 0, currently 932 in MinimalAutomatonHashMap
+4900000 automata generated, time: 21m 17s 
+thread id: 1, currently 1563 in MinimalAutomatonHashMap
+5000000 automata generated, time: 21m 46s 
+thread id: 0, currently 1098 in MinimalAutomatonHashMap
+5100000 automata generated, time: 22m 10s 
+thread id: 1, currently 1563 in MinimalAutomatonHashMap
+5200000 automata generated, time: 22m 33s 
+thread id: 0, currently 1128 in MinimalAutomatonHashMap
+5300000 automata generated, time: 23m 02s 
+thread id: 1, currently 1651 in MinimalAutomatonHashMap
+5400000 automata generated, time: 23m 37s 
+thread id: 0, currently 1341 in MinimalAutomatonHashMap
+5500000 automata generated, time: 24m 08s 
+thread id: 0, currently 1407 in MinimalAutomatonHashMap
+5600000 automata generated, time: 24m 36s 
+thread id: 1, currently 1824 in MinimalAutomatonHashMap
+5700000 automata generated, time: 25m 09s 
+thread id: 0, currently 1546 in MinimalAutomatonHashMap
+5800000 automata generated, time: 25m 39s 
+thread id: 1, currently 2029 in MinimalAutomatonHashMap
+5900000 automata generated, time: 26m 08s 
+thread id: 0, currently 1636 in MinimalAutomatonHashMap
+6000000 automata generated, time: 26m 38s 
+thread id: 1, currently 2083 in MinimalAutomatonHashMap
+6100000 automata generated, time: 27m 17s 
+thread id: 1, currently 2217 in MinimalAutomatonHashMap
+6200000 automata generated, time: 28m 04s 
+thread id: 1, currently 2512 in MinimalAutomatonHashMap
+6300000 automata generated, time: 28m 42s 
+thread id: 1, currently 2619 in MinimalAutomatonHashMap
+6400000 automata generated, time: 29m 09s 
+thread id: 1, currently 2628 in MinimalAutomatonHashMap
+6500000 automata generated, time: 29m 37s 
+thread id: 1, currently 2630 in MinimalAutomatonHashMap
+6600000 automata generated, time: 30m 10s 
+thread id: 1, currently 2630 in MinimalAutomatonHashMap
+6700000 automata generated, time: 30m 44s 
+thread id: 1, currently 2630 in MinimalAutomatonHashMap
+6800000 automata generated, time: 31m 14s 
+thread id: 0, currently 2234 in MinimalAutomatonHashMap
+6900000 automata generated, time: 31m 44s 
+thread id: 0, currently 2234 in MinimalAutomatonHashMap
+7000000 automata generated, time: 32m 12s 
+thread id: 1, currently 2630 in MinimalAutomatonHashMap
+7100000 automata generated, time: 32m 41s 
+thread id: 1, currently 2648 in MinimalAutomatonHashMap
+7200000 automata generated, time: 33m 18s 
+thread id: 1, currently 2755 in MinimalAutomatonHashMap
+7300000 automata generated, time: 33m 54s 
+thread id: 0, currently 2421 in MinimalAutomatonHashMap
+7400000 automata generated, time: 36m 33s 
+thread id: 0, currently 2456 in MinimalAutomatonHashMap
+7500000 automata generated, time: 39m 00s 
+thread id: 0, currently 2466 in MinimalAutomatonHashMap
+7600000 automata generated, time: 41m 47s 
+thread id: 0, currently 2485 in MinimalAutomatonHashMap
+7700000 automata generated, time: 44m 55s 
+thread id: 1, currently 3079 in MinimalAutomatonHashMap
+7800000 automata generated, time: 47m 52s 
+thread id: 0, currently 2662 in MinimalAutomatonHashMap
+7900000 automata generated, time: 51m 10s 
+thread id: 0, currently 2751 in MinimalAutomatonHashMap
+8000000 automata generated, time: 53m 43s 
+thread id: 0, currently 2753 in MinimalAutomatonHashMap
+8100000 automata generated, time: 56m 24s 
+thread id: 0, currently 2761 in MinimalAutomatonHashMap
+8200000 automata generated, time: 59m 23s 
+thread id: 1, currently 3231 in MinimalAutomatonHashMap
+8300000 automata generated, time: 01h 03m 48s 
+thread id: 0, currently 2936 in MinimalAutomatonHashMap
+8400000 automata generated, time: 01h 08m 09s 
+thread id: 1, currently 3442 in MinimalAutomatonHashMap
+8500000 automata generated, time: 01h 11m 54s 
+thread id: 0, currently 2994 in MinimalAutomatonHashMap
+8600000 automata generated, time: 01h 14m 42s 
+thread id: 1, currently 3495 in MinimalAutomatonHashMap
+8700000 automata generated, time: 01h 17m 27s 
+thread id: 1, currently 3495 in MinimalAutomatonHashMap
+8800000 automata generated, time: 01h 20m 31s 
+thread id: 1, currently 3495 in MinimalAutomatonHashMap
+8900000 automata generated, time: 01h 23m 51s 
+thread id: 0, currently 2994 in MinimalAutomatonHashMap
+9000000 automata generated, time: 01h 27m 29s 
+thread id: 1, currently 3535 in MinimalAutomatonHashMap
+9100000 automata generated, time: 01h 30m 44s 
+thread id: 0, currently 3073 in MinimalAutomatonHashMap
+9200000 automata generated, time: 01h 34m 12s 
+thread id: 1, currently 3557 in MinimalAutomatonHashMap
+9300000 automata generated, time: 01h 36m 59s 
+thread id: 0, currently 3073 in MinimalAutomatonHashMap
+9400000 automata generated, time: 01h 39m 48s 
+thread id: 1, currently 3557 in MinimalAutomatonHashMap
+9500000 automata generated, time: 01h 42m 48s 
+thread id: 1, currently 3563 in MinimalAutomatonHashMap
+9600000 automata generated, time: 01h 46m 00s 
+thread id: 1, currently 3565 in MinimalAutomatonHashMap
+9700000 automata generated, time: 01h 50m 11s 
+thread id: 1, currently 3584 in MinimalAutomatonHashMap
+9800000 automata generated, time: 01h 53m 15s 
+thread id: 0, currently 3098 in MinimalAutomatonHashMap
+9900000 automata generated, time: 01h 56m 35s 
+thread id: 1, currently 3608 in MinimalAutomatonHashMap
+10000000 automata generated, time: 01h 59m 40s 
+thread id: 1, currently 3610 in MinimalAutomatonHashMap
+10100000 automata generated, time: 02h 02m 38s 
+thread id: 1, currently 3610 in MinimalAutomatonHashMap
+10200000 automata generated, time: 02h 05m 52s 
+thread id: 0, currently 3106 in MinimalAutomatonHashMap
+10300000 automata generated, time: 02h 09m 34s 
+thread id: 0, currently 3122 in MinimalAutomatonHashMap
+10400000 automata generated, time: 02h 12m 54s 
+thread id: 1, currently 3642 in MinimalAutomatonHashMap
+10500000 automata generated, time: 02h 16m 20s 
+thread id: 1, currently 3644 in MinimalAutomatonHashMap
+10600000 automata generated, time: 02h 19m 35s 
+thread id: 1, currently 3647 in MinimalAutomatonHashMap
+10700000 automata generated, time: 02h 22m 58s 
+thread id: 0, currently 3134 in MinimalAutomatonHashMap
+10800000 automata generated, time: 02h 26m 10s 
+thread id: 1, currently 3649 in MinimalAutomatonHashMap
+10900000 automata generated, time: 02h 30m 03s 
+thread id: 1, currently 3673 in MinimalAutomatonHashMap
+11000000 automata generated, time: 02h 35m 40s 
+thread id: 1, currently 3707 in MinimalAutomatonHashMap
+11100000 automata generated, time: 02h 39m 19s 
+thread id: 1, currently 3723 in MinimalAutomatonHashMap
+11200000 automata generated, time: 02h 43m 07s 
+thread id: 1, currently 3735 in MinimalAutomatonHashMap
+11300000 automata generated, time: 02h 46m 20s 
+thread id: 1, currently 3735 in MinimalAutomatonHashMap
+11400000 automata generated, time: 02h 49m 28s 
+thread id: 0, currently 3192 in MinimalAutomatonHashMap
+11500000 automata generated, time: 02h 52m 34s 
+thread id: 0, currently 3192 in MinimalAutomatonHashMap
+11600000 automata generated, time: 02h 55m 49s 
+thread id: 0, currently 3192 in MinimalAutomatonHashMap
+11700000 automata generated, time: 02h 59m 28s 
+thread id: 1, currently 3735 in MinimalAutomatonHashMap
+11800000 automata generated, time: 03h 03m 17s 
+thread id: 1, currently 3753 in MinimalAutomatonHashMap
+11900000 automata generated, time: 03h 06m 40s 
+thread id: 0, currently 3220 in MinimalAutomatonHashMap
+12000000 automata generated, time: 03h 10m 11s 
+thread id: 0, currently 3220 in MinimalAutomatonHashMap
+12100000 automata generated, time: 03h 13m 29s 
+thread id: 1, currently 3754 in MinimalAutomatonHashMap
+12200000 automata generated, time: 03h 16m 55s 
+thread id: 1, currently 3755 in MinimalAutomatonHashMap
+12300000 automata generated, time: 03h 20m 00s 
+thread id: 1, currently 3755 in MinimalAutomatonHashMap
+12400000 automata generated, time: 03h 23m 17s 
+thread id: 1, currently 3755 in MinimalAutomatonHashMap
+12500000 automata generated, time: 03h 26m 32s 
+thread id: 0, currently 3361 in MinimalAutomatonHashMap
+12600000 automata generated, time: 03h 30m 01s 
+thread id: 0, currently 3771 in MinimalAutomatonHashMap
+Merged 8408 automata
+12700000 automata generated, time: 03h 35m 54s 
+thread id: 1, currently 123 in MinimalAutomatonHashMap
+12800000 automata generated, time: 03h 41m 25s 
+thread id: 1, currently 668 in MinimalAutomatonHashMap
+Merged 8027 automata
+12900000 automata generated, time: 03h 47m 50s 
+thread id: 1, currently 1315 in MinimalAutomatonHashMap
+13000000 automata generated, time: 03h 53m 39s 
+thread id: 1, currently 1799 in MinimalAutomatonHashMap
+13100000 automata generated, time: 04h 00m 38s 
+thread id: 1, currently 2082 in MinimalAutomatonHashMap
+13200000 automata generated, time: 04h 09m 11s 
+thread id: 1, currently 2969 in MinimalAutomatonHashMap
+13300000 automata generated, time: 04h 19m 51s 
+thread id: 1, currently 3485 in MinimalAutomatonHashMap
+13400000 automata generated, time: 04h 28m 56s 
+thread id: 1, currently 3711 in MinimalAutomatonHashMap
+13500000 automata generated, time: 04h 39m 06s 
+thread id: 0, currently 3097 in MinimalAutomatonHashMap
+13600000 automata generated, time: 04h 49m 36s 
+thread id: 0, currently 3142 in MinimalAutomatonHashMap
+13700000 automata generated, time: 04h 59m 38s 
+thread id: 0, currently 3353 in MinimalAutomatonHashMap
+13800000 automata generated, time: 05h 09m 09s 
+thread id: 1, currently 4193 in MinimalAutomatonHashMap
+13900000 automata generated, time: 05h 19m 07s 
+thread id: 0, currently 3437 in MinimalAutomatonHashMap
+14000000 automata generated, time: 05h 28m 15s 
+thread id: 1, currently 4341 in MinimalAutomatonHashMap
+14100000 automata generated, time: 05h 35m 53s 
+thread id: 0, currently 3617 in MinimalAutomatonHashMap
+14200000 automata generated, time: 05h 46m 25s 
+thread id: 1, currently 4707 in MinimalAutomatonHashMap
+Merged 10259 automata
+14300000 automata generated, time: 06h 04m 06s 
+thread id: 1, currently 243 in MinimalAutomatonHashMap
+14400000 automata generated, time: 06h 14m 48s 
+thread id: 1, currently 896 in MinimalAutomatonHashMap
+BUILD STOPPED (total time: 382 minutes 42 seconds)

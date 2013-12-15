@@ -7,7 +7,6 @@
 package bakalarka;
 
 import java.io.IOException;
-import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
 
 /**
@@ -82,6 +81,7 @@ public class Experiments {
                 "#initial state is fixed to 0 the format of output is the following\n"
                 + "#/number of the automaton\n"
                 + "#number of states\n"
+                + "#id of initial state (-1 if none)"
                 + "#number of final states followed by final states enumeration\n"
                 + "#number of transitions followed by its enumeration\n"
                 + "#from_state to_state character\n"

@@ -12,11 +12,17 @@ package bakalarka;
  * identifikator stavu dany cislom
  */
 public class IntegerIdentificator implements Identificator{
-    Integer value;
+    private Integer value;
+    int MAX_VAL = 31;
     
     
     public IntegerIdentificator(Integer x){
-        this.value = x;
+        if (x <= MAX_VAL){
+            this.value = x;
+        }
+        else{
+            System.out.println("MAX VALUE OF INTEGER IDENTIFICATOR EXCEEDED");
+        }
     }
     
     
@@ -47,7 +53,7 @@ public class IntegerIdentificator implements Identificator{
      */
     @Override
     public int hashCode(){
-        return (new Integer(this.value)).hashCode();
+        return this.value;
     }
 
     

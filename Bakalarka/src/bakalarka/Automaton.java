@@ -463,6 +463,13 @@ public class Automaton{
     public void print(FastPrint out) throws IOException{
         // vypis poctu stavov
         out.println(new Integer(this.allStatesIds.size()).toString());
+        // vypis pociatocneho stavu
+        if(this.initialStatesIds.iterator().hasNext()){
+            out.println(this.initialStatesIds.iterator().next().toString());
+        }
+        else{
+            out.println("-1"); // ak to nahodou nema pociatocny stav
+        }
         // vypis poctu konecnych stavov
         out.println(new Integer(this.finalStatesIds.size()).toString());
         // vypis konecnych stavov
