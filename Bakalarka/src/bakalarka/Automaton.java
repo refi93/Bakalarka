@@ -460,7 +460,7 @@ public class Automaton{
     
 
     /* metoda na vypisanie automatu - lepsie parsovatelne ako to, co vypise toString() */
-    public void print(FastPrint out) throws IOException{
+    public void print(FastPrint out) throws IOException, Exception{
         // vypis poctu stavov
         out.println(new Integer(this.allStatesIds.size()).toString());
         // vypis pociatocneho stavu
@@ -487,7 +487,6 @@ public class Automaton{
                 }
             }
         }
-        out.println("");
     }
     
     
@@ -770,6 +769,7 @@ public class Automaton{
                     hash_cache = hash_cache.setBit(pos);
                     //hash_cache = hash_cache | (((long)1) << pos);
                 }
+                hash_cache = new BigInteger(hash_cache.toString() + myHashCode2(Variables.hashString1).value + myHashCode2(Variables.hashString2).value);
             }
             else {
                 hash_cache = BigInteger.valueOf(words.hashCode());
@@ -778,5 +778,37 @@ public class Automaton{
         return hash_cache;
     }
     
+    
+    public BinaryWord myHashCode2(String hashString) throws Exception{
+        int charIndex = 0; //index znaku v hashovacom slove 
+        PowerSetIdentificator currentStates = new PowerSetIdentificator(this.initialStatesIds);
+        BinaryWord ret = new BinaryWord();
+        
+        while((charIndex < hashString.length())&&(!currentStates.isEmpty())){
+            Character c = hashString.charAt(charIndex);
+            
+            PowerSetIdentificator newStates = new PowerSetIdentificator();
+            boolean isFinalState = false;
+            for(Identificator id : currentStates){
+                if (this.getState(id).getTransition(c) != null){
+                    for(Identificator transitionStateId : this.getState(id).getTransition(c)){
+                        newStates.add(transitionStateId);
+                        if(this.finalStatesIds.contains(transitionStateId)){
+                            isFinalState = true;
+                        }
+                    }
+                }
+            }
+            
+            currentStates = newStates;
+            ret.append(isFinalState?1:0);
+            charIndex++;
+        }
+        
+        while(ret.length < Variables.hashString1.length()){
+            ret.append(0);
+        }
+        return ret;
+    }
     // more methods go here
 }     

@@ -30,6 +30,7 @@ public class TransitionsIterator implements Iterator {
             TransitionMatrixIterators.put(c, it);
             this.currentMatrices.put(c, it.next());
         }
+        
 
         this.numberOfStates = n;
         this.limit = (long) Math.pow(2, 2 * n * n);
@@ -37,58 +38,45 @@ public class TransitionsIterator implements Iterator {
     }
 
     
-    public void skip() {
-        if (Variables.alphabet.size() == 2){
-            this.next();
-            return;
-        }
-        for (Character c : Variables.alphabet) {
-            MatrixIterator it = this.TransitionMatrixIterators.get(c);
-            if (!it.hasNext()) {
-                it = new MatrixIterator(this.numberOfStates);
-
-                // toto funguje len na 2-pismenkovej abecede - prehodenie 1 a 0 v delta-funckii
-                if (c.equals(Variables.alphabet.get(0)) && (Variables.alphabet.size() == 2)) {
-                    it = new MatrixIterator(this.numberOfStates, this.TransitionMatrixIterators.get(Variables.alphabet.get(1)));
-                }
-                // ---------------------------
-
-                it.skip();
-                this.TransitionMatrixIterators.put(c, it);
-            } else {
-                it.skip();
-                break;
-            }
-        }
-
-        this.state++;
-    }
+    // interna premenna, kde si pamatame, ci mame este co dodat
+    private boolean hasNext = true;
     
     @Override
     public boolean hasNext() {
-        for (Character c : Variables.alphabet) {
-            if (this.TransitionMatrixIterators.get(c).hasNext()) {
-                return true;
-            }
-        }
-        return false;
+        if (this.numberOfStates == 0) return false;
+        return hasNext;
     }
 
+    
+    // interna funkcia na overenie, ci iterator ma este co dodat
+    private void checkNext(){
+        for(Character c : Variables.alphabet){
+            if(this.TransitionMatrixIterators.get(c).hasNext()){
+                this.hasNext = true;
+                return;
+            }
+        }
+        this.hasNext = false;
+    }
+    
+    
     @Override
     public HashMap<Character, Matrix> next() {
 
+        if (!this.hasNext()) return null;
+        this.checkNext();
+        
         HashMap<Character, Matrix> ret = new HashMap<>();
         for (Character c : Variables.alphabet) {
             ret.put(c, this.currentMatrices.get(c));
         }
-
+        
         for (Character c : Variables.alphabet) {
             MatrixIterator it = this.TransitionMatrixIterators.get(c);
             if (!it.hasNext()) {
                 it = new MatrixIterator(this.numberOfStates);
 
                 // toto funguje len na 2-pismenkovej abecede - prehodenie 1 a 0 v delta-funckii
-
                 if ((c.equals(Variables.alphabet.get(0))) && (Variables.alphabet.size() == 2)) {
                     it = new MatrixIterator(this.numberOfStates, this.TransitionMatrixIterators.get(Variables.alphabet.get(1)));
                 }

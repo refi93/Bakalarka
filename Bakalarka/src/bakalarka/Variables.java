@@ -37,8 +37,14 @@ public class Variables {
     
     static Long counterOfTestedAutomata = (long)0; // pocitadlo vygenerovanych automatov
     
+    
+    public static String hashString2 = "1010011001000111010101000011101";
+    public static String hashString1 = "0101100110111000101010111100010";
+    
+    
     public static int hashWordLength = 5; // dlzka slova, po ktoru hashujeme 
     public static long hashMapSizeThreshold = 100000; // maximalna dlzka hashMapy pocas vypoctov, aby to bolo prakticke
+   
     
     // sluzi na inicializaciu niektorych premennych - mapy so slovami, casu, ...
     static void initialize() throws Exception{

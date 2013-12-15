@@ -18,7 +18,7 @@ public class BinaryWord {
     public int length;
     
     // tato trieda tu je len kvoli hashovaniu, tak preto nastavime max dlzku takto
-    private int MAX_LEN = Variables.hashWordLength;
+    private final int MAX_LEN = 32;
     
     
     /* prazdny konstruktor */
@@ -37,7 +37,7 @@ public class BinaryWord {
     
     /* pridanie znaku na koniec */
     public BinaryWord append(int val) throws Exception{
-        if (length > 32){
+        if (length > MAX_LEN){
             throw new Exception("MAXIMAL LENGTH EXCEEDED");
         }
         if (val > 1){
