@@ -6,6 +6,7 @@
 
 package bakalarka;
 
+import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,6 +27,15 @@ public class MinimalAutomatonHashMap {
     public MinimalAutomatonHashMap(){
         this.AutomatonClasses = new HashMap<>();
         this.allMinNFAs = new ArrayList<>();
+    }
+    
+    
+    /* out - odkaz kam vypisovat, startIndex - pociatocny index, od ktoreho vypisovat automaty */
+    public void print(FastPrint out, int startIndex) throws IOException, Exception{
+        out.println(Integer.valueOf(this.allMinNFAs.size()).toString());
+        for(int i = startIndex; i < this.allMinNFAs.size();i++){
+            Experiments.printAutomaton(allMinNFAs.get(i), i, out,false); // vypiseme a nechceme minimalne DFA
+        }
     }
     
     

@@ -6,6 +6,7 @@
 
 package bakalarka;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -33,6 +34,24 @@ public class AutomatonIterator implements Iterator{
     // pocet stavov, ktory uvazujeme
     Integer numberOfStates;
     boolean hasNext;
+    
+    
+    public void printState(FastPrint out) throws IOException{
+        out.println("#allSubsetsIterator state");
+        out.println("#allTransitionsIterator state");
+        out.println("#alphabet size");
+        out.println("#charcter of alphabet followed by numeric representation of incidence matrix");
+        
+        out.println(Long.valueOf(this.allSubsetsIterator.state).toString());
+        out.println(Long.valueOf(this.allTransitionsIterator.state).toString());
+        out.println(Integer.valueOf(Variables.alphabet.size()).toString());
+        for(Character c : Variables.alphabet){
+            out.println(c.toString());
+            out.println(Long.valueOf(this.allTransitionsIterator.currentMatrices.get(c).getNumericRepresentation()).toString());
+        }
+        
+        out.println("#finish of Automaton iterator backup");
+    }
     
     
     public AutomatonIterator(int n) throws Exception{

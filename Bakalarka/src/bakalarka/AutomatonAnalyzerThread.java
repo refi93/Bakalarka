@@ -6,6 +6,7 @@
 
 package bakalarka;
 
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,6 +20,8 @@ public class AutomatonAnalyzerThread extends Thread {
     MinimalAutomatonHashMap minimalNFAsResult;
     AutomatonIterator it;
     int id, numberOfWorkers;
+    int lastBackupTime = 0; // posledny cas zalohovania vysledkov threadu
+    int lastBackupedAutomatonId = 0; // id posledneho odzalohovaneho automatu
     
     
     /* numberOfStates - pocet stavov v automatoch, ktore sa budu generovat
@@ -30,16 +33,38 @@ public class AutomatonAnalyzerThread extends Thread {
         this.it = new AutomatonIterator(numberOfStates);
         this.id = id;
         this.numberOfWorkers = Variables.numberOfCores;
+        this.lastBackupTime = (int)((System.nanoTime() - Variables.start) / 1000000000);
+    }
+    
+    
+    public void backup() throws IOException, Exception{
+        System.err.printf("started backup of thread with id%d at time %s%n",this.id, Functions.getFormattedTime(this.lastBackupTime));
+        FastPrint out = new FastPrint(Integer.valueOf(id).toString());
+        it.printState(out);
+        this.minimalNFAsResult.print(out, lastBackupedAutomatonId);
+        this.lastBackupTime = (int)((System.nanoTime() - Variables.start) / 1000000000);
+        this.lastBackupedAutomatonId = this.minimalNFAsResult.allMinNFAs.size();
+        out.close();
+        System.err.printf("done backup at time %s%n", Functions.getFormattedTime(this.lastBackupTime));
     }
     
     
     @Override
     public void run(){
         int counter = 0;
-        MinimalAutomatonHashMap minimalNFAsCurrent = new MinimalAutomatonHashMap();
         
         while(it.hasNext()){
             if(counter % numberOfWorkers == id){
+                int currentTime = (int)((System.nanoTime() - Variables.start) / 1000000000);
+                
+                if (currentTime - lastBackupTime > Variables.backupInterval){
+                    try {
+                        this.backup();
+                    } catch (Exception ex) {
+                        Logger.getLogger(AutomatonAnalyzerThread.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                
                 Automaton a = it.next();
                 // vypisovanie pocitadla po 100 000 nextoch
                 // zalockujeme counter, aby ho ostatne thready nemohli menit
@@ -51,13 +76,8 @@ public class AutomatonAnalyzerThread extends Thread {
                 }
                 try {
                     if (!Variables.allMinimalNFAs.containsEquivalent(a)){
-                        if(!minimalNFAsCurrent.containsEquivalent(a)){
-                            minimalNFAsCurrent.forceInsert(a);
-                            // ak presiahneme velkost hashMapy, tak ju vysypeme do vysledkov a zacneme plnit odznova
-                            if (minimalNFAsCurrent.size() > Variables.hashMapSizeThreshold){
-                                minimalNFAsResult = MergeThread.merge(minimalNFAsCurrent, minimalNFAsResult);
-                                minimalNFAsCurrent = new MinimalAutomatonHashMap();
-                            }
+                        if(!minimalNFAsResult.containsEquivalent(a)){
+                            minimalNFAsResult.forceInsert(a);
                         }
                     }
                 } catch (Exception ex) {
@@ -68,14 +88,6 @@ public class AutomatonAnalyzerThread extends Thread {
                 it.skip(); // vykona sa iteracia naprazdno - len sa posunie counter
             }
             counter++;
-        }
-        
-        
-        // nakoniec do vysledku pripojime doterajsie vypocty
-        try {
-            minimalNFAsResult = MergeThread.merge(minimalNFAsResult, minimalNFAsCurrent);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(AutomatonAnalyzerThread.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

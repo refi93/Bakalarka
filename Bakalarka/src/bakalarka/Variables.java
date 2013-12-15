@@ -43,8 +43,8 @@ public class Variables {
     
     
     public static int hashWordLength = 5; // dlzka slova, po ktoru hashujeme 
-    public static long hashMapSizeThreshold = 100000; // maximalna dlzka hashMapy pocas vypoctov, aby to bolo prakticke
-   
+    
+    public static int backupInterval = 21600; // backup vysledkov threadu po kazdych 6 hodinach
     
     // sluzi na inicializaciu niektorych premennych - mapy so slovami, casu, ...
     static void initialize() throws Exception{

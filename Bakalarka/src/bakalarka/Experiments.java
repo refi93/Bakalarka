@@ -55,15 +55,18 @@ public class Experiments {
     /* Automaton a - automat na vypisanie
        long counter - pocitadlo - poradie toho automatu
        FastPrint out - kam sa ma vypisovat ten automat
+       boolean computeMinimalDFA - ci sa ma vyratat a vypisat minimalne DFA
     */
-    public static void printAutomaton(Automaton a, long counter, FastPrint out) throws IOException, Exception{
-        out.println("/" + counter);
+    public static void printAutomaton(Automaton a, long counter, FastPrint out, boolean computeMinimalDFA) throws IOException, Exception{
+        out.println("#" + counter);
         a.print(out);
-        Automaton detA = a.minimalDFA().normalize();
-        detA.print(out);
-        out.println("|" + a.getNumberOfStates() + " vs " + detA.getNumberOfStates() + "|\n");
-        if (Variables.allMinimalNFAs.allMinNFAs.size() % 10000 == 0){
-            System.err.printf("%d minimal NFAs proceeded%n",Variables.allMinimalNFAs.allMinNFAs.size());
+        if (computeMinimalDFA){
+            Automaton detA = a.minimalDFA().normalize();
+            detA.print(out);
+            out.println("|" + a.getNumberOfStates() + " vs " + detA.getNumberOfStates() + "|\n");
+            if (Variables.allMinimalNFAs.allMinNFAs.size() % 10000 == 0){
+                System.err.printf("%d minimal NFAs proceeded%n",Variables.allMinimalNFAs.allMinNFAs.size());
+            }
         }
     }
     
@@ -121,7 +124,7 @@ public class Experiments {
             // najprv vlozime tie automaty, o ktorych mame istotu, ze su minimalne
             for(Automaton a : result.allMinNFAs){
                 Variables.allMinimalNFAs.forceInsert(a);
-                printAutomaton(a,Variables.allMinimalNFAs.allMinNFAs.size(),out);
+                printAutomaton(a,Variables.allMinimalNFAs.allMinNFAs.size(),out,true);
             }
             // teraz ideme hadzat tie, co maju prehodenu delta-funckiu - tie su tiez potencialne minimalne
             if (Variables.alphabet.size() == 2){
@@ -131,7 +134,7 @@ public class Experiments {
                     Automaton switchedOne = a.switchLetters();
                     boolean isNew = Variables.allMinimalNFAs.tryToInsert(switchedOne);
                     if (isNew) {
-                        printAutomaton(switchedOne, Variables.allMinimalNFAs.allMinNFAs.size(), out);
+                        printAutomaton(switchedOne, Variables.allMinimalNFAs.allMinNFAs.size(), out,true);
                     }
                 }
             }
