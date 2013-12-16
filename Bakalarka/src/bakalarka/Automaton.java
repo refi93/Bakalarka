@@ -36,22 +36,6 @@ class NoSuchStateException extends Exception
 }
 
 
-/* tato vynimka sa vyhodi ked sa pokusime pridat uz existujuce id stavu do automatu*/
-class IdAlreadyExistsException extends Exception
-{
-      //Parameterless Constructor
-      public IdAlreadyExistsException(Object id) {
-          //System.out.println("ID " + id + " ALREADY EXISTS");
-      }
-
-      //Constructor that accepts a message
-      public IdAlreadyExistsException(String message)
-      {
-         super(message);
-      }
-}
-
-
 /* tato vynimka sa vyhodi, ked sa pokusime nahradit existujuci stav nejakym
 inym, co uz tiez existuje v metode replaceStateId()
 */
@@ -246,7 +230,9 @@ public class Automaton{
     public final boolean addState(Identificator stateId) throws Exception{
         if (allStatesIds.contains(stateId)){
             //System.out.println(allStatesIds + "MARHA");
-            throw new IdAlreadyExistsException(stateId);
+            
+            return false;
+            //throw new IdAlreadyExistsException(stateId);
             //return false;
         }
         State s = new State(stateId);
@@ -323,7 +309,7 @@ public class Automaton{
         // ak automat nema konecne alebo pociatocne stavy, tak proste vratime prazdny automat
         if ((this.finalStatesIds.isEmpty()) || (this.initialStatesIds.isEmpty())){
             Automaton ret = new Automaton();
-            ret.addState(new PowerSetIdentificator());
+            ret.addState(new IntegerIdentificator(0));
             return ret;
         }
         
@@ -331,31 +317,45 @@ public class Automaton{
         
         Automaton ret = new Automaton(); // sem ulozime determinizovany automat
         
+        
+        int currentMaxStateId = 0; // pamatame si dosial najvyssie pouzite id stavu pri vytvarani DKA
+
         // pociatocny stav determinizovaneho automatu je set obsahujuci pociatocne stavy nedeterminizovaneho
-        PowerSetIdentificator retInitialStatesIds = new PowerSetIdentificator(this.initialStatesIds);
+        // stavy reprezentujuce mnoziny automaticky premenuvame na cisla kvoli rychlejsej praci - nenechaj sa zmiast zbytocne
         
-        ret.addState(retInitialStatesIds);
+        // zoznam videnych mnozin stavov - ukazuje sa, ze je praktickejsie uz vyrabat automat s celocislenymi stavmi - je to rychlejsie ako pomenuvat stavy mnozinami
+        HashMap<PowerSetOfIdentificators, IntegerIdentificator> MapOfSeenPowerSets = new HashMap<>(); 
         
-        ret.setInitialStateId(retInitialStatesIds);
-        ret.setCurrentState(retInitialStatesIds);
+        // pociatocna mnozina - mnozina pociatocnych stavov v povodnom automate
+        PowerSetOfIdentificators InitialPowerSetStatesIds = new PowerSetOfIdentificators(this.initialStatesIds);
+        IntegerIdentificator retInitialStateId = new IntegerIdentificator(currentMaxStateId++);
+        // pridame tuto dvojicu - mnozina s pociatocnymi stavmi + jej ciselny reprezentant do nasej mapy aby sme vedeli rychlo potom prekladat mnoziny na cisla
+        MapOfSeenPowerSets.put(InitialPowerSetStatesIds, retInitialStateId);
+        
+        
+        ret.addState(retInitialStateId);
+        
+        ret.setInitialStateId(retInitialStateId);
+        ret.setCurrentState(retInitialStateId);
         
         // fronta - v nej si pamatame este neexpandovane stavy
-        Queue<PowerSetIdentificator> queue = new LinkedList<>();
-        queue.add(retInitialStatesIds);
+        Queue<PowerSetOfIdentificators> queue = new LinkedList<>();
+        queue.add(InitialPowerSetStatesIds);
         // overime, ci pociatocne stavy nie su zaroven aj niektory z nich akceptacne
-        for(Identificator id : retInitialStatesIds){
+        for(Identificator id : InitialPowerSetStatesIds){
             if (pom.finalStatesIds.contains(id)){
-                ret.addFinalState(retInitialStatesIds);
+                ret.addFinalState(retInitialStateId);
+                break;
             }
         }
         
         
         while (!queue.isEmpty()){
             // vyberieme z fronty prvy stav
-            PowerSetIdentificator currentRetId = queue.peek();
+            PowerSetOfIdentificators currentRetId = queue.peek();
             
             for (Character c : Variables.alphabet){ // prechadzame moznymi znakmi abecedy
-                PowerSetIdentificator newId = new PowerSetIdentificator();
+                PowerSetOfIdentificators newId = new PowerSetOfIdentificators();
                 boolean thisIsFinalState = false; 
                 
                 // prechadzame cez stavy stareho automatu obsiahnute v stave co prave expandujeme
@@ -373,24 +373,32 @@ public class Automaton{
                     }
                 }
                 if (!newId.isEmpty()){ // ak je vysledny stav neprazdny, pridame ho
-                    try{
-                        if (thisIsFinalState){
-                            ret.finalStatesIds.add(newId);
+                        
+                        // pozreme sa, ci uz nemame tuto mnozinu zaznamenanu, ak ne, tak vytvorime si novy vlastny identifikator
+                        IntegerIdentificator idToAdd = MapOfSeenPowerSets.get(newId);
+                        if (idToAdd == null){ 
+                        // ak sme este takouto mnozinou nepresli, tak vytvorime novy stav, co ju bude reprezentovat
+                            idToAdd = new IntegerIdentificator(currentMaxStateId++);
+                            MapOfSeenPowerSets.put(newId,idToAdd);
+                            ret.addState(idToAdd);
+                            // novo objavene mnoziny pridame do fronty, nech preskumame ich susedov vzhladom na delta funkciu
+                            queue.add(newId);
                         }
-                        ret.addState(newId);
-                        queue.add(newId);
-                    }
-                    catch(Exception e){
-                        //System.out.println("ale nic");
-                    }
-                    ret.addTransition(currentRetId, newId, c);
+                        // ak mnozina obsahovala konecny stav, tak konecny stav to bude aj vo vyslednom automate
+                        if (thisIsFinalState){
+                            ret.finalStatesIds.add(idToAdd);
+                        }
+                    ret.addTransition(MapOfSeenPowerSets.get(currentRetId), MapOfSeenPowerSets.get(newId), c);
                 }
-                // toto chcelo byt pridanie odpadoveho stavu - zbytocne
+                // toto chcelo byt pridanie odpadoveho stavu - zbytocne?
                 else if (allowTrashState){
-                    if (!ret.allStatesIds.contains(newId)){
-                        ret.addState(newId);
+                    // ak sme este odpadovy stav neevidovali, tak ho pridame
+                    if (!MapOfSeenPowerSets.containsKey(newId)){
+                        IntegerIdentificator idToAdd = new IntegerIdentificator(currentMaxStateId++);
+                        ret.addState(idToAdd);
+                        MapOfSeenPowerSets.put(newId, idToAdd);
                     }
-                    ret.addTransition(currentRetId, newId, c);
+                    ret.addTransition(MapOfSeenPowerSets.get(currentRetId), MapOfSeenPowerSets.get(newId), c);
                 }
             }
             queue.remove();
@@ -398,10 +406,11 @@ public class Automaton{
         
         //.out.println(ret.allStatesIds);
         // ak niektore stavy smeruju do prazdnej mnoziny, tak tej prazdnej mnozine nastavime, nech sa cykli do seba na kazdom pismene
-        PowerSetIdentificator emptyState = new PowerSetIdentificator();
-        if (ret.allStatesIds.contains(emptyState)){
+        PowerSetOfIdentificators emptyState = new PowerSetOfIdentificators();
+        IntegerIdentificator emptyStateInRet = MapOfSeenPowerSets.get(emptyState);
+        if ((allowTrashState) && (emptyStateInRet != null)){
             for (Character c : Variables.alphabet){
-                ret.addTransition(emptyState, emptyState, c);
+                ret.addTransition(emptyStateInRet, emptyStateInRet, c);
             }
         }
         this.cacheDeterminized = ret;

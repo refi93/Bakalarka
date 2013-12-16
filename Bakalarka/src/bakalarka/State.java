@@ -16,7 +16,7 @@ import java.util.HashSet;
  * stavov, na ktore sa da prejst
  */
 
-public class State extends HashMap<Character, HashSet<Identificator> >{
+public class State extends HashMap<Character, PowerSetOfIdentificators >{
     
     /* vrati, ci je dany stav "deterministicky", teda ci je jednoznacne 
     urcene, co bude nasledovat
@@ -66,9 +66,9 @@ public class State extends HashMap<Character, HashSet<Identificator> >{
         navratova hodnota je true, ak tam ten zaznam este neexistoval
     */
     public boolean addTransition(Character c,Identificator stateId){
-        HashSet value = this.get(c);
+        PowerSetOfIdentificators value = this.get(c);
         if (value == null){
-            value = new HashSet<>();
+            value = new PowerSetOfIdentificators();
         }
         boolean ret = !value.contains(stateId); // ci tam uz je tento prechod
         value.add(stateId);

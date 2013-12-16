@@ -61,7 +61,7 @@ public class Experiments {
         out.println("#" + counter);
         a.print(out);
         if (computeMinimalDFA){
-            Automaton detA = a.minimalDFA().normalize();
+            Automaton detA = a.minimalDFA();
             detA.print(out);
             out.println("|" + a.getNumberOfStates() + " vs " + detA.getNumberOfStates() + "|\n");
             if (Variables.allMinimalNFAs.allMinNFAs.size() % 10000 == 0){

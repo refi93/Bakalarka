@@ -31,7 +31,7 @@ public class Bakalarka {
         if (args.length == 1){
             Experiments.GenerateAllNFAsOfSize(Integer.valueOf(args[0]));
         }
-        else Experiments.GenerateAllNFAsOfSize(4);
+        else Experiments.GenerateAllNFAsOfSize(3);
         //System.out.println(Experiments.SafeWordLengthExperiment(2));
         //System.out.println(Variables.connectedCount);
     }
