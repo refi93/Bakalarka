@@ -38,7 +38,7 @@ public class AutomatonAnalyzerThread extends Thread {
     
     
     public void backup() throws IOException, Exception{
-        System.err.printf("started backup of thread with id%d at time %s%n",this.id, Functions.getFormattedTime(this.lastBackupTime));
+        System.err.printf("started backup of thread with id%d at time %s%n",this.id, Functions.getCurrentTime());
         FastPrint out = new FastPrint(Integer.valueOf(id).toString());
         it.printState(out);
         this.minimalNFAsResult.print(out, lastBackupedAutomatonId);
@@ -55,9 +55,9 @@ public class AutomatonAnalyzerThread extends Thread {
         
         while(it.hasNext()){
             if(counter % numberOfWorkers == id){
-                int currentTime = (int)((System.nanoTime() - Variables.start) / 1000000000);
+                int currentTime = Functions.getCurrentTime();
                 
-                if (currentTime - lastBackupTime > Variables.backupInterval){
+                if ((Variables.backupInterval != -1)&&(currentTime - lastBackupTime > Variables.backupInterval)){
                     try {
                         this.backup();
                     } catch (Exception ex) {

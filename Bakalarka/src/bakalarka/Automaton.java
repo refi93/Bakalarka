@@ -769,7 +769,7 @@ public class Automaton{
                     hash_cache = hash_cache.setBit(pos);
                     //hash_cache = hash_cache | (((long)1) << pos);
                 }
-                hash_cache = new BigInteger(hash_cache.toString() + myHashCode2(Variables.hashString1).value + myHashCode2(Variables.hashString2).value);
+                hash_cache = new BigInteger(hash_cache.toString());
             }
             else {
                 hash_cache = BigInteger.valueOf(words.hashCode());
@@ -779,36 +779,42 @@ public class Automaton{
     }
     
     
-    public BinaryWord myHashCode2(String hashString) throws Exception{
-        int charIndex = 0; //index znaku v hashovacom slove 
-        PowerSetIdentificator currentStates = new PowerSetIdentificator(this.initialStatesIds);
-        BinaryWord ret = new BinaryWord();
+    /*public BigInteger myHashCode() throws Exception{
         
-        while((charIndex < hashString.length())&&(!currentStates.isEmpty())){
-            Character c = hashString.charAt(charIndex);
+        long ret = 0;
+        int counter = 0;
+        for(String hashString : Variables.hashStrings){
+            int charIndex = 0; //index znaku v hashovacom slove 
+            PowerSetIdentificator currentStates = new PowerSetIdentificator(this.initialStatesIds);
+            BinaryWord currentFingerprint = new BinaryWord();
+            boolean accepted = false;
+            while((charIndex < hashString.length())&&(!currentStates.isEmpty())){
+                Character c = hashString.charAt(charIndex);
             
-            PowerSetIdentificator newStates = new PowerSetIdentificator();
-            boolean isFinalState = false;
-            for(Identificator id : currentStates){
-                if (this.getState(id).getTransition(c) != null){
-                    for(Identificator transitionStateId : this.getState(id).getTransition(c)){
-                        newStates.add(transitionStateId);
-                        if(this.finalStatesIds.contains(transitionStateId)){
-                            isFinalState = true;
+                PowerSetIdentificator newStates = new PowerSetIdentificator();
+                boolean isFinalState = false;
+                for(Identificator id : currentStates){
+                    if (this.getState(id).getTransition(c) != null){
+                        for(Identificator transitionStateId : this.getState(id).getTransition(c)){
+                            newStates.add(transitionStateId);
+                            if(this.finalStatesIds.contains(transitionStateId)){
+                                isFinalState = true;
+                            }
                         }
                     }
                 }
-            }
             
-            currentStates = newStates;
-            ret.append(isFinalState?1:0);
-            charIndex++;
+                currentStates = newStates;
+                accepted = isFinalState;
+                charIndex++;
+            }
+            //System.out.println(currentFingerprint.toString());
+            ret = ret + (((long)(accepted?1:0)) << counter);
+            counter++;
+            //System.out.println(ret);
         }
-        
-        while(ret.length < Variables.hashString1.length()){
-            ret.append(0);
-        }
-        return ret;
-    }
+        //System.out.println(ret);
+        return BigInteger.valueOf(ret);
+    }*/
     // more methods go here
 }     

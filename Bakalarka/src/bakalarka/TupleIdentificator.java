@@ -47,7 +47,7 @@ public class TupleIdentificator extends ArrayList<Identificator> implements Iden
             return this.hash_cache;
         }
         else{
-            this.hash_cache = super.hashCode();
+            this.hash_cache = this.get(0).hashCode() ^ this.get(1).hashCode();
             return this.hash_cache;
         }
     }
@@ -63,7 +63,17 @@ public class TupleIdentificator extends ArrayList<Identificator> implements Iden
         }
         final TupleIdentificator other = (TupleIdentificator) obj;
         if (this.hashCode()!=other.hashCode()) return false;
-        return super.equals(obj);
+        if (!this.get(0).equals(((TupleIdentificator)obj).get(0))) return false;
+        if (!this.get(1).equals(((TupleIdentificator)obj).get(1))) return false;
+        return true;
+    }
+    
+    @Override
+    public boolean add(Identificator id){
+        if(this.size() > 1) return false; // umoznujeme vlozit len 2 prvky
+        else{
+            return super.add(id);
+        }
     }
     
 }

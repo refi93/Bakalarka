@@ -18,7 +18,7 @@ public class BinaryWord {
     public int length;
     
     // tato trieda tu je len kvoli hashovaniu, tak preto nastavime max dlzku takto
-    private final int MAX_LEN = 32;
+    private final int MAX_LEN = 31;
     
     
     /* prazdny konstruktor */

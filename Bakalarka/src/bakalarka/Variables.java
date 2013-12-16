@@ -38,13 +38,14 @@ public class Variables {
     static Long counterOfTestedAutomata = (long)0; // pocitadlo vygenerovanych automatov
     
     
-    public static String hashString2 = "1010011001000111010101000011101";
-    public static String hashString1 = "0101100110111000101010111100010";
+    public static ArrayList<String> hashStrings = new ArrayList<>();
+    public static int numberOfHashStrings = 64;
+    public static int maxHashStringLength = 8;
     
     
     public static int hashWordLength = 5; // dlzka slova, po ktoru hashujeme 
     
-    public static int backupInterval = 21600; // backup vysledkov threadu po kazdych 6 hodinach
+    public static int backupInterval = -1; // backup interval zadany v sekundach (-1 ak je backup vypnuty)
     
     // sluzi na inicializaciu niektorych premennych - mapy so slovami, casu, ...
     static void initialize() throws Exception{
@@ -67,6 +68,35 @@ public class Variables {
                 counter++;
             }
         }
+        
+        
+        /*hashStrings.add("");
+        hashStrings.add("1010101");
+        hashStrings.add("0101010");
+        hashStrings.add("0");
+        hashStrings.add("00");
+        hashStrings.add("000");
+        hashStrings.add("0000");
+        hashStrings.add("00000");
+        hashStrings.add("000000");
+        hashStrings.add("1");
+        hashStrings.add("11");
+        hashStrings.add("111");
+        hashStrings.add("1111");
+        hashStrings.add("11111");
+        hashStrings.add("111111");
+        
+        Random generator = new Random();
+        int curSize = hashStrings.size();
+        for(int i = 0;i < numberOfHashStrings - curSize;i++){
+            BinaryWord bw = new BinaryWord();
+            int limit = 7;//generator.nextInt(maxHashStringLength + 1);
+            for(int j = 0;j < limit;j++){
+                bw.append(generator.nextInt(2));
+            }
+            hashStrings.add(bw.toString());
+            System.out.println(bw.toString());
+        }*/
     }
     
     public static Long connectedCount = (long)0;

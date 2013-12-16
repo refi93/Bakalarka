@@ -30,4 +30,8 @@ public class Functions {
             }
         }
     }
+    
+    public static int getCurrentTime(){
+        return (int)((System.nanoTime() - Variables.start) / 1000000000);
+    }
 }
