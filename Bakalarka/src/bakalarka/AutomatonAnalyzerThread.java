@@ -79,9 +79,7 @@ public class AutomatonAnalyzerThread extends Thread {
                 }
                 try {
                     if (!Variables.allMinimalNFAs.containsEquivalent(a)){ // prvy test je vyskusat, ci to neni ekvivalentne s niektorym s mensich automatov
-                        if(!minimalNFAsResult.containsEquivalent(a)){
-                            minimalNFAsResult.forceInsert(a);
-                        }
+                        minimalNFAsResult.tryToInsert(a);
                     }
                 } catch (Exception ex) {
                     Logger.getLogger(AutomatonAnalyzerThread.class.getName()).log(Level.SEVERE, null, ex);
@@ -92,6 +90,7 @@ public class AutomatonAnalyzerThread extends Thread {
             }
             counter++;
         }
+        
         
     }
 }

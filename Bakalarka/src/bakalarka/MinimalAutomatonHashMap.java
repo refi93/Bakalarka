@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  *
@@ -18,14 +19,14 @@ import java.util.HashMap;
  * a dokazeme do nej aj vlozit nejake NFA a ona rozhodne, ci uz tam neni
  */
 public class MinimalAutomatonHashMap {
-    HashMap<BigIntegerTuple,ArrayList<Automaton> > AutomatonClasses = new HashMap<>();
+    HashSet<BigIntegerTuple> AutomatonClasses;
     ArrayList<Automaton> allMinNFAs;
     public int comparison_count = 0;
     int max_collisions = 0;
     private long size = 0;
     
     public MinimalAutomatonHashMap(){
-        this.AutomatonClasses = new HashMap<>();
+        this.AutomatonClasses = new HashSet<>();
         this.allMinNFAs = new ArrayList<>();
     }
     
@@ -43,14 +44,7 @@ public class MinimalAutomatonHashMap {
     public boolean containsEquivalent(Automaton a) throws Exception{
         boolean ret = false;
         BigIntegerTuple hash = a.myHashCode();
-        if (AutomatonClasses.get(hash) != null) {
-            /*for (Automaton previous : AutomatonClasses.get(hash)) {
-                comparison_count++;
-                if (previous.equivalent(a)) {
-                    ret = true;
-                    break;
-                }
-            }*/
+        if (AutomatonClasses.contains(hash)) {
             return true;
         }
         return ret;
@@ -64,17 +58,7 @@ public class MinimalAutomatonHashMap {
         BigIntegerTuple hash = a.myHashCode();
         allMinNFAs.add(a);
         this.size++;
-        if (AutomatonClasses.get(hash) != null) {
-            AutomatonClasses.get(hash).add(a);
-        } else {
-            AutomatonClasses.put(hash, new ArrayList<Automaton>());
-            AutomatonClasses.get(hash).add(a);
-        }
-
-        /*if (AutomatonClasses.get(hash).size() > max_collisions){
-         max_collisions = AutomatonClasses.get(hash).size();
-         System.out.println(max_collisions);
-         }*/
+        AutomatonClasses.add(hash); 
     }
     
     

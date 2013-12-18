@@ -12,7 +12,7 @@ import java.math.BigInteger;
  *
  * @author raf
  */
-public class BigIntegerTuple {
+public class BigIntegerTuple{
     private final BigInteger first;
     private final BigInteger second;
     
@@ -53,7 +53,7 @@ public class BigIntegerTuple {
     
     @Override
     public String toString(){
-        return "(" + this.first.toString() + " " + this.second.toString() + ")";
+        return this.first.toString() + " " + this.second.toString();
     }
     
     public static BigIntegerTuple minusOne(){

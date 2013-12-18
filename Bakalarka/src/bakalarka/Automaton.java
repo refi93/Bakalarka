@@ -57,8 +57,8 @@ class IdCollisionException extends Exception
 public class Automaton{
     private HashMap<Identificator,State> idStateMap; // tu si pamatame k idcku stav
     private HashSet<Identificator> allStatesIds; // mnozina idcok vsetkych stavov
-    private HashSet<Identificator> finalStatesIds; // mnozina idciek akceptacnych stavov
-    private HashSet<Identificator> initialStatesIds; // pociatocne stavy - pripusta sa ich viac
+    private PowerSetOfIdentificators finalStatesIds; // mnozina idciek akceptacnych stavov
+    private PowerSetOfIdentificators initialStatesIds; // pociatocne stavy - pripusta sa ich viac
     // aj ked to neni celkom kosher, ale je to kvoli minimalizacii DKA cez reverz automatu
     private Identificator currentStateId; // aktualny stav
     private int numberOfTransitions = 0; // pocet prechodov
@@ -71,8 +71,8 @@ public class Automaton{
         // parameterless konstruktor
         idStateMap = new HashMap<>();
         allStatesIds = new HashSet<>();
-        finalStatesIds = new HashSet<>();
-        initialStatesIds = new HashSet<>();
+        finalStatesIds = new PowerSetOfIdentificators();
+        initialStatesIds = new PowerSetOfIdentificators();
         numberOfTransitions = 0;
     }
     
@@ -106,8 +106,8 @@ public class Automaton{
     public Automaton(HashMap<Character,Matrix> transitionMap, Identificator initialStateId, HashSet<Identificator> finalStatesIds) throws Exception{
         this.idStateMap = new HashMap<>();
         this.allStatesIds = new HashSet<>();
-        this.finalStatesIds = new HashSet<>();
-        this.initialStatesIds = new HashSet<>();
+        this.finalStatesIds = new PowerSetOfIdentificators();
+        this.initialStatesIds = new PowerSetOfIdentificators();
         this.transitionMap = transitionMap;
         
         int n = transitionMap.get(Variables.alphabet.get(0)).n;
@@ -139,7 +139,7 @@ public class Automaton{
         }
         
         this.allStatesIds = new HashSet<>();
-        this.initialStatesIds = new HashSet<>();
+        this.initialStatesIds = new PowerSetOfIdentificators();
         
         this.idStateMap = new HashMap<>();
         
@@ -152,7 +152,7 @@ public class Automaton{
             this.idStateMap.put(id.copy(), a.idStateMap.get(id).copy());
         }
         
-        this.finalStatesIds = new HashSet<>();
+        this.finalStatesIds = new PowerSetOfIdentificators();
         for (Identificator id : a.finalStatesIds){
             this.finalStatesIds.add(id.copy());
         }
@@ -195,7 +195,7 @@ public class Automaton{
         else{ // ak stav nie je v allStates
             throw new NoSuchStateException(stateId);
         }
-        this.hash_cache = BigIntegerTuple.minusOne();//BigInteger.valueOf(-1);//BigIntegerTuple.minusOne(); // resetnutie hash_cache po zmene automatu
+        //this.hash_cache = BigIntegerTuple.minusOne();//BigInteger.valueOf(-1);//BigIntegerTuple.minusOne(); // resetnutie hash_cache po zmene automatu
     }
     
     /* wrapper setInitialStateId to int */
@@ -212,7 +212,7 @@ public class Automaton{
         else{
             throw new NoSuchStateException("FAILED TO ADD FINAL STATE");
         }
-        this.hash_cache = BigIntegerTuple.minusOne();//BigInteger.valueOf(-1);//BigIntegerTuple.minusOne(); // resetnutie hash_cache po zmene automatu
+        //this.hash_cache = BigIntegerTuple.minusOne();//BigInteger.valueOf(-1);//BigIntegerTuple.minusOne(); // resetnutie hash_cache po zmene automatu
     }
     
     
@@ -238,7 +238,7 @@ public class Automaton{
         State s = new State(stateId);
         idStateMap. put(stateId, s);
         allStatesIds.add(stateId);
-        this.hash_cache = BigIntegerTuple.minusOne();//BigInteger.valueOf(-1);//BigIntegerTuple.minusOne(); // resetnutie hash_cache po zmene automatu
+        //this.hash_cache = BigIntegerTuple.minusOne();//BigInteger.valueOf(-1);//BigIntegerTuple.minusOne(); // resetnutie hash_cache po zmene automatu
         return true;
     }
     
@@ -262,7 +262,7 @@ public class Automaton{
         else{
             throw new NoSuchStateException("FAILED TO ADD TRANSITION");
         }
-        this.hash_cache = BigIntegerTuple.minusOne();//BigInteger.valueOf(-1);//BigIntegerTuple.minusOne(); // resetnutie hash_cache po zmene automatu
+        //this.hash_cache = BigIntegerTuple.minusOne();//BigInteger.valueOf(-1);//BigIntegerTuple.minusOne(); // resetnutie hash_cache po zmene automatu
     }
     
     public void addTransition(int idFrom, int idTo, Character c) throws Exception{
@@ -279,7 +279,7 @@ public class Automaton{
         else{
             throw new NoSuchStateException("FAILED TO ADD FINAL STATE");
         }
-        this.hash_cache = BigIntegerTuple.minusOne();//BigInteger.valueOf(-1);//BigIntegerTuple.minusOne(); // resetnutie hash_cache po zmene automatu
+        //this.hash_cache = BigIntegerTuple.minusOne();//BigInteger.valueOf(-1);//BigIntegerTuple.minusOne(); // resetnutie hash_cache po zmene automatu
     }
     
     /* wrapper addFinalState() to int */
@@ -599,7 +599,7 @@ public class Automaton{
     a neakceptacne stavy */
     public Automaton complement(){
         Automaton ret = new Automaton(this);
-        HashSet<Identificator> complementFinalStatesIds = new HashSet<>();
+        PowerSetOfIdentificators complementFinalStatesIds = new PowerSetOfIdentificators();
         for(Identificator id : ret.allStatesIds){
             if (!ret.finalStatesIds.contains(id)){
                 complementFinalStatesIds.add(id);
