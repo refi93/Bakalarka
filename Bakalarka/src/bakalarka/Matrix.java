@@ -16,7 +16,7 @@ import java.util.Queue;
  * @author raf
  */
 
-/* trieda reprezentujuca stvorcovu maticu nxn */
+/* trieda reprezentujuca stvorcovu maticu nxn velkosti max 7x7 kvoli obmedzeniam longu */
 public class Matrix {
     boolean[][] matrix;
     int n;
@@ -25,6 +25,9 @@ public class Matrix {
     // konstruktor nulovej stvorcovej matice nxn
     // dohoda: matica[r][c] znamena pritomnost orientovanej hrany r -> c
     public Matrix(int n){
+        if (n > 7){
+            System.out.println("WARNING: MAXIMAL MATRIX SIZE (7x7) EXCEEDED");
+        }
         this.numericRepresentation = 0;
         this.matrix = new boolean[n][n];
         this.n = n;

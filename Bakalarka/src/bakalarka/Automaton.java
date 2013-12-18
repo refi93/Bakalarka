@@ -195,7 +195,7 @@ public class Automaton{
         else{ // ak stav nie je v allStates
             throw new NoSuchStateException(stateId);
         }
-        this.hash_cache = BigInteger.valueOf(-1); // resetnutie hash_cache po zmene automatu
+        this.hash_cache = BigIntegerTuple.minusOne();//BigInteger.valueOf(-1);//BigIntegerTuple.minusOne(); // resetnutie hash_cache po zmene automatu
     }
     
     /* wrapper setInitialStateId to int */
@@ -212,7 +212,7 @@ public class Automaton{
         else{
             throw new NoSuchStateException("FAILED TO ADD FINAL STATE");
         }
-        this.hash_cache = BigInteger.valueOf(-1); // resetnutie hash_cache po zmene automatu
+        this.hash_cache = BigIntegerTuple.minusOne();//BigInteger.valueOf(-1);//BigIntegerTuple.minusOne(); // resetnutie hash_cache po zmene automatu
     }
     
     
@@ -238,7 +238,7 @@ public class Automaton{
         State s = new State(stateId);
         idStateMap. put(stateId, s);
         allStatesIds.add(stateId);
-        this.hash_cache = BigInteger.valueOf(-1); // resetnutie hash_cache po zmene automatu
+        this.hash_cache = BigIntegerTuple.minusOne();//BigInteger.valueOf(-1);//BigIntegerTuple.minusOne(); // resetnutie hash_cache po zmene automatu
         return true;
     }
     
@@ -254,9 +254,6 @@ public class Automaton{
         State from = idStateMap. get(idFrom);
         State to = idStateMap. get(idTo);
         
-        // vymazeme stare zaznamy, aby sme ich nasledne aktualizovali
-        idStateMap.remove(idFrom);
-        
         if ((from != null) && (to != null)){
             boolean isNew = from.addTransition(c, idTo);
             // ak je pridany prechod novy, poznacime si, ze pocet prechodov narastol
@@ -265,9 +262,7 @@ public class Automaton{
         else{
             throw new NoSuchStateException("FAILED TO ADD TRANSITION");
         }
-        this.hash_cache = BigInteger.valueOf(-1); // resetnutie hash_cache po zmene automatu
-        // vlozime naspat aktualizovany zaznam
-        idStateMap.put(idFrom, from);
+        this.hash_cache = BigIntegerTuple.minusOne();//BigInteger.valueOf(-1);//BigIntegerTuple.minusOne(); // resetnutie hash_cache po zmene automatu
     }
     
     public void addTransition(int idFrom, int idTo, Character c) throws Exception{
@@ -284,7 +279,7 @@ public class Automaton{
         else{
             throw new NoSuchStateException("FAILED TO ADD FINAL STATE");
         }
-        this.hash_cache = BigInteger.valueOf(-1); // resetnutie hash_cache po zmene automatu
+        this.hash_cache = BigIntegerTuple.minusOne();//BigInteger.valueOf(-1);//BigIntegerTuple.minusOne(); // resetnutie hash_cache po zmene automatu
     }
     
     /* wrapper addFinalState() to int */
@@ -302,14 +297,20 @@ public class Automaton{
     public Automaton determinize(boolean allowTrashState) throws Exception{
         
         // ak sme tento automat determinizovali uz niekedy predty, tak to vyuzijeme
-        if (cacheDeterminized != null) {
+        // vypli sme cachovanie determinizovaneho automatu aby sme usetrili pamat
+        /*if (cacheDeterminized != null) {
             return cacheDeterminized;
-        }
+        }*/
         // determinizacia automatu
         // ak automat nema konecne alebo pociatocne stavy, tak proste vratime prazdny automat
         if ((this.finalStatesIds.isEmpty()) || (this.initialStatesIds.isEmpty())){
             Automaton ret = new Automaton();
-            ret.addState(new IntegerIdentificator(0));
+            Identificator id = new IntegerIdentificator(0);
+            ret.addState(id);
+            ret.setInitialStateId(id);
+            for(Character c : Variables.alphabet){
+                ret.addTransition(id, id, c); // pridame prechody, nech je to uplna delta funkcia
+            }
             return ret;
         }
         
@@ -413,7 +414,7 @@ public class Automaton{
                 ret.addTransition(emptyStateInRet, emptyStateInRet, c);
             }
         }
-        this.cacheDeterminized = ret;
+        //this.cacheDeterminized = ret;
         return ret;
     }
     
@@ -701,8 +702,11 @@ public class Automaton{
     public boolean equivalent(Automaton b) throws Exception{
         // zdeterminizujeme oba automaty a porovname, ci prienik s komplementom je prazdny
         // na komplement treba odpadove stavy
-        Automaton detA = this.determinize(Variables.allowTrashState);
-        Automaton detB = b.determinize(Variables.allowTrashState);
+        //Automaton detA = this.determinize(Variables.allowTrashState);
+        //Automaton detB = b.determinize(Variables.allowTrashState);
+        Automaton detA = this.minimalDFA();
+        Automaton detB = b.minimalDFA();
+        
         
         boolean aEmpty = detA.emptyLanguage();
         boolean bEmpty = detB.emptyLanguage();
@@ -719,6 +723,72 @@ public class Automaton{
         return ((pom1.emptyLanguage()) && (pom2.emptyLanguage()));
     }
     
+    
+    /* tato metoda z minimalneho NFA vyrobi hashovaciu dvojicu, pomocou ktorej 
+    budeme vediet jednoznacne porovnavat automaty 
+    MYSLIENKA - minimalny NFA prevedieme na kanonicky - s presne urcenym pomenovanim
+    stavov a z matice susednosti vyplodime hash
+    */
+    public static BigIntegerTuple hashFromMinNFA(Automaton minA) throws Exception{
+        Queue<Identificator> statesToVisit = new LinkedList<>();
+        // pridame do fronty pociatocny stav
+        statesToVisit.add(minA.initialStatesIds.iterator().next());
+        HashSet<Identificator> visited = new HashSet<>(); 
+        HashSet<Identificator> seen = new HashSet<>();
+        seen.add(minA.initialStatesIds.iterator().next());
+        int counter = 0;
+        // tuna si pamatame prevody medzi stavmi
+        HashMap<Integer, Identificator> renumberingMapFromCanonicalToMin = new HashMap<>();
+        HashMap<Identificator, Integer> renumberingMapFromMinToCanonical = new HashMap<>();
+        while(!statesToVisit.isEmpty()){
+            // poznacime si stav ako navstiveny
+            visited.add(statesToVisit.peek());
+            // precislujeme stavy podla poradia v akom ich navstivime
+            renumberingMapFromCanonicalToMin.put(counter, statesToVisit.peek());
+            renumberingMapFromMinToCanonical.put(statesToVisit.peek(), counter);
+            counter++;
+            // pridavame do fronty susedov podla toho, aky prechod tam vedie
+            for(Character c : Variables.alphabet){
+                for(Identificator id : minA.getState(statesToVisit.peek()).getTransition(c)){
+                    if (!seen.contains(id)){
+                        statesToVisit.add(id);
+                        seen.add(id);
+                    }
+                }
+            }
+            statesToVisit.remove(); // popneme z fronty prave navstiveny stav
+        }
+        if (counter > 30) System.out.println(counter);
+        BigInteger matrixPartOfHash = BigInteger.valueOf(0);
+        // teraz z toho vyrobime maticu susednosti
+        for(Character c : Variables.alphabet){
+            BigMatrix m = new BigMatrix(counter); // proste tolko stavov, co ma ten minimalny NFA
+            
+            // teraz sa ideme vnorit do automatu a zratat matice prechodu pre jednotlive znaky
+            for(int i = 0;i < counter; i++){
+                Identificator idFrom = renumberingMapFromCanonicalToMin.get(i);
+                for(Identificator idTo : minA.getState(idFrom).getTransition(c)){
+                    m.set(i, renumberingMapFromMinToCanonical.get(idTo), true);
+                }
+            }
+            // zretazime ciselne reprezentacie matic
+            if (matrixPartOfHash.equals(BigInteger.valueOf(0))){
+                matrixPartOfHash = m.getNumericRepresentation();
+            }
+            else{
+                matrixPartOfHash = new BigInteger(matrixPartOfHash.toString() + m.getNumericRepresentation().toString());
+            }
+        }
+        
+        PowerSetOfIdentificators canonicalFinalStates = new PowerSetOfIdentificators();
+        for(Identificator id : minA.finalStatesIds){
+            //System.out.println(renumberingMapFromMinToCanonical.get(id));
+            if(renumberingMapFromMinToCanonical.get(id) > 30) System.out.println(minA.toString() + counter);
+            canonicalFinalStates.add(new IntegerIdentificator(renumberingMapFromMinToCanonical.get(id)));
+        }
+        
+        return new BigIntegerTuple(matrixPartOfHash,BigInteger.valueOf(canonicalFinalStates.getBitMap()));
+    }
     
     /* prehladavanie vsetkych moznych vygenerovanych slov do hlbky, resp. dlzky maxDepth 
        najdene slova sa ulozia do HashSetu generatedWords
@@ -765,65 +835,37 @@ public class Automaton{
 
     
     /* hash_cache - premenna, kde si zapamatame hashCode automatu, aby sme ho nemuseli opakovane ratat */
-    BigInteger hash_cache = BigInteger.valueOf(-1);
+    //BigInteger hash_cache = BigInteger.valueOf(-1);
+    BigIntegerTuple hash_cache = BigIntegerTuple.minusOne();
     
+    public BigIntegerTuple myHashCode() throws Exception{
+        if (!hash_cache.equals(BigIntegerTuple.minusOne())){
+            return hash_cache;
+        }
+        hash_cache = hashFromMinNFA(this.minimalDFA());
+        return hash_cache;
+    }
+    
+    private BigInteger hash_cache2 = BigInteger.valueOf(-1);
     /* hashCode automatu - je to vlastne hashCode slov do dlzky 4, ktore vygeneruje */
-    public BigInteger myHashCode() throws Exception{
-        if (hash_cache.equals(BigInteger.valueOf(-1))){
-            hash_cache = BigInteger.valueOf(0);
+    public BigInteger myHashCodeOld() throws Exception{
+        if (hash_cache2.equals(BigInteger.valueOf(-1))){
+            hash_cache2 = BigInteger.valueOf(0);
             HashSet<BinaryWord> words = allWordsOfLength(Variables.hashWordLength);
             if (Variables.alphabet.size() == 2){
                 for(BinaryWord word : words){
                     int pos = Variables.WordToNumberMap.get(word);
-                    hash_cache = hash_cache.setBit(pos);
+                    hash_cache2 = hash_cache2.setBit(pos);
                     //hash_cache = hash_cache | (((long)1) << pos);
                 }
-                hash_cache = new BigInteger(hash_cache.toString());
+                hash_cache2 = new BigInteger(hash_cache2.toString());
             }
             else {
-                hash_cache = BigInteger.valueOf(words.hashCode());
+                hash_cache2 = BigInteger.valueOf(words.hashCode());
             }
         }
-        return hash_cache;
+        return hash_cache2;
     }
-    
-    
-    /*public BigInteger myHashCode() throws Exception{
-        
-        long ret = 0;
-        int counter = 0;
-        for(String hashString : Variables.hashStrings){
-            int charIndex = 0; //index znaku v hashovacom slove 
-            PowerSetIdentificator currentStates = new PowerSetIdentificator(this.initialStatesIds);
-            BinaryWord currentFingerprint = new BinaryWord();
-            boolean accepted = false;
-            while((charIndex < hashString.length())&&(!currentStates.isEmpty())){
-                Character c = hashString.charAt(charIndex);
-            
-                PowerSetIdentificator newStates = new PowerSetIdentificator();
-                boolean isFinalState = false;
-                for(Identificator id : currentStates){
-                    if (this.getState(id).getTransition(c) != null){
-                        for(Identificator transitionStateId : this.getState(id).getTransition(c)){
-                            newStates.add(transitionStateId);
-                            if(this.finalStatesIds.contains(transitionStateId)){
-                                isFinalState = true;
-                            }
-                        }
-                    }
-                }
-            
-                currentStates = newStates;
-                accepted = isFinalState;
-                charIndex++;
-            }
-            //System.out.println(currentFingerprint.toString());
-            ret = ret + (((long)(accepted?1:0)) << counter);
-            counter++;
-            //System.out.println(ret);
-        }
-        //System.out.println(ret);
-        return BigInteger.valueOf(ret);
-    }*/
+   
     // more methods go here
 }     

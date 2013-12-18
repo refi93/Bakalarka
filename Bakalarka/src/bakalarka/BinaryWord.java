@@ -35,6 +35,17 @@ public class BinaryWord {
     }
     
     
+    // pomocou intu mu nastavime hodnotu
+    public BinaryWord(int value){
+        this.value = value;
+        this.length = 0;
+        while(value > 0){
+            value = value >> 1;
+            this.length++;
+        }
+    }
+    
+    
     /* pridanie znaku na koniec */
     public BinaryWord append(int val) throws Exception{
         if (length > MAX_LEN){

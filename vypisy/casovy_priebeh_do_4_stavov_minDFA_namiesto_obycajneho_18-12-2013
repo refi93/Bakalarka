@@ -1,0 +1,684 @@
+run:
+Thread id 0: 0 automata generated, time: 0s, 0 automata in ResultMinimalAutomatonHashMap, 0 in CurrentMinimalAutomatonHashMap
+Merged 4 automata
+Merged 1 automata
+Merging candidates started for 1 states at time: 0s
+Number of candidates lists: 2
+Merged 5 automata
+Merging ended, time: 0s
+5 languages found
+Merged 62 automata
+Merged 71 automata
+Merging candidates started for 2 states at time: 0s
+Number of candidates lists: 2
+Merged 121 automata
+Merging ended, time: 0s
+213 languages found
+Thread id 0: 100000 automata generated, time: 12s, 0 automata in ResultMinimalAutomatonHashMap, 6592 in CurrentMinimalAutomatonHashMap
+Thread id 1: 200000 automata generated, time: 22s, 0 automata in ResultMinimalAutomatonHashMap, 10551 in CurrentMinimalAutomatonHashMap
+Thread id 1: 300000 automata generated, time: 32s, 0 automata in ResultMinimalAutomatonHashMap, 13486 in CurrentMinimalAutomatonHashMap
+Thread id 0: 400000 automata generated, time: 43s, 0 automata in ResultMinimalAutomatonHashMap, 15818 in CurrentMinimalAutomatonHashMap
+Thread id 0: 500000 automata generated, time: 54s, 0 automata in ResultMinimalAutomatonHashMap, 16858 in CurrentMinimalAutomatonHashMap
+Merged 17157 automata
+Merged 17174 automata
+Merging candidates started for 3 states at time: 01m 02s
+Number of candidates lists: 2
+Merged 28463 automata
+Merging ended, time: 01m 04s
+10000 minimal NFAs proceeded
+20000 minimal NFAs proceeded
+30000 minimal NFAs proceeded
+40000 minimal NFAs proceeded
+45113 languages found
+Thread id 0: 600000 automata generated, time: 01m 18s, 0 automata in ResultMinimalAutomatonHashMap, 27 in CurrentMinimalAutomatonHashMap
+Thread id 1: 700000 automata generated, time: 01m 25s, 0 automata in ResultMinimalAutomatonHashMap, 30 in CurrentMinimalAutomatonHashMap
+Thread id 1: 800000 automata generated, time: 01m 31s, 0 automata in ResultMinimalAutomatonHashMap, 30 in CurrentMinimalAutomatonHashMap
+Thread id 1: 900000 automata generated, time: 01m 39s, 0 automata in ResultMinimalAutomatonHashMap, 30 in CurrentMinimalAutomatonHashMap
+Thread id 0: 1000000 automata generated, time: 01m 47s, 0 automata in ResultMinimalAutomatonHashMap, 70 in CurrentMinimalAutomatonHashMap
+Thread id 1: 1100000 automata generated, time: 01m 58s, 0 automata in ResultMinimalAutomatonHashMap, 262 in CurrentMinimalAutomatonHashMap
+Thread id 0: 1200000 automata generated, time: 02m 09s, 0 automata in ResultMinimalAutomatonHashMap, 661 in CurrentMinimalAutomatonHashMap
+Thread id 0: 1300000 automata generated, time: 02m 20s, 0 automata in ResultMinimalAutomatonHashMap, 774 in CurrentMinimalAutomatonHashMap
+Thread id 0: 1400000 automata generated, time: 02m 32s, 0 automata in ResultMinimalAutomatonHashMap, 808 in CurrentMinimalAutomatonHashMap
+Thread id 1: 1500000 automata generated, time: 02m 43s, 0 automata in ResultMinimalAutomatonHashMap, 1136 in CurrentMinimalAutomatonHashMap
+Thread id 1: 1600000 automata generated, time: 02m 53s, 0 automata in ResultMinimalAutomatonHashMap, 1419 in CurrentMinimalAutomatonHashMap
+Thread id 1: 1700000 automata generated, time: 03m 06s, 0 automata in ResultMinimalAutomatonHashMap, 1754 in CurrentMinimalAutomatonHashMap
+Thread id 1: 1800000 automata generated, time: 03m 17s, 0 automata in ResultMinimalAutomatonHashMap, 1868 in CurrentMinimalAutomatonHashMap
+Thread id 1: 1900000 automata generated, time: 03m 31s, 0 automata in ResultMinimalAutomatonHashMap, 2592 in CurrentMinimalAutomatonHashMap
+Thread id 0: 2000000 automata generated, time: 03m 44s, 0 automata in ResultMinimalAutomatonHashMap, 2550 in CurrentMinimalAutomatonHashMap
+Thread id 0: 2100000 automata generated, time: 03m 56s, 0 automata in ResultMinimalAutomatonHashMap, 2602 in CurrentMinimalAutomatonHashMap
+Thread id 1: 2200000 automata generated, time: 04m 10s, 0 automata in ResultMinimalAutomatonHashMap, 3217 in CurrentMinimalAutomatonHashMap
+Thread id 1: 2300000 automata generated, time: 04m 23s, 0 automata in ResultMinimalAutomatonHashMap, 3305 in CurrentMinimalAutomatonHashMap
+Thread id 1: 2400000 automata generated, time: 04m 37s, 0 automata in ResultMinimalAutomatonHashMap, 3366 in CurrentMinimalAutomatonHashMap
+Thread id 1: 2500000 automata generated, time: 04m 51s, 0 automata in ResultMinimalAutomatonHashMap, 3562 in CurrentMinimalAutomatonHashMap
+Thread id 0: 2600000 automata generated, time: 05m 05s, 0 automata in ResultMinimalAutomatonHashMap, 3229 in CurrentMinimalAutomatonHashMap
+Thread id 1: 2700000 automata generated, time: 05m 20s, 0 automata in ResultMinimalAutomatonHashMap, 3839 in CurrentMinimalAutomatonHashMap
+Thread id 1: 2800000 automata generated, time: 05m 34s, 0 automata in ResultMinimalAutomatonHashMap, 3921 in CurrentMinimalAutomatonHashMap
+Thread id 1: 2900000 automata generated, time: 05m 48s, 0 automata in ResultMinimalAutomatonHashMap, 4013 in CurrentMinimalAutomatonHashMap
+Thread id 0: 3000000 automata generated, time: 06m 03s, 0 automata in ResultMinimalAutomatonHashMap, 3625 in CurrentMinimalAutomatonHashMap
+Thread id 1: 3100000 automata generated, time: 06m 17s, 0 automata in ResultMinimalAutomatonHashMap, 4311 in CurrentMinimalAutomatonHashMap
+Thread id 0: 3200000 automata generated, time: 06m 32s, 0 automata in ResultMinimalAutomatonHashMap, 3803 in CurrentMinimalAutomatonHashMap
+Thread id 0: 3300000 automata generated, time: 06m 45s, 0 automata in ResultMinimalAutomatonHashMap, 3805 in CurrentMinimalAutomatonHashMap
+Thread id 1: 3400000 automata generated, time: 07m 00s, 0 automata in ResultMinimalAutomatonHashMap, 4357 in CurrentMinimalAutomatonHashMap
+Thread id 0: 3500000 automata generated, time: 07m 15s, 0 automata in ResultMinimalAutomatonHashMap, 3858 in CurrentMinimalAutomatonHashMap
+Thread id 1: 3600000 automata generated, time: 07m 29s, 0 automata in ResultMinimalAutomatonHashMap, 4387 in CurrentMinimalAutomatonHashMap
+Thread id 1: 3700000 automata generated, time: 07m 44s, 0 automata in ResultMinimalAutomatonHashMap, 4411 in CurrentMinimalAutomatonHashMap
+Thread id 0: 3800000 automata generated, time: 07m 59s, 0 automata in ResultMinimalAutomatonHashMap, 4026 in CurrentMinimalAutomatonHashMap
+Thread id 0: 3900000 automata generated, time: 08m 14s, 0 automata in ResultMinimalAutomatonHashMap, 4201 in CurrentMinimalAutomatonHashMap
+Thread id 0: 4000000 automata generated, time: 08m 25s, 0 automata in ResultMinimalAutomatonHashMap, 4262 in CurrentMinimalAutomatonHashMap
+Thread id 0: 4100000 automata generated, time: 08m 37s, 0 automata in ResultMinimalAutomatonHashMap, 4297 in CurrentMinimalAutomatonHashMap
+Thread id 1: 4200000 automata generated, time: 08m 50s, 0 automata in ResultMinimalAutomatonHashMap, 4906 in CurrentMinimalAutomatonHashMap
+Thread id 1: 4300000 automata generated, time: 09m 02s, 0 automata in ResultMinimalAutomatonHashMap, 4919 in CurrentMinimalAutomatonHashMap
+Thread id 0: 4400000 automata generated, time: 09m 15s, 0 automata in ResultMinimalAutomatonHashMap, 4429 in CurrentMinimalAutomatonHashMap
+Thread id 0: 4500000 automata generated, time: 09m 32s, 0 automata in ResultMinimalAutomatonHashMap, 5103 in CurrentMinimalAutomatonHashMap
+Thread id 1: 4600000 automata generated, time: 09m 49s, 0 automata in ResultMinimalAutomatonHashMap, 5888 in CurrentMinimalAutomatonHashMap
+Thread id 1: 4700000 automata generated, time: 10m 01s, 0 automata in ResultMinimalAutomatonHashMap, 5916 in CurrentMinimalAutomatonHashMap
+Thread id 0: 4800000 automata generated, time: 10m 14s, 0 automata in ResultMinimalAutomatonHashMap, 5378 in CurrentMinimalAutomatonHashMap
+Thread id 0: 4900000 automata generated, time: 10m 25s, 0 automata in ResultMinimalAutomatonHashMap, 5390 in CurrentMinimalAutomatonHashMap
+Thread id 1: 5000000 automata generated, time: 10m 39s, 0 automata in ResultMinimalAutomatonHashMap, 5942 in CurrentMinimalAutomatonHashMap
+Thread id 1: 5100000 automata generated, time: 10m 51s, 0 automata in ResultMinimalAutomatonHashMap, 5942 in CurrentMinimalAutomatonHashMap
+Thread id 1: 5200000 automata generated, time: 11m 03s, 0 automata in ResultMinimalAutomatonHashMap, 5942 in CurrentMinimalAutomatonHashMap
+Thread id 0: 5300000 automata generated, time: 11m 18s, 0 automata in ResultMinimalAutomatonHashMap, 5433 in CurrentMinimalAutomatonHashMap
+Thread id 1: 5400000 automata generated, time: 11m 34s, 0 automata in ResultMinimalAutomatonHashMap, 6069 in CurrentMinimalAutomatonHashMap
+Thread id 1: 5500000 automata generated, time: 11m 48s, 0 automata in ResultMinimalAutomatonHashMap, 6110 in CurrentMinimalAutomatonHashMap
+Thread id 0: 5600000 automata generated, time: 12m 02s, 0 automata in ResultMinimalAutomatonHashMap, 5567 in CurrentMinimalAutomatonHashMap
+Thread id 1: 5700000 automata generated, time: 12m 17s, 0 automata in ResultMinimalAutomatonHashMap, 6223 in CurrentMinimalAutomatonHashMap
+Thread id 0: 5800000 automata generated, time: 12m 31s, 0 automata in ResultMinimalAutomatonHashMap, 5663 in CurrentMinimalAutomatonHashMap
+Thread id 1: 5900000 automata generated, time: 12m 45s, 0 automata in ResultMinimalAutomatonHashMap, 6241 in CurrentMinimalAutomatonHashMap
+Thread id 0: 6000000 automata generated, time: 13m 00s, 0 automata in ResultMinimalAutomatonHashMap, 5683 in CurrentMinimalAutomatonHashMap
+Thread id 1: 6100000 automata generated, time: 13m 17s, 0 automata in ResultMinimalAutomatonHashMap, 6392 in CurrentMinimalAutomatonHashMap
+Thread id 1: 6200000 automata generated, time: 13m 38s, 0 automata in ResultMinimalAutomatonHashMap, 6688 in CurrentMinimalAutomatonHashMap
+Thread id 0: 6300000 automata generated, time: 13m 54s, 0 automata in ResultMinimalAutomatonHashMap, 6175 in CurrentMinimalAutomatonHashMap
+Thread id 0: 6400000 automata generated, time: 14m 07s, 0 automata in ResultMinimalAutomatonHashMap, 6188 in CurrentMinimalAutomatonHashMap
+Thread id 1: 6500000 automata generated, time: 14m 21s, 0 automata in ResultMinimalAutomatonHashMap, 6753 in CurrentMinimalAutomatonHashMap
+Thread id 0: 6600000 automata generated, time: 14m 36s, 0 automata in ResultMinimalAutomatonHashMap, 6193 in CurrentMinimalAutomatonHashMap
+Thread id 0: 6700000 automata generated, time: 14m 52s, 0 automata in ResultMinimalAutomatonHashMap, 6193 in CurrentMinimalAutomatonHashMap
+Thread id 1: 6800000 automata generated, time: 15m 06s, 0 automata in ResultMinimalAutomatonHashMap, 6753 in CurrentMinimalAutomatonHashMap
+Thread id 0: 6900000 automata generated, time: 15m 20s, 0 automata in ResultMinimalAutomatonHashMap, 6193 in CurrentMinimalAutomatonHashMap
+Thread id 0: 7000000 automata generated, time: 15m 35s, 0 automata in ResultMinimalAutomatonHashMap, 6193 in CurrentMinimalAutomatonHashMap
+Thread id 0: 7100000 automata generated, time: 15m 51s, 0 automata in ResultMinimalAutomatonHashMap, 6193 in CurrentMinimalAutomatonHashMap
+Thread id 1: 7200000 automata generated, time: 16m 07s, 0 automata in ResultMinimalAutomatonHashMap, 6814 in CurrentMinimalAutomatonHashMap
+Thread id 1: 7300000 automata generated, time: 16m 22s, 0 automata in ResultMinimalAutomatonHashMap, 6912 in CurrentMinimalAutomatonHashMap
+Thread id 0: 7400000 automata generated, time: 16m 35s, 0 automata in ResultMinimalAutomatonHashMap, 6315 in CurrentMinimalAutomatonHashMap
+Thread id 0: 7500000 automata generated, time: 16m 48s, 0 automata in ResultMinimalAutomatonHashMap, 6318 in CurrentMinimalAutomatonHashMap
+Thread id 0: 7600000 automata generated, time: 17m 02s, 0 automata in ResultMinimalAutomatonHashMap, 6339 in CurrentMinimalAutomatonHashMap
+Thread id 1: 7700000 automata generated, time: 17m 17s, 0 automata in ResultMinimalAutomatonHashMap, 7021 in CurrentMinimalAutomatonHashMap
+Thread id 1: 7800000 automata generated, time: 17m 31s, 0 automata in ResultMinimalAutomatonHashMap, 7066 in CurrentMinimalAutomatonHashMap
+Thread id 0: 7900000 automata generated, time: 17m 46s, 0 automata in ResultMinimalAutomatonHashMap, 6486 in CurrentMinimalAutomatonHashMap
+Thread id 0: 8000000 automata generated, time: 17m 59s, 0 automata in ResultMinimalAutomatonHashMap, 6487 in CurrentMinimalAutomatonHashMap
+Thread id 1: 8100000 automata generated, time: 18m 13s, 0 automata in ResultMinimalAutomatonHashMap, 7107 in CurrentMinimalAutomatonHashMap
+Thread id 0: 8200000 automata generated, time: 18m 29s, 0 automata in ResultMinimalAutomatonHashMap, 6503 in CurrentMinimalAutomatonHashMap
+Thread id 0: 8300000 automata generated, time: 18m 49s, 0 automata in ResultMinimalAutomatonHashMap, 6623 in CurrentMinimalAutomatonHashMap
+Thread id 1: 8400000 automata generated, time: 19m 07s, 0 automata in ResultMinimalAutomatonHashMap, 7320 in CurrentMinimalAutomatonHashMap
+Thread id 0: 8500000 automata generated, time: 19m 23s, 0 automata in ResultMinimalAutomatonHashMap, 6680 in CurrentMinimalAutomatonHashMap
+Thread id 0: 8600000 automata generated, time: 19m 36s, 0 automata in ResultMinimalAutomatonHashMap, 6680 in CurrentMinimalAutomatonHashMap
+Thread id 0: 8700000 automata generated, time: 19m 49s, 0 automata in ResultMinimalAutomatonHashMap, 6680 in CurrentMinimalAutomatonHashMap
+Thread id 1: 8800000 automata generated, time: 20m 03s, 0 automata in ResultMinimalAutomatonHashMap, 7341 in CurrentMinimalAutomatonHashMap
+Thread id 0: 8900000 automata generated, time: 20m 18s, 0 automata in ResultMinimalAutomatonHashMap, 6680 in CurrentMinimalAutomatonHashMap
+Thread id 0: 9000000 automata generated, time: 20m 33s, 0 automata in ResultMinimalAutomatonHashMap, 6714 in CurrentMinimalAutomatonHashMap
+Thread id 0: 9100000 automata generated, time: 20m 48s, 0 automata in ResultMinimalAutomatonHashMap, 6730 in CurrentMinimalAutomatonHashMap
+Thread id 0: 9200000 automata generated, time: 21m 07s, 0 automata in ResultMinimalAutomatonHashMap, 6730 in CurrentMinimalAutomatonHashMap
+Thread id 0: 9300000 automata generated, time: 21m 22s, 0 automata in ResultMinimalAutomatonHashMap, 6730 in CurrentMinimalAutomatonHashMap
+Thread id 0: 9400000 automata generated, time: 21m 36s, 0 automata in ResultMinimalAutomatonHashMap, 6731 in CurrentMinimalAutomatonHashMap
+Thread id 0: 9500000 automata generated, time: 21m 52s, 0 automata in ResultMinimalAutomatonHashMap, 6738 in CurrentMinimalAutomatonHashMap
+Thread id 0: 9600000 automata generated, time: 22m 09s, 0 automata in ResultMinimalAutomatonHashMap, 6738 in CurrentMinimalAutomatonHashMap
+Thread id 1: 9700000 automata generated, time: 22m 26s, 0 automata in ResultMinimalAutomatonHashMap, 7409 in CurrentMinimalAutomatonHashMap
+Thread id 1: 9800000 automata generated, time: 22m 41s, 0 automata in ResultMinimalAutomatonHashMap, 7424 in CurrentMinimalAutomatonHashMap
+Thread id 0: 9900000 automata generated, time: 22m 56s, 0 automata in ResultMinimalAutomatonHashMap, 6754 in CurrentMinimalAutomatonHashMap
+Thread id 1: 10000000 automata generated, time: 23m 10s, 0 automata in ResultMinimalAutomatonHashMap, 7427 in CurrentMinimalAutomatonHashMap
+Thread id 1: 10100000 automata generated, time: 23m 25s, 0 automata in ResultMinimalAutomatonHashMap, 7427 in CurrentMinimalAutomatonHashMap
+Thread id 1: 10200000 automata generated, time: 23m 41s, 0 automata in ResultMinimalAutomatonHashMap, 7434 in CurrentMinimalAutomatonHashMap
+Thread id 0: 10300000 automata generated, time: 23m 57s, 0 automata in ResultMinimalAutomatonHashMap, 6766 in CurrentMinimalAutomatonHashMap
+Thread id 1: 10400000 automata generated, time: 24m 13s, 0 automata in ResultMinimalAutomatonHashMap, 7456 in CurrentMinimalAutomatonHashMap
+Thread id 0: 10500000 automata generated, time: 24m 29s, 0 automata in ResultMinimalAutomatonHashMap, 6776 in CurrentMinimalAutomatonHashMap
+Thread id 1: 10600000 automata generated, time: 24m 44s, 0 automata in ResultMinimalAutomatonHashMap, 7460 in CurrentMinimalAutomatonHashMap
+Thread id 1: 10700000 automata generated, time: 25m 00s, 0 automata in ResultMinimalAutomatonHashMap, 7460 in CurrentMinimalAutomatonHashMap
+Thread id 1: 10800000 automata generated, time: 25m 17s, 0 automata in ResultMinimalAutomatonHashMap, 7460 in CurrentMinimalAutomatonHashMap
+Thread id 0: 10900000 automata generated, time: 25m 37s, 0 automata in ResultMinimalAutomatonHashMap, 6780 in CurrentMinimalAutomatonHashMap
+Thread id 1: 11000000 automata generated, time: 25m 57s, 0 automata in ResultMinimalAutomatonHashMap, 7514 in CurrentMinimalAutomatonHashMap
+Thread id 0: 11100000 automata generated, time: 26m 15s, 0 automata in ResultMinimalAutomatonHashMap, 6825 in CurrentMinimalAutomatonHashMap
+Thread id 0: 11200000 automata generated, time: 26m 32s, 0 automata in ResultMinimalAutomatonHashMap, 6830 in CurrentMinimalAutomatonHashMap
+Thread id 1: 11300000 automata generated, time: 26m 47s, 0 automata in ResultMinimalAutomatonHashMap, 7536 in CurrentMinimalAutomatonHashMap
+Thread id 0: 11400000 automata generated, time: 27m 02s, 0 automata in ResultMinimalAutomatonHashMap, 6830 in CurrentMinimalAutomatonHashMap
+Thread id 0: 11500000 automata generated, time: 27m 17s, 0 automata in ResultMinimalAutomatonHashMap, 6830 in CurrentMinimalAutomatonHashMap
+Thread id 0: 11600000 automata generated, time: 27m 33s, 0 automata in ResultMinimalAutomatonHashMap, 6830 in CurrentMinimalAutomatonHashMap
+Thread id 1: 11700000 automata generated, time: 27m 49s, 0 automata in ResultMinimalAutomatonHashMap, 7544 in CurrentMinimalAutomatonHashMap
+Thread id 0: 11800000 automata generated, time: 28m 05s, 0 automata in ResultMinimalAutomatonHashMap, 6848 in CurrentMinimalAutomatonHashMap
+Thread id 0: 11900000 automata generated, time: 28m 21s, 0 automata in ResultMinimalAutomatonHashMap, 6848 in CurrentMinimalAutomatonHashMap
+Thread id 1: 12000000 automata generated, time: 28m 38s, 0 automata in ResultMinimalAutomatonHashMap, 7545 in CurrentMinimalAutomatonHashMap
+Thread id 0: 12100000 automata generated, time: 28m 54s, 0 automata in ResultMinimalAutomatonHashMap, 6848 in CurrentMinimalAutomatonHashMap
+Thread id 0: 12200000 automata generated, time: 29m 11s, 0 automata in ResultMinimalAutomatonHashMap, 6848 in CurrentMinimalAutomatonHashMap
+Thread id 1: 12300000 automata generated, time: 29m 27s, 0 automata in ResultMinimalAutomatonHashMap, 7545 in CurrentMinimalAutomatonHashMap
+Thread id 1: 12400000 automata generated, time: 29m 45s, 0 automata in ResultMinimalAutomatonHashMap, 7545 in CurrentMinimalAutomatonHashMap
+Thread id 1: 12500000 automata generated, time: 30m 01s, 0 automata in ResultMinimalAutomatonHashMap, 7880 in CurrentMinimalAutomatonHashMap
+Thread id 0: 12600000 automata generated, time: 30m 13s, 0 automata in ResultMinimalAutomatonHashMap, 7158 in CurrentMinimalAutomatonHashMap
+Thread id 1: 12700000 automata generated, time: 30m 27s, 0 automata in ResultMinimalAutomatonHashMap, 8541 in CurrentMinimalAutomatonHashMap
+Thread id 0: 12800000 automata generated, time: 30m 43s, 0 automata in ResultMinimalAutomatonHashMap, 7926 in CurrentMinimalAutomatonHashMap
+Thread id 0: 12900000 automata generated, time: 31m 02s, 0 automata in ResultMinimalAutomatonHashMap, 8101 in CurrentMinimalAutomatonHashMap
+Thread id 0: 13000000 automata generated, time: 31m 20s, 0 automata in ResultMinimalAutomatonHashMap, 8269 in CurrentMinimalAutomatonHashMap
+Thread id 1: 13100000 automata generated, time: 31m 41s, 0 automata in ResultMinimalAutomatonHashMap, 9102 in CurrentMinimalAutomatonHashMap
+Thread id 1: 13200000 automata generated, time: 31m 59s, 0 automata in ResultMinimalAutomatonHashMap, 9572 in CurrentMinimalAutomatonHashMap
+Thread id 1: 13300000 automata generated, time: 32m 19s, 0 automata in ResultMinimalAutomatonHashMap, 9699 in CurrentMinimalAutomatonHashMap
+Thread id 1: 13400000 automata generated, time: 32m 36s, 0 automata in ResultMinimalAutomatonHashMap, 9805 in CurrentMinimalAutomatonHashMap
+Thread id 1: 13500000 automata generated, time: 32m 52s, 0 automata in ResultMinimalAutomatonHashMap, 9820 in CurrentMinimalAutomatonHashMap
+Thread id 1: 13600000 automata generated, time: 33m 09s, 0 automata in ResultMinimalAutomatonHashMap, 9895 in CurrentMinimalAutomatonHashMap
+Thread id 1: 13700000 automata generated, time: 33m 27s, 0 automata in ResultMinimalAutomatonHashMap, 9907 in CurrentMinimalAutomatonHashMap
+Thread id 1: 13800000 automata generated, time: 33m 46s, 0 automata in ResultMinimalAutomatonHashMap, 9940 in CurrentMinimalAutomatonHashMap
+Thread id 1: 13900000 automata generated, time: 34m 06s, 0 automata in ResultMinimalAutomatonHashMap, 9947 in CurrentMinimalAutomatonHashMap
+Thread id 1: 14000000 automata generated, time: 34m 22s, 0 automata in ResultMinimalAutomatonHashMap, 10020 in CurrentMinimalAutomatonHashMap
+Thread id 1: 14100000 automata generated, time: 34m 36s, 0 automata in ResultMinimalAutomatonHashMap, 10133 in CurrentMinimalAutomatonHashMap
+Thread id 0: 14200000 automata generated, time: 34m 49s, 0 automata in ResultMinimalAutomatonHashMap, 9256 in CurrentMinimalAutomatonHashMap
+Thread id 1: 14300000 automata generated, time: 35m 07s, 0 automata in ResultMinimalAutomatonHashMap, 10298 in CurrentMinimalAutomatonHashMap
+Thread id 1: 14400000 automata generated, time: 35m 24s, 0 automata in ResultMinimalAutomatonHashMap, 10299 in CurrentMinimalAutomatonHashMap
+Thread id 0: 14500000 automata generated, time: 35m 42s, 0 automata in ResultMinimalAutomatonHashMap, 9496 in CurrentMinimalAutomatonHashMap
+Thread id 0: 14600000 automata generated, time: 36m 01s, 0 automata in ResultMinimalAutomatonHashMap, 9496 in CurrentMinimalAutomatonHashMap
+Thread id 0: 14700000 automata generated, time: 36m 23s, 0 automata in ResultMinimalAutomatonHashMap, 9496 in CurrentMinimalAutomatonHashMap
+Thread id 0: 14800000 automata generated, time: 36m 43s, 0 automata in ResultMinimalAutomatonHashMap, 9508 in CurrentMinimalAutomatonHashMap
+Thread id 1: 14900000 automata generated, time: 37m 00s, 0 automata in ResultMinimalAutomatonHashMap, 10313 in CurrentMinimalAutomatonHashMap
+Thread id 1: 15000000 automata generated, time: 37m 17s, 0 automata in ResultMinimalAutomatonHashMap, 10313 in CurrentMinimalAutomatonHashMap
+Thread id 0: 15100000 automata generated, time: 37m 32s, 0 automata in ResultMinimalAutomatonHashMap, 9510 in CurrentMinimalAutomatonHashMap
+Thread id 0: 15200000 automata generated, time: 37m 49s, 0 automata in ResultMinimalAutomatonHashMap, 9510 in CurrentMinimalAutomatonHashMap
+Thread id 0: 15300000 automata generated, time: 38m 08s, 0 automata in ResultMinimalAutomatonHashMap, 9510 in CurrentMinimalAutomatonHashMap
+Thread id 1: 15400000 automata generated, time: 38m 27s, 0 automata in ResultMinimalAutomatonHashMap, 10313 in CurrentMinimalAutomatonHashMap
+Thread id 1: 15500000 automata generated, time: 38m 47s, 0 automata in ResultMinimalAutomatonHashMap, 10329 in CurrentMinimalAutomatonHashMap
+Thread id 0: 15600000 automata generated, time: 39m 04s, 0 automata in ResultMinimalAutomatonHashMap, 9510 in CurrentMinimalAutomatonHashMap
+Thread id 1: 15700000 automata generated, time: 39m 19s, 0 automata in ResultMinimalAutomatonHashMap, 10771 in CurrentMinimalAutomatonHashMap
+Thread id 0: 15800000 automata generated, time: 39m 32s, 0 automata in ResultMinimalAutomatonHashMap, 9830 in CurrentMinimalAutomatonHashMap
+Thread id 0: 15900000 automata generated, time: 39m 47s, 0 automata in ResultMinimalAutomatonHashMap, 9880 in CurrentMinimalAutomatonHashMap
+Thread id 0: 16000000 automata generated, time: 40m 02s, 0 automata in ResultMinimalAutomatonHashMap, 10030 in CurrentMinimalAutomatonHashMap
+Thread id 1: 16100000 automata generated, time: 40m 17s, 0 automata in ResultMinimalAutomatonHashMap, 10933 in CurrentMinimalAutomatonHashMap
+Thread id 1: 16200000 automata generated, time: 40m 34s, 0 automata in ResultMinimalAutomatonHashMap, 10963 in CurrentMinimalAutomatonHashMap
+Thread id 0: 16300000 automata generated, time: 40m 51s, 0 automata in ResultMinimalAutomatonHashMap, 10123 in CurrentMinimalAutomatonHashMap
+Thread id 0: 16400000 automata generated, time: 41m 08s, 0 automata in ResultMinimalAutomatonHashMap, 10162 in CurrentMinimalAutomatonHashMap
+Thread id 1: 16500000 automata generated, time: 41m 26s, 0 automata in ResultMinimalAutomatonHashMap, 11399 in CurrentMinimalAutomatonHashMap
+Thread id 0: 16600000 automata generated, time: 41m 44s, 0 automata in ResultMinimalAutomatonHashMap, 10492 in CurrentMinimalAutomatonHashMap
+Thread id 0: 16700000 automata generated, time: 42m 01s, 0 automata in ResultMinimalAutomatonHashMap, 10551 in CurrentMinimalAutomatonHashMap
+Thread id 0: 16800000 automata generated, time: 42m 17s, 0 automata in ResultMinimalAutomatonHashMap, 10557 in CurrentMinimalAutomatonHashMap
+Thread id 1: 16900000 automata generated, time: 42m 34s, 0 automata in ResultMinimalAutomatonHashMap, 11511 in CurrentMinimalAutomatonHashMap
+Thread id 1: 17000000 automata generated, time: 42m 50s, 0 automata in ResultMinimalAutomatonHashMap, 11521 in CurrentMinimalAutomatonHashMap
+Thread id 0: 17100000 automata generated, time: 43m 06s, 0 automata in ResultMinimalAutomatonHashMap, 10626 in CurrentMinimalAutomatonHashMap
+Thread id 1: 17200000 automata generated, time: 43m 23s, 0 automata in ResultMinimalAutomatonHashMap, 11544 in CurrentMinimalAutomatonHashMap
+Thread id 1: 17300000 automata generated, time: 43m 40s, 0 automata in ResultMinimalAutomatonHashMap, 11549 in CurrentMinimalAutomatonHashMap
+Thread id 1: 17400000 automata generated, time: 43m 56s, 0 automata in ResultMinimalAutomatonHashMap, 11572 in CurrentMinimalAutomatonHashMap
+Thread id 0: 17500000 automata generated, time: 44m 12s, 0 automata in ResultMinimalAutomatonHashMap, 10655 in CurrentMinimalAutomatonHashMap
+Thread id 0: 17600000 automata generated, time: 44m 26s, 0 automata in ResultMinimalAutomatonHashMap, 10660 in CurrentMinimalAutomatonHashMap
+Thread id 0: 17700000 automata generated, time: 44m 42s, 0 automata in ResultMinimalAutomatonHashMap, 10681 in CurrentMinimalAutomatonHashMap
+Thread id 1: 17800000 automata generated, time: 44m 57s, 0 automata in ResultMinimalAutomatonHashMap, 11580 in CurrentMinimalAutomatonHashMap
+Thread id 1: 17900000 automata generated, time: 45m 14s, 0 automata in ResultMinimalAutomatonHashMap, 11580 in CurrentMinimalAutomatonHashMap
+Thread id 1: 18000000 automata generated, time: 45m 30s, 0 automata in ResultMinimalAutomatonHashMap, 11598 in CurrentMinimalAutomatonHashMap
+Thread id 1: 18100000 automata generated, time: 45m 48s, 0 automata in ResultMinimalAutomatonHashMap, 11605 in CurrentMinimalAutomatonHashMap
+Thread id 1: 18200000 automata generated, time: 46m 06s, 0 automata in ResultMinimalAutomatonHashMap, 11605 in CurrentMinimalAutomatonHashMap
+Thread id 0: 18300000 automata generated, time: 46m 24s, 0 automata in ResultMinimalAutomatonHashMap, 10697 in CurrentMinimalAutomatonHashMap
+Thread id 0: 18400000 automata generated, time: 46m 42s, 0 automata in ResultMinimalAutomatonHashMap, 10700 in CurrentMinimalAutomatonHashMap
+Thread id 1: 18500000 automata generated, time: 46m 58s, 0 automata in ResultMinimalAutomatonHashMap, 11606 in CurrentMinimalAutomatonHashMap
+Thread id 1: 18600000 automata generated, time: 47m 15s, 0 automata in ResultMinimalAutomatonHashMap, 11606 in CurrentMinimalAutomatonHashMap
+Thread id 0: 18700000 automata generated, time: 47m 32s, 0 automata in ResultMinimalAutomatonHashMap, 10703 in CurrentMinimalAutomatonHashMap
+Thread id 1: 18800000 automata generated, time: 47m 52s, 0 automata in ResultMinimalAutomatonHashMap, 11606 in CurrentMinimalAutomatonHashMap
+Thread id 1: 18900000 automata generated, time: 48m 08s, 0 automata in ResultMinimalAutomatonHashMap, 11623 in CurrentMinimalAutomatonHashMap
+Thread id 0: 19000000 automata generated, time: 48m 24s, 0 automata in ResultMinimalAutomatonHashMap, 10704 in CurrentMinimalAutomatonHashMap
+Thread id 1: 19100000 automata generated, time: 48m 39s, 0 automata in ResultMinimalAutomatonHashMap, 12008 in CurrentMinimalAutomatonHashMap
+Thread id 1: 19200000 automata generated, time: 48m 54s, 0 automata in ResultMinimalAutomatonHashMap, 12226 in CurrentMinimalAutomatonHashMap
+Thread id 1: 19300000 automata generated, time: 49m 10s, 0 automata in ResultMinimalAutomatonHashMap, 12344 in CurrentMinimalAutomatonHashMap
+Thread id 0: 19400000 automata generated, time: 49m 26s, 0 automata in ResultMinimalAutomatonHashMap, 11183 in CurrentMinimalAutomatonHashMap
+Thread id 1: 19500000 automata generated, time: 49m 40s, 0 automata in ResultMinimalAutomatonHashMap, 12355 in CurrentMinimalAutomatonHashMap
+Thread id 0: 19600000 automata generated, time: 49m 55s, 0 automata in ResultMinimalAutomatonHashMap, 11227 in CurrentMinimalAutomatonHashMap
+Thread id 0: 19700000 automata generated, time: 50m 09s, 0 automata in ResultMinimalAutomatonHashMap, 11233 in CurrentMinimalAutomatonHashMap
+Thread id 1: 19800000 automata generated, time: 50m 23s, 0 automata in ResultMinimalAutomatonHashMap, 12444 in CurrentMinimalAutomatonHashMap
+Thread id 1: 19900000 automata generated, time: 50m 39s, 0 automata in ResultMinimalAutomatonHashMap, 12532 in CurrentMinimalAutomatonHashMap
+Thread id 1: 20000000 automata generated, time: 50m 56s, 0 automata in ResultMinimalAutomatonHashMap, 12618 in CurrentMinimalAutomatonHashMap
+Thread id 1: 20100000 automata generated, time: 51m 12s, 0 automata in ResultMinimalAutomatonHashMap, 12626 in CurrentMinimalAutomatonHashMap
+Thread id 1: 20200000 automata generated, time: 51m 28s, 0 automata in ResultMinimalAutomatonHashMap, 12708 in CurrentMinimalAutomatonHashMap
+Thread id 1: 20300000 automata generated, time: 51m 44s, 0 automata in ResultMinimalAutomatonHashMap, 12751 in CurrentMinimalAutomatonHashMap
+Thread id 0: 20400000 automata generated, time: 52m 01s, 0 automata in ResultMinimalAutomatonHashMap, 11519 in CurrentMinimalAutomatonHashMap
+Thread id 1: 20500000 automata generated, time: 52m 17s, 0 automata in ResultMinimalAutomatonHashMap, 12841 in CurrentMinimalAutomatonHashMap
+Thread id 1: 20600000 automata generated, time: 52m 33s, 0 automata in ResultMinimalAutomatonHashMap, 12876 in CurrentMinimalAutomatonHashMap
+Thread id 0: 20700000 automata generated, time: 52m 48s, 0 automata in ResultMinimalAutomatonHashMap, 11670 in CurrentMinimalAutomatonHashMap
+Thread id 1: 20800000 automata generated, time: 53m 04s, 0 automata in ResultMinimalAutomatonHashMap, 12911 in CurrentMinimalAutomatonHashMap
+Thread id 0: 20900000 automata generated, time: 53m 20s, 0 automata in ResultMinimalAutomatonHashMap, 11731 in CurrentMinimalAutomatonHashMap
+Thread id 1: 21000000 automata generated, time: 53m 36s, 0 automata in ResultMinimalAutomatonHashMap, 12981 in CurrentMinimalAutomatonHashMap
+Thread id 0: 21100000 automata generated, time: 53m 54s, 0 automata in ResultMinimalAutomatonHashMap, 11776 in CurrentMinimalAutomatonHashMap
+Thread id 1: 21200000 automata generated, time: 54m 13s, 0 automata in ResultMinimalAutomatonHashMap, 13020 in CurrentMinimalAutomatonHashMap
+Thread id 0: 21300000 automata generated, time: 54m 33s, 0 automata in ResultMinimalAutomatonHashMap, 11846 in CurrentMinimalAutomatonHashMap
+Thread id 0: 21400000 automata generated, time: 54m 53s, 0 automata in ResultMinimalAutomatonHashMap, 11846 in CurrentMinimalAutomatonHashMap
+Thread id 0: 21500000 automata generated, time: 55m 10s, 0 automata in ResultMinimalAutomatonHashMap, 11847 in CurrentMinimalAutomatonHashMap
+Thread id 1: 21600000 automata generated, time: 55m 24s, 0 automata in ResultMinimalAutomatonHashMap, 13033 in CurrentMinimalAutomatonHashMap
+Thread id 1: 21700000 automata generated, time: 55m 40s, 0 automata in ResultMinimalAutomatonHashMap, 13033 in CurrentMinimalAutomatonHashMap
+Thread id 0: 21800000 automata generated, time: 55m 55s, 0 automata in ResultMinimalAutomatonHashMap, 11847 in CurrentMinimalAutomatonHashMap
+Thread id 0: 21900001 automata generated, time: 56m 09s, 0 automata in ResultMinimalAutomatonHashMap, 11847 in CurrentMinimalAutomatonHashMap
+Thread id 1: 22000000 automata generated, time: 56m 24s, 0 automata in ResultMinimalAutomatonHashMap, 13033 in CurrentMinimalAutomatonHashMap
+Thread id 0: 22100000 automata generated, time: 56m 40s, 0 automata in ResultMinimalAutomatonHashMap, 11847 in CurrentMinimalAutomatonHashMap
+Thread id 1: 22200000 automata generated, time: 56m 57s, 0 automata in ResultMinimalAutomatonHashMap, 13033 in CurrentMinimalAutomatonHashMap
+Thread id 0: 22300000 automata generated, time: 57m 13s, 0 automata in ResultMinimalAutomatonHashMap, 11847 in CurrentMinimalAutomatonHashMap
+Thread id 0: 22400000 automata generated, time: 57m 31s, 0 automata in ResultMinimalAutomatonHashMap, 11847 in CurrentMinimalAutomatonHashMap
+Thread id 0: 22500000 automata generated, time: 57m 47s, 0 automata in ResultMinimalAutomatonHashMap, 11847 in CurrentMinimalAutomatonHashMap
+Thread id 0: 22600000 automata generated, time: 58m 04s, 0 automata in ResultMinimalAutomatonHashMap, 11847 in CurrentMinimalAutomatonHashMap
+Thread id 1: 22700000 automata generated, time: 58m 20s, 0 automata in ResultMinimalAutomatonHashMap, 13033 in CurrentMinimalAutomatonHashMap
+Thread id 1: 22800000 automata generated, time: 58m 36s, 0 automata in ResultMinimalAutomatonHashMap, 13033 in CurrentMinimalAutomatonHashMap
+Thread id 0: 22900000 automata generated, time: 58m 51s, 0 automata in ResultMinimalAutomatonHashMap, 11847 in CurrentMinimalAutomatonHashMap
+Thread id 0: 23000000 automata generated, time: 59m 08s, 0 automata in ResultMinimalAutomatonHashMap, 11847 in CurrentMinimalAutomatonHashMap
+Thread id 0: 23100000 automata generated, time: 59m 24s, 0 automata in ResultMinimalAutomatonHashMap, 11847 in CurrentMinimalAutomatonHashMap
+Thread id 1: 23200000 automata generated, time: 59m 40s, 0 automata in ResultMinimalAutomatonHashMap, 13069 in CurrentMinimalAutomatonHashMap
+Thread id 0: 23300000 automata generated, time: 59m 55s, 0 automata in ResultMinimalAutomatonHashMap, 11847 in CurrentMinimalAutomatonHashMap
+Thread id 0: 23400000 automata generated, time: 01h 00m 12s, 0 automata in ResultMinimalAutomatonHashMap, 11847 in CurrentMinimalAutomatonHashMap
+Thread id 1: 23500000 automata generated, time: 01h 00m 28s, 0 automata in ResultMinimalAutomatonHashMap, 13117 in CurrentMinimalAutomatonHashMap
+Thread id 1: 23600000 automata generated, time: 01h 00m 43s, 0 automata in ResultMinimalAutomatonHashMap, 13123 in CurrentMinimalAutomatonHashMap
+Thread id 1: 23700000 automata generated, time: 01h 00m 58s, 0 automata in ResultMinimalAutomatonHashMap, 13124 in CurrentMinimalAutomatonHashMap
+Thread id 0: 23800000 automata generated, time: 01h 01m 14s, 0 automata in ResultMinimalAutomatonHashMap, 11932 in CurrentMinimalAutomatonHashMap
+Thread id 1: 23900000 automata generated, time: 01h 01m 29s, 0 automata in ResultMinimalAutomatonHashMap, 13127 in CurrentMinimalAutomatonHashMap
+Thread id 0: 24000000 automata generated, time: 01h 01m 44s, 0 automata in ResultMinimalAutomatonHashMap, 11935 in CurrentMinimalAutomatonHashMap
+Thread id 1: 24100000 automata generated, time: 01h 01m 59s, 0 automata in ResultMinimalAutomatonHashMap, 13127 in CurrentMinimalAutomatonHashMap
+Thread id 1: 24200000 automata generated, time: 01h 02m 15s, 0 automata in ResultMinimalAutomatonHashMap, 13127 in CurrentMinimalAutomatonHashMap
+Thread id 1: 24300000 automata generated, time: 01h 02m 30s, 0 automata in ResultMinimalAutomatonHashMap, 13127 in CurrentMinimalAutomatonHashMap
+Thread id 1: 24400000 automata generated, time: 01h 02m 47s, 0 automata in ResultMinimalAutomatonHashMap, 13127 in CurrentMinimalAutomatonHashMap
+Thread id 0: 24500000 automata generated, time: 01h 03m 04s, 0 automata in ResultMinimalAutomatonHashMap, 11939 in CurrentMinimalAutomatonHashMap
+Thread id 1: 24600000 automata generated, time: 01h 03m 21s, 0 automata in ResultMinimalAutomatonHashMap, 13140 in CurrentMinimalAutomatonHashMap
+Thread id 0: 24700000 automata generated, time: 01h 03m 38s, 0 automata in ResultMinimalAutomatonHashMap, 11939 in CurrentMinimalAutomatonHashMap
+Thread id 1: 24800000 automata generated, time: 01h 03m 55s, 0 automata in ResultMinimalAutomatonHashMap, 13145 in CurrentMinimalAutomatonHashMap
+Thread id 1: 24900000 automata generated, time: 01h 04m 11s, 0 automata in ResultMinimalAutomatonHashMap, 13156 in CurrentMinimalAutomatonHashMap
+Thread id 0: 25000000 automata generated, time: 01h 04m 27s, 0 automata in ResultMinimalAutomatonHashMap, 11954 in CurrentMinimalAutomatonHashMap
+Thread id 1: 25100000 automata generated, time: 01h 04m 44s, 0 automata in ResultMinimalAutomatonHashMap, 13173 in CurrentMinimalAutomatonHashMap
+Thread id 0: 25200000 automata generated, time: 01h 04m 59s, 0 automata in ResultMinimalAutomatonHashMap, 11968 in CurrentMinimalAutomatonHashMap
+Thread id 1: 25300000 automata generated, time: 01h 05m 16s, 0 automata in ResultMinimalAutomatonHashMap, 13180 in CurrentMinimalAutomatonHashMap
+Thread id 1: 25400000 automata generated, time: 01h 05m 34s, 0 automata in ResultMinimalAutomatonHashMap, 13182 in CurrentMinimalAutomatonHashMap
+Thread id 1: 25500000 automata generated, time: 01h 05m 50s, 0 automata in ResultMinimalAutomatonHashMap, 13197 in CurrentMinimalAutomatonHashMap
+Thread id 1: 25600000 automata generated, time: 01h 06m 06s, 0 automata in ResultMinimalAutomatonHashMap, 13197 in CurrentMinimalAutomatonHashMap
+Thread id 1: 25700000 automata generated, time: 01h 06m 23s, 0 automata in ResultMinimalAutomatonHashMap, 13197 in CurrentMinimalAutomatonHashMap
+Thread id 1: 25800000 automata generated, time: 01h 06m 40s, 0 automata in ResultMinimalAutomatonHashMap, 13203 in CurrentMinimalAutomatonHashMap
+Thread id 0: 25900000 automata generated, time: 01h 06m 57s, 0 automata in ResultMinimalAutomatonHashMap, 12008 in CurrentMinimalAutomatonHashMap
+Thread id 1: 26000000 automata generated, time: 01h 07m 14s, 0 automata in ResultMinimalAutomatonHashMap, 13203 in CurrentMinimalAutomatonHashMap
+Thread id 0: 26100000 automata generated, time: 01h 07m 29s, 0 automata in ResultMinimalAutomatonHashMap, 12010 in CurrentMinimalAutomatonHashMap
+Thread id 1: 26200000 automata generated, time: 01h 07m 45s, 0 automata in ResultMinimalAutomatonHashMap, 13203 in CurrentMinimalAutomatonHashMap
+Thread id 0: 26300000 automata generated, time: 01h 08m 01s, 0 automata in ResultMinimalAutomatonHashMap, 12010 in CurrentMinimalAutomatonHashMap
+Thread id 0: 26400000 automata generated, time: 01h 08m 16s, 0 automata in ResultMinimalAutomatonHashMap, 12010 in CurrentMinimalAutomatonHashMap
+Thread id 0: 26500000 automata generated, time: 01h 08m 31s, 0 automata in ResultMinimalAutomatonHashMap, 12010 in CurrentMinimalAutomatonHashMap
+Thread id 0: 26600000 automata generated, time: 01h 08m 47s, 0 automata in ResultMinimalAutomatonHashMap, 12010 in CurrentMinimalAutomatonHashMap
+Thread id 0: 26700000 automata generated, time: 01h 09m 04s, 0 automata in ResultMinimalAutomatonHashMap, 12010 in CurrentMinimalAutomatonHashMap
+Thread id 1: 26800000 automata generated, time: 01h 09m 21s, 0 automata in ResultMinimalAutomatonHashMap, 13203 in CurrentMinimalAutomatonHashMap
+Thread id 0: 26900000 automata generated, time: 01h 09m 39s, 0 automata in ResultMinimalAutomatonHashMap, 12010 in CurrentMinimalAutomatonHashMap
+Thread id 0: 27000000 automata generated, time: 01h 09m 56s, 0 automata in ResultMinimalAutomatonHashMap, 12010 in CurrentMinimalAutomatonHashMap
+Thread id 1: 27100000 automata generated, time: 01h 10m 13s, 0 automata in ResultMinimalAutomatonHashMap, 13203 in CurrentMinimalAutomatonHashMap
+Thread id 1: 27200000 automata generated, time: 01h 10m 29s, 0 automata in ResultMinimalAutomatonHashMap, 13203 in CurrentMinimalAutomatonHashMap
+Thread id 1: 27300000 automata generated, time: 01h 10m 47s, 0 automata in ResultMinimalAutomatonHashMap, 13203 in CurrentMinimalAutomatonHashMap
+Thread id 0: 27400000 automata generated, time: 01h 11m 03s, 0 automata in ResultMinimalAutomatonHashMap, 12010 in CurrentMinimalAutomatonHashMap
+Thread id 1: 27500000 automata generated, time: 01h 11m 20s, 0 automata in ResultMinimalAutomatonHashMap, 13203 in CurrentMinimalAutomatonHashMap
+Thread id 0: 27600000 automata generated, time: 01h 11m 36s, 0 automata in ResultMinimalAutomatonHashMap, 12010 in CurrentMinimalAutomatonHashMap
+Thread id 0: 27700000 automata generated, time: 01h 11m 53s, 0 automata in ResultMinimalAutomatonHashMap, 12010 in CurrentMinimalAutomatonHashMap
+Thread id 1: 27800000 automata generated, time: 01h 12m 11s, 0 automata in ResultMinimalAutomatonHashMap, 13203 in CurrentMinimalAutomatonHashMap
+Thread id 1: 27900000 automata generated, time: 01h 12m 27s, 0 automata in ResultMinimalAutomatonHashMap, 13298 in CurrentMinimalAutomatonHashMap
+Thread id 1: 28000000 automata generated, time: 01h 12m 44s, 0 automata in ResultMinimalAutomatonHashMap, 13459 in CurrentMinimalAutomatonHashMap
+Thread id 1: 28100000 automata generated, time: 01h 13m 01s, 0 automata in ResultMinimalAutomatonHashMap, 13541 in CurrentMinimalAutomatonHashMap
+Thread id 1: 28200000 automata generated, time: 01h 13m 18s, 0 automata in ResultMinimalAutomatonHashMap, 13564 in CurrentMinimalAutomatonHashMap
+Thread id 1: 28300000 automata generated, time: 01h 13m 33s, 0 automata in ResultMinimalAutomatonHashMap, 13577 in CurrentMinimalAutomatonHashMap
+Thread id 1: 28400000 automata generated, time: 01h 13m 46s, 0 automata in ResultMinimalAutomatonHashMap, 13577 in CurrentMinimalAutomatonHashMap
+Thread id 1: 28500000 automata generated, time: 01h 14m 00s, 0 automata in ResultMinimalAutomatonHashMap, 13577 in CurrentMinimalAutomatonHashMap
+Thread id 0: 28600000 automata generated, time: 01h 14m 15s, 0 automata in ResultMinimalAutomatonHashMap, 12363 in CurrentMinimalAutomatonHashMap
+Thread id 0: 28700000 automata generated, time: 01h 14m 29s, 0 automata in ResultMinimalAutomatonHashMap, 12374 in CurrentMinimalAutomatonHashMap
+Thread id 1: 28800000 automata generated, time: 01h 14m 42s, 0 automata in ResultMinimalAutomatonHashMap, 13578 in CurrentMinimalAutomatonHashMap
+Thread id 0: 28900000 automata generated, time: 01h 14m 55s, 0 automata in ResultMinimalAutomatonHashMap, 12374 in CurrentMinimalAutomatonHashMap
+Thread id 1: 29000000 automata generated, time: 01h 15m 07s, 0 automata in ResultMinimalAutomatonHashMap, 13578 in CurrentMinimalAutomatonHashMap
+Thread id 0: 29100000 automata generated, time: 01h 15m 21s, 0 automata in ResultMinimalAutomatonHashMap, 12375 in CurrentMinimalAutomatonHashMap
+Thread id 1: 29200000 automata generated, time: 01h 15m 35s, 0 automata in ResultMinimalAutomatonHashMap, 13578 in CurrentMinimalAutomatonHashMap
+Thread id 1: 29300000 automata generated, time: 01h 15m 49s, 0 automata in ResultMinimalAutomatonHashMap, 13578 in CurrentMinimalAutomatonHashMap
+Thread id 0: 29400000 automata generated, time: 01h 16m 03s, 0 automata in ResultMinimalAutomatonHashMap, 12377 in CurrentMinimalAutomatonHashMap
+Thread id 0: 29500000 automata generated, time: 01h 16m 16s, 0 automata in ResultMinimalAutomatonHashMap, 12377 in CurrentMinimalAutomatonHashMap
+Thread id 0: 29600000 automata generated, time: 01h 16m 30s, 0 automata in ResultMinimalAutomatonHashMap, 12378 in CurrentMinimalAutomatonHashMap
+Thread id 1: 29700000 automata generated, time: 01h 16m 44s, 0 automata in ResultMinimalAutomatonHashMap, 13578 in CurrentMinimalAutomatonHashMap
+Thread id 0: 29800000 automata generated, time: 01h 16m 58s, 0 automata in ResultMinimalAutomatonHashMap, 12378 in CurrentMinimalAutomatonHashMap
+Thread id 0: 29900000 automata generated, time: 01h 17m 11s, 0 automata in ResultMinimalAutomatonHashMap, 12379 in CurrentMinimalAutomatonHashMap
+Thread id 0: 30000000 automata generated, time: 01h 17m 26s, 0 automata in ResultMinimalAutomatonHashMap, 12379 in CurrentMinimalAutomatonHashMap
+Thread id 1: 30100000 automata generated, time: 01h 17m 43s, 0 automata in ResultMinimalAutomatonHashMap, 13580 in CurrentMinimalAutomatonHashMap
+Thread id 1: 30200000 automata generated, time: 01h 17m 58s, 0 automata in ResultMinimalAutomatonHashMap, 13580 in CurrentMinimalAutomatonHashMap
+Thread id 0: 30300000 automata generated, time: 01h 18m 15s, 0 automata in ResultMinimalAutomatonHashMap, 12380 in CurrentMinimalAutomatonHashMap
+Thread id 1: 30400000 automata generated, time: 01h 18m 35s, 0 automata in ResultMinimalAutomatonHashMap, 13580 in CurrentMinimalAutomatonHashMap
+Thread id 0: 30500000 automata generated, time: 01h 18m 54s, 0 automata in ResultMinimalAutomatonHashMap, 12383 in CurrentMinimalAutomatonHashMap
+Thread id 1: 30600000 automata generated, time: 01h 19m 10s, 0 automata in ResultMinimalAutomatonHashMap, 13580 in CurrentMinimalAutomatonHashMap
+Thread id 1: 30700000 automata generated, time: 01h 19m 24s, 0 automata in ResultMinimalAutomatonHashMap, 13580 in CurrentMinimalAutomatonHashMap
+Thread id 0: 30800000 automata generated, time: 01h 19m 41s, 0 automata in ResultMinimalAutomatonHashMap, 12384 in CurrentMinimalAutomatonHashMap
+Thread id 1: 30900000 automata generated, time: 01h 19m 54s, 0 automata in ResultMinimalAutomatonHashMap, 13580 in CurrentMinimalAutomatonHashMap
+Thread id 1: 31000000 automata generated, time: 01h 20m 08s, 0 automata in ResultMinimalAutomatonHashMap, 13580 in CurrentMinimalAutomatonHashMap
+Thread id 0: 31100000 automata generated, time: 01h 20m 22s, 0 automata in ResultMinimalAutomatonHashMap, 12384 in CurrentMinimalAutomatonHashMap
+Thread id 1: 31200000 automata generated, time: 01h 20m 34s, 0 automata in ResultMinimalAutomatonHashMap, 13580 in CurrentMinimalAutomatonHashMap
+Thread id 1: 31300000 automata generated, time: 01h 20m 47s, 0 automata in ResultMinimalAutomatonHashMap, 13580 in CurrentMinimalAutomatonHashMap
+Thread id 0: 31400000 automata generated, time: 01h 21m 02s, 0 automata in ResultMinimalAutomatonHashMap, 12384 in CurrentMinimalAutomatonHashMap
+Thread id 0: 31500000 automata generated, time: 01h 21m 15s, 0 automata in ResultMinimalAutomatonHashMap, 12384 in CurrentMinimalAutomatonHashMap
+Thread id 0: 31600000 automata generated, time: 01h 21m 30s, 0 automata in ResultMinimalAutomatonHashMap, 12384 in CurrentMinimalAutomatonHashMap
+Thread id 1: 31700000 automata generated, time: 01h 21m 43s, 0 automata in ResultMinimalAutomatonHashMap, 13580 in CurrentMinimalAutomatonHashMap
+Thread id 1: 31800000 automata generated, time: 01h 21m 57s, 0 automata in ResultMinimalAutomatonHashMap, 13580 in CurrentMinimalAutomatonHashMap
+Thread id 0: 31900000 automata generated, time: 01h 22m 12s, 0 automata in ResultMinimalAutomatonHashMap, 12384 in CurrentMinimalAutomatonHashMap
+Thread id 1: 32000000 automata generated, time: 01h 22m 26s, 0 automata in ResultMinimalAutomatonHashMap, 13580 in CurrentMinimalAutomatonHashMap
+Thread id 0: 32100000 automata generated, time: 01h 22m 40s, 0 automata in ResultMinimalAutomatonHashMap, 12384 in CurrentMinimalAutomatonHashMap
+Thread id 0: 32200000 automata generated, time: 01h 22m 54s, 0 automata in ResultMinimalAutomatonHashMap, 12384 in CurrentMinimalAutomatonHashMap
+Thread id 1: 32300000 automata generated, time: 01h 23m 08s, 0 automata in ResultMinimalAutomatonHashMap, 13580 in CurrentMinimalAutomatonHashMap
+Thread id 1: 32400000 automata generated, time: 01h 23m 24s, 0 automata in ResultMinimalAutomatonHashMap, 13610 in CurrentMinimalAutomatonHashMap
+Thread id 0: 32500000 automata generated, time: 01h 23m 40s, 0 automata in ResultMinimalAutomatonHashMap, 12384 in CurrentMinimalAutomatonHashMap
+Thread id 1: 32600000 automata generated, time: 01h 23m 56s, 0 automata in ResultMinimalAutomatonHashMap, 13697 in CurrentMinimalAutomatonHashMap
+Thread id 1: 32700000 automata generated, time: 01h 24m 13s, 0 automata in ResultMinimalAutomatonHashMap, 13740 in CurrentMinimalAutomatonHashMap
+Thread id 0: 32800000 automata generated, time: 01h 24m 30s, 0 automata in ResultMinimalAutomatonHashMap, 12432 in CurrentMinimalAutomatonHashMap
+Thread id 1: 32900000 automata generated, time: 01h 24m 47s, 0 automata in ResultMinimalAutomatonHashMap, 13753 in CurrentMinimalAutomatonHashMap
+Thread id 0: 33000000 automata generated, time: 01h 25m 01s, 0 automata in ResultMinimalAutomatonHashMap, 12520 in CurrentMinimalAutomatonHashMap
+Thread id 1: 33100000 automata generated, time: 01h 25m 17s, 0 automata in ResultMinimalAutomatonHashMap, 13753 in CurrentMinimalAutomatonHashMap
+Thread id 0: 33200000 automata generated, time: 01h 25m 31s, 0 automata in ResultMinimalAutomatonHashMap, 12550 in CurrentMinimalAutomatonHashMap
+Thread id 1: 33300000 automata generated, time: 01h 25m 46s, 0 automata in ResultMinimalAutomatonHashMap, 13753 in CurrentMinimalAutomatonHashMap
+Thread id 0: 33400000 automata generated, time: 01h 26m 00s, 0 automata in ResultMinimalAutomatonHashMap, 12551 in CurrentMinimalAutomatonHashMap
+Thread id 0: 33500000 automata generated, time: 01h 26m 15s, 0 automata in ResultMinimalAutomatonHashMap, 12551 in CurrentMinimalAutomatonHashMap
+Thread id 1: 33600000 automata generated, time: 01h 26m 30s, 0 automata in ResultMinimalAutomatonHashMap, 13755 in CurrentMinimalAutomatonHashMap
+Thread id 0: 33700000 automata generated, time: 01h 26m 46s, 0 automata in ResultMinimalAutomatonHashMap, 12551 in CurrentMinimalAutomatonHashMap
+Thread id 1: 33800000 automata generated, time: 01h 27m 02s, 0 automata in ResultMinimalAutomatonHashMap, 13755 in CurrentMinimalAutomatonHashMap
+Thread id 0: 33900000 automata generated, time: 01h 27m 17s, 0 automata in ResultMinimalAutomatonHashMap, 12554 in CurrentMinimalAutomatonHashMap
+Thread id 1: 34000000 automata generated, time: 01h 27m 34s, 0 automata in ResultMinimalAutomatonHashMap, 13755 in CurrentMinimalAutomatonHashMap
+Thread id 1: 34100000 automata generated, time: 01h 27m 50s, 0 automata in ResultMinimalAutomatonHashMap, 13755 in CurrentMinimalAutomatonHashMap
+Thread id 0: 34200000 automata generated, time: 01h 28m 04s, 0 automata in ResultMinimalAutomatonHashMap, 12555 in CurrentMinimalAutomatonHashMap
+Thread id 0: 34300000 automata generated, time: 01h 28m 20s, 0 automata in ResultMinimalAutomatonHashMap, 12555 in CurrentMinimalAutomatonHashMap
+Thread id 1: 34400000 automata generated, time: 01h 28m 36s, 0 automata in ResultMinimalAutomatonHashMap, 13757 in CurrentMinimalAutomatonHashMap
+Thread id 0: 34500000 automata generated, time: 01h 28m 51s, 0 automata in ResultMinimalAutomatonHashMap, 12555 in CurrentMinimalAutomatonHashMap
+Thread id 0: 34600000 automata generated, time: 01h 29m 07s, 0 automata in ResultMinimalAutomatonHashMap, 12558 in CurrentMinimalAutomatonHashMap
+Thread id 0: 34700000 automata generated, time: 01h 29m 22s, 0 automata in ResultMinimalAutomatonHashMap, 12558 in CurrentMinimalAutomatonHashMap
+Thread id 0: 34800000 automata generated, time: 01h 29m 42s, 0 automata in ResultMinimalAutomatonHashMap, 12558 in CurrentMinimalAutomatonHashMap
+Thread id 1: 34900000 automata generated, time: 01h 29m 59s, 0 automata in ResultMinimalAutomatonHashMap, 13759 in CurrentMinimalAutomatonHashMap
+Thread id 1: 35000000 automata generated, time: 01h 30m 20s, 0 automata in ResultMinimalAutomatonHashMap, 13759 in CurrentMinimalAutomatonHashMap
+Thread id 1: 35100000 automata generated, time: 01h 30m 40s, 0 automata in ResultMinimalAutomatonHashMap, 13759 in CurrentMinimalAutomatonHashMap
+Thread id 0: 35200000 automata generated, time: 01h 30m 57s, 0 automata in ResultMinimalAutomatonHashMap, 12558 in CurrentMinimalAutomatonHashMap
+Thread id 1: 35300000 automata generated, time: 01h 31m 18s, 0 automata in ResultMinimalAutomatonHashMap, 13759 in CurrentMinimalAutomatonHashMap
+Thread id 0: 35400000 automata generated, time: 01h 31m 33s, 0 automata in ResultMinimalAutomatonHashMap, 12560 in CurrentMinimalAutomatonHashMap
+Thread id 0: 35500000 automata generated, time: 01h 31m 48s, 0 automata in ResultMinimalAutomatonHashMap, 12560 in CurrentMinimalAutomatonHashMap
+Thread id 1: 35600000 automata generated, time: 01h 32m 04s, 0 automata in ResultMinimalAutomatonHashMap, 13759 in CurrentMinimalAutomatonHashMap
+Thread id 1: 35700000 automata generated, time: 01h 32m 20s, 0 automata in ResultMinimalAutomatonHashMap, 13759 in CurrentMinimalAutomatonHashMap
+Thread id 1: 35800000 automata generated, time: 01h 32m 35s, 0 automata in ResultMinimalAutomatonHashMap, 13759 in CurrentMinimalAutomatonHashMap
+Thread id 0: 35900000 automata generated, time: 01h 32m 50s, 0 automata in ResultMinimalAutomatonHashMap, 12560 in CurrentMinimalAutomatonHashMap
+Thread id 1: 36000000 automata generated, time: 01h 33m 05s, 0 automata in ResultMinimalAutomatonHashMap, 13759 in CurrentMinimalAutomatonHashMap
+Thread id 0: 36100000 automata generated, time: 01h 33m 22s, 0 automata in ResultMinimalAutomatonHashMap, 12560 in CurrentMinimalAutomatonHashMap
+Thread id 1: 36200000 automata generated, time: 01h 33m 37s, 0 automata in ResultMinimalAutomatonHashMap, 13759 in CurrentMinimalAutomatonHashMap
+Thread id 0: 36300000 automata generated, time: 01h 33m 53s, 0 automata in ResultMinimalAutomatonHashMap, 12560 in CurrentMinimalAutomatonHashMap
+Thread id 0: 36400000 automata generated, time: 01h 34m 09s, 0 automata in ResultMinimalAutomatonHashMap, 12560 in CurrentMinimalAutomatonHashMap
+Thread id 0: 36500000 automata generated, time: 01h 34m 26s, 0 automata in ResultMinimalAutomatonHashMap, 12560 in CurrentMinimalAutomatonHashMap
+Thread id 1: 36600000 automata generated, time: 01h 34m 41s, 0 automata in ResultMinimalAutomatonHashMap, 13759 in CurrentMinimalAutomatonHashMap
+Thread id 1: 36700000 automata generated, time: 01h 34m 57s, 0 automata in ResultMinimalAutomatonHashMap, 13759 in CurrentMinimalAutomatonHashMap
+Thread id 0: 36800000 automata generated, time: 01h 35m 13s, 0 automata in ResultMinimalAutomatonHashMap, 12560 in CurrentMinimalAutomatonHashMap
+Thread id 1: 36900000 automata generated, time: 01h 35m 29s, 0 automata in ResultMinimalAutomatonHashMap, 13759 in CurrentMinimalAutomatonHashMap
+Thread id 1: 37000000 automata generated, time: 01h 35m 45s, 0 automata in ResultMinimalAutomatonHashMap, 13759 in CurrentMinimalAutomatonHashMap
+Thread id 0: 37100000 automata generated, time: 01h 36m 01s, 0 automata in ResultMinimalAutomatonHashMap, 12560 in CurrentMinimalAutomatonHashMap
+Thread id 1: 37200000 automata generated, time: 01h 36m 18s, 0 automata in ResultMinimalAutomatonHashMap, 13759 in CurrentMinimalAutomatonHashMap
+Thread id 0: 37300000 automata generated, time: 01h 36m 35s, 0 automata in ResultMinimalAutomatonHashMap, 12560 in CurrentMinimalAutomatonHashMap
+Thread id 0: 37400000 automata generated, time: 01h 36m 50s, 0 automata in ResultMinimalAutomatonHashMap, 12560 in CurrentMinimalAutomatonHashMap
+Thread id 0: 37500000 automata generated, time: 01h 37m 06s, 0 automata in ResultMinimalAutomatonHashMap, 12560 in CurrentMinimalAutomatonHashMap
+Thread id 1: 37600000 automata generated, time: 01h 37m 22s, 0 automata in ResultMinimalAutomatonHashMap, 13835 in CurrentMinimalAutomatonHashMap
+Thread id 1: 37700000 automata generated, time: 01h 37m 39s, 0 automata in ResultMinimalAutomatonHashMap, 13844 in CurrentMinimalAutomatonHashMap
+Thread id 1: 37800000 automata generated, time: 01h 37m 56s, 0 automata in ResultMinimalAutomatonHashMap, 13850 in CurrentMinimalAutomatonHashMap
+Thread id 0: 37900000 automata generated, time: 01h 38m 10s, 0 automata in ResultMinimalAutomatonHashMap, 12605 in CurrentMinimalAutomatonHashMap
+Thread id 0: 38000000 automata generated, time: 01h 38m 23s, 0 automata in ResultMinimalAutomatonHashMap, 12615 in CurrentMinimalAutomatonHashMap
+Thread id 1: 38100000 automata generated, time: 01h 38m 38s, 0 automata in ResultMinimalAutomatonHashMap, 13850 in CurrentMinimalAutomatonHashMap
+Thread id 0: 38200000 automata generated, time: 01h 38m 52s, 0 automata in ResultMinimalAutomatonHashMap, 12630 in CurrentMinimalAutomatonHashMap
+Thread id 0: 38300000 automata generated, time: 01h 39m 07s, 0 automata in ResultMinimalAutomatonHashMap, 12630 in CurrentMinimalAutomatonHashMap
+Thread id 0: 38400000 automata generated, time: 01h 39m 20s, 0 automata in ResultMinimalAutomatonHashMap, 12630 in CurrentMinimalAutomatonHashMap
+Thread id 0: 38500000 automata generated, time: 01h 39m 35s, 0 automata in ResultMinimalAutomatonHashMap, 12630 in CurrentMinimalAutomatonHashMap
+Thread id 1: 38600000 automata generated, time: 01h 39m 50s, 0 automata in ResultMinimalAutomatonHashMap, 13851 in CurrentMinimalAutomatonHashMap
+Thread id 1: 38700000 automata generated, time: 01h 40m 04s, 0 automata in ResultMinimalAutomatonHashMap, 13851 in CurrentMinimalAutomatonHashMap
+Thread id 0: 38800000 automata generated, time: 01h 40m 21s, 0 automata in ResultMinimalAutomatonHashMap, 12630 in CurrentMinimalAutomatonHashMap
+Thread id 1: 38900000 automata generated, time: 01h 40m 36s, 0 automata in ResultMinimalAutomatonHashMap, 13851 in CurrentMinimalAutomatonHashMap
+Thread id 1: 39000000 automata generated, time: 01h 40m 52s, 0 automata in ResultMinimalAutomatonHashMap, 13851 in CurrentMinimalAutomatonHashMap
+Thread id 1: 39100000 automata generated, time: 01h 41m 07s, 0 automata in ResultMinimalAutomatonHashMap, 13851 in CurrentMinimalAutomatonHashMap
+Thread id 0: 39200000 automata generated, time: 01h 41m 25s, 0 automata in ResultMinimalAutomatonHashMap, 12630 in CurrentMinimalAutomatonHashMap
+Thread id 1: 39300000 automata generated, time: 01h 41m 40s, 0 automata in ResultMinimalAutomatonHashMap, 13851 in CurrentMinimalAutomatonHashMap
+Thread id 1: 39400000 automata generated, time: 01h 41m 55s, 0 automata in ResultMinimalAutomatonHashMap, 13851 in CurrentMinimalAutomatonHashMap
+Thread id 1: 39500000 automata generated, time: 01h 42m 10s, 0 automata in ResultMinimalAutomatonHashMap, 13851 in CurrentMinimalAutomatonHashMap
+Thread id 1: 39600000 automata generated, time: 01h 42m 24s, 0 automata in ResultMinimalAutomatonHashMap, 13851 in CurrentMinimalAutomatonHashMap
+Thread id 1: 39700000 automata generated, time: 01h 42m 40s, 0 automata in ResultMinimalAutomatonHashMap, 13851 in CurrentMinimalAutomatonHashMap
+Thread id 1: 39800000 automata generated, time: 01h 42m 55s, 0 automata in ResultMinimalAutomatonHashMap, 13851 in CurrentMinimalAutomatonHashMap
+Thread id 0: 39900000 automata generated, time: 01h 43m 11s, 0 automata in ResultMinimalAutomatonHashMap, 12630 in CurrentMinimalAutomatonHashMap
+Thread id 0: 40000000 automata generated, time: 01h 43m 25s, 0 automata in ResultMinimalAutomatonHashMap, 12630 in CurrentMinimalAutomatonHashMap
+Thread id 0: 40100000 automata generated, time: 01h 43m 41s, 0 automata in ResultMinimalAutomatonHashMap, 12630 in CurrentMinimalAutomatonHashMap
+Thread id 1: 40200000 automata generated, time: 01h 44m 01s, 0 automata in ResultMinimalAutomatonHashMap, 13867 in CurrentMinimalAutomatonHashMap
+Thread id 0: 40300000 automata generated, time: 01h 44m 17s, 0 automata in ResultMinimalAutomatonHashMap, 12631 in CurrentMinimalAutomatonHashMap
+Thread id 1: 40400000 automata generated, time: 01h 44m 37s, 0 automata in ResultMinimalAutomatonHashMap, 13867 in CurrentMinimalAutomatonHashMap
+Thread id 1: 40500000 automata generated, time: 01h 44m 58s, 0 automata in ResultMinimalAutomatonHashMap, 13867 in CurrentMinimalAutomatonHashMap
+Thread id 0: 40600000 automata generated, time: 01h 45m 14s, 0 automata in ResultMinimalAutomatonHashMap, 12646 in CurrentMinimalAutomatonHashMap
+Thread id 0: 40700000 automata generated, time: 01h 45m 36s, 0 automata in ResultMinimalAutomatonHashMap, 12646 in CurrentMinimalAutomatonHashMap
+Thread id 0: 40800000 automata generated, time: 01h 45m 52s, 0 automata in ResultMinimalAutomatonHashMap, 12646 in CurrentMinimalAutomatonHashMap
+Thread id 1: 40900000 automata generated, time: 01h 46m 06s, 0 automata in ResultMinimalAutomatonHashMap, 13877 in CurrentMinimalAutomatonHashMap
+Thread id 0: 41000000 automata generated, time: 01h 46m 21s, 0 automata in ResultMinimalAutomatonHashMap, 12653 in CurrentMinimalAutomatonHashMap
+Thread id 0: 41100000 automata generated, time: 01h 46m 36s, 0 automata in ResultMinimalAutomatonHashMap, 12653 in CurrentMinimalAutomatonHashMap
+Thread id 1: 41200000 automata generated, time: 01h 46m 52s, 0 automata in ResultMinimalAutomatonHashMap, 13877 in CurrentMinimalAutomatonHashMap
+Thread id 0: 41300000 automata generated, time: 01h 47m 06s, 0 automata in ResultMinimalAutomatonHashMap, 12653 in CurrentMinimalAutomatonHashMap
+Thread id 0: 41400000 automata generated, time: 01h 47m 21s, 0 automata in ResultMinimalAutomatonHashMap, 12653 in CurrentMinimalAutomatonHashMap
+Thread id 0: 41500000 automata generated, time: 01h 47m 35s, 0 automata in ResultMinimalAutomatonHashMap, 12653 in CurrentMinimalAutomatonHashMap
+Thread id 0: 41600000 automata generated, time: 01h 47m 50s, 0 automata in ResultMinimalAutomatonHashMap, 12653 in CurrentMinimalAutomatonHashMap
+Thread id 1: 41700000 automata generated, time: 01h 48m 05s, 0 automata in ResultMinimalAutomatonHashMap, 13877 in CurrentMinimalAutomatonHashMap
+Thread id 0: 41800000 automata generated, time: 01h 48m 22s, 0 automata in ResultMinimalAutomatonHashMap, 12653 in CurrentMinimalAutomatonHashMap
+Thread id 0: 41900000 automata generated, time: 01h 48m 38s, 0 automata in ResultMinimalAutomatonHashMap, 12653 in CurrentMinimalAutomatonHashMap
+Thread id 0: 42000000 automata generated, time: 01h 48m 54s, 0 automata in ResultMinimalAutomatonHashMap, 12653 in CurrentMinimalAutomatonHashMap
+Thread id 1: 42100000 automata generated, time: 01h 49m 10s, 0 automata in ResultMinimalAutomatonHashMap, 13877 in CurrentMinimalAutomatonHashMap
+Thread id 1: 42200000 automata generated, time: 01h 49m 27s, 0 automata in ResultMinimalAutomatonHashMap, 13877 in CurrentMinimalAutomatonHashMap
+Thread id 1: 42300000 automata generated, time: 01h 49m 43s, 0 automata in ResultMinimalAutomatonHashMap, 13877 in CurrentMinimalAutomatonHashMap
+Thread id 0: 42400000 automata generated, time: 01h 49m 57s, 0 automata in ResultMinimalAutomatonHashMap, 12653 in CurrentMinimalAutomatonHashMap
+Thread id 1: 42500000 automata generated, time: 01h 50m 13s, 0 automata in ResultMinimalAutomatonHashMap, 13877 in CurrentMinimalAutomatonHashMap
+Thread id 1: 42600000 automata generated, time: 01h 50m 28s, 0 automata in ResultMinimalAutomatonHashMap, 13877 in CurrentMinimalAutomatonHashMap
+Thread id 0: 42700000 automata generated, time: 01h 50m 44s, 0 automata in ResultMinimalAutomatonHashMap, 12653 in CurrentMinimalAutomatonHashMap
+Thread id 1: 42800000 automata generated, time: 01h 50m 59s, 0 automata in ResultMinimalAutomatonHashMap, 13877 in CurrentMinimalAutomatonHashMap
+Thread id 1: 42900000 automata generated, time: 01h 51m 15s, 0 automata in ResultMinimalAutomatonHashMap, 13877 in CurrentMinimalAutomatonHashMap
+Thread id 1: 43000000 automata generated, time: 01h 51m 30s, 0 automata in ResultMinimalAutomatonHashMap, 13877 in CurrentMinimalAutomatonHashMap
+Thread id 0: 43100000 automata generated, time: 01h 51m 47s, 0 automata in ResultMinimalAutomatonHashMap, 12653 in CurrentMinimalAutomatonHashMap
+Thread id 0: 43200000 automata generated, time: 01h 52m 04s, 0 automata in ResultMinimalAutomatonHashMap, 12653 in CurrentMinimalAutomatonHashMap
+Thread id 0: 43300000 automata generated, time: 01h 52m 21s, 0 automata in ResultMinimalAutomatonHashMap, 12653 in CurrentMinimalAutomatonHashMap
+Thread id 1: 43400000 automata generated, time: 01h 52m 38s, 0 automata in ResultMinimalAutomatonHashMap, 13905 in CurrentMinimalAutomatonHashMap
+Thread id 0: 43500000 automata generated, time: 01h 52m 55s, 0 automata in ResultMinimalAutomatonHashMap, 12653 in CurrentMinimalAutomatonHashMap
+Thread id 0: 43600000 automata generated, time: 01h 53m 12s, 0 automata in ResultMinimalAutomatonHashMap, 12672 in CurrentMinimalAutomatonHashMap
+Thread id 0: 43700000 automata generated, time: 01h 53m 29s, 0 automata in ResultMinimalAutomatonHashMap, 12678 in CurrentMinimalAutomatonHashMap
+Thread id 1: 43800000 automata generated, time: 01h 53m 46s, 0 automata in ResultMinimalAutomatonHashMap, 13919 in CurrentMinimalAutomatonHashMap
+Thread id 0: 43900000 automata generated, time: 01h 54m 01s, 0 automata in ResultMinimalAutomatonHashMap, 12678 in CurrentMinimalAutomatonHashMap
+Thread id 1: 44000000 automata generated, time: 01h 54m 16s, 0 automata in ResultMinimalAutomatonHashMap, 13919 in CurrentMinimalAutomatonHashMap
+Thread id 1: 44100000 automata generated, time: 01h 54m 32s, 0 automata in ResultMinimalAutomatonHashMap, 13919 in CurrentMinimalAutomatonHashMap
+Thread id 0: 44200000 automata generated, time: 01h 54m 48s, 0 automata in ResultMinimalAutomatonHashMap, 12682 in CurrentMinimalAutomatonHashMap
+Thread id 0: 44300000 automata generated, time: 01h 55m 03s, 0 automata in ResultMinimalAutomatonHashMap, 12682 in CurrentMinimalAutomatonHashMap
+Thread id 1: 44400000 automata generated, time: 01h 55m 18s, 0 automata in ResultMinimalAutomatonHashMap, 13919 in CurrentMinimalAutomatonHashMap
+Thread id 0: 44500000 automata generated, time: 01h 55m 34s, 0 automata in ResultMinimalAutomatonHashMap, 12682 in CurrentMinimalAutomatonHashMap
+Thread id 0: 44600000 automata generated, time: 01h 55m 50s, 0 automata in ResultMinimalAutomatonHashMap, 12682 in CurrentMinimalAutomatonHashMap
+Thread id 0: 44700000 automata generated, time: 01h 56m 05s, 0 automata in ResultMinimalAutomatonHashMap, 12682 in CurrentMinimalAutomatonHashMap
+Thread id 1: 44800000 automata generated, time: 01h 56m 23s, 0 automata in ResultMinimalAutomatonHashMap, 13919 in CurrentMinimalAutomatonHashMap
+Thread id 0: 44900000 automata generated, time: 01h 56m 39s, 0 automata in ResultMinimalAutomatonHashMap, 12682 in CurrentMinimalAutomatonHashMap
+Thread id 0: 45000000 automata generated, time: 01h 56m 57s, 0 automata in ResultMinimalAutomatonHashMap, 12682 in CurrentMinimalAutomatonHashMap
+Thread id 0: 45100000 automata generated, time: 01h 57m 13s, 0 automata in ResultMinimalAutomatonHashMap, 12682 in CurrentMinimalAutomatonHashMap
+Thread id 0: 45200000 automata generated, time: 01h 57m 31s, 0 automata in ResultMinimalAutomatonHashMap, 12682 in CurrentMinimalAutomatonHashMap
+Thread id 1: 45300000 automata generated, time: 01h 57m 47s, 0 automata in ResultMinimalAutomatonHashMap, 13919 in CurrentMinimalAutomatonHashMap
+Thread id 1: 45400000 automata generated, time: 01h 58m 05s, 0 automata in ResultMinimalAutomatonHashMap, 13919 in CurrentMinimalAutomatonHashMap
+Thread id 0: 45500000 automata generated, time: 01h 58m 20s, 0 automata in ResultMinimalAutomatonHashMap, 12682 in CurrentMinimalAutomatonHashMap
+Thread id 1: 45600000 automata generated, time: 01h 58m 38s, 0 automata in ResultMinimalAutomatonHashMap, 13919 in CurrentMinimalAutomatonHashMap
+Thread id 1: 45700000 automata generated, time: 01h 58m 54s, 0 automata in ResultMinimalAutomatonHashMap, 13919 in CurrentMinimalAutomatonHashMap
+Thread id 1: 45800000 automata generated, time: 01h 59m 13s, 0 automata in ResultMinimalAutomatonHashMap, 13919 in CurrentMinimalAutomatonHashMap
+Thread id 0: 45900000 automata generated, time: 01h 59m 28s, 0 automata in ResultMinimalAutomatonHashMap, 12682 in CurrentMinimalAutomatonHashMap
+Thread id 0: 46000000 automata generated, time: 01h 59m 47s, 0 automata in ResultMinimalAutomatonHashMap, 12682 in CurrentMinimalAutomatonHashMap
+Thread id 0: 46100000 automata generated, time: 02h 00m 03s, 0 automata in ResultMinimalAutomatonHashMap, 12682 in CurrentMinimalAutomatonHashMap
+Thread id 1: 46200000 automata generated, time: 02h 00m 22s, 0 automata in ResultMinimalAutomatonHashMap, 13919 in CurrentMinimalAutomatonHashMap
+Thread id 0: 46300000 automata generated, time: 02h 00m 41s, 0 automata in ResultMinimalAutomatonHashMap, 12682 in CurrentMinimalAutomatonHashMap
+Thread id 1: 46400000 automata generated, time: 02h 01m 02s, 0 automata in ResultMinimalAutomatonHashMap, 13927 in CurrentMinimalAutomatonHashMap
+Thread id 0: 46500000 automata generated, time: 02h 01m 21s, 0 automata in ResultMinimalAutomatonHashMap, 12682 in CurrentMinimalAutomatonHashMap
+Thread id 0: 46600000 automata generated, time: 02h 01m 42s, 0 automata in ResultMinimalAutomatonHashMap, 12682 in CurrentMinimalAutomatonHashMap
+Thread id 1: 46700000 automata generated, time: 02h 02m 03s, 0 automata in ResultMinimalAutomatonHashMap, 13927 in CurrentMinimalAutomatonHashMap
+Thread id 0: 46800000 automata generated, time: 02h 02m 20s, 0 automata in ResultMinimalAutomatonHashMap, 12691 in CurrentMinimalAutomatonHashMap
+Thread id 1: 46900000 automata generated, time: 02h 02m 43s, 0 automata in ResultMinimalAutomatonHashMap, 13927 in CurrentMinimalAutomatonHashMap
+Thread id 1: 47000000 automata generated, time: 02h 02m 59s, 0 automata in ResultMinimalAutomatonHashMap, 13927 in CurrentMinimalAutomatonHashMap
+Thread id 0: 47100000 automata generated, time: 02h 03m 14s, 0 automata in ResultMinimalAutomatonHashMap, 12691 in CurrentMinimalAutomatonHashMap
+Thread id 1: 47200000 automata generated, time: 02h 03m 31s, 0 automata in ResultMinimalAutomatonHashMap, 13927 in CurrentMinimalAutomatonHashMap
+Thread id 1: 47300000 automata generated, time: 02h 03m 47s, 0 automata in ResultMinimalAutomatonHashMap, 13927 in CurrentMinimalAutomatonHashMap
+Thread id 1: 47400000 automata generated, time: 02h 04m 04s, 0 automata in ResultMinimalAutomatonHashMap, 13927 in CurrentMinimalAutomatonHashMap
+Thread id 1: 47500000 automata generated, time: 02h 04m 20s, 0 automata in ResultMinimalAutomatonHashMap, 13927 in CurrentMinimalAutomatonHashMap
+Thread id 1: 47600000 automata generated, time: 02h 04m 37s, 0 automata in ResultMinimalAutomatonHashMap, 13927 in CurrentMinimalAutomatonHashMap
+Thread id 0: 47700000 automata generated, time: 02h 04m 53s, 0 automata in ResultMinimalAutomatonHashMap, 12691 in CurrentMinimalAutomatonHashMap
+Thread id 1: 47800000 automata generated, time: 02h 05m 09s, 0 automata in ResultMinimalAutomatonHashMap, 13927 in CurrentMinimalAutomatonHashMap
+Thread id 1: 47900000 automata generated, time: 02h 05m 26s, 0 automata in ResultMinimalAutomatonHashMap, 13927 in CurrentMinimalAutomatonHashMap
+Thread id 0: 48000000 automata generated, time: 02h 05m 45s, 0 automata in ResultMinimalAutomatonHashMap, 12691 in CurrentMinimalAutomatonHashMap
+Thread id 1: 48100000 automata generated, time: 02h 06m 02s, 0 automata in ResultMinimalAutomatonHashMap, 13927 in CurrentMinimalAutomatonHashMap
+Thread id 1: 48200000 automata generated, time: 02h 06m 19s, 0 automata in ResultMinimalAutomatonHashMap, 13927 in CurrentMinimalAutomatonHashMap
+Thread id 1: 48300000 automata generated, time: 02h 06m 36s, 0 automata in ResultMinimalAutomatonHashMap, 13927 in CurrentMinimalAutomatonHashMap
+Thread id 1: 48400000 automata generated, time: 02h 06m 54s, 0 automata in ResultMinimalAutomatonHashMap, 13927 in CurrentMinimalAutomatonHashMap
+Thread id 1: 48500000 automata generated, time: 02h 07m 12s, 0 automata in ResultMinimalAutomatonHashMap, 13927 in CurrentMinimalAutomatonHashMap
+Thread id 0: 48600000 automata generated, time: 02h 07m 30s, 0 automata in ResultMinimalAutomatonHashMap, 12691 in CurrentMinimalAutomatonHashMap
+Thread id 0: 48700000 automata generated, time: 02h 07m 46s, 0 automata in ResultMinimalAutomatonHashMap, 12691 in CurrentMinimalAutomatonHashMap
+Thread id 1: 48800000 automata generated, time: 02h 08m 05s, 0 automata in ResultMinimalAutomatonHashMap, 13927 in CurrentMinimalAutomatonHashMap
+Thread id 0: 48900000 automata generated, time: 02h 08m 21s, 0 automata in ResultMinimalAutomatonHashMap, 12691 in CurrentMinimalAutomatonHashMap
+Thread id 0: 49000000 automata generated, time: 02h 08m 41s, 0 automata in ResultMinimalAutomatonHashMap, 12691 in CurrentMinimalAutomatonHashMap
+Thread id 0: 49100000 automata generated, time: 02h 08m 57s, 0 automata in ResultMinimalAutomatonHashMap, 12691 in CurrentMinimalAutomatonHashMap
+Thread id 0: 49200000 automata generated, time: 02h 09m 16s, 0 automata in ResultMinimalAutomatonHashMap, 12691 in CurrentMinimalAutomatonHashMap
+Thread id 1: 49300000 automata generated, time: 02h 09m 33s, 0 automata in ResultMinimalAutomatonHashMap, 13927 in CurrentMinimalAutomatonHashMap
+Thread id 0: 49400000 automata generated, time: 02h 09m 52s, 0 automata in ResultMinimalAutomatonHashMap, 12691 in CurrentMinimalAutomatonHashMap
+Thread id 1: 49500000 automata generated, time: 02h 10m 09s, 0 automata in ResultMinimalAutomatonHashMap, 15304 in CurrentMinimalAutomatonHashMap
+Thread id 0: 49600000 automata generated, time: 02h 10m 26s, 0 automata in ResultMinimalAutomatonHashMap, 12691 in CurrentMinimalAutomatonHashMap
+Thread id 0: 49700000 automata generated, time: 02h 10m 43s, 0 automata in ResultMinimalAutomatonHashMap, 12691 in CurrentMinimalAutomatonHashMap
+Thread id 0: 49800000 automata generated, time: 02h 10m 59s, 0 automata in ResultMinimalAutomatonHashMap, 12691 in CurrentMinimalAutomatonHashMap
+Thread id 0: 49900000 automata generated, time: 02h 11m 17s, 0 automata in ResultMinimalAutomatonHashMap, 12741 in CurrentMinimalAutomatonHashMap
+Thread id 1: 50000000 automata generated, time: 02h 11m 32s, 0 automata in ResultMinimalAutomatonHashMap, 19333 in CurrentMinimalAutomatonHashMap
+Thread id 0: 50100000 automata generated, time: 02h 11m 51s, 0 automata in ResultMinimalAutomatonHashMap, 16332 in CurrentMinimalAutomatonHashMap
+Thread id 1: 50200000 automata generated, time: 02h 12m 15s, 0 automata in ResultMinimalAutomatonHashMap, 23743 in CurrentMinimalAutomatonHashMap
+Thread id 1: 50300000 automata generated, time: 02h 12m 31s, 0 automata in ResultMinimalAutomatonHashMap, 26309 in CurrentMinimalAutomatonHashMap
+Thread id 0: 50400000 automata generated, time: 02h 12m 45s, 0 automata in ResultMinimalAutomatonHashMap, 18185 in CurrentMinimalAutomatonHashMap
+Thread id 0: 50500000 automata generated, time: 02h 13m 03s, 0 automata in ResultMinimalAutomatonHashMap, 19523 in CurrentMinimalAutomatonHashMap
+Thread id 1: 50600000 automata generated, time: 02h 13m 33s, 0 automata in ResultMinimalAutomatonHashMap, 29937 in CurrentMinimalAutomatonHashMap
+Thread id 1: 50700000 automata generated, time: 02h 13m 51s, 0 automata in ResultMinimalAutomatonHashMap, 30547 in CurrentMinimalAutomatonHashMap
+Thread id 0: 50800000 automata generated, time: 02h 14m 12s, 0 automata in ResultMinimalAutomatonHashMap, 28572 in CurrentMinimalAutomatonHashMap
+Thread id 1: 50900000 automata generated, time: 02h 14m 39s, 0 automata in ResultMinimalAutomatonHashMap, 37493 in CurrentMinimalAutomatonHashMap
+Thread id 0: 51000000 automata generated, time: 02h 15m 03s, 0 automata in ResultMinimalAutomatonHashMap, 30092 in CurrentMinimalAutomatonHashMap
+Thread id 1: 51100000 automata generated, time: 02h 15m 36s, 0 automata in ResultMinimalAutomatonHashMap, 43369 in CurrentMinimalAutomatonHashMap
+Thread id 1: 51200000 automata generated, time: 02h 16m 07s, 0 automata in ResultMinimalAutomatonHashMap, 45775 in CurrentMinimalAutomatonHashMap
+Thread id 1: 51300000 automata generated, time: 02h 16m 32s, 0 automata in ResultMinimalAutomatonHashMap, 46429 in CurrentMinimalAutomatonHashMap
+Thread id 1: 51400000 automata generated, time: 02h 17m 05s, 0 automata in ResultMinimalAutomatonHashMap, 46438 in CurrentMinimalAutomatonHashMap
+Thread id 0: 51500000 automata generated, time: 02h 17m 27s, 0 automata in ResultMinimalAutomatonHashMap, 46693 in CurrentMinimalAutomatonHashMap
+Thread id 0: 51600000 automata generated, time: 02h 17m 48s, 0 automata in ResultMinimalAutomatonHashMap, 47427 in CurrentMinimalAutomatonHashMap
+Thread id 0: 51700000 automata generated, time: 02h 18m 13s, 0 automata in ResultMinimalAutomatonHashMap, 47428 in CurrentMinimalAutomatonHashMap
+Thread id 0: 51800000 automata generated, time: 02h 18m 31s, 0 automata in ResultMinimalAutomatonHashMap, 47430 in CurrentMinimalAutomatonHashMap
+Thread id 0: 51900000 automata generated, time: 02h 18m 48s, 0 automata in ResultMinimalAutomatonHashMap, 47748 in CurrentMinimalAutomatonHashMap
+Thread id 0: 52000000 automata generated, time: 02h 19m 18s, 0 automata in ResultMinimalAutomatonHashMap, 50120 in CurrentMinimalAutomatonHashMap
+Thread id 1: 52100000 automata generated, time: 02h 19m 35s, 0 automata in ResultMinimalAutomatonHashMap, 51736 in CurrentMinimalAutomatonHashMap
+Thread id 0: 52200000 automata generated, time: 02h 19m 52s, 0 automata in ResultMinimalAutomatonHashMap, 52270 in CurrentMinimalAutomatonHashMap
+Thread id 0: 52300000 automata generated, time: 02h 20m 12s, 0 automata in ResultMinimalAutomatonHashMap, 52841 in CurrentMinimalAutomatonHashMap
+Thread id 1: 52400000 automata generated, time: 02h 20m 53s, 0 automata in ResultMinimalAutomatonHashMap, 59096 in CurrentMinimalAutomatonHashMap
+Thread id 1: 52500000 automata generated, time: 02h 21m 13s, 0 automata in ResultMinimalAutomatonHashMap, 60608 in CurrentMinimalAutomatonHashMap
+Thread id 1: 52600000 automata generated, time: 02h 21m 49s, 0 automata in ResultMinimalAutomatonHashMap, 64626 in CurrentMinimalAutomatonHashMap
+Thread id 0: 52700000 automata generated, time: 02h 22m 23s, 0 automata in ResultMinimalAutomatonHashMap, 62035 in CurrentMinimalAutomatonHashMap
+Thread id 1: 52800000 automata generated, time: 02h 23m 02s, 0 automata in ResultMinimalAutomatonHashMap, 66393 in CurrentMinimalAutomatonHashMap
+Thread id 1: 52900000 automata generated, time: 02h 23m 22s, 0 automata in ResultMinimalAutomatonHashMap, 66534 in CurrentMinimalAutomatonHashMap
+Thread id 1: 53000000 automata generated, time: 02h 23m 57s, 0 automata in ResultMinimalAutomatonHashMap, 66975 in CurrentMinimalAutomatonHashMap
+Thread id 0: 53100000 automata generated, time: 02h 24m 28s, 0 automata in ResultMinimalAutomatonHashMap, 68445 in CurrentMinimalAutomatonHashMap
+Thread id 1: 53200000 automata generated, time: 02h 24m 54s, 0 automata in ResultMinimalAutomatonHashMap, 72246 in CurrentMinimalAutomatonHashMap
+Thread id 1: 53300000 automata generated, time: 02h 25m 19s, 0 automata in ResultMinimalAutomatonHashMap, 75054 in CurrentMinimalAutomatonHashMap
+Thread id 0: 53400000 automata generated, time: 02h 25m 48s, 0 automata in ResultMinimalAutomatonHashMap, 73108 in CurrentMinimalAutomatonHashMap
+Thread id 1: 53500000 automata generated, time: 02h 26m 17s, 0 automata in ResultMinimalAutomatonHashMap, 75774 in CurrentMinimalAutomatonHashMap
+Thread id 0: 53600000 automata generated, time: 02h 26m 35s, 0 automata in ResultMinimalAutomatonHashMap, 77682 in CurrentMinimalAutomatonHashMap
+Thread id 1: 53700000 automata generated, time: 02h 26m 58s, 0 automata in ResultMinimalAutomatonHashMap, 75776 in CurrentMinimalAutomatonHashMap
+Merged 80001 automata
+Thread id 0: 53800000 automata generated, time: 02h 27m 28s, 0 automata in ResultMinimalAutomatonHashMap, 77827 in CurrentMinimalAutomatonHashMap
+Thread id 0: 53900000 automata generated, time: 02h 27m 47s, 0 automata in ResultMinimalAutomatonHashMap, 77830 in CurrentMinimalAutomatonHashMap
+Merged 80001 automata
+Thread id 1: 54000000 automata generated, time: 02h 28m 11s, 80001 automata in ResultMinimalAutomatonHashMap, 9629 in CurrentMinimalAutomatonHashMap
+Thread id 1: 54100000 automata generated, time: 02h 29m 35s, 80001 automata in ResultMinimalAutomatonHashMap, 11378 in CurrentMinimalAutomatonHashMap
+Thread id 1: 54200000 automata generated, time: 02h 32m 49s, 80001 automata in ResultMinimalAutomatonHashMap, 11501 in CurrentMinimalAutomatonHashMap
+Thread id 0: 54300000 automata generated, time: 02h 36m 02s, 80001 automata in ResultMinimalAutomatonHashMap, 11820 in CurrentMinimalAutomatonHashMap
+Thread id 1: 54400000 automata generated, time: 02h 38m 44s, 80001 automata in ResultMinimalAutomatonHashMap, 11544 in CurrentMinimalAutomatonHashMap
+Thread id 1: 54500000 automata generated, time: 02h 41m 20s, 80001 automata in ResultMinimalAutomatonHashMap, 11648 in CurrentMinimalAutomatonHashMap
+Thread id 1: 54600000 automata generated, time: 02h 44m 36s, 80001 automata in ResultMinimalAutomatonHashMap, 14334 in CurrentMinimalAutomatonHashMap
+Thread id 0: 54700000 automata generated, time: 02h 47m 33s, 80001 automata in ResultMinimalAutomatonHashMap, 13010 in CurrentMinimalAutomatonHashMap
+Thread id 0: 54800000 automata generated, time: 02h 50m 04s, 80001 automata in ResultMinimalAutomatonHashMap, 13015 in CurrentMinimalAutomatonHashMap
+Thread id 0: 54900000 automata generated, time: 02h 52m 27s, 80001 automata in ResultMinimalAutomatonHashMap, 14617 in CurrentMinimalAutomatonHashMap
+Thread id 1: 55000000 automata generated, time: 02h 55m 59s, 80001 automata in ResultMinimalAutomatonHashMap, 16828 in CurrentMinimalAutomatonHashMap
+Thread id 1: 55100000 automata generated, time: 02h 58m 55s, 80001 automata in ResultMinimalAutomatonHashMap, 16841 in CurrentMinimalAutomatonHashMap
+Thread id 0: 55200000 automata generated, time: 03h 01m 28s, 80001 automata in ResultMinimalAutomatonHashMap, 17715 in CurrentMinimalAutomatonHashMap
+Thread id 0: 55300000 automata generated, time: 03h 03m 56s, 80001 automata in ResultMinimalAutomatonHashMap, 17724 in CurrentMinimalAutomatonHashMap
+Thread id 0: 55400000 automata generated, time: 03h 06m 50s, 80001 automata in ResultMinimalAutomatonHashMap, 17733 in CurrentMinimalAutomatonHashMap
+Thread id 0: 55500000 automata generated, time: 03h 09m 30s, 80001 automata in ResultMinimalAutomatonHashMap, 17739 in CurrentMinimalAutomatonHashMap
+Thread id 1: 55600000 automata generated, time: 03h 12m 00s, 80001 automata in ResultMinimalAutomatonHashMap, 18239 in CurrentMinimalAutomatonHashMap
+Thread id 0: 55700000 automata generated, time: 03h 14m 24s, 80001 automata in ResultMinimalAutomatonHashMap, 17776 in CurrentMinimalAutomatonHashMap
+Thread id 0: 55800000 automata generated, time: 03h 16m 56s, 80001 automata in ResultMinimalAutomatonHashMap, 18636 in CurrentMinimalAutomatonHashMap
+Thread id 1: 55900000 automata generated, time: 03h 19m 31s, 80001 automata in ResultMinimalAutomatonHashMap, 18426 in CurrentMinimalAutomatonHashMap
+Thread id 1: 56000000 automata generated, time: 03h 22m 28s, 80001 automata in ResultMinimalAutomatonHashMap, 18877 in CurrentMinimalAutomatonHashMap
+Thread id 0: 56100000 automata generated, time: 03h 24m 44s, 80001 automata in ResultMinimalAutomatonHashMap, 19291 in CurrentMinimalAutomatonHashMap
+Thread id 1: 56200000 automata generated, time: 03h 27m 08s, 80001 automata in ResultMinimalAutomatonHashMap, 19894 in CurrentMinimalAutomatonHashMap
+Thread id 0: 56300000 automata generated, time: 03h 29m 40s, 80001 automata in ResultMinimalAutomatonHashMap, 19338 in CurrentMinimalAutomatonHashMap
+Thread id 0: 56400000 automata generated, time: 03h 32m 40s, 80001 automata in ResultMinimalAutomatonHashMap, 19665 in CurrentMinimalAutomatonHashMap
+Thread id 0: 56500000 automata generated, time: 03h 35m 32s, 80001 automata in ResultMinimalAutomatonHashMap, 20489 in CurrentMinimalAutomatonHashMap
+Thread id 0: 56600000 automata generated, time: 03h 38m 53s, 80001 automata in ResultMinimalAutomatonHashMap, 20854 in CurrentMinimalAutomatonHashMap
+Thread id 0: 56700000 automata generated, time: 03h 41m 51s, 80001 automata in ResultMinimalAutomatonHashMap, 21113 in CurrentMinimalAutomatonHashMap
+Thread id 1: 56800000 automata generated, time: 03h 44m 23s, 80001 automata in ResultMinimalAutomatonHashMap, 22359 in CurrentMinimalAutomatonHashMap
+Thread id 0: 56900000 automata generated, time: 03h 48m 04s, 80001 automata in ResultMinimalAutomatonHashMap, 21449 in CurrentMinimalAutomatonHashMap
+Thread id 0: 57000000 automata generated, time: 03h 50m 57s, 80001 automata in ResultMinimalAutomatonHashMap, 21543 in CurrentMinimalAutomatonHashMap
+Thread id 1: 57100000 automata generated, time: 03h 54m 17s, 80001 automata in ResultMinimalAutomatonHashMap, 22926 in CurrentMinimalAutomatonHashMap
+Thread id 1: 57200000 automata generated, time: 03h 57m 23s, 80001 automata in ResultMinimalAutomatonHashMap, 22926 in CurrentMinimalAutomatonHashMap
+Thread id 1: 57300000 automata generated, time: 04h 01m 45s, 80001 automata in ResultMinimalAutomatonHashMap, 22926 in CurrentMinimalAutomatonHashMap
+Thread id 1: 57400000 automata generated, time: 04h 04m 58s, 80001 automata in ResultMinimalAutomatonHashMap, 22926 in CurrentMinimalAutomatonHashMap
+Thread id 1: 57500000 automata generated, time: 04h 08m 07s, 80001 automata in ResultMinimalAutomatonHashMap, 23402 in CurrentMinimalAutomatonHashMap
+Thread id 1: 57600000 automata generated, time: 04h 11m 12s, 80001 automata in ResultMinimalAutomatonHashMap, 23441 in CurrentMinimalAutomatonHashMap
+Thread id 0: 57700000 automata generated, time: 04h 14m 41s, 80001 automata in ResultMinimalAutomatonHashMap, 24178 in CurrentMinimalAutomatonHashMap
+Thread id 1: 57800000 automata generated, time: 04h 17m 44s, 80001 automata in ResultMinimalAutomatonHashMap, 23526 in CurrentMinimalAutomatonHashMap
+Thread id 1: 57900000 automata generated, time: 04h 20m 48s, 80001 automata in ResultMinimalAutomatonHashMap, 23526 in CurrentMinimalAutomatonHashMap
+Thread id 0: 58000000 automata generated, time: 04h 23m 57s, 80001 automata in ResultMinimalAutomatonHashMap, 24881 in CurrentMinimalAutomatonHashMap
+Thread id 1: 58100000 automata generated, time: 04h 27m 20s, 80001 automata in ResultMinimalAutomatonHashMap, 23526 in CurrentMinimalAutomatonHashMap
+Thread id 0: 58200000 automata generated, time: 04h 30m 48s, 80001 automata in ResultMinimalAutomatonHashMap, 24939 in CurrentMinimalAutomatonHashMap
+Thread id 1: 58300000 automata generated, time: 04h 34m 43s, 80001 automata in ResultMinimalAutomatonHashMap, 25945 in CurrentMinimalAutomatonHashMap
+Thread id 1: 58400000 automata generated, time: 04h 38m 49s, 80001 automata in ResultMinimalAutomatonHashMap, 26633 in CurrentMinimalAutomatonHashMap
+Thread id 0: 58500000 automata generated, time: 04h 42m 59s, 80001 automata in ResultMinimalAutomatonHashMap, 25032 in CurrentMinimalAutomatonHashMap
+Thread id 1: 58600000 automata generated, time: 04h 46m 31s, 80001 automata in ResultMinimalAutomatonHashMap, 28339 in CurrentMinimalAutomatonHashMap
+Thread id 1: 58700000 automata generated, time: 04h 51m 48s, 80001 automata in ResultMinimalAutomatonHashMap, 28348 in CurrentMinimalAutomatonHashMap
+Thread id 0: 58800000 automata generated, time: 04h 56m 04s, 80001 automata in ResultMinimalAutomatonHashMap, 27815 in CurrentMinimalAutomatonHashMap
+Thread id 1: 58900000 automata generated, time: 04h 59m 57s, 80001 automata in ResultMinimalAutomatonHashMap, 28406 in CurrentMinimalAutomatonHashMap
+Thread id 1: 59000000 automata generated, time: 05h 04m 09s, 80001 automata in ResultMinimalAutomatonHashMap, 29085 in CurrentMinimalAutomatonHashMap
+Thread id 1: 59100000 automata generated, time: 05h 08m 31s, 80001 automata in ResultMinimalAutomatonHashMap, 29429 in CurrentMinimalAutomatonHashMap
+Thread id 0: 59200000 automata generated, time: 05h 12m 21s, 80001 automata in ResultMinimalAutomatonHashMap, 29974 in CurrentMinimalAutomatonHashMap
+Thread id 1: 59300000 automata generated, time: 05h 16m 09s, 80001 automata in ResultMinimalAutomatonHashMap, 29941 in CurrentMinimalAutomatonHashMap
+Thread id 0: 59400000 automata generated, time: 05h 20m 14s, 80001 automata in ResultMinimalAutomatonHashMap, 30077 in CurrentMinimalAutomatonHashMap
+Thread id 1: 59500000 automata generated, time: 05h 24m 17s, 80001 automata in ResultMinimalAutomatonHashMap, 29945 in CurrentMinimalAutomatonHashMap
+Thread id 1: 59600000 automata generated, time: 05h 28m 21s, 80001 automata in ResultMinimalAutomatonHashMap, 29945 in CurrentMinimalAutomatonHashMap
+Thread id 0: 59700000 automata generated, time: 05h 32m 40s, 80001 automata in ResultMinimalAutomatonHashMap, 31605 in CurrentMinimalAutomatonHashMap
+Thread id 1: 59800000 automata generated, time: 05h 36m 48s, 80001 automata in ResultMinimalAutomatonHashMap, 31308 in CurrentMinimalAutomatonHashMap
+Thread id 1: 59900000 automata generated, time: 05h 41m 56s, 80001 automata in ResultMinimalAutomatonHashMap, 31369 in CurrentMinimalAutomatonHashMap
+Thread id 1: 60000000 automata generated, time: 05h 46m 23s, 80001 automata in ResultMinimalAutomatonHashMap, 31369 in CurrentMinimalAutomatonHashMap
+Thread id 0: 60100000 automata generated, time: 05h 50m 32s, 80001 automata in ResultMinimalAutomatonHashMap, 31637 in CurrentMinimalAutomatonHashMap
+Thread id 1: 60200000 automata generated, time: 05h 55m 23s, 80001 automata in ResultMinimalAutomatonHashMap, 31369 in CurrentMinimalAutomatonHashMap
+Thread id 0: 60300000 automata generated, time: 05h 59m 51s, 80001 automata in ResultMinimalAutomatonHashMap, 31980 in CurrentMinimalAutomatonHashMap
+Thread id 1: 60400000 automata generated, time: 06h 05m 43s, 80001 automata in ResultMinimalAutomatonHashMap, 31369 in CurrentMinimalAutomatonHashMap
+Thread id 0: 60500000 automata generated, time: 06h 10m 21s, 80001 automata in ResultMinimalAutomatonHashMap, 31999 in CurrentMinimalAutomatonHashMap
+Thread id 1: 60600000 automata generated, time: 06h 14m 32s, 80001 automata in ResultMinimalAutomatonHashMap, 31370 in CurrentMinimalAutomatonHashMap
+Thread id 1: 60700000 automata generated, time: 06h 18m 31s, 80001 automata in ResultMinimalAutomatonHashMap, 31426 in CurrentMinimalAutomatonHashMap
+Thread id 1: 60800000 automata generated, time: 06h 23m 18s, 80001 automata in ResultMinimalAutomatonHashMap, 31430 in CurrentMinimalAutomatonHashMap
+Thread id 1: 60900000 automata generated, time: 06h 27m 25s, 80001 automata in ResultMinimalAutomatonHashMap, 31430 in CurrentMinimalAutomatonHashMap
+Thread id 1: 61000000 automata generated, time: 06h 31m 54s, 80001 automata in ResultMinimalAutomatonHashMap, 31430 in CurrentMinimalAutomatonHashMap
+Thread id 1: 61100000 automata generated, time: 06h 35m 57s, 80001 automata in ResultMinimalAutomatonHashMap, 31430 in CurrentMinimalAutomatonHashMap
+Thread id 0: 61200000 automata generated, time: 06h 40m 15s, 80001 automata in ResultMinimalAutomatonHashMap, 32044 in CurrentMinimalAutomatonHashMap
+Thread id 0: 61300000 automata generated, time: 06h 44m 36s, 80001 automata in ResultMinimalAutomatonHashMap, 32044 in CurrentMinimalAutomatonHashMap
+Thread id 1: 61400000 automata generated, time: 06h 48m 46s, 80001 automata in ResultMinimalAutomatonHashMap, 33440 in CurrentMinimalAutomatonHashMap
+Thread id 0: 61500000 automata generated, time: 06h 56m 32s, 80001 automata in ResultMinimalAutomatonHashMap, 32044 in CurrentMinimalAutomatonHashMap
+Thread id 0: 61600000 automata generated, time: 07h 07m 14s, 80001 automata in ResultMinimalAutomatonHashMap, 32044 in CurrentMinimalAutomatonHashMap
+Thread id 1: 61700000 automata generated, time: 07h 15m 08s, 80001 automata in ResultMinimalAutomatonHashMap, 43702 in CurrentMinimalAutomatonHashMap
+Thread id 1: 61800000 automata generated, time: 07h 27m 55s, 80001 automata in ResultMinimalAutomatonHashMap, 49183 in CurrentMinimalAutomatonHashMap
+Thread id 1: 61900000 automata generated, time: 07h 44m 14s, 80001 automata in ResultMinimalAutomatonHashMap, 51021 in CurrentMinimalAutomatonHashMap
+Thread id 1: 62000000 automata generated, time: 08h 07m 47s, 80001 automata in ResultMinimalAutomatonHashMap, 52533 in CurrentMinimalAutomatonHashMap
+Thread id 1: 62100000 automata generated, time: 08h 30m 58s, 80001 automata in ResultMinimalAutomatonHashMap, 53293 in CurrentMinimalAutomatonHashMap
+Thread id 0: 62200000 automata generated, time: 08h 54m 24s, 80001 automata in ResultMinimalAutomatonHashMap, 51071 in CurrentMinimalAutomatonHashMap
+Thread id 0: 62300000 automata generated, time: 09h 25m 18s, 80001 automata in ResultMinimalAutomatonHashMap, 52573 in CurrentMinimalAutomatonHashMap
+Thread id 1: 62400000 automata generated, time: 10h 10m 06s, 80001 automata in ResultMinimalAutomatonHashMap, 60215 in CurrentMinimalAutomatonHashMap
+Thread id 1: 62500000 automata generated, time: 11h 31m 53s, 80001 automata in ResultMinimalAutomatonHashMap, 60977 in CurrentMinimalAutomatonHashMap
+Exception in thread "Thread-16" java.lang.OutOfMemoryError: GC overhead limit exceeded
+	at java.util.HashMap.inflateTable(HashMap.java:320)
+	at java.util.HashMap.put(HashMap.java:492)
+	at bakalarka.State.addTransition(State.java:75)
+	at bakalarka.Automaton.addTransition(Automaton.java:258)
+	at bakalarka.Automaton.reverse(Automaton.java:439)
+	at bakalarka.Automaton.minimalDFA(Automaton.java:527)
+	at bakalarka.Automaton.equivalent(Automaton.java:703)
+	at bakalarka.MinimalAutomatonHashMap.containsEquivalent(MinimalAutomatonHashMap.java:49)
+	at bakalarka.AutomatonAnalyzerThread.run(AutomatonAnalyzerThread.java:84)
+Thread id 0: 62600000 automata generated, time: 12h 56m 48s, 80001 automata in ResultMinimalAutomatonHashMap, 55472 in CurrentMinimalAutomatonHashMap
+Thread id 0: 62700000 automata generated, time: 13h 00m 53s, 80001 automata in ResultMinimalAutomatonHashMap, 59642 in CurrentMinimalAutomatonHashMap
+Thread id 0: 62800000 automata generated, time: 13h 05m 23s, 80001 automata in ResultMinimalAutomatonHashMap, 63407 in CurrentMinimalAutomatonHashMap
+Thread id 0: 62900000 automata generated, time: 13h 09m 53s, 80001 automata in ResultMinimalAutomatonHashMap, 65458 in CurrentMinimalAutomatonHashMap
+Thread id 0: 63000000 automata generated, time: 13h 14m 52s, 80001 automata in ResultMinimalAutomatonHashMap, 66496 in CurrentMinimalAutomatonHashMap
+Thread id 0: 63100000 automata generated, time: 13h 26m 59s, 80001 automata in ResultMinimalAutomatonHashMap, 72820 in CurrentMinimalAutomatonHashMap
+Thread id 0: 63200000 automata generated, time: 13h 34m 50s, 80001 automata in ResultMinimalAutomatonHashMap, 77313 in CurrentMinimalAutomatonHashMap
+Merged 135052 automata
+Thread id 0: 63300000 automata generated, time: 14h 10m 17s, 135052 automata in ResultMinimalAutomatonHashMap, 1401 in CurrentMinimalAutomatonHashMap
+Thread id 0: 63400000 automata generated, time: 14h 14m 18s, 135052 automata in ResultMinimalAutomatonHashMap, 4561 in CurrentMinimalAutomatonHashMap
+Thread id 0: 63500000 automata generated, time: 14h 18m 38s, 135052 automata in ResultMinimalAutomatonHashMap, 6842 in CurrentMinimalAutomatonHashMap
+Thread id 0: 63600000 automata generated, time: 14h 23m 35s, 135052 automata in ResultMinimalAutomatonHashMap, 11279 in CurrentMinimalAutomatonHashMap
+Thread id 0: 63700000 automata generated, time: 14h 28m 47s, 135052 automata in ResultMinimalAutomatonHashMap, 14494 in CurrentMinimalAutomatonHashMap
+Thread id 0: 63800000 automata generated, time: 14h 34m 03s, 135052 automata in ResultMinimalAutomatonHashMap, 15712 in CurrentMinimalAutomatonHashMap
+Thread id 0: 63900000 automata generated, time: 14h 39m 24s, 135052 automata in ResultMinimalAutomatonHashMap, 16662 in CurrentMinimalAutomatonHashMap
+Thread id 0: 64000000 automata generated, time: 14h 48m 51s, 135052 automata in ResultMinimalAutomatonHashMap, 22657 in CurrentMinimalAutomatonHashMap
+Thread id 0: 64100000 automata generated, time: 15h 39m 16s, 135052 automata in ResultMinimalAutomatonHashMap, 42220 in CurrentMinimalAutomatonHashMap
+Thread id 0: 64200000 automata generated, time: 16h 50m 51s, 135052 automata in ResultMinimalAutomatonHashMap, 50799 in CurrentMinimalAutomatonHashMap
+Thread id 0: 64300000 automata generated, time: 17h 59m 51s, 135052 automata in ResultMinimalAutomatonHashMap, 55519 in CurrentMinimalAutomatonHashMap
+BUILD STOPPED (total time: 1,086 minutes 8 seconds)

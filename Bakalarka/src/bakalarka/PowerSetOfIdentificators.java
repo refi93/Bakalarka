@@ -188,4 +188,14 @@ public class PowerSetOfIdentificators extends HashSet<Identificator> {
         return super.equals(other);
     }
     
+    
+    public int getBitMap() throws Exception{
+        if (this.hasIntegerIdentificatorsOnly){
+            return this.bitMap;
+        }
+        else{
+            throw new Exception("THIS POWER SET DOES NOT CONTAIN BIT MAP");
+        }
+    }
+    
 }

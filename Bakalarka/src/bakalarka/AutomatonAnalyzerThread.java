@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 public class AutomatonAnalyzerThread extends Thread {
     MinimalAutomatonHashMap minimalNFAsResult;
     AutomatonIterator it;
+    int numberOfStates = 0;
     int id, numberOfWorkers;
     int lastBackupTime = 0; // posledny cas zalohovania vysledkov threadu
     int lastBackupedAutomatonId = 0; // id posledneho odzalohovaneho automatu
@@ -32,6 +33,7 @@ public class AutomatonAnalyzerThread extends Thread {
         this.minimalNFAsResult = new MinimalAutomatonHashMap();
         this.it = new AutomatonIterator(numberOfStates);
         this.id = id;
+        this.numberOfStates = numberOfStates;
         this.numberOfWorkers = Variables.numberOfCores;
         this.lastBackupTime = (int)((System.nanoTime() - Variables.start) / 1000000000);
     }
@@ -57,13 +59,14 @@ public class AutomatonAnalyzerThread extends Thread {
             if(counter % numberOfWorkers == id){
                 int currentTime = Functions.getCurrentTime();
                 
-                if ((Variables.backupInterval != -1)&&(currentTime - lastBackupTime > Variables.backupInterval)){
+                //if ((Variables.backupInterval != -1)&&(currentTime - lastBackupTime > Variables.backupInterval)){
+                /*if ((this.minimalNFAsResult.size() % 1000 == 0)&&(this.numberOfStates == 4)){
                     try {
                         this.backup();
                     } catch (Exception ex) {
                         Logger.getLogger(AutomatonAnalyzerThread.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                }
+                }*/
                 
                 Automaton a = it.next();
                 // vypisovanie pocitadla po 100 000 nextoch
@@ -71,11 +74,11 @@ public class AutomatonAnalyzerThread extends Thread {
                 synchronized(Variables.counterOfTestedAutomata){
                     if (Variables.counterOfTestedAutomata++ % 100000 == 0) {
                         int seconds = (int)((System.nanoTime() - Variables.start) / 1000000000);
-                        System.err.printf("%d automata generated, time: %s %n", Variables.counterOfTestedAutomata - 1, Functions.getFormattedTime(seconds));
+                        System.err.printf("Thread id %d: %d automata generated, time: %s, %d automata in ResultMinimalAutomatonHashMap%n", this.id, Variables.counterOfTestedAutomata - 1, Functions.getFormattedTime(seconds), this.minimalNFAsResult.size());
                     }
                 }
                 try {
-                    if (!Variables.allMinimalNFAs.containsEquivalent(a)){
+                    if (!Variables.allMinimalNFAs.containsEquivalent(a)){ // prvy test je vyskusat, ci to neni ekvivalentne s niektorym s mensich automatov
                         if(!minimalNFAsResult.containsEquivalent(a)){
                             minimalNFAsResult.forceInsert(a);
                         }
@@ -89,5 +92,6 @@ public class AutomatonAnalyzerThread extends Thread {
             }
             counter++;
         }
+        
     }
 }

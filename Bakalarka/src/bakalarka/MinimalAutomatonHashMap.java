@@ -18,7 +18,7 @@ import java.util.HashMap;
  * a dokazeme do nej aj vlozit nejake NFA a ona rozhodne, ci uz tam neni
  */
 public class MinimalAutomatonHashMap {
-    HashMap<BigInteger,ArrayList<Automaton> > AutomatonClasses = new HashMap<>();
+    HashMap<BigIntegerTuple,ArrayList<Automaton> > AutomatonClasses = new HashMap<>();
     ArrayList<Automaton> allMinNFAs;
     public int comparison_count = 0;
     int max_collisions = 0;
@@ -42,7 +42,7 @@ public class MinimalAutomatonHashMap {
     /* overi, ci sa tu nenachadza uz nejaky iny ekvivalentny automat */
     public boolean containsEquivalent(Automaton a) throws Exception{
         boolean ret = false;
-        BigInteger hash = a.myHashCode();
+        BigIntegerTuple hash = a.myHashCode();
         if (AutomatonClasses.get(hash) != null) {
             for (Automaton previous : AutomatonClasses.get(hash)) {
                 comparison_count++;
@@ -60,7 +60,7 @@ public class MinimalAutomatonHashMap {
     pomocou tejto metody
     */
     public void forceInsert(Automaton a) throws Exception {
-        BigInteger hash = a.myHashCode();
+        BigIntegerTuple hash = a.myHashCode();
         allMinNFAs.add(a);
         this.size++;
         if (AutomatonClasses.get(hash) != null) {

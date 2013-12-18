@@ -24,8 +24,14 @@ public class Variables {
     /* abeceda */
     static ArrayList<Character> alphabet = new ArrayList<>(Arrays.asList('0','1'));
     
+    
+    // toto su len konstanty, aby nebolo vo funkciach true a false, ale uvedeny vyznam
     static boolean allowTrashState = true; // ci sa maju povolit odpadove stavy pri determinizacii 
     static boolean disableTrashState = false;
+    
+    // hranicna velkost hashMapy, ktoru je este slusne pouzivat na priebezne vypocty, kompenzujeme tym slabu hash funkciu
+    public static int currentResultThresholdSize = 80000; 
+    
     
     static Random generator = new Random(); // zdroj nahody
     static String outputFile = "./out.txt"; // kam sa posiela vystup z programu
