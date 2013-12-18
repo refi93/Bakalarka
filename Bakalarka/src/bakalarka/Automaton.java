@@ -733,16 +733,13 @@ public class Automaton{
         Queue<Identificator> statesToVisit = new LinkedList<>();
         // pridame do fronty pociatocny stav
         statesToVisit.add(minA.initialStatesIds.iterator().next());
-        HashSet<Identificator> visited = new HashSet<>(); 
-        HashSet<Identificator> seen = new HashSet<>();
+        PowerSetOfIdentificators seen = new PowerSetOfIdentificators(); 
         seen.add(minA.initialStatesIds.iterator().next());
         int counter = 0;
         // tuna si pamatame prevody medzi stavmi
         HashMap<Integer, Identificator> renumberingMapFromCanonicalToMin = new HashMap<>();
         HashMap<Identificator, Integer> renumberingMapFromMinToCanonical = new HashMap<>();
         while(!statesToVisit.isEmpty()){
-            // poznacime si stav ako navstiveny
-            visited.add(statesToVisit.peek());
             // precislujeme stavy podla poradia v akom ich navstivime
             renumberingMapFromCanonicalToMin.put(counter, statesToVisit.peek());
             renumberingMapFromMinToCanonical.put(statesToVisit.peek(), counter);
@@ -758,7 +755,6 @@ public class Automaton{
             }
             statesToVisit.remove(); // popneme z fronty prave navstiveny stav
         }
-        if (counter > 30) System.out.println(counter);
         BigInteger matrixPartOfHash = BigInteger.valueOf(0);
         // teraz z toho vyrobime maticu susednosti
         for(Character c : Variables.alphabet){
@@ -782,8 +778,6 @@ public class Automaton{
         
         PowerSetOfIdentificators canonicalFinalStates = new PowerSetOfIdentificators();
         for(Identificator id : minA.finalStatesIds){
-            //System.out.println(renumberingMapFromMinToCanonical.get(id));
-            if(renumberingMapFromMinToCanonical.get(id) > 30) System.out.println(minA.toString() + counter);
             canonicalFinalStates.add(new IntegerIdentificator(renumberingMapFromMinToCanonical.get(id)));
         }
         
@@ -846,26 +840,5 @@ public class Automaton{
         return hash_cache;
     }
     
-    private BigInteger hash_cache2 = BigInteger.valueOf(-1);
-    /* hashCode automatu - je to vlastne hashCode slov do dlzky 4, ktore vygeneruje */
-    public BigInteger myHashCodeOld() throws Exception{
-        if (hash_cache2.equals(BigInteger.valueOf(-1))){
-            hash_cache2 = BigInteger.valueOf(0);
-            HashSet<BinaryWord> words = allWordsOfLength(Variables.hashWordLength);
-            if (Variables.alphabet.size() == 2){
-                for(BinaryWord word : words){
-                    int pos = Variables.WordToNumberMap.get(word);
-                    hash_cache2 = hash_cache2.setBit(pos);
-                    //hash_cache = hash_cache | (((long)1) << pos);
-                }
-                hash_cache2 = new BigInteger(hash_cache2.toString());
-            }
-            else {
-                hash_cache2 = BigInteger.valueOf(words.hashCode());
-            }
-        }
-        return hash_cache2;
-    }
-   
     // more methods go here
 }     

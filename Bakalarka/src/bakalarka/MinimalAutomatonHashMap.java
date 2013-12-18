@@ -44,13 +44,14 @@ public class MinimalAutomatonHashMap {
         boolean ret = false;
         BigIntegerTuple hash = a.myHashCode();
         if (AutomatonClasses.get(hash) != null) {
-            for (Automaton previous : AutomatonClasses.get(hash)) {
+            /*for (Automaton previous : AutomatonClasses.get(hash)) {
                 comparison_count++;
                 if (previous.equivalent(a)) {
                     ret = true;
                     break;
                 }
-            }
+            }*/
+            return true;
         }
         return ret;
     }
