@@ -291,8 +291,6 @@ public class Automaton{
         return idStateMap.get(id);
     }
     
-    // tu si pamatame, ci a ako sme determinizovali niekedy predtym tento automat
-    Automaton cacheDeterminized = null;
     
     public Automaton determinize(boolean allowTrashState) throws Exception{
         
@@ -414,7 +412,6 @@ public class Automaton{
                 ret.addTransition(emptyStateInRet, emptyStateInRet, c);
             }
         }
-        //this.cacheDeterminized = ret;
         return ret;
     }
     
@@ -473,7 +470,9 @@ public class Automaton{
     public void print(FastPrint out, long counter) throws IOException, Exception{
         // vypis poctu stavov
         
-        out.println("/" + Long.valueOf(counter).toString());
+        if (counter != -1){
+            out.println("/" + Long.valueOf(counter).toString());
+        }
         out.println(new Integer(this.allStatesIds.size()).toString());
         // vypis pociatocneho stavu
         if(this.initialStatesIds.iterator().hasNext()){
@@ -499,7 +498,12 @@ public class Automaton{
                 }
             }
         }
-    }
+        
+        if (counter != -1) {
+            this.minimalDFA().print(out, -1);
+            out.println("----");
+        }
+   }
     
     
     /* overi, ci je dany automat deterministicky */
@@ -527,12 +531,17 @@ public class Automaton{
         return this.finalStatesIds;
     }
     
+    
+    Automaton cache_minDFA = null;
     /* vrati to minimalny DFA z nasho automatu */
     public Automaton minimalDFA() throws Exception{
+        if (cache_minDFA != null){
+            return cache_minDFA;
+        }
         Automaton pom = new Automaton(this);
         // odpadove stavy tu nie su vitane, preto false
-        Automaton ret = pom.determinize(Variables.disableTrashState).reverse().determinize(Variables.disableTrashState).reverse().determinize(Variables.allowTrashState);
-        return ret;
+        Automaton cache_minDFA = pom.determinize(Variables.disableTrashState).reverse().determinize(Variables.disableTrashState).reverse().determinize(Variables.allowTrashState);
+        return cache_minDFA;
     }
     
     
