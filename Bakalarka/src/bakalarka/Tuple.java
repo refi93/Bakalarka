@@ -12,23 +12,23 @@ import java.math.BigInteger;
  *
  * @author raf
  */
-public class BigIntegerTuple{
-    private final BigInteger first;
-    private final BigInteger second;
+public class Tuple <X,Y>{
+    private final X first;
+    private final Y second;
     
     
-    public BigIntegerTuple(BigInteger first, BigInteger second){
+    public Tuple(X first, Y second){
         this.first = first;
         this.second = second;
     }
     
     
-    public BigInteger first(){
+    public X first(){
         return this.first;
     }
     
     
-    public BigInteger second(){
+    public Y second(){
         return this.second;
     }
     
@@ -41,7 +41,7 @@ public class BigIntegerTuple{
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final BigIntegerTuple other = (BigIntegerTuple) obj;
+        final Tuple other = (Tuple) obj;
         return ((this.first().equals(other.first()))&&(this.second().equals(other.second()))); // mozme si to dovolit, lebo hashCode ma taku vlastnost
     }
     
@@ -56,7 +56,7 @@ public class BigIntegerTuple{
         return this.first.toString() + " " + this.second.toString();
     }
     
-    public static BigIntegerTuple minusOne(){
-        return new BigIntegerTuple(BigInteger.valueOf(-1),BigInteger.valueOf(-1));
+    public static Tuple minusOne(){
+        return new Tuple(BigInteger.valueOf(-1),BigInteger.valueOf(-1));
     }
 }

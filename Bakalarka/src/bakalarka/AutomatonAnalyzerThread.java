@@ -39,7 +39,7 @@ public class AutomatonAnalyzerThread extends Thread {
     }
     
     
-    public void backup() throws IOException, Exception{
+    /*public void backup() throws IOException, Exception{
         System.err.printf("started backup of thread with id%d at time %s%n",this.id, Functions.getCurrentTime());
         FastPrint out = new FastPrint(Integer.valueOf(id).toString());
         it.printState(out);
@@ -48,7 +48,7 @@ public class AutomatonAnalyzerThread extends Thread {
         this.lastBackupedAutomatonId = this.minimalNFAsResult.allMinNFAs.size();
         out.close();
         System.err.printf("done backup at time %s%n", Functions.getFormattedTime(this.lastBackupTime));
-    }
+    }*/
     
     
     @Override
@@ -79,7 +79,9 @@ public class AutomatonAnalyzerThread extends Thread {
                 }
                 try {
                     if (!Variables.allMinimalNFAs.containsEquivalent(a)){ // prvy test je vyskusat, ci to neni ekvivalentne s niektorym s mensich automatov
-                        minimalNFAsResult.tryToInsert(a);
+                        if(minimalNFAsResult.tryToInsert(a)){
+                            minimalNFAsResult.tryToInsert(a.switchLetters());
+                        }
                     }
                 } catch (Exception ex) {
                     Logger.getLogger(AutomatonAnalyzerThread.class.getName()).log(Level.SEVERE, null, ex);

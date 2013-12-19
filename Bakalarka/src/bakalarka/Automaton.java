@@ -729,7 +729,7 @@ public class Automaton{
     MYSLIENKA - minimalny NFA prevedieme na kanonicky - s presne urcenym pomenovanim
     stavov a z matice susednosti vyplodime hash
     */
-    public static BigIntegerTuple hashFromMinNFA(Automaton minA) throws Exception{
+    public static Tuple hashFromMinNFA(Automaton minA) throws Exception{
         Queue<Identificator> statesToVisit = new LinkedList<>();
         // pridame do fronty pociatocny stav
         statesToVisit.add(minA.initialStatesIds.iterator().next());
@@ -781,7 +781,7 @@ public class Automaton{
             canonicalFinalStates.add(new IntegerIdentificator(renumberingMapFromMinToCanonical.get(id)));
         }
         
-        return new BigIntegerTuple(matrixPartOfHash,BigInteger.valueOf(canonicalFinalStates.getBitMap()));
+        return new Tuple(matrixPartOfHash,BigInteger.valueOf(canonicalFinalStates.getBitMap()));
     }
     
     /* prehladavanie vsetkych moznych vygenerovanych slov do hlbky, resp. dlzky maxDepth 
@@ -830,10 +830,10 @@ public class Automaton{
     
     /* hash_cache - premenna, kde si zapamatame hashCode automatu, aby sme ho nemuseli opakovane ratat */
     //BigInteger hash_cache = BigInteger.valueOf(-1);
-    BigIntegerTuple hash_cache = BigIntegerTuple.minusOne();
+    Tuple hash_cache = Tuple.minusOne();
     
-    public BigIntegerTuple myHashCode() throws Exception{
-        if (!hash_cache.equals(BigIntegerTuple.minusOne())){
+    public Tuple myHashCode() throws Exception{
+        if (!hash_cache.equals(Tuple.minusOne())){
             return hash_cache;
         }
         hash_cache = hashFromMinNFA(this.minimalDFA());

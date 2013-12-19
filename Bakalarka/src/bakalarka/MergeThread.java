@@ -40,9 +40,9 @@ public class MergeThread extends Thread{
     @Override
     public void run(){
         
-        for(Automaton a : candidates2.allMinNFAs){
+        for(Tuple a : candidates2.allMinDFAs){
             try {
-                candidates1.tryToInsert(a);
+                candidates1.tryToInsertValue(a,candidates2.AutomatonClasses.get(a));
             } catch (Exception ex) {
                 Logger.getLogger(MergeThread.class.getName()).log(Level.SEVERE, null, ex);
             }

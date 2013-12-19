@@ -47,7 +47,6 @@ public class Experiments {
             
             listOfCandidates = newCandidates;
         }
-        
         return listOfCandidates.get(0);
     }
     
@@ -64,8 +63,8 @@ public class Experiments {
             Automaton detA = a.minimalDFA();
             detA.print(out);
             out.println("|" + a.getNumberOfStates() + " vs " + detA.getNumberOfStates() + "|\n");
-            if (Variables.allMinimalNFAs.allMinNFAs.size() % 10000 == 0){
-                System.err.printf("%d minimal NFAs proceeded%n",Variables.allMinimalNFAs.allMinNFAs.size());
+            if (Variables.allMinimalNFAs.allMinDFAs.size() % 10000 == 0){
+                System.err.printf("%d minimal NFAs proceeded%n",Variables.allMinimalNFAs.allMinDFAs.size());
             }
         }
     }
@@ -80,7 +79,7 @@ public class Experiments {
         FastPrint out = new FastPrint();        
         
         // vypis do suboru, aby bol jasny format
-        out.println(
+        /*out.println(
                 "#initial state is fixed to 0 the format of output is the following\n"
                 + "#/number of the automaton\n"
                 + "#number of states\n"
@@ -90,7 +89,7 @@ public class Experiments {
                 + "#from_state to_state character\n"
                 + "#|minNFA number of states vs minDFA number of states|\n"
                 + "#begin of output:"
-                );
+                );*/
         
         for (int i = 1; i <= limit; i++) {
             // najprv rozdelime pracu slaveom
@@ -121,27 +120,13 @@ public class Experiments {
             
             System.err.printf("Merging ended, time: %s%n",Functions.getFormattedTime((int)((System.nanoTime() - Variables.start) / 1000000000)));
 
-            // najprv vlozime tie automaty, o ktorych mame istotu, ze su minimalne
-            for(Automaton a : result.allMinNFAs){
-                Variables.allMinimalNFAs.forceInsert(a);
-                printAutomaton(a,Variables.allMinimalNFAs.allMinNFAs.size(),out,true);
-            }
-            // teraz ideme hadzat tie, co maju prehodenu delta-funckiu - tie su tiez potencialne minimalne
-            if (Variables.alphabet.size() == 2){
-                for (Automaton a : result.allMinNFAs) {
-                    // optimalizacia urcena pre 2-pismenkovu abecedu
-                    // teraz prehodime prechody na 0 a 1 - tento automat je potencialne tiez minimalny
-                    Automaton switchedOne = a.switchLetters();
-                    boolean isNew = Variables.allMinimalNFAs.tryToInsert(switchedOne);
-                    if (isNew) {
-                        printAutomaton(switchedOne, Variables.allMinimalNFAs.allMinNFAs.size(), out,true);
-                    }
-                }
-            }
-            System.err.printf("%d languages found%n", Variables.allMinimalNFAs.allMinNFAs.size());
+            result.print(out, 0);
+            Variables.allMinimalNFAs = MergeThread.merge(Variables.allMinimalNFAs,result);
+            
+            System.err.printf("%d languages found%n", Variables.allMinimalNFAs.size());
         }
         
-        out.println(new Integer(Variables.allMinimalNFAs.allMinNFAs.size()).toString());
+        out.println(new Integer(Variables.allMinimalNFAs.allMinDFAs.size()).toString());
         System.err.printf("%d automata tested%n",Variables.counterOfTestedAutomata);
         System.err.printf("Generating automata ended at time: %s%n",Functions.getFormattedTime((int)((System.nanoTime() - Variables.start) / 1000000000)));
         out.close();
@@ -150,14 +135,14 @@ public class Experiments {
     
     /* vrati pocet jedinecnych jazykov do daneho poctu stavov NFA */
     public static long UniqueLanguages(int limit){
-        return Variables.allMinimalNFAs.allMinNFAs.size();
+        return Variables.allMinimalNFAs.allMinDFAs.size();
     }
     
     
     /* tento experiment vyprodukuje tabulku s porovnanim, kolko stavov treba na
     NFA a kolko na ekvivalentny DFA
     */
-    public static long[][] NfaDfaTable(int limit) throws Exception{
+    /*public static long[][] NfaDfaTable(int limit) throws Exception{
         int maxDFAStates = 1 << (limit + 1);
         long ret[][] = new long[limit][maxDFAStates];
         for(int i = 0;i < limit;i++){
@@ -166,12 +151,12 @@ public class Experiments {
             }
         }
         
-        for(Automaton a : Variables.allMinimalNFAs.allMinNFAs){
+        for(Automaton a : Variables.allMinimalNFAs.allMinDFAs){
             ret[a.getNumberOfStates()][a.minimalDFA().getNumberOfStates()]++;
         }
         
         return ret;
-    }
+    }*/
     
     
     /* tento experiment ma za ciel zistit "bezpecnu dlzku" slova pre dany pocet stavov, 
