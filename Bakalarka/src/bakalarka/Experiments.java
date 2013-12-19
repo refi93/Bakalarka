@@ -75,9 +75,7 @@ public class Experiments {
         o vysledky z tejto metody
     */
     public static void GenerateAllNFAsOfSize(int limit) throws IOException, Exception{
-        Variables.initialize(); // nainizializovanie mapy a niektorych premennych, kde si k slovu pamatame cislo - aby sme vedeli efektivne hashovat
-        FastPrint out = new FastPrint();        
-
+        Variables.initialize(); // nainizializovanie mapy a niektorych premennych, kde si k slovu pamatame cislo - aby sme vedeli efektivne hashovat     
         
         for (int i = 1; i <= limit; i++) {
             // najprv rozdelime pracu slaveom
@@ -108,53 +106,16 @@ public class Experiments {
             
             System.err.printf("Merging ended, time: %s%n",Functions.getFormattedTime((int)((System.nanoTime() - Variables.start) / 1000000000)));
 
-            result.print(out, 0);
             Variables.allMinimalNFAs = MergeThread.merge(Variables.allMinimalNFAs,result);
             
             System.err.printf("%d languages found%n", Variables.allMinimalNFAs.size());
         }
         
-        out.println(new Integer(Variables.allMinimalNFAs.allMinDFACodes.size()).toString());
         System.err.printf("%d automata tested%n",Variables.counterOfTestedAutomata);
         System.err.printf("Generating automata ended at time: %s%n",Functions.getFormattedTime((int)((System.nanoTime() - Variables.start) / 1000000000)));
-        out.close();
-    }
-    
-    
-    /* vrati pocet jedinecnych jazykov do daneho poctu stavov NFA */
-    public static long UniqueLanguages(int limit){
-        return Variables.allMinimalNFAs.allMinDFACodes.size();
-    }
-    
-    
-    /* tento experiment vyprodukuje tabulku s porovnanim, kolko stavov treba na
-    NFA a kolko na ekvivalentny DFA
-    */
-    /*public static long[][] NfaDfaTable(int limit) throws Exception{
-        int maxDFAStates = 1 << (limit + 1);
-        long ret[][] = new long[limit][maxDFAStates];
-        for(int i = 0;i < limit;i++){
-            for(int j = 0;j < maxDFAStates;j++){
-                ret[i][j] = 0;
-            }
-        }
         
-        for(Automaton a : Variables.allMinimalNFAs.allMinDFAs){
-            ret[a.getNumberOfStates()][a.minimalDFA().getNumberOfStates()]++;
-        }
-        
-        return ret;
-    }*/
-    
-    
-    /* tento experiment ma za ciel zistit "bezpecnu dlzku" slova pre dany pocet stavov, 
-    t.j. dlzku slova m taku, ze pre lubovolne 2 NFA s n stavmi plati, ze su
-    ekvivalentne prave vtedy, ked sa rovnaju mnoziny vsetkych slov do dlzky m,
-    ltoru generuju
-    */
-    public static int SafeWordLengthExperiment(int limit){
-        //TODO
-        return 0;
+        Variables.outputStream.close(); // zavrieme hlavny output stream
     }
+    
     
 }

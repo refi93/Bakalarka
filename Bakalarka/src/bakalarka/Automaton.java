@@ -502,6 +502,10 @@ public class Automaton{
             this.minimalDFA().print(out, -1);
             out.println("----");
         }
+        
+        if (counter != -1){
+            Variables.outputStream.println(this.getNumberOfStates() + " " + this.minimalDFA().getNumberOfStates());
+        }
    }
     
     

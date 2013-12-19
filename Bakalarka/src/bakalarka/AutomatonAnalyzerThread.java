@@ -39,18 +39,6 @@ public class AutomatonAnalyzerThread extends Thread {
     }
     
     
-    /*public void backup() throws IOException, Exception{
-        System.err.printf("started backup of thread with id%d at time %s%n",this.id, Functions.getCurrentTime());
-        FastPrint out = new FastPrint(Integer.valueOf(id).toString());
-        it.printState(out);
-        this.minimalNFAsResult.print(out, lastBackupedAutomatonId);
-        this.lastBackupTime = (int)((System.nanoTime() - Variables.start) / 1000000000);
-        this.lastBackupedAutomatonId = this.minimalNFAsResult.allMinNFAs.size();
-        out.close();
-        System.err.printf("done backup at time %s%n", Functions.getFormattedTime(this.lastBackupTime));
-    }*/
-    
-    
     @Override
     public void run(){
         long counter = 0;
@@ -59,7 +47,7 @@ public class AutomatonAnalyzerThread extends Thread {
         FastPrint vypisAutomatov = null;
         long automatonCounter = (long)0;
         try {
-            vypisAutomatov = new FastPrint("./automata.txt");
+            vypisAutomatov = new FastPrint(Variables.outputFileForAutomata);
             
             vypisAutomatov.println(
                     "#initial state is fixed to 0 the format of output is the following\n"
@@ -69,7 +57,6 @@ public class AutomatonAnalyzerThread extends Thread {
                             + "#number of final states followed by final states enumeration\n"
                             + "#number of transitions followed by its enumeration\n"
                             + "#from_state to_state character\n"
-                            + "#|minNFA number of states vs minDFA number of states|\n"
                             + "#begin of output:\n"
             );
             
@@ -82,14 +69,6 @@ public class AutomatonAnalyzerThread extends Thread {
             if(counter % numberOfWorkers == id){
                 int currentTime = Functions.getCurrentTime();
                 
-                //if ((Variables.backupInterval != -1)&&(currentTime - lastBackupTime > Variables.backupInterval)){
-                /*if ((this.minimalNFAsResult.size() % 1000 == 0)&&(this.numberOfStates == 4)){
-                    try {
-                        this.backup();
-                    } catch (Exception ex) {
-                        Logger.getLogger(AutomatonAnalyzerThread.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }*/
                 
                 Automaton a = it.next();
                 // vypisovanie pocitadla po 100 000 nextoch
@@ -104,11 +83,12 @@ public class AutomatonAnalyzerThread extends Thread {
                     if (!Variables.allMinimalNFAs.containsEquivalent(a)){ // prvy test je vyskusat, ci to neni ekvivalentne s niektorym s mensich automatov
                         if(minimalNFAsResult.tryToInsert(a)){
                             automatonCounter++;
-                            a.print(vypisAutomatov,automatonCounter);
+                            a.print(vypisAutomatov,automatonCounter+Variables.allMinimalNFAs.size());
                             Automaton switchedA = a.switchLetters();
+                            Variables.counterOfTestedAutomata++;
                             if(minimalNFAsResult.tryToInsert(switchedA)){
                                 automatonCounter++;
-                                switchedA.print(vypisAutomatov,automatonCounter);
+                                switchedA.print(vypisAutomatov,automatonCounter+Variables.allMinimalNFAs.size());
                             }
                         }
                     }
@@ -120,6 +100,14 @@ public class AutomatonAnalyzerThread extends Thread {
                 it.skip(); // vykona sa iteracia naprazdno - len sa posunie counter
             }
             counter++;
+        }
+        
+        
+        // zavrieme output automatov aby sa vsetko vypisalo
+        try {
+            vypisAutomatov.close(); 
+        } catch (IOException ex) {
+            Logger.getLogger(AutomatonAnalyzerThread.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         

@@ -40,9 +40,9 @@ public class MergeThread extends Thread{
     @Override
     public void run(){
         
-        for(Triplet a : candidates2.allMinDFACodes){
+        for(Triplet hash : candidates2.allMinDFACodes){
             try {
-                candidates1.tryToInsertValue(a,candidates2.AutomatonClasses.get(a));
+                candidates1.tryToInsertValue(hash);
             } catch (Exception ex) {
                 Logger.getLogger(MergeThread.class.getName()).log(Level.SEVERE, null, ex);
             }

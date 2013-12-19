@@ -31,7 +31,9 @@ public class Variables {
     
     
     static Random generator = new Random(); // zdroj nahody
-    static String outputFile = "./out.txt"; // kam sa posiela vystup z programu
+    public static String outputFile = "./out.txt"; // kam sa posiela vystup z programu
+    public static String outputFileForAutomata = "./automata.txt";
+    public static FastPrint outputStream; // kam vypisujeme dvojice - pocet stavov minNFA vs minDFA
     
     static MinimalAutomatonHashMap allMinimalNFAs = new MinimalAutomatonHashMap(); // tu si pamatame vsetky mensie doteraz ziskane NFA, resp. min. DFA k nim
     
@@ -44,9 +46,13 @@ public class Variables {
     
     public static int backupInterval = -1; // backup interval zadany v sekundach (-1 ak je backup vypnuty)
     
+    
     // sluzi na inicializaciu niektorych premennych - mapy so slovami, casu, ...
     static void initialize() throws Exception{
         start = System.nanoTime(); // nastavime cas startu programu
+        outputStream = new FastPrint();
+        FastPrint.cleanFile(outputFileForAutomata);
+        FastPrint.cleanFile(outputFile);
     }
     
     public static Long connectedCount = (long)0;
