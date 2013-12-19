@@ -19,23 +19,23 @@ import java.util.HashSet;
  * a dokazeme do nej aj vlozit nejake NFA a ona rozhodne, ci uz tam neni
  */
 public class MinimalAutomatonHashMap {
-    HashMap<Tuple<BigInteger, BigInteger>, Tuple<Integer, Integer> > AutomatonClasses;
-    ArrayList<Tuple<BigInteger, BigInteger> > allMinDFAs;
+    HashMap<Triplet, Tuple<Integer, Integer> > AutomatonClasses;
+    ArrayList<Triplet> allMinDFACodes;
     public int comparison_count = 0;
     int max_collisions = 0;
     private long size = 0;
     
     public MinimalAutomatonHashMap(){
         this.AutomatonClasses = new HashMap<>();
-        this.allMinDFAs = new ArrayList<>();
+        this.allMinDFACodes = new ArrayList<>();
     }
     
     
     /* out - odkaz kam vypisovat, startIndex - pociatocny index, od ktoreho vypisovat automaty */
     public void print(FastPrint out, int startIndex) throws IOException, Exception{
-        out.println(Integer.valueOf(this.allMinDFAs.size()).toString());
-        for(int i = startIndex; i < this.allMinDFAs.size();i++){
-            out.println(AutomatonClasses.get(allMinDFAs.get(i)).toString());
+        out.println(Integer.valueOf(this.allMinDFACodes.size()).toString());
+        for(int i = startIndex; i < this.allMinDFACodes.size();i++){
+            out.println(AutomatonClasses.get(allMinDFACodes.get(i)).toString());
         }
     }
     
@@ -43,7 +43,7 @@ public class MinimalAutomatonHashMap {
     /* overi, ci sa tu nenachadza uz nejaky iny ekvivalentny automat */
     public boolean containsEquivalent(Automaton a) throws Exception{
         boolean ret = false;
-        Tuple hash = a.myHashCode();
+        Triplet hash = a.myHashCode();
         if (AutomatonClasses.containsKey(hash)) {
             return true;
         }
@@ -55,10 +55,10 @@ public class MinimalAutomatonHashMap {
     pomocou tejto metody
     */
     private void forceInsert(Automaton a) throws Exception {
-        Tuple hash = a.myHashCode();
+        Triplet hash = a.myHashCode();
         this.size++;
         AutomatonClasses.put(hash,new Tuple<Integer,Integer>(a.getNumberOfStates(),a.minimalDFA().getNumberOfStates()));
-        allMinDFAs.add(hash);
+        allMinDFACodes.add(hash);
     }
     
     
@@ -71,10 +71,10 @@ public class MinimalAutomatonHashMap {
     }
     
     
-    public void tryToInsertValue(Tuple<BigInteger,BigInteger>hash,Tuple<Integer,Integer> NFADFAcomparison){
+    public void tryToInsertValue(Triplet hash,Tuple<Integer,Integer> NFADFAcomparison){
         if(!this.AutomatonClasses.containsKey(hash)){
             this.size++;
-            this.allMinDFAs.add(hash);
+            this.allMinDFACodes.add(hash);
         }
         this.AutomatonClasses.put(hash, NFADFAcomparison);
     }

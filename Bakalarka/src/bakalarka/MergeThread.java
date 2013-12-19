@@ -40,7 +40,7 @@ public class MergeThread extends Thread{
     @Override
     public void run(){
         
-        for(Tuple a : candidates2.allMinDFAs){
+        for(Triplet a : candidates2.allMinDFACodes){
             try {
                 candidates1.tryToInsertValue(a,candidates2.AutomatonClasses.get(a));
             } catch (Exception ex) {

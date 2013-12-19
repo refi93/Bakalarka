@@ -104,14 +104,10 @@ public class AutomatonAnalyzerThread extends Thread {
                     if (!Variables.allMinimalNFAs.containsEquivalent(a)){ // prvy test je vyskusat, ci to neni ekvivalentne s niektorym s mensich automatov
                         if(minimalNFAsResult.tryToInsert(a)){
                             automatonCounter++;
-                            //vypisAutomatov.println("/" + Long.valueOf(automatonCounter).toString());
                             a.print(vypisAutomatov,automatonCounter);
-                            //vypisAutomatov.println("#" + Long.valueOf(automatonCounter).toString());
-                            //vypisAutomatov.println(a.toString());
                             Automaton switchedA = a.switchLetters();
                             if(minimalNFAsResult.tryToInsert(switchedA)){
                                 automatonCounter++;
-                                //vypisAutomatov.println("/" + Long.valueOf(automatonCounter).toString(),automatonCounter);
                                 switchedA.print(vypisAutomatov,automatonCounter);
                             }
                         }

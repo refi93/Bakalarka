@@ -26,7 +26,7 @@ public class Experiments {
             System.err.printf("Number of candidates lists: %d%n", listOfCandidates.size());
             int pocetZoznamov = listOfCandidates.size();
             ArrayList<MergeThread> mergers = new ArrayList<>();
-            
+      
             for(int i = 0;i < (pocetZoznamov / 2);i++){
                 mergers.add(new MergeThread(listOfCandidates.get(2 * i), listOfCandidates.get(2 * i + 1)));
                 mergers.get(i).start(); // nastarujeme kazdy z threadov
@@ -77,19 +77,7 @@ public class Experiments {
     public static void GenerateAllNFAsOfSize(int limit) throws IOException, Exception{
         Variables.initialize(); // nainizializovanie mapy a niektorych premennych, kde si k slovu pamatame cislo - aby sme vedeli efektivne hashovat
         FastPrint out = new FastPrint();        
-        
-        // vypis do suboru, aby bol jasny format
-        /*out.println(
-                "#initial state is fixed to 0 the format of output is the following\n"
-                + "#/number of the automaton\n"
-                + "#number of states\n"
-                + "#id of initial state (-1 if none)"
-                + "#number of final states followed by final states enumeration\n"
-                + "#number of transitions followed by its enumeration\n"
-                + "#from_state to_state character\n"
-                + "#|minNFA number of states vs minDFA number of states|\n"
-                + "#begin of output:"
-                );*/
+
         
         for (int i = 1; i <= limit; i++) {
             // najprv rozdelime pracu slaveom
@@ -126,7 +114,7 @@ public class Experiments {
             System.err.printf("%d languages found%n", Variables.allMinimalNFAs.size());
         }
         
-        out.println(new Integer(Variables.allMinimalNFAs.allMinDFAs.size()).toString());
+        out.println(new Integer(Variables.allMinimalNFAs.allMinDFACodes.size()).toString());
         System.err.printf("%d automata tested%n",Variables.counterOfTestedAutomata);
         System.err.printf("Generating automata ended at time: %s%n",Functions.getFormattedTime((int)((System.nanoTime() - Variables.start) / 1000000000)));
         out.close();
@@ -135,7 +123,7 @@ public class Experiments {
     
     /* vrati pocet jedinecnych jazykov do daneho poctu stavov NFA */
     public static long UniqueLanguages(int limit){
-        return Variables.allMinimalNFAs.allMinDFAs.size();
+        return Variables.allMinimalNFAs.allMinDFACodes.size();
     }
     
     

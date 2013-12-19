@@ -49,4 +49,19 @@ public class BigMatrix {
         }
         return ret;
     }
+    
+    
+    /* predpoklad pre tuto metodu je, ze ta matica patri DFA */
+    public long getNumericRepresentationDFA(){
+        long ret = (long)0;
+        for(int r = 0;r < n;r++){
+            for(int c = 0;c < n;c++){
+                if (matrix[r][c]){
+                    ret = ret | (((long)1) << (n*r + c));
+                }
+            }
+        }
+        return ret;
+    }
+    
 }
