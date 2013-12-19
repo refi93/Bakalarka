@@ -28,7 +28,7 @@ public class FastPrint {
     
     // konstruktor dany menom suboru - tento do suboru pridava, neprepise ho cely
     public FastPrint(String fileName) throws IOException{
-        out = new BufferedWriter(new FileWriter("./" + fileName+".threadBak",true), 32768);
+        out = new BufferedWriter(new FileWriter("./" + fileName), 32768);
     }
         
     void println(String s) throws IOException{

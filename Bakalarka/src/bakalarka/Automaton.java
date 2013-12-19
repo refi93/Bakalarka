@@ -470,8 +470,10 @@ public class Automaton{
     
 
     /* metoda na vypisanie automatu - lepsie parsovatelne ako to, co vypise toString() */
-    public void print(FastPrint out) throws IOException, Exception{
+    public void print(FastPrint out, long counter) throws IOException, Exception{
         // vypis poctu stavov
+        
+        out.println("/" + Long.valueOf(counter).toString());
         out.println(new Integer(this.allStatesIds.size()).toString());
         // vypis pociatocneho stavu
         if(this.initialStatesIds.iterator().hasNext()){

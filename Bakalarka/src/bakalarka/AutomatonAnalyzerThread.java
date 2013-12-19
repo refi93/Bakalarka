@@ -53,7 +53,30 @@ public class AutomatonAnalyzerThread extends Thread {
     
     @Override
     public void run(){
-        int counter = 0;
+        long counter = 0;
+        
+        // inicializujeme vypis automatov
+        FastPrint vypisAutomatov = null;
+        long automatonCounter = (long)0;
+        try {
+            vypisAutomatov = new FastPrint("./automata.txt");
+            
+            vypisAutomatov.println(
+                    "#initial state is fixed to 0 the format of output is the following\n"
+                            + "#/number of the automaton\n"
+                            + "#number of states\n"
+                            + "#id of initial state (-1 if none)\n"
+                            + "#number of final states followed by final states enumeration\n"
+                            + "#number of transitions followed by its enumeration\n"
+                            + "#from_state to_state character\n"
+                            + "#|minNFA number of states vs minDFA number of states|\n"
+                            + "#begin of output:\n"
+            );
+            
+        } catch (IOException ex) {
+            Logger.getLogger(AutomatonAnalyzerThread.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         
         while(it.hasNext()){
             if(counter % numberOfWorkers == id){
@@ -80,7 +103,17 @@ public class AutomatonAnalyzerThread extends Thread {
                 try {
                     if (!Variables.allMinimalNFAs.containsEquivalent(a)){ // prvy test je vyskusat, ci to neni ekvivalentne s niektorym s mensich automatov
                         if(minimalNFAsResult.tryToInsert(a)){
-                            minimalNFAsResult.tryToInsert(a.switchLetters());
+                            automatonCounter++;
+                            //vypisAutomatov.println("/" + Long.valueOf(automatonCounter).toString());
+                            a.print(vypisAutomatov,automatonCounter);
+                            //vypisAutomatov.println("#" + Long.valueOf(automatonCounter).toString());
+                            //vypisAutomatov.println(a.toString());
+                            Automaton switchedA = a.switchLetters();
+                            if(minimalNFAsResult.tryToInsert(switchedA)){
+                                automatonCounter++;
+                                //vypisAutomatov.println("/" + Long.valueOf(automatonCounter).toString(),automatonCounter);
+                                switchedA.print(vypisAutomatov,automatonCounter);
+                            }
                         }
                     }
                 } catch (Exception ex) {

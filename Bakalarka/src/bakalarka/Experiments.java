@@ -56,7 +56,7 @@ public class Experiments {
        FastPrint out - kam sa ma vypisovat ten automat
        boolean computeMinimalDFA - ci sa ma vyratat a vypisat minimalne DFA
     */
-    public static void printAutomaton(Automaton a, long counter, FastPrint out, boolean computeMinimalDFA) throws IOException, Exception{
+    /*public static void printAutomaton(Automaton a, long counter, FastPrint out, boolean computeMinimalDFA) throws IOException, Exception{
         out.println("#" + counter);
         a.print(out);
         if (computeMinimalDFA){
@@ -67,7 +67,7 @@ public class Experiments {
                 System.err.printf("%d minimal NFAs proceeded%n",Variables.allMinimalNFAs.allMinDFAs.size());
             }
         }
-    }
+    }*/
     
     
     /* vygeneruje vsetky NFA do danej velkosti a overi ich minimalnost 
