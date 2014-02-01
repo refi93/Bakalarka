@@ -1,0 +1,79 @@
+\chapter{Základné pojmy a definície}
+
+Celá práca sa bude venovať konečným automatom. Najskôr si definujeme základné pojmy, uvedieme označenia a dokážeme potrebné vety, aby sme mohli ďalej na nich postaviť naše úvahy. Ako zdroj poslúžila kniha \cite{hopcroft}, resp. bakalárska práca \cite{petruchova}, ktorá sa tiež zaoberala konečnými automatmi. Ak by si čitateľ potreboval objasniť najzákladnejšie pojmy ako abeceda, gramatika, jazyk, prípadne ďalšie, tak odporúčame \cite{skripta}. 
+
+\section{Deterministický konečný automat}
+
+\begin{defn}{\textbf {\textit {Deterministický konečný automat (skrátene DKA)}}} A je pätica $(K,\Sigma,\delta,q_0,F)$, kde K je konečná množina stavov, $\Sigma$ je konečná vstupná abeceda, $q_0 \in K$ je počiatočný stav, $F \subseteq K$ je množina (konečných) akceptačných stavov a $\delta: K \times \Sigma \rightarrow K$ je prechodová funkcia ($\delta$-funkcia$).  \end{defn}
+
+\begin{defn}{\textbf {\textit {Konfigurácia}}} deterministického konečného automatu je prvok $(q,w) \in K \times \Sigma*$, kde q je stav automatu a w je nespracovaná časť vstupného slova.\end{defn}
+
+\begin{defn}{\textbf {\textit {Krok výpočtu}}} deterministického konečného automatu A je relácia $\vdash_A$ na konfiguráciách definovaná $(q,av)\vdash_A(p,v) \Longleftrightarrow p=\delta(q,a)$.\end{defn}
+
+\begin{defn}{\textbf {\textit {Jazyk}}} akceptovaný deterministickým konečným automatom A je množina $L(A) = \{w | \exists q_F \in F; (q_0,w) \vdash^*_A(q_F,\epsilon)\}$.\end{defn}
+
+\begin{defn}{\textbf {\textit {Minimálny automat}}}. Deterministický konečný automat
+\\ 
+$A=(K_A,\Sigma,\delta_A,q_{0A},F_A)$ je minimálny, pokiaľ pre všetky DKA $B = (K_B,\Sigma,\delta_B,q_{0B},F_B)$ platí:
+\\
+\centerline{$L(A) = L(B) \Rightarrow |K_A| \leq |K_B|$}
+\end{defn}
+
+\newpage
+
+\begin{thm}(Myhill-Nerode) Majme jazyk $L \subset \Sigma^*$. Nasledujúce tvrdenia sú ekvivalentné:
+\begin{itemize}
+  \item L je regulárny jazyk
+  \item L je zjednotením niekoľkých tried ekvivalencie nejakej sprava invariantnej relácie ekvivalencie konečného indexu
+  \item Relácia $R_L$ definovaná $uR_Lv \Longleftrightarrow (\forall x;ux \in L \Longleftrightarrow vx \in L)$ je reláciou ekvivalencie konečného indexu.
+\end{itemize}
+\end{thm}
+
+Táto veta nám hovorí, že každý regulárny jazyk možno ,,rozbiť'' na niekoľko, resp. konečný počet tried ekvivalencie, pričom jeden z dôsledkov je, že minimálny DKA má práve toľko stavov, koľko tried ekvivalencie má relácia $R_L$. Ďalší dôsledok je, že minimálny DKA k jazyku L je jednoznačný až na izomorfizmus, t.j. až na pomenovanie stavov musia byť dva ekvivalentné minimálne DKA totožné. Dôkaz Myhill-Nerodovej vety nájdete napr. v \cite[Veta 2.9.1]{skripta} a jednoznačnosť minimálneho DKA v \cite[Veta 4.26]{hopcroft}.
+
+\paragraph{}
+Je dobré si uvedomiť, že budeme uvažovať len deterministické automaty s úplnou $\delta$-funkciou, t.j. nemôže sa stať, žeby v niektorom stave nebol definovaný prechod na niektorý znak. Prerobiť automat s neúplnou $delta$-funkciou na automat s úplnou je v každom prípade triviálne - stačí pre nedefinované prechody pridať ,,odpadový'' stav, čiže neprinášajú nejaké zásadné zmenšenie počtu stavov oproti tým s úplnou $\delta$-funkciou. Pri návrhu deterministických automatov sa na túto formalitu častokrát zabúda a odpadový stav sa zamlčí, to si ale my nemôžeme dovoliť, pokiaľ chceme skutočne korektne zmerať nárast počtu stavov oproti nedeterministickým konečným automatom, ktoré teraz ideme definovať.
+
+\section{Nedeterministický konečný automat}
+
+\begin{defn}{\textbf {\textit {Nedeterministický konečný automat}}} A je pätica $(K,\Sigma,\delta,q_0,F)$, kde K je
+konečná množina stavov, $\Sigma$ je konečná vstupná abeceda, $q_0 \in K$ je počiatočný stav, $F \subseteq K$ je množina akceptačných (koncových) stavov a $\delta: K \times (\Sigma \cup \{\epsilon\}) \rightarrow 2^{K}$ je prechodová funkcia \end{defn}
+
+Ostatné veci sú definované analogicky ako pre DKA.
+
+
+\section{Determinizácia NKA}
+
+\begin{defn}{\textbf {\textit {Determinizácia konečného automatu}}} $A = (K_A,\Sigma,\delta_A,q_{0},F_A)$ je DKA $D(A) = (K_{D(A)},\Sigma,\delta_{D(A)},q'_{O},F_{D_A})$, pre ktorý platí, že $L(A) = L(D(A))$.
+\end{defn}
+
+Je známy pomerne jednoduchý algoritmus na determinizáciu NKA. Po anglicky sa mu hovorí "subset construction". K NKA $A = (K_A,\Sigma,\delta_A,q_0,F_A)$ zostrojíme DKA $D = (K_D,\Sigma,\delta_D,\{q_0\},F_D)$ tak, že jeho stavy budú reprezentovať jednotlivé podmnožiny $2^{K_A}$, kde $K_A$ je množina stavov konečného automatu A. Za počiatočný stav si zvolíme množinu prislúchajúcu počiatočnému stavu a následne budeme skúmať podobne, ako pri prehľadávaní do širky, na ktoré stavy v tom pôvodnom NKA A sa môžeme dostať cez daný znak. Konečné stavy potom budú tie, ktoré reprezentujú množiny obsahujúce niektorý z konečných stavov v pôvodnom NKA A. Formálne: 
+\\
+\centerline {$K_D = 2^{K_A}$}
+\\
+\centerline {$\forall a \in \Sigma, S \subseteq K_A: \delta_D(S,a) = {\bigcup}_{p \in S} \delta_A(p,a)$}
+\\
+\centerline {$F_D = \{S: (S \in K_D) \wedge (S \cap F_A \neq \emptyset)\}$}
+\\
+Samozrejme, pri samotnej implementácii môžeme zanedbať nedosiahnuteľné stavy, ktorých pravedpodobne pre daný konečný automat bude dosť veľa. V prípade, žeby čitateľ chcel vedieť viac podrobností, odporúčame \cite[Kapitola 2.3.5]{hopcroft}.
+
+\section{Minimalizácia DKA - Brzozowského algoritmus}
+
+Je to jeden z algoritmov, pomocou ktorého dokážeme k danému DKA A nájsť minimálny DKA B akceptujúci ten istý jazyk. Samotný algoritmus pracuje veľmi jednoducho, ale najprv si definujme, resp. popíšme základne operácie, ktoré budeme na jeho realizáciu využívať:
+
+\begin{defn}{\textbf {\textit {Reverz konečného automatu}}} $A=(K_A,\Sigma,\delta_A,q_{0},F_A)$ je konečný automat $R(A)=(K_A,\Sigma,\delta_{R(A)},F_A,q_{O})$, pre ktorý platí:
+\\
+\centerline{$\forall q_a,q_b \in K_A: (q_a,a) \rightarrow q_b \in \delta_A \Rightarrow (q_b,a)\rightarrow(q_a)$}
+\end{defn}
+Je dôležité si všimnúť, že sme zamenili aj počiatočný stav s množinou akceptačných stavov. Tento automat teda nie je NKA v pravom slova zmysle, keďže sa pripúšťa viac počiatočných stavov. Pre formálnu korektnosť nie je ale problém pridať pomocný počiatočný stav, z ktorého by viedol epsilonový prechod na každý z možných pôvodných počiatočných stavov.
+\paragraph{}
+Samotný algoritmus teraz bude vyzerať nasledovne:\\
+Na vstupe máme DKA $A=(K_A,\Sigma,\delta_A,q_{0A},F_A)$. Nech operácia $R(A)$ označuje reverz automatu A a operácia $D(A)$ determinizáciu automatu A, tak ako boli vyššie definované. Potom minimálny DKA B akceptujúci rovnaký jazyk ako NKA A skonštruujeme nasledovne:
+\\
+\centerline{$B=D(R(D(R(A))))$}
+Operácia determinizácie môže mať až exponenciálnu časovú zložitosť vzhľadom na počet stavov pôvodného NKA, keďže toľko stavov môže teoreticky mať DKA ekvivalentný k danému NKA, ako aj naznačovala vyššie uvedená konštrukcia na determinizáciu NKA, avšak v priemernom prípade sa to nejaví byť až také zlé. Takúto časovú zložitosť v konečnom dôsledku dosahuje aj Brzozowského algoritmus, keďže využíva túto operáciu. I keď existujú aj asymptoticky rýchlejšie algoritmy na minimalizáciu NKA, menovite Hopcroftov algoritmus s časovou zložitosťou $O(nslog n)$, kde $n$ je počet stavov pôvodného DKA a $s$ počet znakov abecedy, ukázalo sa prekvapivo, že už aj takýto jednoduchý, i keď pomalší algoritmus bude postačovať pre naše potreby
+
+\section{Minimalizácia NKA}
+
+Na minimalizáciu NKA už takéto jednoduchý algoritmus nie je zatiaľ známy. Pre naše potreby sa ale ukazuje byť dostatočne dobré generovať NKA vzostupne podľa počtu stavov a testovať, či sme už predtým nevygenerovali ekvivalentný NKA. Časová zložitosť teda bude závisieť od toho, koľko automatov musíme vygenerovať. Tento počet rozanalyzujeme v nasledujúcej kapitole.
+

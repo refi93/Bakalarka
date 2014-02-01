@@ -1,0 +1,40 @@
+\chapter{Analýza problému}
+Jednou z naších hlavných úloh, ako sme v úvode spomínali, je zistiť počet jedinečných regulárnych generovaných jazykov na 2-znakovej abecede do štyroch stavov, resp. zmerať nárast počtu stavov po prevedení minimálneho NKA na minimálny DKA. Rozoberme si teda podrobnejšie, čo na to budeme potrebovať.  
+
+\section{Generovanie NKA}
+NKA budeme generovať vzostupne podľa počtu stavov. Akonáhle vygenerujeme NKA, overíme, či sme už predtým nevygenerovali NKA, ktoré by akceptovalo rovnaký jazyk. Na začiatok by sme si mohli zrátať, koľko tých NKA by sme vygenerovali, keby sme generovali skutočne všetky:
+\paragraph{}
+Otázka teda znie - koľko existuje všetkých možných NKA s n-stavmi pre 2-znakovú abecedu? Ako počiatočný stav si možeme zvoliť ľubovoľný z n stavov, máme teda n možností voľby počiatočného stavu. Za konečné stavy si môžeme zvoliť ľubovoľnú podmnožinu množiny stavov, t.j. máme $2^n$ možností. Ak si $\delta$-funkciu predstavíme ako graf, resp. jeho maticu susednosti, tak medzi n stavmi môže pre 1 znak existovať $n^2$ prechodov, keďže pripúšťame aj slučky. 
+
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|c|r|}
+    \hline
+    n & \# NKA \\
+    \hline
+    1 & 8 \\ 
+    \hline
+    2 & 2 048 \\ 
+    \hline
+    3 & 6 291 456 \\
+    \hline
+    4 & 274 877 906 944 \\
+    \hline
+  \end{tabular}
+  \caption{Počet všetkých možných NKA s n stavmi}
+  \label{tab:pocVsNKA}
+\end{table}
+\paragraph{}
+
+
+Teda máme $2^{n^2}$ možností ako zvoliť prechody medzi jednotlivými stavmi pre jeden znak. Naša abeceda má ale 2 znaky, teda tých možností bude $2^{2n^2}$. Keď si to všetko spojíme dokopy, dostávame $n2^n2^{2n^2} = n2^{2n^2 + n}$ možných NKA(pozri tabuľku \ref{tab:pocVsNKA}).
+\paragraph{}
+Z tabuľky vidno, že ten počet prudko rastie a pre n=4 je počet NKA príliš veľký, aby sme si mohli dovoliť vygenerovať všetky. Ale potrebujeme skutočne všetky? Nemôžme niektoré vynechať, lebo si budeme istí, že vygenerujeme určite iný ekvivalentný NKA s rovnakým počtom stavov? Odpoveď je, že môžme a dokonca pomerne významne. Bude to séria optimalizácii, ktoré si teraz uvedieme:
+
+\begin{optm}{\textbf {\textit {Fixovanie počiatočného stavu}}} Ako prvé si môžeme všimnúť, že nemá zmysel skúšať všetky možné počiatočné stavy, nakoľko ku každému NKA A existuje ekvivalentný izomorfný NKA B (t.j., že má len prečíslované stavy), kde počiatočný stav má čislo 0.
+\end{optm}
+
+\begin{optm}{\textbf {\textit {Konečné stavy}}} Ďalšia vec, ktorá sa dá obmedziť, je množina akceptačných stavov. Zaujíma nás reálne len ich počet a na poradí až tak nezáleží, jedine na tom, či sa medzi akceptačnými stavmi nachádza aj ten počiatočný alebo nie. Argument je podobný ako minule. K danému NKA A existuje vždy ekvivalentný izomorfný NKA B, ktorého akceptačné stavy odlišné od počiatočného sú očíslované od 1 po k, resp. k-1 (ak 0 je akceptačný), kde k je počet akceptačných stavov NKA A a stav 0 je akceptačný, pokiaľ je akceptačný aj počiatočný stav automatu A. Stačí nám na to zobrať NKA A a v ňom priradiť počiatočnému stavu číslo 0 a akceptačným stavom zaradom čísla 1 až k-1, pokiaľ je 0 akceptačný, inak od 1 po k. Takto namiesto $2^n$ podmnožín stavov nám stačí generovať $(2n - 1)$ podmnožín, keďže prázdnu zjavne testovať nemá zmysel pre $n>1$, keďže automat pre prázdny jazyk ma triviálne 1 stav. 
+
+

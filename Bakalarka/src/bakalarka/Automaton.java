@@ -416,6 +416,7 @@ public class Automaton{
     
     
     public Automaton reverse() throws Exception{
+        System.out.println(this);
         Automaton pom = new Automaton(this);
         Automaton ret = new Automaton();
         
@@ -542,7 +543,7 @@ public class Automaton{
             return cache_minDFA;
         }
         Automaton pom = new Automaton(this);
-        // odpadove stavy tu nie su vitane, preto false
+        // odpadove stavy tu nie su vitane, preto false, len na konci, aby sme dostali minimalny DKA s uplnou delta-funkciou
         Automaton cache_minDFA = pom.determinize(Variables.disableTrashState).reverse().determinize(Variables.disableTrashState).reverse().determinize(Variables.allowTrashState);
         return cache_minDFA;
     }
