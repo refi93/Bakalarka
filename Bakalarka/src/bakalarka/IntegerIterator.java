@@ -37,10 +37,10 @@ public class IntegerIterator implements Iterator {
     }
     
     @Override
-    public IntegerIdentificator next() {
+    public Identificator next() {
         int ret = this.value;
         this.value++;
-        return new IntegerIdentificator(ret);
+        return new Identificator(ret);
     }
 
     @Override

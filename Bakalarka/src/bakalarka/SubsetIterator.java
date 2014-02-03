@@ -25,7 +25,7 @@ public class SubsetIterator implements Iterator{
     public SubsetIterator(int n){
         this.allElements = new ArrayList<>();
         for(int i = 0;i < n;i++){
-            this.allElements.add(new IntegerIdentificator(i));
+            this.allElements.add(new Identificator(i));
         }
         state = 1; // od 1 zaciname, lebo ignorujeme prazdnu mnozinu akceptacnych stavov
         if (n == 1){

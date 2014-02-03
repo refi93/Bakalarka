@@ -21,6 +21,8 @@ public class Variables {
     
     static int numberOfCores = 1;//Runtime.getRuntime().availableProcessors(); // pocet jadier cpu
     
+    static String automataFile = "automata.txt";
+    
     /* abeceda */
     static ArrayList<Character> alphabet = new ArrayList<>(Arrays.asList('0','1'));
     

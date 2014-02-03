@@ -21,6 +21,7 @@ $A=(K_A,\Sigma,\delta_A,q_{0A},F_A)$ je minimálny, pokiaľ pre všetky DKA $B =
 
 \newpage
 
+\label{myhillNerode}
 \begin{thm}(Myhill-Nerode) Majme jazyk $L \subset \Sigma^*$. Nasledujúce tvrdenia sú ekvivalentné:
 \begin{itemize}
   \item L je regulárny jazyk
@@ -71,9 +72,9 @@ Samotný algoritmus teraz bude vyzerať nasledovne:\\
 Na vstupe máme DKA $A=(K_A,\Sigma,\delta_A,q_{0A},F_A)$. Nech operácia $R(A)$ označuje reverz automatu A a operácia $D(A)$ determinizáciu automatu A, tak ako boli vyššie definované. Potom minimálny DKA B akceptujúci rovnaký jazyk ako NKA A skonštruujeme nasledovne:
 \\
 \centerline{$B=D(R(D(R(A))))$}
-Operácia determinizácie môže mať až exponenciálnu časovú zložitosť vzhľadom na počet stavov pôvodného NKA, keďže toľko stavov môže teoreticky mať DKA ekvivalentný k danému NKA, ako aj naznačovala vyššie uvedená konštrukcia na determinizáciu NKA, avšak v priemernom prípade sa to nejaví byť až také zlé. Takúto časovú zložitosť v konečnom dôsledku dosahuje aj Brzozowského algoritmus, keďže využíva túto operáciu. I keď existujú aj asymptoticky rýchlejšie algoritmy na minimalizáciu NKA, menovite Hopcroftov algoritmus s časovou zložitosťou $O(nslog n)$, kde $n$ je počet stavov pôvodného DKA a $s$ počet znakov abecedy, ukázalo sa prekvapivo, že už aj takýto jednoduchý, i keď pomalší algoritmus bude postačovať pre naše potreby
+Operácia determinizácie môže mať až exponenciálnu časovú zložitosť vzhľadom na počet stavov pôvodného NKA, keďže toľko stavov môže teoreticky mať DKA ekvivalentný k danému NKA, ako aj naznačovala vyššie uvedená konštrukcia na determinizáciu NKA, avšak v priemernom prípade sa to nejaví byť až také zlé. Takúto časovú zložitosť v konečnom dôsledku dosahuje aj Brzozowského algoritmus, keďže využíva túto operáciu. I keď existujú aj asymptoticky rýchlejšie algoritmy na minimalizáciu NKA, menovite Hopcroftov algoritmus s časovou zložitosťou $O(nslog(n))$, kde $n$ je počet stavov pôvodného DKA a $s$ počet znakov abecedy, ukázalo sa prekvapivo, že aj takýto jednoduchý, i keď pomalší algoritmus bude postačovať pre naše potreby
 
 \section{Minimalizácia NKA}
 
-Na minimalizáciu NKA už takéto jednoduchý algoritmus nie je zatiaľ známy. Pre naše potreby sa ale ukazuje byť dostatočne dobré generovať NKA vzostupne podľa počtu stavov a testovať, či sme už predtým nevygenerovali ekvivalentný NKA. Časová zložitosť teda bude závisieť od toho, koľko automatov musíme vygenerovať. Tento počet rozanalyzujeme v nasledujúcej kapitole.
+Na minimalizáciu NKA už takýto jednoduchý algoritmus nie je zatiaľ známy. Pre naše potreby, nakoľko aj tak enumerujeme všetky možné regulárne jazyky pre NKA do 4 stavov, sa ukazuje byť dostatočne dobré generovať NKA vzostupne podľa počtu stavov a testovať, či sme už predtým nevygenerovali ekvivalentný NKA. Časová zložitosť teda bude závisieť od toho, koľko automatov musíme vygenerovať, resp. s koľkými automatmi budeme potom porovnávať. Tento počet rozanalyzujeme v nasledujúcej kapitole.
 

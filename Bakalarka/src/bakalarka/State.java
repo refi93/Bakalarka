@@ -16,7 +16,7 @@ import java.util.HashSet;
  * stavov, na ktore sa da prejst
  */
 
-public class State extends HashMap<Character, PowerSetOfIdentificators >{
+public class State extends HashMap<Character, SetOfIdentificators >{
     
     /* vrati, ci je dany stav "deterministicky", teda ci je jednoznacne 
     urcene, co bude nasledovat
@@ -66,9 +66,9 @@ public class State extends HashMap<Character, PowerSetOfIdentificators >{
         navratova hodnota je true, ak tam ten zaznam este neexistoval
     */
     public boolean addTransition(Character c,Identificator stateId){
-        PowerSetOfIdentificators value = this.get(c);
+        SetOfIdentificators value = this.get(c);
         if (value == null){
-            value = new PowerSetOfIdentificators();
+            value = new SetOfIdentificators();
         }
         boolean ret = !value.contains(stateId); // ci tam uz je tento prechod
         value.add(stateId);
@@ -107,21 +107,6 @@ public class State extends HashMap<Character, PowerSetOfIdentificators >{
         this.id = id;
     }
     
-    
-    /* touto metodou dame stavu vediet, ze v automate sa premenoval nejaky stav */
-    public void replaceStateId(Identificator oldId, Identificator newId){
-        if (this.id.equals(oldId)){ // ak je to prave tento stav, tak ho premenujeme
-            this.setIdentificator(newId);
-        }
-        for (Character c : Variables.alphabet){ // vsetky transitions prekontrolujeme a tie neaktualne premenujeme
-            if (this.get(c) != null){
-                if(this.get(c).contains(oldId)){
-                    this.get(c).remove(oldId);
-                    this.get(c).add(newId);
-                }
-            }
-        }
-    }
     
     /* vrati idcko stavu */
     public Identificator getId(){

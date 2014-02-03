@@ -6,6 +6,10 @@
 
 package bakalarka;
 
+import java.io.File;
+import java.util.HashSet;
+import java.util.Scanner;
+
 
 
 
@@ -18,10 +22,24 @@ public class Bakalarka {
     
     
     public static void main(String[] args) throws Exception {
-        if (args.length == 1){
+        
+        Scanner s = new Scanner(new File(Variables.automataFile));
+        HashSet<Triplet> automataHashCodes = new HashSet<>();
+        
+        while(s.hasNext()){
+            Automaton.readAutomaton(s);
+            Automaton a = Automaton.readAutomaton(s);
+            if (a != null){
+                if(automataHashCodes.contains(a.myHashCode())) System.out.println("FAIL");
+                automataHashCodes.add(a.myHashCode());
+                System.out.println(a.myHashCode());
+            }
+        }
+        
+        /*if (args.length == 1){
             Experiments.GenerateAllNFAsOfSize(Integer.valueOf(args[0]));
         }
-        else Experiments.GenerateAllNFAsOfSize(3);
+        else Experiments.GenerateAllNFAsOfSize(3);*/
     }
     
 }

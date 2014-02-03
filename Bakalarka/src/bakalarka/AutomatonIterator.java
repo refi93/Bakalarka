@@ -30,7 +30,7 @@ public class AutomatonIterator implements Iterator{
 
     HashMap<Character,Matrix> currentTransitions;
     HashSet<Identificator> currentFinalStatesIds;
-    IntegerIdentificator currentInitialStateId;
+    Identificator currentInitialStateId;
     // pocet stavov, ktory uvazujeme
     Integer numberOfStates;
     boolean hasNext;
@@ -47,7 +47,7 @@ public class AutomatonIterator implements Iterator{
         out.println(Integer.valueOf(Variables.alphabet.size()).toString());
         for(Character c : Variables.alphabet){
             out.println(c.toString());
-            out.println(Long.valueOf(this.allTransitionsIterator.currentMatrices.get(c).getNumericRepresentation()).toString());
+            out.println(this.allTransitionsIterator.currentMatrices.get(c).getNumericRepresentation().toString());
         }
         
         out.println("#finish of Automaton iterator backup");
@@ -168,7 +168,7 @@ public class AutomatonIterator implements Iterator{
             transitions.put(c,matrixIt.random());
         }
         
-        return new Automaton(transitions,new IntegerIdentificator(0),subsetIt.random());
+        return new Automaton(transitions,new Identificator(0),subsetIt.random());
     }
 
     @Override

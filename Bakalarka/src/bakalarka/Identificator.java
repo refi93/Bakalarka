@@ -9,14 +9,59 @@ package bakalarka;
 /**
  *
  * @author raf
- * tento interface urcuje, ako by mal vyzerat identifikator stacu automatu
+ * identifikator stavu dany cislom
  */
-public interface Identificator {
-    abstract public Identificator copy();
+public class Identificator{
+    private Integer value;
+    int MAX_VAL = 31;
     
-    @Override
-    abstract public int hashCode();
     
-    @Override
-    abstract public boolean equals(Object o);
+    public Identificator(Integer x){
+        if (x <= MAX_VAL){
+            this.value = x;
+        }
+        else{
+            System.out.println("MAX VALUE OF INTEGER IDENTIFICATOR EXCEEDED");
+        }
+    }
+    
+    
+    public Identificator(Identificator x){
+        this.value = x.value;
+    }
+    
+    
+    public int getValue(){
+        return this.value;
+    }
+    
+    public String toString(){
+        return value.toString();   
+    }
+    
+    
+    public Identificator copy() {
+        return new Identificator(this.value);
+    }
+    
+    
+    /**
+     *
+     * @return hashCode, aky by mal Integer s touto hodnotou
+     */
+    public int hashCode(){
+        return this.value;
+    }
+
+    
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Identificator other = (Identificator) obj;
+        return this.value == other.value;
+    }
 }

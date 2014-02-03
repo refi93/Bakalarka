@@ -6,11 +6,14 @@
 
 package bakalarka;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -56,8 +59,8 @@ class IdCollisionException extends Exception
 public class Automaton{
     private HashMap<Identificator,State> idStateMap; // tu si pamatame k idcku stav
     private HashSet<Identificator> allStatesIds; // mnozina idcok vsetkych stavov
-    private PowerSetOfIdentificators finalStatesIds; // mnozina idciek akceptacnych stavov
-    private PowerSetOfIdentificators initialStatesIds; // pociatocne stavy - pripusta sa ich viac
+    private SetOfIdentificators finalStatesIds; // mnozina idciek akceptacnych stavov
+    private SetOfIdentificators initialStatesIds; // pociatocne stavy - pripusta sa ich viac
     // aj ked to neni celkom kosher, ale je to kvoli minimalizacii DKA cez reverz automatu
     private Identificator currentStateId; // aktualny stav
     private int numberOfTransitions = 0; // pocet prechodov
@@ -70,8 +73,8 @@ public class Automaton{
         // parameterless konstruktor
         idStateMap = new HashMap<>();
         allStatesIds = new HashSet<>();
-        finalStatesIds = new PowerSetOfIdentificators();
-        initialStatesIds = new PowerSetOfIdentificators();
+        finalStatesIds = new SetOfIdentificators();
+        initialStatesIds = new SetOfIdentificators();
         numberOfTransitions = 0;
     }
     
@@ -105,13 +108,13 @@ public class Automaton{
     public Automaton(HashMap<Character,Matrix> transitionMap, Identificator initialStateId, HashSet<Identificator> finalStatesIds) throws Exception{
         this.idStateMap = new HashMap<>();
         this.allStatesIds = new HashSet<>();
-        this.finalStatesIds = new PowerSetOfIdentificators();
-        this.initialStatesIds = new PowerSetOfIdentificators();
+        this.finalStatesIds = new SetOfIdentificators();
+        this.initialStatesIds = new SetOfIdentificators();
         this.transitionMap = transitionMap;
         
         int n = transitionMap.get(Variables.alphabet.get(0)).n;
         for (int i = 0;i < n;i++){
-            this.addState(new IntegerIdentificator(i));
+            this.addState(new Identificator(i));
         }
         
         for (Character c : Variables.alphabet){
@@ -119,7 +122,7 @@ public class Automaton{
             for (int i = 0;i < n;i++){
                 for (int j = 0;j < n;j++){
                     if (transitionsIds.get(i, j)){
-                        this.addTransition(new IntegerIdentificator(i), new IntegerIdentificator(j), c);
+                        this.addTransition(new Identificator(i), new Identificator(j), c);
                     }
                 }
             }
@@ -138,7 +141,7 @@ public class Automaton{
         }
         
         this.allStatesIds = new HashSet<>();
-        this.initialStatesIds = new PowerSetOfIdentificators();
+        this.initialStatesIds = new SetOfIdentificators();
         
         this.idStateMap = new HashMap<>();
         
@@ -151,7 +154,7 @@ public class Automaton{
             this.idStateMap.put(id.copy(), a.idStateMap.get(id).copy());
         }
         
-        this.finalStatesIds = new PowerSetOfIdentificators();
+        this.finalStatesIds = new SetOfIdentificators();
         for (Identificator id : a.finalStatesIds){
             this.finalStatesIds.add(id.copy());
         }
@@ -199,7 +202,7 @@ public class Automaton{
     
     /* wrapper setInitialStateId to int */
     public void setInitialStateId(int stateId) throws NoSuchStateException{
-        this.setInitialStateId(new IntegerIdentificator(stateId));
+        this.setInitialStateId(new Identificator(stateId));
     }
     
     /* pridanie pociatocneho stavu prostrednictvom idcka */
@@ -244,7 +247,7 @@ public class Automaton{
     
     /* wrapper addState to int */
     public void addState(int stateId) throws Exception{
-        this.addState(new IntegerIdentificator(stateId));
+        this.addState(new Identificator(stateId));
     }
     
     
@@ -265,7 +268,7 @@ public class Automaton{
     }
     
     public void addTransition(int idFrom, int idTo, Character c) throws Exception{
-        this.addTransition(new IntegerIdentificator(idFrom), new IntegerIdentificator(idTo), c);
+        this.addTransition(new Identificator(idFrom), new Identificator(idTo), c);
     }
     
     
@@ -283,7 +286,7 @@ public class Automaton{
     
     /* wrapper addFinalState() to int */
     public void addFinalState(int stateId) throws NoSuchStateException{
-        this.addFinalState(new IntegerIdentificator(stateId));
+        this.addFinalState(new Identificator(stateId));
     }
     
     public State getState(Identificator id){
@@ -302,7 +305,7 @@ public class Automaton{
         // ak automat nema konecne alebo pociatocne stavy, tak proste vratime prazdny automat
         if ((this.finalStatesIds.isEmpty()) || (this.initialStatesIds.isEmpty())){
             Automaton ret = new Automaton();
-            Identificator id = new IntegerIdentificator(0);
+            Identificator id = new Identificator(0);
             ret.addState(id);
             ret.setInitialStateId(id);
             for(Character c : Variables.alphabet){
@@ -322,11 +325,11 @@ public class Automaton{
         // stavy reprezentujuce mnoziny automaticky premenuvame na cisla kvoli rychlejsej praci - nenechaj sa zmiast zbytocne
         
         // zoznam videnych mnozin stavov - ukazuje sa, ze je praktickejsie uz vyrabat automat s celocislenymi stavmi - je to rychlejsie ako pomenuvat stavy mnozinami
-        HashMap<PowerSetOfIdentificators, IntegerIdentificator> MapOfSeenPowerSets = new HashMap<>(); 
+        HashMap<SetOfIdentificators, Identificator> MapOfSeenPowerSets = new HashMap<>(); 
         
         // pociatocna mnozina - mnozina pociatocnych stavov v povodnom automate
-        PowerSetOfIdentificators InitialPowerSetStatesIds = new PowerSetOfIdentificators(this.initialStatesIds);
-        IntegerIdentificator retInitialStateId = new IntegerIdentificator(currentMaxStateId++);
+        SetOfIdentificators InitialPowerSetStatesIds = new SetOfIdentificators(this.initialStatesIds);
+        Identificator retInitialStateId = new Identificator(currentMaxStateId++);
         // pridame tuto dvojicu - mnozina s pociatocnymi stavmi + jej ciselny reprezentant do nasej mapy aby sme vedeli rychlo potom prekladat mnoziny na cisla
         MapOfSeenPowerSets.put(InitialPowerSetStatesIds, retInitialStateId);
         
@@ -337,7 +340,7 @@ public class Automaton{
         ret.setCurrentState(retInitialStateId);
         
         // fronta - v nej si pamatame este neexpandovane stavy
-        Queue<PowerSetOfIdentificators> queue = new LinkedList<>();
+        Queue<SetOfIdentificators> queue = new LinkedList<>();
         queue.add(InitialPowerSetStatesIds);
         // overime, ci pociatocne stavy nie su zaroven aj niektory z nich akceptacne
         for(Identificator id : InitialPowerSetStatesIds){
@@ -350,10 +353,10 @@ public class Automaton{
         
         while (!queue.isEmpty()){
             // vyberieme z fronty prvy stav
-            PowerSetOfIdentificators currentRetId = queue.peek();
+            SetOfIdentificators currentRetId = queue.peek();
             
             for (Character c : Variables.alphabet){ // prechadzame moznymi znakmi abecedy
-                PowerSetOfIdentificators newId = new PowerSetOfIdentificators();
+                SetOfIdentificators newId = new SetOfIdentificators();
                 boolean thisIsFinalState = false; 
                 
                 // prechadzame cez stavy stareho automatu obsiahnute v stave co prave expandujeme
@@ -373,10 +376,10 @@ public class Automaton{
                 if (!newId.isEmpty()){ // ak je vysledny stav neprazdny, pridame ho
                         
                         // pozreme sa, ci uz nemame tuto mnozinu zaznamenanu, ak ne, tak vytvorime si novy vlastny identifikator
-                        IntegerIdentificator idToAdd = MapOfSeenPowerSets.get(newId);
+                        Identificator idToAdd = MapOfSeenPowerSets.get(newId);
                         if (idToAdd == null){ 
                         // ak sme este takouto mnozinou nepresli, tak vytvorime novy stav, co ju bude reprezentovat
-                            idToAdd = new IntegerIdentificator(currentMaxStateId++);
+                            idToAdd = new Identificator(currentMaxStateId++);
                             MapOfSeenPowerSets.put(newId,idToAdd);
                             ret.addState(idToAdd);
                             // novo objavene mnoziny pridame do fronty, nech preskumame ich susedov vzhladom na delta funkciu
@@ -392,7 +395,7 @@ public class Automaton{
                 else if (allowTrashState){
                     // ak sme este odpadovy stav neevidovali, tak ho pridame
                     if (!MapOfSeenPowerSets.containsKey(newId)){
-                        IntegerIdentificator idToAdd = new IntegerIdentificator(currentMaxStateId++);
+                        Identificator idToAdd = new Identificator(currentMaxStateId++);
                         ret.addState(idToAdd);
                         MapOfSeenPowerSets.put(newId, idToAdd);
                     }
@@ -404,8 +407,8 @@ public class Automaton{
         
         //.out.println(ret.allStatesIds);
         // ak niektore stavy smeruju do prazdnej mnoziny, tak tej prazdnej mnozine nastavime, nech sa cykli do seba na kazdom pismene
-        PowerSetOfIdentificators emptyState = new PowerSetOfIdentificators();
-        IntegerIdentificator emptyStateInRet = MapOfSeenPowerSets.get(emptyState);
+        SetOfIdentificators emptyState = new SetOfIdentificators();
+        Identificator emptyStateInRet = MapOfSeenPowerSets.get(emptyState);
         if ((allowTrashState) && (emptyStateInRet != null)){
             for (Character c : Variables.alphabet){
                 ret.addTransition(emptyStateInRet, emptyStateInRet, c);
@@ -416,7 +419,6 @@ public class Automaton{
     
     
     public Automaton reverse() throws Exception{
-        System.out.println(this);
         Automaton pom = new Automaton(this);
         Automaton ret = new Automaton();
         
@@ -510,16 +512,6 @@ public class Automaton{
    }
     
     
-    /* overi, ci je dany automat deterministicky */
-    public boolean isDeterministic(){
-        for (Object stateId : allStatesIds) {
-            if (!idStateMap.get(stateId).isDeterministic()){
-                return false;
-            }
-        }
-        return true;
-    }
-    
     /* vrati pocet stavov automatu */
     public int getNumberOfStates(){
         return allStatesIds.size();
@@ -543,70 +535,9 @@ public class Automaton{
             return cache_minDFA;
         }
         Automaton pom = new Automaton(this);
-        // odpadove stavy tu nie su vitane, preto false, len na konci, aby sme dostali minimalny DKA s uplnou delta-funkciou
+        // odpadove stavy tu nie su vitane, preto false
         Automaton cache_minDFA = pom.determinize(Variables.disableTrashState).reverse().determinize(Variables.disableTrashState).reverse().determinize(Variables.allowTrashState);
         return cache_minDFA;
-    }
-    
-    
-    /* vrati automat s "normalne" pomenovanymi stavmi, cize to budu cele cisla a nie mnoziny */
-    public Automaton normalize() throws IdCollisionException, NoSuchStateException{
-        Automaton ret = new Automaton(this);
-        int counter = 0;
-        for (Identificator id : this.allStatesIds){ // this.allStatesIds, lebo ret.allStatesIds sa bude menit za behu cyklu a to by Java nerozchodila
-            ret.replaceStateId(id, new IntegerIdentificator(counter));
-            counter++;
-        }
-        return ret;
-    }
-    
-    
-    /* zamena idcka nejakeho stavu v automate */
-    public void replaceStateId(Identificator oldId,Identificator newId) throws IdCollisionException, NoSuchStateException{
-        if (this.allStatesIds.contains(newId)){
-            throw new IdCollisionException(newId);
-        }
-        else if (!this.allStatesIds.contains(oldId)){
-            throw new NoSuchStateException(oldId);
-        }
-        else{
-            // najprv kazdemu stavu dame vediet, ze sa zmenilo idcko stavu
-            for (Identificator id : this.allStatesIds){
-                State s = this.idStateMap.get(id);
-                s.replaceStateId(oldId,newId);
-                this.idStateMap.remove(id);
-                if (id.equals(oldId)){ // ked ideme aktualizovat stav s idckom, ktore prave menime
-                    this.idStateMap.put(newId, s);
-                }
-                else{
-                    this.idStateMap.put(id, s);
-                }
-            }
-            
-            // potom prepiseme idcko stavu aj v nasej mnozine vsetkych stavov
-            this.allStatesIds.remove(oldId);
-            this.allStatesIds.add(newId);
-            
-            // aktualizujeme aj aktualny stav automatu
-            if(this.currentStateId != null){
-                if (this.currentStateId.equals(oldId)){
-                    this.currentStateId = newId;
-                }
-            }
-            
-            // aktualizujeme akceptacne stavy automatu
-            if (this.finalStatesIds.contains(oldId)){
-                this.finalStatesIds.remove(oldId);
-                this.finalStatesIds.add(newId);
-            }
-            
-            // aktualizujeme pociatocne stavy outomatu
-            if (this.initialStatesIds.contains(oldId)){
-                this.initialStatesIds.remove(oldId);
-                this.initialStatesIds.add(newId);
-            }
-        }
-        //System.out.println(this.allStatesIds);
     }
     
     
@@ -614,62 +545,13 @@ public class Automaton{
     a neakceptacne stavy */
     public Automaton complement(){
         Automaton ret = new Automaton(this);
-        PowerSetOfIdentificators complementFinalStatesIds = new PowerSetOfIdentificators();
+        SetOfIdentificators complementFinalStatesIds = new SetOfIdentificators();
         for(Identificator id : ret.allStatesIds){
             if (!ret.finalStatesIds.contains(id)){
                 complementFinalStatesIds.add(id);
             }
         }
         ret.finalStatesIds = complementFinalStatesIds;
-        return ret;
-    }
-    
-    
-    /* vyratanie kartezskeho sucinu s druhym automatom */
-    public Automaton intersect(Automaton b) throws Exception{
-        Automaton pomA = new Automaton(this);
-        Automaton pomB = new Automaton(b);
-        Automaton ret = new Automaton();
-        
-        // vytvorime stav pre kazdu dvojicu stavov z A a B
-        for (Identificator idA : pomA.allStatesIds){
-            for (Identificator idB : pomB.allStatesIds){
-                TupleIdentificator cartesian = new TupleIdentificator(idA,idB);
-                ret.addState(cartesian);
-                
-                if ((pomA.finalStatesIds.contains(idA)) && (pomB.finalStatesIds.contains(idB))){
-                    ret.addFinalState(cartesian);
-                }
-                
-                if ((pomA.initialStatesIds.contains(idA)) && (pomB.initialStatesIds.contains(idB))){
-                    ret.addInitialState(cartesian);
-                }
-            }
-        }
-        
-        // [a,b] -c-> [a',b'] <-> [a] -c-> [a'] a zaroven [b]-c->[b'], kde c je znak z abecedy
-        for (Identificator idA : pomA.allStatesIds){
-            for (Identificator idB : pomB.allStatesIds){
-                for (Character c : Variables.alphabet){
-                    if (pomA.getState(idA).getTransition(c) != null){
-                        for (Identificator idATransition : pomA.getState(idA).getTransition(c)) {
-                            if (pomB.getState(idB).getTransition(c) != null){
-                                for (Identificator idBTransition : pomB.getState(idB).getTransition(c)){
-                                    ret.addTransition(new TupleIdentificator(idA,idB), new TupleIdentificator(idATransition,idBTransition), c);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        
-        // ak automat nema pociatocne stavy, vratime prazdny automat
-        if (ret.initialStatesIds.isEmpty()){
-            return new Automaton();
-        }
-        // nastavime aktualny stav na pociatocny
-        ret.currentStateId = ret.initialStatesIds.iterator().next();
         return ret;
     }
 
@@ -713,32 +595,6 @@ public class Automaton{
     }
     
     
-    /* vrati true, ak nas automat je ekvivalentny automatu b, inak false */
-    public boolean equivalent(Automaton b) throws Exception{
-        // zdeterminizujeme oba automaty a porovname, ci prienik s komplementom je prazdny
-        // na komplement treba odpadove stavy
-        //Automaton detA = this.determinize(Variables.allowTrashState);
-        //Automaton detB = b.determinize(Variables.allowTrashState);
-        Automaton detA = this.minimalDFA();
-        Automaton detB = b.minimalDFA();
-        
-        
-        boolean aEmpty = detA.emptyLanguage();
-        boolean bEmpty = detB.emptyLanguage();
-        
-        if (((aEmpty) && (!bEmpty)) || ((!aEmpty) && (bEmpty))){
-            return false;
-        }
-        else if (aEmpty && bEmpty){
-            return true;
-        }
-        
-        Automaton pom1 = detA.intersect(detB.complement());
-        Automaton pom2 = detB.intersect(detA.complement());
-        return ((pom1.emptyLanguage()) && (pom2.emptyLanguage()));
-    }
-    
-    
     /* tato metoda z minimalneho NFA vyrobi hashovaciu dvojicu, pomocou ktorej 
     budeme vediet jednoznacne porovnavat automaty 
     MYSLIENKA - minimalny NFA prevedieme na kanonicky - s presne urcenym pomenovanim
@@ -748,7 +604,7 @@ public class Automaton{
         Queue<Identificator> statesToVisit = new LinkedList<>();
         // pridame do fronty pociatocny stav
         statesToVisit.add(minA.initialStatesIds.iterator().next());
-        PowerSetOfIdentificators seen = new PowerSetOfIdentificators(); 
+        SetOfIdentificators seen = new SetOfIdentificators(); 
         seen.add(minA.initialStatesIds.iterator().next());
         int counter = 0;
         // tuna si pamatame prevody medzi stavmi
@@ -773,7 +629,7 @@ public class Automaton{
         long m0 = (long)0,m1 = (long)0;
         // teraz z toho vyrobime maticu susednosti
         for(Character c : Variables.alphabet){
-            BigMatrix m = new BigMatrix(counter); // proste tolko stavov, co ma ten minimalny NFA
+            Matrix m = new Matrix(counter); // proste tolko stavov, co ma ten minimalny NFA
             
             // teraz sa ideme vnorit do automatu a zratat matice prechodu pre jednotlive znaky
             for(int i = 0;i < counter; i++){
@@ -791,9 +647,9 @@ public class Automaton{
             
         }
         
-        PowerSetOfIdentificators canonicalFinalStates = new PowerSetOfIdentificators();
+        SetOfIdentificators canonicalFinalStates = new SetOfIdentificators();
         for(Identificator id : minA.finalStatesIds){
-            canonicalFinalStates.add(new IntegerIdentificator(renumberingMapFromMinToCanonical.get(id)));
+            canonicalFinalStates.add(new Identificator(renumberingMapFromMinToCanonical.get(id)));
         }
         
         return new Triplet(m0,m1,(short)canonicalFinalStates.getBitMap());
@@ -812,11 +668,11 @@ public class Automaton{
         
         
         // pokial su stavy cele cisla a pokial mame danu tranisition map
-        if((this.transitionMap != null) && (stateId.getClass() == IntegerIdentificator.class)){
+        if((this.transitionMap != null) && (stateId.getClass() == Identificator.class)){
             for(Character c : Variables.alphabet){
                 for(int id = 0;id < this.getNumberOfStates();id++){
-                    if(this.transitionMap.get(c).get(((IntegerIdentificator) stateId).getValue(),id)){
-                        dfsWordsSearch(maxDepth - 1,new IntegerIdentificator(id),currentWord.append(Character.getNumericValue(c)),generatedWords);
+                    if(this.transitionMap.get(c).get(((Identificator) stateId).getValue(),id)){
+                        dfsWordsSearch(maxDepth - 1,new Identificator(id),currentWord.append(Character.getNumericValue(c)),generatedWords);
                         currentWord.cutLast();
                     }
                 }
@@ -854,6 +710,74 @@ public class Automaton{
         hash_cache = hashFromMinNFA(this.minimalDFA());
         return hash_cache;
     }
+    
+    
+    /* vytvori matice susednosti pre tento automat - nemusi ich totiz mat defaultne, 
+    zavisi od konstruktora*/
+    public void buildTransitionMap(){
+        this.transitionMap = new HashMap<>();
+        int maxId = 0;
+        // zistime najvacsie id a podla neho nadimenzujeme maticu
+        for(Identificator id : this.allStatesIds){
+            if (id.getValue() > maxId){
+                maxId = id.getValue();
+            }
+        }
+        
+        for(Character c : Variables.alphabet){
+            Matrix m = new Matrix(maxId + 1);
+            for(Identificator idFrom : this.allStatesIds){
+                if (this.idStateMap.get(idFrom).getTransition(c) != null){
+                    for(Identificator idTo : this.idStateMap.get(idFrom).getTransition(c)){
+                        // pre kombinaciu idFrom,idTo zaznacime, ze je medzi nimi prechod
+                        m.set(idFrom.getValue(), idTo.getValue(), true);
+                    }
+                }
+            }
+            this.transitionMap.put(c, m);
+        }
+    }
+    
+    
+    
+    /* 
+    nacitanie automatu zo suboru, predpokladany format vstupu:
+    initial state is fixed to 0 the format of output is the following
+    /number of the automaton
+    number of states
+    id of initial state (-1 if none)
+    number of final states followed by final states enumeration
+    number of transitions followed by its enumeration
+    from_state to_state character
+    */
+    public static Automaton readAutomaton(Scanner s) throws FileNotFoundException, Exception{
+        Automaton ret = new Automaton();
+        while(!s.hasNextInt()){
+            if (!s.hasNext()) return null;
+            s.nextLine();
+        }
+        int numberOfStates = s.nextInt();
+        for(int i = 0;i < numberOfStates;i++) ret.addState(i);
+            
+        int initialStateId = s.nextInt();
+        ret.setInitialStateId(initialStateId);
+            
+        int numberOfFinalStates = s.nextInt();
+        for(int i = 0;i < numberOfFinalStates;i++){
+            ret.addFinalState(s.nextInt());
+        }
+            
+        int numberOfTransitions = s.nextInt();
+        for(int i = 0;i < numberOfTransitions;i++){
+            int idFrom = s.nextInt();
+            int idTo = s.nextInt();
+            Character c = s.next().charAt(0);
+            ret.addTransition(idFrom, idTo, c);
+        }
+        ret.buildTransitionMap();
+        return ret;
+    }
+    
     
     // more methods go here
 }     

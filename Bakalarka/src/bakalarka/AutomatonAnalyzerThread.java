@@ -86,7 +86,7 @@ public class AutomatonAnalyzerThread extends Thread {
                             a.print(vypisAutomatov,automatonCounter+Variables.allMinimalNFAs.size());
                             Automaton switchedA = a.switchLetters();
                             Variables.counterOfTestedAutomata++;
-                            if(minimalNFAsResult.tryToInsert(switchedA)){
+                            if(minimalNFAsResult.tryToInsert(switchedA)){ 
                                 automatonCounter++;
                                 switchedA.print(vypisAutomatov,automatonCounter+Variables.allMinimalNFAs.size());
                             }
