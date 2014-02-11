@@ -9,6 +9,7 @@ package bakalarka;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -595,12 +596,12 @@ public class Automaton{
     }
     
     
-    /* tato metoda z minimalneho NFA vyrobi hashovaciu dvojicu, pomocou ktorej 
+    /* tato metoda z minimalneho DFA vyrobi hashovaciu dvojicu, pomocou ktorej 
     budeme vediet jednoznacne porovnavat automaty 
-    MYSLIENKA - minimalny NFA prevedieme na kanonicky - s presne urcenym pomenovanim
+    MYSLIENKA - minimalny DFA prevedieme na kanonicky - s presne urcenym pomenovanim
     stavov a z matice susednosti vyplodime hash
     */
-    public static Triplet hashFromMinNFA(Automaton minA) throws Exception{
+    public static Triplet hashFromMinDFA(Automaton minA) throws Exception{
         Queue<Identificator> statesToVisit = new LinkedList<>();
         // pridame do fronty pociatocny stav
         statesToVisit.add(minA.initialStatesIds.iterator().next());
@@ -626,7 +627,7 @@ public class Automaton{
             }
             statesToVisit.remove(); // popneme z fronty prave navstiveny stav
         }
-        long m0 = (long)0,m1 = (long)0;
+        BigInteger m0 = BigInteger.valueOf(0),m1 = BigInteger.valueOf(0);
         // teraz z toho vyrobime maticu susednosti
         for(Character c : Variables.alphabet){
             Matrix m = new Matrix(counter); // proste tolko stavov, co ma ten minimalny NFA
@@ -707,7 +708,7 @@ public class Automaton{
         if (!hash_cache.equals(Triplet.minusOne())){
             return hash_cache;
         }
-        hash_cache = hashFromMinNFA(this.minimalDFA());
+        hash_cache = hashFromMinDFA(this.minimalDFA());
         return hash_cache;
     }
     

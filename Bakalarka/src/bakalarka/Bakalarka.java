@@ -22,7 +22,7 @@ public class Bakalarka {
     
     
     public static void main(String[] args) throws Exception {
-        
+        /*
         Scanner s = new Scanner(new File(Variables.automataFile));
         HashSet<Triplet> automataHashCodes = new HashSet<>();
         
@@ -35,11 +35,12 @@ public class Bakalarka {
                 System.out.println(a.myHashCode());
             }
         }
+        */
         
-        /*if (args.length == 1){
+        if (args.length == 1){
             Experiments.GenerateAllNFAsOfSize(Integer.valueOf(args[0]));
         }
-        else Experiments.GenerateAllNFAsOfSize(3);*/
+        else Experiments.GenerateAllNFAsOfSize(3);
     }
     
 }

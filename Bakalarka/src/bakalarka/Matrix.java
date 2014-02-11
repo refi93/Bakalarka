@@ -144,13 +144,14 @@ public class Matrix {
     
     
     /* predpoklad pre tuto metodu je, ze ta matica patri DFA a ze je najviac 16x16 */
-    public long getNumericRepresentationDFA(){
-        if (n > 16) System.out.println("WARNING: MAXIMAL MATRIX SIZE EXCEEDED");
-        long ret = (long)0;
+    public BigInteger getNumericRepresentationDFA(){
+        //if (n > 16) System.out.println("WARNING: MAXIMAL MATRIX SIZE EXCEEDED");
+        
+        BigInteger ret = BigInteger.valueOf(0);
         for(int r = 0;r < n;r++){
             for(int c = 0;c < n;c++){
                 if (matrix[r][c]){
-                    ret = ret | (((long)1) << (n * r + c));
+                    ret = ret.or(BigInteger.valueOf(1).shiftLeft(n * r + c));
                 }
             }
         }

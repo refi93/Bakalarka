@@ -13,24 +13,24 @@ import java.math.BigInteger;
  * @author raf
  */
 public class Triplet{
-    private final long first;
-    private final long second;
-    private final short third;
+    private final BigInteger first;
+    private final BigInteger second;
+    private final Integer third;
     
     
-    public Triplet(long first, long second, short third){
+    public Triplet(BigInteger first, BigInteger second, int third){
         this.first = first;
         this.second = second;
         this.third = third;
     }
     
     
-    public long first(){
+    public BigInteger first(){
         return this.first;
     }
     
     
-    public long second(){
+    public BigInteger second(){
         return this.second;
     }
     
@@ -47,14 +47,14 @@ public class Triplet{
             return false;
         }
         final Triplet other = (Triplet) obj;
-        return ((this.first == other.first()) && (this.second() == other.second()) && (this.third == other.third()) ); // mozme si to dovolit, lebo hashCode ma taku vlastnost
+        return ((this.first.equals(other.first())) && (this.second().equals(other.second())) && (this.third.equals(other.third()))); // mozme si to dovolit, lebo hashCode ma taku vlastnost
     }
     
     @Override
     public int hashCode(){
         //return (first.hashCode() ^ second.hashCode()) ^ third;
-        int result = (int) (first ^ (first >>> 32));
-        result = 31 * result + (int) (second ^ (second >>> 32));
+        int result = (int) (first.longValue() ^ (first.longValue() >>> 32));
+        result = 31 * result + (int) (second.longValue() ^ (second.longValue() >>> 32));
         result = 31 * result + (int) ((long)third ^ (((long)third) >>> 32));
         return result;
     }
@@ -66,6 +66,6 @@ public class Triplet{
     }
     
     public static Triplet minusOne(){
-        return new Triplet((long)-1,(long)-1,(short)-1);
+        return new Triplet(BigInteger.valueOf(-1),BigInteger.valueOf(-1),-1);
     }
 }

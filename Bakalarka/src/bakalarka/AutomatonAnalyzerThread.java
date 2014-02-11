@@ -84,11 +84,15 @@ public class AutomatonAnalyzerThread extends Thread {
                         if(minimalNFAsResult.tryToInsert(a)){
                             automatonCounter++;
                             a.print(vypisAutomatov,automatonCounter+Variables.allMinimalNFAs.size());
-                            Automaton switchedA = a.switchLetters();
-                            Variables.counterOfTestedAutomata++;
-                            if(minimalNFAsResult.tryToInsert(switchedA)){ 
-                                automatonCounter++;
-                                switchedA.print(vypisAutomatov,automatonCounter+Variables.allMinimalNFAs.size());
+                            
+                            // nasledujuca optimalizacia je implementovana len pre autoamty nad 2-znakovou abecedou
+                            if (Variables.alphabet.size() == 2){
+                                Automaton switchedA = a.switchLetters();
+                                Variables.counterOfTestedAutomata++;
+                                if(minimalNFAsResult.tryToInsert(switchedA)){ 
+                                    automatonCounter++;
+                                    switchedA.print(vypisAutomatov,automatonCounter+Variables.allMinimalNFAs.size());
+                                }
                             }
                         }
                     }
