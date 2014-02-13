@@ -42,7 +42,7 @@ public class MergeThread extends Thread{
         
         for(Triplet hash : candidates2.allMinDFACodes){
             try {
-                candidates1.tryToInsertValue(hash);
+                candidates1.insertValue(hash);
             } catch (Exception ex) {
                 Logger.getLogger(MergeThread.class.getName()).log(Level.SEVERE, null, ex);
             }

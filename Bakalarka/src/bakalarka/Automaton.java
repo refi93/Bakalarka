@@ -659,9 +659,9 @@ public class Automaton{
     /* prehladavanie vsetkych moznych vygenerovanych slov do hlbky, resp. dlzky maxDepth 
        najdene slova sa ulozia do HashSetu generatedWords
     */
-    private void dfsWordsSearch(int maxDepth, Identificator stateId, BinaryWord currentWord, HashSet<BinaryWord> generatedWords) throws Exception{
+    private void dfsWordsSearch(int maxDepth, Identificator stateId, String currentWord, HashSet<String> generatedWords) throws Exception{
         if((maxDepth >= 0)&&(this.finalStatesIds.contains(stateId))){
-            generatedWords.add(new BinaryWord(currentWord));
+            generatedWords.add(new String(currentWord));
         }
         if (maxDepth == 0){
             return;
@@ -673,8 +673,9 @@ public class Automaton{
             for(Character c : Variables.alphabet){
                 for(int id = 0;id < this.getNumberOfStates();id++){
                     if(this.transitionMap.get(c).get(((Identificator) stateId).getValue(),id)){
-                        dfsWordsSearch(maxDepth - 1,new Identificator(id),currentWord.append(Character.getNumericValue(c)),generatedWords);
-                        currentWord.cutLast();
+                        dfsWordsSearch(maxDepth - 1,new Identificator(id),currentWord + c,generatedWords);
+                        // urezeme posledny znak aby sme sa mohli vratit spat
+                        //currentWord = currentWord.substring(0, currentWord.length()-1);
                     }
                 }
             }
@@ -683,22 +684,36 @@ public class Automaton{
             for(Character c : Variables.alphabet){
                 if(this.getState(stateId).getTransition(c) != null){
                     for(Identificator id : this.getState(stateId).getTransition(c)){
-                        dfsWordsSearch(maxDepth - 1,id,currentWord.append(Character.getNumericValue(c)),generatedWords);
-                        currentWord.cutLast();
+                        dfsWordsSearch(maxDepth - 1,id,currentWord + c,generatedWords);
+                        // urezeme posledny znak aby sme sa mohli vratit spat
+                        //currentWord = currentWord.substring(0, currentWord.length()-1);
                     }
                 }
             }
         }
     }
     
-    public HashSet<BinaryWord> allWordsOfLength(int n) throws Exception{
-        HashSet<BinaryWord> ret = new HashSet<>();
+    public HashSet<String> allWordsOfLength(int n) throws Exception{
+        HashSet<String> ret = new HashSet<>();
         for(Identificator id : this.initialStatesIds){
-            dfsWordsSearch(n, id, new BinaryWord(), ret);
+            dfsWordsSearch(n, id, "", ret);
         }
         return ret;
     }
 
+    
+    /* vyrata to hashCode s akceptovanych slov do dlzky length
+       - predpoklada sa, ze Variables.wordToNumberMap je inicializovana
+    */
+    public BigInteger hashCodeFromWords(int length) throws Exception{
+        HashSet<String> words = this.allWordsOfLength(length);
+        BigInteger ret = BigInteger.ZERO;
+        for(String word : words){
+            ret = ret.add(BigInteger.ONE.shiftLeft(Variables.wordToNumberMap.get(word)));
+        }
+        return ret;
+    }
+    
     
     /* hash_cache - premenna, kde si zapamatame hashCode automatu, aby sme ho nemuseli opakovane ratat */
     //BigInteger hash_cache = BigInteger.valueOf(-1);

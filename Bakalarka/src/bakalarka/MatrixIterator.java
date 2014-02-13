@@ -81,7 +81,7 @@ public class MatrixIterator implements Iterator<Matrix>{
     /* vrati nahodnu maticu */
     public Matrix random(){
         long pom = this.state; // ulozime si stav iteratora
-        this.state = generator.nextLong() % this.limit;
+        this.state = Math.abs(generator.nextLong()) % this.limit;
         Matrix ret = this.next();
         this.state = pom; // obnovime stav iteratora na povodny
         return ret;

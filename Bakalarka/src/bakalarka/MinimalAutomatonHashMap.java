@@ -38,15 +38,15 @@ public class MinimalAutomatonHashMap {
     }
     
     
-    
+    /* vrati true, ak je pridany automat novy */
     public boolean tryToInsert(Automaton a) throws Exception{
         boolean ret = this.allMinDFACodes.add(a.myHashCode());
         if (ret) this.size++;
         return ret;
     }
     
-    
-    public void tryToInsertValue(Triplet hash){
+    /* vlozenie rovno hodnoty bez kontroly - pouziva sa pri mergeovani threadov */
+    public void insertValue(Triplet hash){
         if(this.allMinDFACodes.add(hash)){
             this.size++;
         }

@@ -53,7 +53,7 @@ public class AutomatonIterator implements Iterator{
         out.println("#finish of Automaton iterator backup");
     }
     
-    
+    // n je pocet stavov NKA ktore chceme
     public AutomatonIterator(int n) throws Exception{
         if (n == 0) {
             this.numberOfStates = 0;

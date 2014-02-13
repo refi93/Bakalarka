@@ -4,7 +4,8 @@ Celá práca sa bude venovať konečným automatom. Najskôr si definujeme zákl
 
 \section{Deterministický konečný automat}
 
-\begin{defn}{\textbf {\textit {Deterministický konečný automat (skrátene DKA)}}} A je pätica $(K,\Sigma,\delta,q_0,F)$, kde K je konečná množina stavov, $\Sigma$ je konečná vstupná abeceda, $q_0 \in K$ je počiatočný stav, $F \subseteq K$ je množina (konečných) akceptačných stavov a $\delta: K \times \Sigma \rightarrow K$ je prechodová funkcia ($\delta$-funkcia$).  \end{defn}
+\begin{defn}{\textbf {\textit {Deterministický konečný automat (skrátene DKA)}}} A je pätica $(K,\Sigma,\delta,q_0,F)$, kde K je konečná množina stavov, $\Sigma$ je konečná vstupná abeceda, $q_0 \in K$ je počiatočný stav, $F \subseteq K$ je množina (konečných) akceptačných stavov a $\delta: K \times \Sigma \rightarrow K$ je prechodová funkcia ($\delta$-funkcia).  
+\end{defn}
 
 \begin{defn}{\textbf {\textit {Konfigurácia}}} deterministického konečného automatu je prvok $(q,w) \in K \times \Sigma*$, kde q je stav automatu a w je nespracovaná časť vstupného slova.\end{defn}
 
@@ -12,14 +13,12 @@ Celá práca sa bude venovať konečným automatom. Najskôr si definujeme zákl
 
 \begin{defn}{\textbf {\textit {Jazyk}}} akceptovaný deterministickým konečným automatom A je množina $L(A) = \{w | \exists q_F \in F; (q_0,w) \vdash^*_A(q_F,\epsilon)\}$.\end{defn}
 
-\begin{defn}{\textbf {\textit {Minimálny automat}}}. Deterministický konečný automat
+\begin{defn}{\textbf {\textit {Minimálny DKA}}}. Deterministický konečný automat
 \\ 
 $A=(K_A,\Sigma,\delta_A,q_{0A},F_A)$ je minimálny, pokiaľ pre všetky DKA $B = (K_B,\Sigma,\delta_B,q_{0B},F_B)$ platí:
 \\
 \centerline{$L(A) = L(B) \Rightarrow |K_A| \leq |K_B|$}
 \end{defn}
-
-\newpage
 
 \label{myhillNerode}
 \begin{thm}(Myhill-Nerode) Majme jazyk $L \subset \Sigma^*$. Nasledujúce tvrdenia sú ekvivalentné:
@@ -40,7 +39,9 @@ Je dobré si uvedomiť, že budeme uvažovať len deterministické automaty s ú
 \begin{defn}{\textbf {\textit {Nedeterministický konečný automat}}} A je pätica $(K,\Sigma,\delta,q_0,F)$, kde K je
 konečná množina stavov, $\Sigma$ je konečná vstupná abeceda, $q_0 \in K$ je počiatočný stav, $F \subseteq K$ je množina akceptačných (koncových) stavov a $\delta: K \times (\Sigma \cup \{\epsilon\}) \rightarrow 2^{K}$ je prechodová funkcia \end{defn}
 
-Ostatné veci sú definované analogicky ako pre DKA.
+\begin{defn}{\textbf {\textit {Krok výpočtu}}} deterministického konečného automatu A je relácia $\vdash_A$ na konfiguráciách definovaná $(q,av)\vdash_A(p,v) \Longleftrightarrow p \in \delta(q,a)$.\end{defn}
+
+Konfigurácia a jazyk akceptovaný NKA sú definované rovnako ako pre DKA. Okrem toho stojí za zmienku, že minimálny NKA pre daný regulárny jazyk nie je jednoznačný, narozdiel od DKA, teda môže existovať viacero možných minimálnych ekvivaletných NKA, ktoré nie sú navzájom izomorfné.
 
 
 \section{Determinizácia NKA}
@@ -76,5 +77,20 @@ Operácia determinizácie môže mať až exponenciálnu časovú zložitosť vz
 
 \section{Minimalizácia NKA}
 
-Na minimalizáciu NKA už takýto jednoduchý algoritmus nie je zatiaľ známy. Pre naše potreby, nakoľko aj tak enumerujeme všetky možné regulárne jazyky pre NKA do 4 stavov, sa ukazuje byť dostatočne dobré generovať NKA vzostupne podľa počtu stavov a testovať, či sme už predtým nevygenerovali ekvivalentný NKA. Časová zložitosť teda bude závisieť od toho, koľko automatov musíme vygenerovať, resp. s koľkými automatmi budeme potom porovnávať. Tento počet rozanalyzujeme v nasledujúcej kapitole.
+Našou úlohou je nájsť NKA s najmenším možným počtom stavov, ktorý akceptuje rovnaký jazyk ako NKA na vstupe.
+\paragraph{}
+Narozdiel od minimálneho DKA, minimálnych NKA môže existovať viacero rôznych takých, že akceptujú ten istý jazyk.
+Navyše, ukazuje sa, že problém minimalizácie NKA je PSPACE-úplný (\cite{jiang}), t.j. ľubovoľný problém riešiteľný s polynomiálne veľkou pamäťou sa dá naň v polynomiálnom čase transformovať, čo nám napovedá, že to je zrejme veľmi ťažký problém. 
 
+Pre naše potreby, nakoľko aj tak enumerujeme všetky možné regulárne jazyky pre NKA do 4 stavov, sa javí byť dostatočne dobré generovať NKA vzostupne podľa počtu stavov a testovať, či sme už predtým nevygenerovali ekvivalentný NKA. Časová zložitosť teda bude závisieť od toho, koľko automatov musíme vygenerovať, resp. s koľkými automatmi budeme potom porovnávať. Tento počet rozanalyzujeme v nasledujúcej kapitole.
+
+
+\section{Stavová zložitosť regulárnych jazykov}
+
+Našim hlavným cieľom je, ako názov práce napovedá, analyzovať ,,deterministickú a nedeterministickú stavovú zložitosť regulárnych jazykov''. Definujme si teda formálnejšie tieto pojmy:
+
+\begin{defn}{\textbf {\textit {Deterministická stavová zložitosť}}} regulárneho jazyka L je počet stavov minimálneho DKA vzhľadom na počet stavov, ktorý tento jazyk akceptuje.
+\end{defn}
+
+\begin{defn}{\textbf {\textit {Nedeterministická stavová zložitosť}}}  regulárneho jazyka L je počet stavov minimálneho NKA vzhľadom na počet stavov, ktorý tento jazyk akceptuje.
+\end{defn}

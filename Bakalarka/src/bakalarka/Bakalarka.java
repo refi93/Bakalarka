@@ -22,6 +22,8 @@ public class Bakalarka {
     
     
     public static void main(String[] args) throws Exception {
+        
+        Experiments.AutomataFileToHashes();
         /*
         Scanner s = new Scanner(new File(Variables.automataFile));
         HashSet<Triplet> automataHashCodes = new HashSet<>();
@@ -36,11 +38,13 @@ public class Bakalarka {
             }
         }
         */
-        
+        //Experiments.safeWordLengthExperiment(2);
+        /*
         if (args.length == 1){
             Experiments.GenerateAllNFAsOfSize(Integer.valueOf(args[0]));
         }
-        else Experiments.GenerateAllNFAsOfSize(3);
+        else Experiments.GenerateAllNFAsOfSize(3);*/
+       
     }
     
 }

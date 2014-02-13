@@ -74,7 +74,7 @@ Prikladáme tabuľku obsahujúcu približné počty potrebných vygenerovaných 
     \hline
     3 & 557 812 \\
     \hline
-    4 & $\sim$14 000 000 000 \\
+    4 & 14 088 285 129 \\
     \hline
   \end{tabular}
   
@@ -98,7 +98,7 @@ Ako sme v prvej kapitole spomínali pri Mihyll-Nerodovej vete (pozri \ref{mihyll
 \\
 
 \label{kanMinDKA}
-\begin{defn}{\textbf {\textit {Kanonický minimálny DKA}}} Nech $A = (K,\Sigma,\delta,q_0,F)$ je minimálny DKA pre jazyk L. Kanonický minimálny DKA K(A) dostaneme z neho tak, že spustíme prehľadávanie do šírky z počiatočného stavu s tým, že budeme dávať prednosť pri návšteve hranám delta funkcie v abecednom poradí vzhľadom na $\Sigma$. Následne budeme číslovať stavy podľa poradia, v ktorom ich navštívime od 0, ktorú dostane počiatočný stav, keďže z neho začíname.
+\begin{defn}{\textbf {\textit {Kanonický minimálny DKA}}} Nech $A = (K,\Sigma,\delta,q_0,F)$ je minimálny DKA pre jazyk L. Kanonický minimálny DKA K(A) dostaneme z A tak, že spustíme prehľadávanie do šírky z počiatočného stavu s tým, že budeme dávať prednosť pri návšteve hranám delta funkcie v abecednom poradí vzhľadom na $\Sigma$. Následne budeme číslovať stavy podľa poradia, v ktorom ich navštívime od 0, ktorú dostane počiatočný stav, keďže z neho začíname.
 \end{defn}
 Vidno, že poradie navštevy stavov je jednoznačne dané, kedže v každom okamihu je jednoznačne určené, ktorý vrchol navštívime, jednak samotným prehľadávaním do šírky a jednak tým, že poradie pridávania vrcholov, resp. stavov do fronty je určené poradím znakov v abecede.
 
@@ -106,20 +106,28 @@ Vidno, že poradie navštevy stavov je jednoznačne dané, kedže v každom okam
 Na testovanie ekvivalencie nám teda stačí už len porovnať kanonický minimálny DKA ku každému z tých dvoch NKA, či sú rovnaké a to dokážeme už jednoducho.
 
 \paragraph{}
-Keby sme testovali na ekvivalenciu so všetkými predošlými nájdenými minimálnymi NKA, resp. reprezentantmi pre každý nájdený jazyk, tak čitaťelovi je určite zrejmé, žeby to čo i len pre pár tisíc jazykov bolo neúnosne pomalé. Jedno z možných riešení je hashovanie, ktoré si rozoberieme v nasledujúcej časti.
+Keby sme testovali ekvivalenciu so všetkými predošlými nájdenými minimálnymi NKA, resp. reprezentantmi pre každý nájdený jazyk, tak čitaťelovi je určite zrejmé, žeby to čo i len pre pár tisíc jazykov bolo neúnosne pomalé. Jedno z možných riešení je hashovanie, ktoré si rozoberieme v nasledujúcej časti.
 
 
 \section{Hashovanie}
+Cieľom hashovania je obmedziť počet testovaní ekvivalencie s predošlými nájdenými minimálnymi NKA. Hashovacia funkcia by mala každému automatu A, resp. B priradiť jednoznačne číslo tak, aby platilo:
+\\
+\centerline{$L(A) = L(B) \Rightarrow H(A) = H(B)$}
+To znamená, že nám bude stačiť obmedziť sa na automaty s rovnakým hashom, ktorých bude rádovo menej než všetkých dokopy, za predpokladu, že hashovacia funkcia má dostatočne dobrú entropiu.
+
+\paragraph{}
 Existuje viacero spôsobov ako hashovať automaty. Rozoberieme na tomto mieste 3 možné spôsoby.
 
+
+\label{hashSlova}
 \subsection{Hashovanie podľa slov do fixnej dĺžky}
-Spočíva v tom, že ako hash používame množiny slov, resp. ich reprezentáciu pomocou bitsetu (každý prvok má v reťazci priradenú 0 alebo 1 podľa toho, či tam patrí alebo nie). Zvolíme si, napr., že chceme hashovať podľa slov do dĺžky 5, teda otestujeme, ktoré slová do tejto dĺžky akceptuje náš automat a ktoré nie a podľa toho vyplníme reťazec nulami a jednotkami. Pre dĺžku 5 potrebujeme reťazec dĺžky 63, keďže toľko je slov nad binárnou abecedou do dĺžky 5. Pre väčšie dĺžky to už nie je veľmi efektívne nakoľko počet testovaných slov rastie exponenciálne a už pre dĺžku napríklad 10 by sme pre každý vygenerovaný automat museli testovať, či akceptuje alebo nie 1023 slov, čo je neprijateľné, nehovoriac o dĺžke reťazca, ktorý na hashovanie použijeme. Dĺžka 5 sa ale ukazuje byť prijateľná pre NKA do 3 stavov. Pre vačšie NKA už vznikalo príliš veľa kolízii a generovanie sa tým výrazne začalo spomaľovať, keďže každý vygenerovaný automat sa porovnával s desiatkami predošlých, čo je neprijateľné, ak sme mali vygenerovať miliardy automatov. Nevýhodou je, že veľa možností reálne nenastane pre NKA s malým počtom stavov - tých je totiž určite oveľa menej ako $2^{63}$.
+Spočíva v tom, že ako hash používame množiny slov, resp. ich reprezentáciu pomocou bitsetu (každý prvok má v reťazci priradenú 0 alebo 1 podľa toho, či tam patrí alebo nie). Zvolíme si, napr., že chceme hashovať podľa slov do dĺžky 5, teda otestujeme, ktoré slová do tejto dĺžky akceptuje náš automat a ktoré nie a podľa toho vyplníme reťazec nulami a jednotkami. Pre dĺžku 5 potrebujeme reťazec dĺžky 63, keďže toľko je slov nad binárnou abecedou do dĺžky 5. Pre väčšie dĺžky to už nie je veľmi efektívne nakoľko počet testovaných slov rastie exponenciálne a už pre dĺžku napríklad 10 by sme pre každý vygenerovaný automat museli testovať, či akceptuje alebo nie 1023 slov, čo je neprijateľné, nehovoriac o dĺžke reťazca, ktorý na hashovanie použijeme. Dĺžka 5 sa ale ukazuje byť prijateľná pre NKA do 3 stavov. Pre vačšie NKA už vznikalo príliš veľa kolízii a generovanie sa tým výrazne začalo spomaľovať, keďže každý vygenerovaný automat sa porovnával s desiatkami predošlých, čo je neprijateľné, ak sme mali vygenerovať miliardy automatov.
 
 \subsection{Hashovanie podľa vybraných slov}
 Bude to fungovať vpodstate rovnako ako predtým, ale nezameriame sa na všetky slová do nejakej fixnej dĺžky, ale zvolíme si, aké slova budeme testovať. Výhoda, za predpokladu, že nájdeme dostatočne "dobré" slová by bola, že zmenšíme počet kombinácii, ktoré nemôžu nastať. Tento prístup je tu len načrtnutý, nakoľko nakoniec nebol reálne využitý, lebo hľadať tieto slová sa ukázalo byť komplikovanejšie a dosiahnuté výsledky aj tak nepredčili predošlý prístup.
 
 \subsection{Hashovanie pomocou ,,odtlačku'' slova}
-Budeme mať množinu slov, ktorú vyskúšame na každom automat, ale nezapamätáme si iba, či to slovo bolo akceptované alebo nie. Zapamätáme si okrem toho aj výpočet, resp. pre každý znak slova si zapamätáme, či bol automat v danej chvíli v akceptačnom stave alebo nie. Ak testujeme viacero slov, tak tieto stopy môžeme napríklad navzájom zreťaziť alebo zoxorovať. Opäť, pri testovaní tento prístup nepriniesol významné zlepšenie a pre NKA do 4 stavov by sme sa aj tak s najvyššou pravdepodobnosťou nevyhli neúnosnému počtu kolízii.
+Budeme mať množinu slov, ktorú vyskúšame na každom automate, ale nezapamätáme si iba, či to slovo bolo akceptované alebo nie. Zapamätáme si okrem toho aj výpočet, resp. pre každý znak slova si zapamätáme, či bol automat v danej chvíli v akceptačnom stave alebo nie. Ak testujeme viacero slov, tak tieto stopy môžeme napríklad navzájom zreťaziť alebo zoxorovať. Opäť, pri testovaní tento prístup nepriniesol významné zlepšenie a pre NKA do 4 stavov by sme sa aj tak s najvyššou pravdepodobnosťou nevyhli neúnosnému počtu kolízii.
 
 \paragraph{}
 Hashovanie sa teda nejaví byť najvhodnejší prístup na dosiahnutie požadovaných výsledkov. Avšak aj tak prinieslo nejaké výsledky, hlane prvý spôsob, ktoré uvedieme neskôr.
@@ -128,15 +136,15 @@ Hashovanie sa teda nejaví byť najvhodnejší prístup na dosiahnutie požadova
 
 Možno by sme mohli byť trocha ambicióznejší, než vystačiť si s hashovaním. Čo tak skúsiť vymyslieť funkciu, ktorá každému NKA priradí jednoznačne číslo alebo k-ticu čísel tak, že dva automaty majú priradené rovnaké číslo práve vtedy, keď sú ekvivalentné? Výhody sú veľké - čísla sa porovnávajú v počítači veľmi rýchlo a ľahšie sa ukladajú a hashujú. 
 \paragraph{}
-Na prvý pohľad sa to môže zdať byť ťažká úloha, ale už sme tu spomínali, že ku každému NKA existuje kanonický DKA(\ref{kanMinDKA}). Od tohto poznatku nás delí už len malý krok k tomu, aby sme dostali požadovaný výsledok. Myšlienka je nasledovná:
+Na prvý pohľad sa to môže zdať ako ťažká úloha, ale už sme spomínali, že ku každému NKA existuje kanonický DKA(\ref{kanMinDKA}). Od tohto poznatku nás delí už len malý krok k tomu, aby sme dostali požadovaný výsledok. Myšlienka je nasledovná:
 \paragraph{}
 K danému NKA zostrojíme minimálny kanonický DKA. Počiatočný stav má číslo 0 pre každý takýto DKA, čiže si to nepotrebujeme pamätať, môžme to predpokladať. Množinu akceptačných stavov teraz reprezentujeme ako bitset, t.j. v integeri si poznačíme na k-tu pozíciu jednotku, ak stav k je akceptačný, inak si tam poznačíme nulu. Ak NKA na vstupe má 4 stavy, tak minimálny kanonický DKA môže mať najviac 16 stavov, čiže bude nám stačiť 16-bitový integer. 
 \paragraph{}
 Matice susednosti pre jednotlivé znaky tiež môžeme previesť na integery. Uvažujme maticu susednosti pre znak c takú, že na pozícii [i,j] je jednotka, ak na znak c vedie prechod zo stavu i na stav j, inak je tam nula. Všimnime si, že pre každé DKA platí, že v každom riadku matice susednosti pre každý zo znakov je práve jedna jednotka, samozrejme, za predpokladu, že má úplnú $\delta$-funkciu, čo sme v úvodnej kapitole spomínali, že uvažujeme len také. Pokiaľ náš minimálny kanonický DKA má maximálne 16 stavov, tak na zakódovanie jedného riadku nám stačia 4 bity - aby sme si zapamätali pozíciu tejto jedinej jednotky. Na zakódovanie 16x16 matice teda potrebujeme 64 bitov a tieto sa nám presne zmestia do 64-bitového integeru, ktorý máme tiež k dispozícii.
 \paragraph{}
-Dostávame napokon zakódovanie každého minimálneho kanonického DKA do trojice celých čísel - jedno 16-bitovéa dve 64-bitové, keďže matica susednosti je pre každý znak jedna a uvažujeme 2-znakovú abecedu. Spotrebujeme dokopy teda 144 bitov na jeden minimálny kanonický DKA, čo je na naše účely viac než dostačujúce.
+Dostávame napokon zakódovanie každého minimálneho kanonického DKA do trojice celých čísel - jedno 16-bitové a dve 64-bitové, keďže matica susednosti je pre každý znak jedna a uvažujeme 2-znakovú abecedu. Spotrebujeme dokopy teda 144 bitov na jeden minimálny kanonický DKA, čo je na naše účely viac než dostačujúce.
 \paragraph{}
-Keď už dokážeme každý NKA jednoznačne zakódovať do trojice integerov podľa jazyka, ktorý akceptuje, tak stačí nám pamätať si len tieto a keď vygenerujeme nový NKA, len ho zakódujeme a skontrolujeme, či jeho kód sa nenachádza v hashmape kódov tých predošlých automatov. Tým si ušetríme mimoriadne veľa procesorového času oproti tomu, keby sme pracne znova a znova testovali DKA na ekvivalenciu "štandardným" spôsobom. Výhoda navyše je, že rýchlosť sa nebude počtom vygenerovaných NKA znižovať tak drasticky ako tomu bolo predtým, keď sme hashovali priamo NKA. Pre porovnanie uvádzame tabuľku s časmi, tak ako boli namerané na počítači s procesorom intel core 2 duo P8600 (@2.4 GHz):
+Keď už dokážeme každý NKA jednoznačne zakódovať do trojice integerov podľa jazyka, ktorý akceptuje, tak stačí nám pamätať si len tieto a keď vygenerujeme nový NKA, len ho zakódujeme a skontrolujeme, či jeho kód sa nenachádza v hashmape kódov tých predošlých automatov. Tým si ušetríme mimoriadne veľa procesorového času oproti tomu, keby sme pracne znova a znova testovali DKA na ekvivalenciu "štandardným" spôsobom. Výhoda navyše je, že rýchlosť sa nebude počtom vygenerovaných NKA znižovať tak drasticky ako tomu bolo predtým, keď sme hashovali priamo NKA.
 
 
 

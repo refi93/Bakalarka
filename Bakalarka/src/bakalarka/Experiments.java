@@ -6,8 +6,16 @@
 
 package bakalarka;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Scanner;
 
 /**
  *
@@ -15,6 +23,60 @@ import java.util.ArrayList;
  */
 public class Experiments {
     
+    
+    static int sumCollisions(HashMap<BigInteger,Integer> m){
+        Integer sum = 0;
+        for(BigInteger x : m.keySet()){
+            sum += m.get(x);
+        }
+        return sum;
+    }
+    
+    
+    static double avgCollisions(HashMap<BigInteger,Integer> m){
+        return ((double)sumCollisions(m) / (double)m.size());
+    }
+    
+    
+    /* tento experiment ma za ciel zistit, slova do akej dlzky treba skumat, aby sme rozlisili
+       dva NKA, ci su alebo nie su ekvivalentne
+    */
+    public static void safeWordLengthExperiment(int n) throws Exception{
+        
+        int wordLength = 0;        
+        
+        HashMap<BigInteger, Integer> collisionCount = new HashMap<>();
+        do{
+            collisionCount = new HashMap<>();
+            
+            Variables.initializeWordToNumberMap(wordLength); // inicializujeme mapu, ktora prevadza slova na indexy v hashi
+        
+            MinimalAutomatonHashMap languages = new MinimalAutomatonHashMap();
+            // iteraujeme cez mozne pocty stavov
+            for(int i = 1;i <= n;i++){
+                AutomatonIterator it = new AutomatonIterator(i);
+                // budeme iterovat cez vsetky automaty s n stavmi
+                while(it.hasNext()){
+                    Automaton a = it.next();
+                    boolean isNew = languages.tryToInsert(a);
+                    // ak je tento automat reprezentant noveho jazyka, tak zistime, ci jeho hash na zaklade slov koliduje s niektorym predoslym
+                    if (isNew){
+                        BigInteger hashCode = a.hashCodeFromWords(wordLength);
+                        if (collisionCount.containsKey(hashCode)){
+                            Integer oldVal = collisionCount.get(hashCode);
+                            collisionCount.put(hashCode, oldVal + 1);
+                        }
+                        else{
+                            collisionCount.put(hashCode, 0);
+                        }
+                    }
+                }
+            }
+            
+            System.out.println(wordLength + " & " + sumCollisions(collisionCount));
+            wordLength++;
+        }while(sumCollisions(collisionCount) > 0);
+    }
     
     /* tato metoda ma za ulohu postupne stromovo spojit zoznamy kandidatov na minimalne NKA */
     public static MinimalAutomatonHashMap treeMerge(ArrayList<MinimalAutomatonHashMap> listOfCandidates) throws InterruptedException{
@@ -99,4 +161,33 @@ public class Experiments {
     }
     
     
+    /*
+        Ciel je previest subor automata.txt s explicitne vypisanymi automatmi na zoznam hashov 
+        a naplnime globalny zoznam jazykov, resp. ich kodov tymi nacitanymi
+        pre format vstupu pozri subor automata.txt
+    */
+    public static void AutomataFileToHashes() throws FileNotFoundException, Exception{
+        PrintWriter writer = new PrintWriter("automataHashes.txt", "UTF-8");
+        
+        Scanner s = new Scanner(new File(Variables.automataFile));
+        HashSet<Triplet> automataHashCodes = new HashSet<>();
+        int counter  = 0;
+        while(s.hasNext()){
+            counter++;
+            Automaton.readAutomaton(s); // NKA nas nezaujima
+            Automaton a = Automaton.readAutomaton(s);
+            if (a != null){
+                if(automataHashCodes.contains(a.myHashCode())) {
+                    System.err.println("FAIL");
+                    System.exit(1);
+                }
+                automataHashCodes.add(a.myHashCode());
+                writer.println(a.myHashCode());
+            }
+        }
+        // naplnime globalny zoznam jazykov, resp. ich kodov tymi nacitanymi
+        Variables.allMinimalNFAs.allMinDFACodes = automataHashCodes;
+        
+        writer.close();
+    }
 }
