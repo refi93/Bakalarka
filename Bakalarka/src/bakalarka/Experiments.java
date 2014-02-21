@@ -6,9 +6,12 @@
 
 package bakalarka;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -117,7 +120,7 @@ public class Experiments {
         tuto metodu treba spustit pred kazdym inym experimentom, kedze sa opieraju
         o vysledky z tejto metody
     */
-    public static void GenerateAllNFAsOfSize(int limit) throws IOException, Exception{
+    public static void generateAllNFAsOfSize(int limit) throws IOException, Exception{
         Variables.initialize(); // nainizializovanie mapy a niektorych premennych, kde si k slovu pamatame cislo - aby sme vedeli efektivne hashovat     
         
         for (int i = 1; i <= limit; i++) {
@@ -166,14 +169,14 @@ public class Experiments {
         a naplnime globalny zoznam jazykov, resp. ich kodov tymi nacitanymi
         pre format vstupu pozri subor automata.txt
     */
-    public static void AutomataFileToHashes() throws FileNotFoundException, Exception{
+    public static void automataFileToHashes() throws FileNotFoundException, Exception{
         PrintWriter writer = new PrintWriter("automataHashes.txt", "UTF-8");
         
         Scanner s = new Scanner(new File(Variables.automataFile));
         HashSet<Triplet> automataHashCodes = new HashSet<>();
         int counter  = 0;
         while(s.hasNext()){
-            counter++;
+            if (counter++ % 100000 == 99999) System.err.println(counter + " languages processed");;
             Automaton.readAutomaton(s); // NKA nas nezaujima
             Automaton a = Automaton.readAutomaton(s);
             if (a != null){
@@ -181,7 +184,7 @@ public class Experiments {
                     System.err.println("FAIL");
                     System.exit(1);
                 }
-                automataHashCodes.add(a.myHashCode());
+                //automataHashCodes.add(a.myHashCode());
                 writer.println(a.myHashCode());
             }
         }
@@ -189,5 +192,43 @@ public class Experiments {
         Variables.allMinimalNFAs.allMinDFACodes = automataHashCodes;
         
         writer.close();
+    }
+    
+    
+    public static void readAutomataHashes() throws IOException{
+        BufferedReader bi = new BufferedReader(new InputStreamReader(new FileInputStream(Variables.hashesFile)));
+        int counter = 0;
+        while (bi.ready()){
+            String str = bi.readLine();
+            String[] splited = str.split("\\s+");
+            
+            BigInteger first = new BigInteger(splited[0]);
+            BigInteger second = new BigInteger(splited[1]);
+            Integer third = Integer.parseInt(splited[2]);
+            
+            //System.out.println(first + " " + second + " " + third);
+            Triplet hash = new Triplet(first, second, third);
+            //if (counter > 4000000)
+                Variables.allMinimalNFAs.insertValue(hash);
+            if (counter++ % 100000 == 99999){
+                System.err.println(counter + " hashes processed");
+            }
+        }
+    }
+    
+    
+    /* nacita zo suboru automaty do 4 stavov (predpoklada sa, ze tam su) a zacne generovat
+    nahodne NKA 5-stavove
+    */
+    public static void fiveStateNFAs(long numberOfSamples) throws Exception{
+        AutomatonIterator it = new AutomatonIterator(5);
+        long counter = 0;
+        for(long i = 0;i < numberOfSamples;i++){
+            Automaton a = it.random();
+            if(Variables.allMinimalNFAs.tryToInsert(a)){
+                counter++;
+                System.out.println(counter + " out of " + i);
+            }
+        }
     }
 }

@@ -53,9 +53,13 @@ public class Triplet{
     @Override
     public int hashCode(){
         //return (first.hashCode() ^ second.hashCode()) ^ third;
-        int result = (int) (first.longValue() ^ (first.longValue() >>> 32));
+        /*int result = (int) (first.longValue() ^ (first.longValue() >>> 32));
         result = 31 * result + (int) (second.longValue() ^ (second.longValue() >>> 32));
-        result = 31 * result + (int) ((long)third ^ (((long)third) >>> 32));
+        result = 31 * result + (int) ((long)third ^ (((long)third) >>> 32));*/
+        
+        int result = first.hashCode();
+        result = 31 * result + second.hashCode();
+        result = 31 * result + third.hashCode();
         return result;
     }
     

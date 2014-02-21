@@ -22,6 +22,7 @@ public class Variables {
     static int numberOfCores = 1;//Runtime.getRuntime().availableProcessors(); // pocet jadier cpu
     
     static String automataFile = "automata.txt";
+    static String hashesFile = "automataHashes.txt";
     
     /* abeceda */
     static ArrayList<Character> alphabet = new ArrayList<>(Arrays.asList('0','1'));
@@ -42,9 +43,7 @@ public class Variables {
     static long start = 0;
     
     static Long counterOfTestedAutomata = (long)0; // pocitadlo vygenerovanych automatov
-    
-    public static int backupInterval = -1; // backup interval zadany v sekundach (-1 ak je backup vypnuty)
-    
+        
     
     public static HashMap<String, Integer> wordToNumberMap; //mapa, kde si k slovu pamatame cislo - aby sme vedeli efektivne hashovat do bitSetu
     

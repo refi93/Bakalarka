@@ -23,7 +23,9 @@ public class Bakalarka {
     
     public static void main(String[] args) throws Exception {
         
-        Experiments.AutomataFileToHashes();
+        //Experiments.fiveStateNFAs(100000);
+        Variables.initialize();
+        Experiments.readAutomataHashes();
         /*
         Scanner s = new Scanner(new File(Variables.automataFile));
         HashSet<Triplet> automataHashCodes = new HashSet<>();
