@@ -1,0 +1,107 @@
+\chapter{Výsledky a ich náväznosť na predošlý výskum}
+
+
+Cieľom tejto kapitoly bude, ako jej názov napovedá, prepojiť výsledky z článkov napísaných v minulosti na naše výsledky. Pôjde konkrétne o článok Domaratzkého, Kismana a Shallita \cite{shallit}, ktorí sa zaoberali okrem iného enumeráciou regulárnych jazykov akceptovanými n-stavovými NKA, z čoho, podobne ako my, dostali aj výsledky o deterministickej a nedeterministickej stavovej zložitosti týchto regulárnych jazykov.
+
+\paragraph{}
+Zadefinujme nasledovnú funkciu:
+\\
+$G_k(n)$ = počet rôznych regulárnych jazykov nad k-znakovou abecedou akceptovaných NKA s n stavmi.
+\paragraph{}
+My sme skúmali predovšetkým $G_2(n)$, ale po menšej úprave programu sa dali rátať i $G_1(n)$ a $G_3(n)$. Vo všetkých prípadoch sa nám podarilo zreprodukovať výsledky z \cite{shallit} a k tomu navyše sa nám podarilo dorátať $G_2(4)$. Získané výsledky uvádzame v nasledujúcich tabuľkách:
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|c|c|c|c|r|}
+    \hline
+    n & 1 & 2 & 3 & 4 & 5 \\ 
+    \hline
+    $G_1(n)$ & 3 & 9 & 29 & 88 & 269 \\ 
+    \hline
+  \end{tabular}
+  \caption{$G_1(n)$ pre $1 \leq n \leq 5$}
+  \label{tab:G1n}
+\end{table}
+
+V nasledujúcej tabuľke j označuje počet stavov minimálnych DKA s j stavmi pre nájdené jazyky, ktoré akceptujú NKA s n stavmi:
+\\
+\\
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|r|}
+    \hline
+    n/j & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18 \\ 
+    \hline
+    1 & 2 & 1 & & & & & & & & & & & & & & & &\\ 
+    \hline
+    2 & 2 & 4 & 3 & & & & & & & & & & & & & & &\\
+    \hline
+    3 & 2 & 4 & 12 & 7 & 3 & 1 & & & & & & & & & & & &\\
+    \hline
+    4 & 2 & 4 & 12 & 30 & 16 & 11 & 8 & 2 & 1 & 1 & 1 & & & & & & &\\
+    \hline
+    5 & 2 & 4 & 12 & 30 & 78 & 33 & 27 & 29 & 23 & 9 & 6 & 6 & 2 & 3 & 2 & 1 & 1 & 1 \\
+    \hline
+  \end{tabular}
+  \caption{distribúcia minimálnych DKA pre nájdené minimálne NKA pre $G_1(n)$}
+  \label{tab:G1n}
+\end{table}
+
+\paragraph{}
+Teraz si uvedieme výsledky pre $G_2(n)$, ktoré boli aj jedným z hlavných cieľov tejto práce:
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|c|c|c|c|r|}
+    \hline
+    n & 1 & 2 & 3 & 4 \\ 
+    \hline
+    $G_1(n)$ & 5 & 213 & 45 113 & 32 191 450 \\ 
+    \hline
+  \end{tabular}
+  \caption{$G_1(n)$ pre $1 \leq n \leq 5$}
+  \label{tab:G1n}
+\end{table}
+
+A toto je distribúcia minimálnych DKA a NKA pre nájdené jazyky:
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|r|}
+    \hline
+    n/j & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\ 
+    \hline
+    1 & 2 & 3 & & & & & &\\ 
+    \hline
+    2 & 2 & 24 & 117 & 70 & & & &\\
+    \hline
+    3 & 2 & 24 & 1 028 & 5 595 & 11 211 & 14 537 & 10 580 & 2 136\\
+    \hline
+    4 & 2 & 24 & 1 028 & 50 419 & 305 647 & 1 022 711 & 2 835 515 & 5 291 722 \\
+    \hline
+    n/j & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 \\
+    \hline
+    4 & 6 744 831 & 6 334 902 & 4 414 937 & 2 707 073 & 1 472 277 & 606 946 & 301 041 & 58 316\\
+    \hline
+  \end{tabular}
+  \caption{distribúcia minimálnych DKA pre nájdené minimálne NKA pre $G_2(n)$}
+  \label{tab:G1n}
+\end{table}
+
+Ešte uvedieme časy - koľko nám jednotlivé výsledky pre $G_2(n)$ trvali vyrátať na stroji, ktorý sme mali k dispozícii (Intel Core i7 ~3GHz, 4 jadrá, 24GB RAM):
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|c|c|c|c|r|}
+    \hline
+    n & 1 & 2 & 3 & 4 \\ 
+    \hline
+    $čas$ & <1s & <1s & 29s & 168h 30m (7 dní) \\ 
+    \hline
+  \end{tabular}
+  \caption{časy výpočtu $G_2(n)$ pre $1 \leq n \leq 5$}
+  \label{tab:G1n}
+\end{table}
+
+Treba poznamenať, že nakoľko sme úlohu neparalelizovali, tak celý čas sa využíval výkon iba jedného jadra CPU.

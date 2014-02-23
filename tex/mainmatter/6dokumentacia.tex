@@ -1,0 +1,98 @@
+\chapter{Dokumentácia k programu}
+
+Program má čitateľ k dispozícii ako prílohu k tejto práci. Ide o Netbeans project v jazyku Java, ktorý si stačí jednoducho naimportovať a mal by ísť rovno spustiť. Užívateľ má možnosť ovplyvniť beh testov vpisovaním priamo do zdrojového kódu. Samotný program je došt komplexný a kompletná dokumentácia by zabrala mnoho strán, preto sa pozrieme aspoň na tie najzákladnejšie triedy a funkcie, aby čitateľ lepšie chápal, ako to celé funguje a mohol tam prípadne dorobiť testy podľa svojej potreby a chuti.
+
+\section{Variables.java}
+Táto trieda obsahuje globálne premenné nášho programu, medzi nimi je napr. abeceda (Variables.alphabet) definovaná ako pole Characterov, cesta k výstupnému súboru pre nájdené automaty (Variables.outputFileForAutomata), pre vypisovanie dvojíc "počet stavov v minimálnom NKA vs počet stavov v ekvivalentnom minimálnom DKA" (Variables.output) a podstatná je ešte hashmapa obsahujúca kódy všetkých nájdených jazykov, resp. minimálnych DKA, ktoré ich reprezentujú (Variables.allMinimalNFAs). Veľkosť abecedy, ktorou sa zaoberáme sa dá jednoducho zmeniť pridaním/odobratím znakov z Variables.alphabet Je tu aj mnoho iných premenných, ku ktorým si čitateľ môže prečítať komentáre priamo v zdrojovom kóde. 
+
+\section{Automaton.java}
+V tejto triede je definovaný konečný automat. Môžeme doňho pridávať stavy, prechody, simulovať jeho činnosť, determinizovať, minimalizovať a mnoho ďalšieho. K dispozícii je viacero metód, vypichnime tie najpodstatnejšie:
+
+\subsection*{Automaton()}
+Ide o prázdny konštruktor, ktorý vráti prázdny automat, t.j. bez stavov a prechodov. K dispozícii je mnoho metód, uvedieme tie najpodstatnejšie. Ostatné si zvedavý čitateľ môže pozrieť priamo v zdrojovom kóde, ktorý je okomentovaný.
+
+\subsection*{void addState(int stateId)}
+Pomocou tejto metódy môžeme do automatu pridať stav. Stav má svoj číselný identifikátor (stateId), ktorým ho dokážeme rozlíšiť od ostatných stavov. Rovnako existujú metódy addInitialState(int stateId) a addFinalState(stateId), ktoré umožňujú pridanie počiatočného, resp. akceptačného stavu. Stojí za povšimnutie, že sa pripúšťa viacero počiatočných stavov, čo síce nie je formálne úplne korektné, ale zjednodušuje to prácu napr. pri rátaní minimálneho DKA pomocou Brzozowského algoritmu, kde sa robí reverz automatu a tým pádom tam môže vzniknúť viacero počiatočných stavov. Časová zložitosť je len konštantná, vpodstate iba zaregistrujeme stav do množiny stavov automatu.
+
+\subsection*{void addTransition(int idFrom,int idTo, char c)}
+Takto môžeme pridať prechod medzi dvomi existujúcimi stavmi (z idFrom na idTo) na znak c.
+
+\subsection*{Automaton determinize()}
+Determinizuje náš automat a vráti ho na výstupe. Použije na to štandardnú "subset construction".
+
+\subsection*{Automaton minimalDFA()}
+Vráti minimálny DKA k nášmu automatu. Použije na to Brzozowského algoritmus, ktorý sme si predtým definovali (\ref{brzozowski}).
+
+\subsection*{Triplet myHashCode()}
+Na základe minimálneho DKA zozstrojí trojicu čísel tak, ako sme popísali v (\ref{mapCis}). Vrátený výsledok je typu Triplet, t.j. ide o trojicu pozostávajúcu z dvoch BigIntegerov a jedného Integeru. Pre úsporu pamäte pri generovaní NKA len do 4 stavov sa používali dva longy, t.j. 64-bitové integery a jeden short, t.j. 16bitový integer. Finálna verzia programu ale pre väčšiu flexibilitu a aby šlo rátať aj s 5-stavovými NKA, používa radšej BigIntegery. Časová zložitosť je teda daná časovou zložitosťou vyrátania minimálneho DKA k danému automatu, keďže je to časovo najnáročnejšia operácia. Prevedenie minimálneho DKA na kanonický tvar prebieha v lineárnom čase - implementované to je ako v \ref{kanMinDKA}.
+
+\subsection*{HashSet<String> allWordsOfLength(int n)}
+Táto metóda má za úlohu nájsť a vrátiť všetky slová akceptované našim automatom. Časová zložitosť je exponenciálna od n, keďže to implementujeme ako prehľadávanie s návratom cez stavy nášho automatu - backtracking. Táto metóda funguje aj pre NKA - na miestach, kde prechod nie je jednoznačne určený, sa rozvetvíme.
+
+\subsection*{String toString()}
+Vráti string, kde bude vypísaný automat tak, aby človek jasne videl, aký je počiatočný stav, konečné stavy a $\delta$-funkcia.
+
+\subsection*{void print(FastPrint out, long counter)}
+Vypíše automat pomocou vypisovača typu FastPrint (trieda vytvorená špeciálne pre vypisovanie do súboru), pričom k nemu pridá aj počitadlo, aby v súbore bolo jasne vidno, koľkatý automat v poradí to je. Vypisuje v nasledujúcom tvare: 
+\\
+/counter
+\\
+počet stavov NKA
+\\
+číslo počiatočného stavu
+\\
+počet akceptačných stavov
+\\ akceptačné stavy (oddelené znakom nového riadku)
+\\ počet prechodov
+\\ jednotlivé prechody v tvare "stav od stav do znak", pričom každý prechod je na novom riadku
+
+\section{Triplet.java}
+Táto trieda reprezentuje trojicu, konktrétne trojicu pozostávajúcu z dvoch BigIntegerov reprezentujúcich jednotlivé matice prechodu (každú pre jeden znak abecedy, keďže sme sa zamerali hlavne na 2-znakovú abecedu) a nakoniec ešte jeden Integer, v ktorom je zakódovaná množina akceptačných stavov automatu. Predpokladá sa, že zakódovaný automat je minimálny DKA v kanonickom tvare, a teda jeho počiatočný stav je 0. 
+
+\subsection{public Triplet(BigInteger first, BigInteger second, int third)}
+Konštruktor trojice.
+
+\section{MinimalAutomatonHashMap.java}
+Táto trieda zabezpečuje úložisko pre nájdené regulárne jazyky, resp. pre minimálne DKA, ktoré ich reprezentujú. Interne pre to použivá hashMap trojíc čísel, v ktorých sú zakódované jednotlivé minimálne DKA. Tu si uvedieme jej základné metódy:
+
+\subsection*{boolean tryToInsert(Automaton a)}
+Pomocou tejto metódy sme schopní pridať automat. Jej cieľom je overiť, či sa v štruktúre už nenachádza ekvivalentný automat, ak áno, tak vráti false, keďže pokus vložiť automat bol neúspešný, inak tam ten automat (resp. minimálny DKA k nemu zakódovaný do Tripletu) pridá a vráti true. Časová zložitosť je daná časovou zložitosťou vyrátania minimálneho DKA, čo je časovo najnáročnejšia operácia. Zakódovanie minimálneho DKA do trojice čísel prebieha v lineárnom čase od počtu stavov minimálneho DKA a vloženie do hashMapy je potom v konštantnom čase.
+
+\subsection*{void insertValue(Triplet hash)}
+Umožňuje pridanie priamo Tripletu do štruktúry - využíva sa napr. pri načítaní kódov minimálnych DKA zo súboru. Na jej vykonanie stačí konštantný čas.
+
+\subsection*{public boolean containsEquivalent(Automaton a)}
+Overí, či sa v štruktúre nenachádza ekvivalentný automat. Ak sa tam nachádza, vráti true, inak vráti false. Implementované to je tak, že zakódujeme automat do Tripletu pomocou metódy myHashCode() a následne sa pozrieme do hashMapy kde máme uložené kódy ostatných jazykov, resp. minimálnych DKA, ktoré ich akceptujú. Časová zložitosť je teda rovnaká ako časová zložitosť vyrátania minimálneho DKA.
+
+\subsection*{public long size()}
+Vráti veľkosť štruktúry, t.j. počet uložených kódov minimálnych DKA, ktoré akceptujú navzájom rôzne jazyky.
+
+\section{AutomatonIterator.java}
+Táto trieda slúži ako iterátor cez NKA s daným počtom stavov tak, aby bola garancia, že sa preiteruje cez všetky možné jazyky akceptované NKA do daného pcčtu stavov.
+
+\subsection*{public AutomatonIterator(int n)}
+Konštruktor iterátora cez automaty. Vstupný parameter n určuje, koľko stavov budú mať NKA, ktoré sa budú generovať. Aby sme preiterovali postupne cez 1,2,atď - stavové NKA, treba opätovne inicializovať nový iterátor pre NKA s príslušným počtom stavov.
+
+\subsection*{Automaton next()}
+Vráti nasledujúci automat v poradí.
+
+\subsection*{Automaton random()}
+Vráti náhodný NKA s príslušným počtom stavov.
+
+\section{Experiments.java}
+V tejto triede sú definované experimenty s automatmi, z ktorých sme aj vyťažili výsledky v tejto práci.
+
+\subsection*{static void generateAllNFAsOfSize(int limit)}
+Táto metóda sa postará o vygenerovanie NKA do n stavov tak, aby sme našli všetky regulárne jazyky akceptované NKA do n stavov, využijúc optimalizácie spomínané v kapitole 2. Výsledok vypíše do súboru automata.txt, výstup z programu (časový priebeh a i.) sa pošle do out.txt.
+
+\subsection*{static void safeWordLengthExperiment(int n)}
+Slúži na zistenie dĺžky slova, ktorá jednoznačne rozlíši dva NKA do n stavov tak, ako sme si definovali v \ref{safeWordLength}. Po vykonaní experimentu sa na výstup vypíše príslušná zistená dĺžka.
+
+\subsection*{static void automataFileToHashes()}
+Prevedie súbor automata.txt s vypísanými automatmi do Variables.allMinNFAs, čo umožňuje ďalej rátať so všetkými jazykmi, resp minimálnymi DKA, ktoré ich akceptujú, ktoré sme našli pri niektorom predošlom behu nášho programu - dobré napr. pri náhodnom generovaní NKA do 5 stavov, aby sme si načítali všetky jazyky akceptované NKA do 4 stavov.
+
+\subsection*{void fiveStateNFAs(long numberOfSamples)}
+Tento experiment predpokladá, že máme k dispozícii súbor automata.txt obsahujúci všetky jazyky akceptované NKA do 4 stavov. Tieto si načíta do pamäte a generuje numberOfSamples-krát náhodné 5-stavové NKA a overuje, či akceptujú nejaký nový jazyk alebo nie. Na konci vypíše na výstup, koľkokrát nastala situácia, že sme našli nový jazyk.
+
+\section{Bakalarka.java}
+Toto je hlavná trieda, kam sa píše, čo sa má vykonať počas behu programu - môžeme si napr. vybrať niektorý z hore uvedených experimentov, alebo vytvoriť si aj nejaký vlastný.

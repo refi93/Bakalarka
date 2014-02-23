@@ -59,31 +59,6 @@ Je známy pomerne jednoduchý algoritmus na determinizáciu NKA. Po anglicky sa 
 \\
 Samozrejme, pri samotnej implementácii môžeme zanedbať nedosiahnuteľné stavy, ktorých pravedpodobne pre daný konečný automat bude dosť veľa. V prípade, žeby čitateľ chcel vedieť viac podrobností, odporúčame \cite[Kapitola 2.3.5]{hopcroft}.
 
-\section{Minimalizácia DKA - Brzozowského algoritmus}
-
-Je to jeden z algoritmov, pomocou ktorého dokážeme k danému DKA A nájsť minimálny DKA B akceptujúci ten istý jazyk. Samotný algoritmus pracuje veľmi jednoducho, ale najprv si definujme, resp. popíšme základne operácie, ktoré budeme na jeho realizáciu využívať:
-
-\begin{defn}{\textbf {\textit {Reverz konečného automatu}}} $A=(K_A,\Sigma,\delta_A,q_{0},F_A)$ je konečný automat $R(A)=(K_A,\Sigma,\delta_{R(A)},F_A,q_{O})$, pre ktorý platí:
-\\
-\centerline{$\forall q_a,q_b \in K_A: (q_a,a) \rightarrow q_b \in \delta_A \Rightarrow (q_b,a)\rightarrow(q_a)$}
-\end{defn}
-Je dôležité si všimnúť, že sme zamenili aj počiatočný stav s množinou akceptačných stavov. Tento automat teda nie je NKA v pravom slova zmysle, keďže sa pripúšťa viac počiatočných stavov. Pre formálnu korektnosť nie je ale problém pridať pomocný počiatočný stav, z ktorého by viedol epsilonový prechod na každý z možných pôvodných počiatočných stavov.
-\paragraph{}
-Samotný algoritmus teraz bude vyzerať nasledovne:\\
-Na vstupe máme DKA $A=(K_A,\Sigma,\delta_A,q_{0A},F_A)$. Nech operácia $R(A)$ označuje reverz automatu A a operácia $D(A)$ determinizáciu automatu A, tak ako boli vyššie definované. Potom minimálny DKA B akceptujúci rovnaký jazyk ako NKA A skonštruujeme nasledovne:
-\\
-\centerline{$B=D(R(D(R(A))))$}
-Operácia determinizácie môže mať až exponenciálnu časovú zložitosť vzhľadom na počet stavov pôvodného NKA, keďže toľko stavov môže teoreticky mať DKA ekvivalentný k danému NKA, ako aj naznačovala vyššie uvedená konštrukcia na determinizáciu NKA, avšak v priemernom prípade sa to nejaví byť až také zlé. Takúto časovú zložitosť v konečnom dôsledku dosahuje aj Brzozowského algoritmus, keďže využíva túto operáciu. I keď existujú aj asymptoticky rýchlejšie algoritmy na minimalizáciu NKA, menovite Hopcroftov algoritmus s časovou zložitosťou $O(nslog(n))$, kde $n$ je počet stavov pôvodného DKA a $s$ počet znakov abecedy, ukázalo sa prekvapivo, že aj takýto jednoduchý, i keď pomalší algoritmus bude postačovať pre naše potreby
-
-\section{Minimalizácia NKA}
-
-Našou úlohou je nájsť NKA s najmenším možným počtom stavov, ktorý akceptuje rovnaký jazyk ako NKA na vstupe.
-\paragraph{}
-Narozdiel od minimálneho DKA, minimálnych NKA môže existovať viacero rôznych takých, že akceptujú ten istý jazyk.
-Navyše, ukazuje sa, že problém minimalizácie NKA je PSPACE-úplný (\cite{jiang}), t.j. ľubovoľný problém riešiteľný s polynomiálne veľkou pamäťou sa dá naň v polynomiálnom čase transformovať, čo nám napovedá, že to je zrejme veľmi ťažký problém. 
-
-Pre naše potreby, nakoľko aj tak enumerujeme všetky možné regulárne jazyky pre NKA do 4 stavov, sa javí byť dostatočne dobré generovať NKA vzostupne podľa počtu stavov a testovať, či sme už predtým nevygenerovali ekvivalentný NKA. Časová zložitosť teda bude závisieť od toho, koľko automatov musíme vygenerovať, resp. s koľkými automatmi budeme potom porovnávať. Tento počet rozanalyzujeme v nasledujúcej kapitole.
-
 
 \section{Stavová zložitosť regulárnych jazykov}
 

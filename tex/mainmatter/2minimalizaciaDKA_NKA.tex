@@ -1,0 +1,42 @@
+\chapter{Minimalizácia DKA, NKA}
+
+\label{brzozowski}
+\section{Minimalizácia DKA - Brzozowského algoritmus}
+
+Je to jeden z algoritmov, pomocou ktorého dokážeme k danému DKA A nájsť minimálny DKA B akceptujúci ten istý jazyk. Samotný algoritmus pracuje veľmi jednoducho, ale najprv si definujme, resp. popíšme základne operácie, ktoré budeme na jeho realizáciu využívať:
+
+\begin{defn}{\textbf {\textit {Reverz konečného automatu}}} $A=(K_A,\Sigma,\delta_A,q_{0},F_A)$ je konečný automat $R(A)=(K_A,\Sigma,\delta_{R(A)},F_A,q_{O})$, pre ktorý platí:
+\\
+\centerline{$\forall q_a,q_b \in K_A: (q_a,a) \rightarrow q_b \in \delta_A \Rightarrow (q_b,a)\rightarrow(q_a)$}
+\end{defn}
+Je dôležité si všimnúť, že sme zamenili aj počiatočný stav s množinou akceptačných stavov. Tento automat teda nie je NKA v pravom slova zmysle, keďže sa pripúšťa viac počiatočných stavov. Pre formálnu korektnosť nie je ale problém pridať pomocný počiatočný stav, z ktorého by viedol epsilonový prechod na každý z možných pôvodných počiatočných stavov.
+\paragraph{}
+Samotný algoritmus teraz bude vyzerať nasledovne:\\
+Na vstupe máme DKA $A=(K_A,\Sigma,\delta_A,q_{0A},F_A)$. Nech operácia $R(A)$ označuje reverz automatu A a operácia $D(A)$ determinizáciu automatu A, tak ako boli vyššie definované. Potom minimálny DKA B akceptujúci rovnaký jazyk ako NKA A skonštruujeme nasledovne:
+\\
+\centerline{$B=D(R(D(R(A))))$}
+Operácia determinizácie môže mať až exponenciálnu časovú zložitosť vzhľadom na počet stavov pôvodného NKA, keďže toľko stavov môže teoreticky mať DKA ekvivalentný k danému NKA, ako aj naznačovala vyššie uvedená konštrukcia na determinizáciu NKA, avšak v priemernom prípade sa to nejaví byť až také zlé. Takúto časovú zložitosť v konečnom dôsledku dosahuje aj Brzozowského algoritmus, keďže využíva túto operáciu. I keď existujú aj asymptoticky rýchlejšie algoritmy na minimalizáciu NKA, menovite Hopcroftov algoritmus s časovou zložitosťou $O(nslog(n))$, kde $n$ je počet stavov pôvodného DKA a $s$ počet znakov abecedy, ukázalo sa prekvapivo, že aj takýto jednoduchý, i keď pomalší algoritmus bude postačovať pre naše potreby
+
+\section{Minimalizácia NKA}
+
+Našou úlohou je nájsť NKA s najmenším možným počtom stavov, ktorý akceptuje rovnaký jazyk ako NKA na vstupe.
+\paragraph{}
+Narozdiel od minimálneho DKA, minimálnych NKA môže existovať viacero rôznych takých, že akceptujú ten istý jazyk.
+Navyše, ukazuje sa, že problém minimalizácie NKA je PSPACE-úplný (\cite{jiang}), t.j. ľubovoľný problém riešiteľný s polynomiálne veľkou pamäťou sa dá naň v polynomiálnom čase transformovať, čo nám napovedá, že to je zrejme veľmi ťažký problém. 
+Nakoľko problém minimalizácie NKA je PSPACE úplný, dá sa zostrojiť algoritmus riešiaci tento problém využijúc polynomiálne veľa pamäte - $O(n^k)$, ale potrebuje na to exponenciálny čas - $O(2^{n^k})$. Uveďme algoritmus, ktorý to robí v uvedenom čase a s uvedenou pamäťou:
+\paragraph{}
+Na vstupe máme NKA $A=(K_A,\Sigma,\delta_A,q_{0A},F_A)$ a ideme rozhodnúť, či ide o minimálny NKA pre L(A).
+\\
+\begin{enumerate}
+  \item K NKA A zostrojíme ekvivalentný minimálny DKA D(A).
+  \item Vygenerujeme NKA B s menej ako $|K_A|$ stavmi nad abecedou $\Sigma$ - tých je len konečne veľa.
+  \item Zostrojíme minimálny DKA D(B) ekvivalentný s B a overíme, či je ekvivalentný s D(A). Keďže D(A) aj D(B) sú minimálne DKA, stačí nájsť izomorfizmus medzi stavmi.
+  \item Ak sú D(A) a D(B) ekvivalentné, t.j. existuje medzi množinami stavov izomorfizmus tak prehlásime, že A nie je minimálny NKA, inak sa vrátime ku kroku 2 a vygenerujeme ďalší NKA v poradí.
+  \item Pokiaľ sme vygenerovali všetky možné NKA B, a nenašli sme ekvivalentný k NKA A, tak vieme, že NKA A je minimálny.
+\end{enumerate}
+
+\paragraph{Časová zložitosť: }
+NKA nad fixnou abecedou do n stavov je $O(2^{n^k})$, ako si aj ukážeme v nasledujúcej kapitole (\ref{genNKA}), z čoho aj vyplýva časová zložitosť.
+
+\paragraph{}
+Podobný algoritmus až na niektoré optimalizácie budeme využívať aj pri našom experimente. Takto zároveň s generovaním NKA B postupne enumerujeme všetky jazyky akceptované NKA do daného počtu stavov.
