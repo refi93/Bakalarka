@@ -12,26 +12,25 @@ import java.math.BigInteger;
  *
  * @author raf
  */
-public class Tuple <X,Y>{
-    private final X first;
-    private final Y second;
+public class Tuple{
+    private final BigInteger first;
+    private final Integer second;
     
     
-    public Tuple(X first, Y second){
+    public Tuple(BigInteger first, int second){
         this.first = first;
         this.second = second;
     }
     
     
-    public X first(){
+    public BigInteger first(){
         return this.first;
     }
     
     
-    public Y second(){
+    public int second(){
         return this.second;
     }
-    
     
     @Override
     public boolean equals(Object obj){
@@ -42,21 +41,28 @@ public class Tuple <X,Y>{
             return false;
         }
         final Tuple other = (Tuple) obj;
-        return ((this.first().equals(other.first()))&&(this.second().equals(other.second()))); // mozme si to dovolit, lebo hashCode ma taku vlastnost
+        return ((this.first.equals(other.first())) && (this.second.equals(other.second()))); // mozme si to dovolit, lebo hashCode ma taku vlastnost
     }
     
     @Override
     public int hashCode(){
-        return first.hashCode() + second.hashCode() * 31;
+        //return (first.hashCode() ^ second.hashCode()) ^ third;
+        /*int result = (int) (first.longValue() ^ (first.longValue() >>> 32));
+        result = 31 * result + (int) (second.longValue() ^ (second.longValue() >>> 32));
+        result = 31 * result + (int) ((long)third ^ (((long)third) >>> 32));*/
+        
+        int result = first.hashCode();
+        result = 31 * result + second.hashCode();
+        return result;
     }
     
     
     @Override
     public String toString(){
-        return this.first.toString() + " " + this.second.toString();
+        return this.first + " " + this.second;
     }
     
     public static Tuple minusOne(){
-        return new Tuple(BigInteger.valueOf(-1),BigInteger.valueOf(-1));
+        return new Tuple(BigInteger.valueOf(-1),-1);
     }
 }

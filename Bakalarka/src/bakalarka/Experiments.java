@@ -173,7 +173,7 @@ public class Experiments {
         PrintWriter writer = new PrintWriter("automataHashes.txt", "UTF-8");
         
         Scanner s = new Scanner(new File(Variables.automataFile));
-        HashSet<Triplet> automataHashCodes = new HashSet<>();
+        HashSet<Tuple> automataHashCodes = new HashSet<>();
         int counter  = 0;
         while(s.hasNext()){
             if (counter++ % 100000 == 99999) System.err.println(counter + " languages processed");;
@@ -195,6 +195,10 @@ public class Experiments {
     }
     
     
+    /* nacitanie hashov zo suboru - predpokladame, ze v kazdom riadku je 
+        jeden BigInteger kodujuci matice prechodovych funkcii a nasledne Integer 
+        kodujuci mnozinu konecnych stavov
+    */
     public static void readAutomataHashes() throws IOException{
         BufferedReader bi = new BufferedReader(new InputStreamReader(new FileInputStream(Variables.hashesFile)));
         int counter = 0;
@@ -203,11 +207,10 @@ public class Experiments {
             String[] splited = str.split("\\s+");
             
             BigInteger first = new BigInteger(splited[0]);
-            BigInteger second = new BigInteger(splited[1]);
-            Integer third = Integer.parseInt(splited[2]);
+            Integer second = Integer.parseInt(splited[1]);
             
             //System.out.println(first + " " + second + " " + third);
-            Triplet hash = new Triplet(first, second, third);
+            Tuple hash = new Tuple(first, second);
             //if (counter > 4000000)
                 Variables.allMinimalNFAs.insertValue(hash);
             if (counter++ % 100000 == 99999){

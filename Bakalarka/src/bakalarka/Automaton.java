@@ -201,6 +201,12 @@ public class Automaton{
         //this.hash_cache = BigIntegerTuple.minusOne();//BigInteger.valueOf(-1);//BigIntegerTuple.minusOne(); // resetnutie hash_cache po zmene automatu
     }
     
+    
+    /* vrati pocet stavov automatu */
+    public int numberOfStates(){
+        return this.allStatesIds.size();
+    }
+    
     /* wrapper setInitialStateId to int */
     public void setInitialStateId(int stateId) throws NoSuchStateException{
         this.setInitialStateId(new Identificator(stateId));
@@ -601,7 +607,7 @@ public class Automaton{
     MYSLIENKA - minimalny DFA prevedieme na kanonicky - s presne urcenym pomenovanim
     stavov a z matice susednosti vyplodime hash
     */
-    public static Triplet hashFromMinDFA(Automaton minA) throws Exception{
+    private static Tuple hashFromMinDFA(Automaton minA) throws Exception{
         Queue<Identificator> statesToVisit = new LinkedList<>();
         // pridame do fronty pociatocny stav
         statesToVisit.add(minA.initialStatesIds.iterator().next());
@@ -627,7 +633,7 @@ public class Automaton{
             }
             statesToVisit.remove(); // popneme z fronty prave navstiveny stav
         }
-        BigInteger m0 = BigInteger.valueOf(0),m1 = BigInteger.valueOf(0);
+        BigInteger mat = BigInteger.valueOf(0);
         // teraz z toho vyrobime maticu susednosti
         for(Character c : Variables.alphabet){
             Matrix m = new Matrix(counter); // proste tolko stavov, co ma ten minimalny NFA
@@ -639,12 +645,9 @@ public class Automaton{
                     m.set(i, renumberingMapFromMinToCanonical.get(idTo), true);
                 }
             }
-            if(c == '0'){
-                m0 = m.getNumericRepresentationDFA();
-            }
-            else{
-                m1 = m.getNumericRepresentationDFA();
-            }
+            
+            // ciselne reprezentacie matic zretazime za seba a ulozime do jedneho BigIntegeru
+            mat = mat.shiftLeft(minA.numberOfStates() * minA.numberOfStates()).add(m.getNumericRepresentationDFA());
             
         }
         
@@ -653,7 +656,7 @@ public class Automaton{
             canonicalFinalStates.add(new Identificator(renumberingMapFromMinToCanonical.get(id)));
         }
         
-        return new Triplet(m0,m1,(short)canonicalFinalStates.getBitMap());
+        return new Tuple(mat,canonicalFinalStates.getBitMap());
     }
     
     /* prehladavanie vsetkych moznych vygenerovanych slov do hlbky, resp. dlzky maxDepth 
@@ -717,10 +720,10 @@ public class Automaton{
     
     /* hash_cache - premenna, kde si zapamatame hashCode automatu, aby sme ho nemuseli opakovane ratat */
     //BigInteger hash_cache = BigInteger.valueOf(-1);
-    Triplet hash_cache = Triplet.minusOne();
+    Tuple hash_cache = Tuple.minusOne();
     
-    public Triplet myHashCode() throws Exception{
-        if (!hash_cache.equals(Triplet.minusOne())){
+    public Tuple myHashCode() throws Exception{
+        if (!hash_cache.equals(Tuple.minusOne())){
             return hash_cache;
         }
         hash_cache = hashFromMinDFA(this.minimalDFA());

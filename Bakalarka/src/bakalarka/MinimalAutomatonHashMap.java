@@ -19,7 +19,7 @@ import java.util.HashSet;
  * a dokazeme do nej aj vlozit nejake NFA a ona rozhodne, ci uz tam neni
  */
 public class MinimalAutomatonHashMap {
-    HashSet<Triplet> allMinDFACodes;
+    HashSet<Tuple> allMinDFACodes;
     public int comparison_count = 0;
     int max_collisions = 0;
     private long size = 0;
@@ -33,7 +33,7 @@ public class MinimalAutomatonHashMap {
     
     /* overi, ci sa tu nenachadza uz nejaky iny ekvivalentny automat */
     public boolean containsEquivalent(Automaton a) throws Exception{
-        Triplet hash = a.myHashCode();
+        Tuple hash = a.myHashCode();
         return this.allMinDFACodes.contains(hash);
     }
     
@@ -46,7 +46,7 @@ public class MinimalAutomatonHashMap {
     }
     
     /* vlozenie rovno hodnoty bez kontroly - pouziva sa pri mergeovani threadov */
-    public void insertValue(Triplet hash){
+    public void insertValue(Tuple hash){
         if(this.allMinDFACodes.add(hash)){
             this.size++;
         }
