@@ -224,14 +224,18 @@ public class Experiments {
     nahodne NKA 5-stavove
     */
     public static void fiveStateNFAs(long numberOfSamples) throws Exception{
+        Experiments.automataFileToHashes(); // nacitame kody jazykov akceptovanych 4 a menej-stavovymi NKA
         AutomatonIterator it = new AutomatonIterator(5);
         long counter = 0;
+        FastPrint fp = new FastPrint("5StateNFAvsDFA.txt");
+        
         for(long i = 0;i < numberOfSamples;i++){
             Automaton a = it.random();
             if(Variables.allMinimalNFAs.tryToInsert(a)){
                 counter++;
-                System.out.println(counter + " out of " + i);
+                fp.println(a.numberOfStates() + " " + a.minimalDFA().numberOfStates());
             }
         }
+        fp.close();
     }
 }

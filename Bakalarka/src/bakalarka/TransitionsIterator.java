@@ -20,8 +20,10 @@ public class TransitionsIterator implements Iterator {
     HashMap<Character, Matrix> currentMatrices;
     int numberOfStates;
     long limit, state;
+    int n;
 
     public TransitionsIterator(int n) {
+        this.n = n;
         this.TransitionMatrixIterators = new HashMap<>();
         this.currentMatrices = new HashMap<>();
 
@@ -49,7 +51,7 @@ public class TransitionsIterator implements Iterator {
 
     
     // interna funkcia na overenie, ci iterator ma este co dodat
-    private void checkNext(){
+    void checkNext(){
         for(Character c : Variables.alphabet){
             if(this.TransitionMatrixIterators.get(c).hasNext()){
                 this.hasNext = true;

@@ -7,6 +7,7 @@
 package bakalarka;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Scanner;
 
@@ -22,6 +23,17 @@ public class Bakalarka {
     
     
     public static void main(String[] args) throws Exception {
+        AutomatonIterator it = new NaiveAutomatonIterator(2);
+        int k = 0;
+        while(it.hasNext()){
+            it.next();
+            
+            //System.out.println("");
+            k++;
+        }
+        System.out.println(k);
+
+        //Experiments.automataFileToHashes();
         
         //Experiments.fiveStateNFAs(100000);
         /*Variables.initialize();
@@ -41,12 +53,12 @@ public class Bakalarka {
         }
         */
         //Experiments.safeWordLengthExperiment(2);
-        
+        /*
         if (args.length == 1){
             Experiments.generateAllNFAsOfSize(Integer.valueOf(args[0]));
         }
         else Experiments.generateAllNFAsOfSize(3);
-       
+        */
     }
     
 }

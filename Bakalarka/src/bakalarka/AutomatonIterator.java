@@ -100,9 +100,9 @@ public class AutomatonIterator implements Iterator{
     /* vrati nasledujuci automat s danym poctom stavov v poradi */
     @Override
     public Automaton next(){
-        
         if (!this.hasNext()) return null;
         this.checkNext();
+        
         Automaton ret = new Automaton();
         try {
             ret = new Automaton(this.currentTransitions,this.currentInitialStateId,this.currentFinalStatesIds);
@@ -113,17 +113,10 @@ public class AutomatonIterator implements Iterator{
         if (!this.allStatesIterator.hasNext()){
             this.allStatesIterator = new IntegerIterator(1);
             this.currentInitialStateId = this.allStatesIterator.next();
-            //ROZROBENY POKUS ZAHADZOVAT NESUVISLE DELTA FUNKCIE - NEJAK TO NEJDE
             if(!this.allSubsetsIterator.hasNext()){
-                this.allSubsetsIterator = new SubsetIterator(this.numberOfStates);
+                this.allSubsetsIterator.reset();// = new SubsetIterator(this.numberOfStates);
                 this.currentFinalStatesIds = this.allSubsetsIterator.next();
-                //if(!this.allTransitionsIterator.hasNext()) checkNext();
-                //while(this.allTransitionsIterator.hasNext()){
-                    this.currentTransitions = this.allTransitionsIterator.next();
-                    //if (this.currentTransitions.get('0').union(this.currentTransitions.get('1')).connected()){
-                        //break;
-                    //}
-                //}
+                this.currentTransitions = this.allTransitionsIterator.next();
             }
             else{
                 this.currentFinalStatesIds = this.allSubsetsIterator.next();
@@ -141,11 +134,7 @@ public class AutomatonIterator implements Iterator{
     /* na zistenie, ci este mame nieco vypisat */
     private boolean checkNext(){
         boolean ret = this.hasNext;
-        if ((this.allStatesIterator.hasNext()) || (this.allSubsetsIterator.hasNext())){
-            hasNext = true;
-            return hasNext;
-        }
-        if (this.allTransitionsIterator.hasNext()) {
+        if ((this.allStatesIterator.hasNext()) || (this.allSubsetsIterator.hasNext()) || (this.allTransitionsIterator.hasNext())){
             hasNext = true;
             return hasNext;
         }
