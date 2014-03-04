@@ -38,7 +38,7 @@ public class Variables {
     public static String outputFileForAutomata = "./automata.txt";
     public static FastPrint outputStream; // kam vypisujeme dvojice - pocet stavov minNFA vs minDFA
     
-    static MinimalAutomatonHashMap allMinimalNFAs = new MinimalAutomatonHashMap(); // tu si pamatame vsetky mensie doteraz ziskane NFA, resp. min. DFA k nim
+    static MinimalAutomatonHashMap allMinimalDFAs = new MinimalAutomatonHashMap(); // tu si pamatame vsetky mensie doteraz ziskane NFA, resp. min. DFA k nim
     
     static long start = 0;
     
@@ -51,8 +51,6 @@ public class Variables {
     static void initialize() throws Exception{
         start = System.nanoTime(); // nastavime cas startu programu
         outputStream = new FastPrint();
-        FastPrint.cleanFile(outputFileForAutomata);
-        FastPrint.cleanFile(outputFile);
         
     }
     

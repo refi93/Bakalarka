@@ -6,6 +6,7 @@
 
 package bakalarka;
 
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -121,6 +122,8 @@ public class Experiments {
         o vysledky z tejto metody
     */
     public static void generateAllNFAsOfSize(int limit) throws IOException, Exception{
+        FastPrint.cleanFile(Variables.outputFileForAutomata); // precistime subory s automatmi z predosleho behu
+        FastPrint.cleanFile(Variables.outputFile);
         Variables.initialize(); // nainizializovanie mapy a niektorych premennych, kde si k slovu pamatame cislo - aby sme vedeli efektivne hashovat     
         
         for (int i = 1; i <= limit; i++) {
@@ -152,9 +155,9 @@ public class Experiments {
             
             System.err.printf("Merging ended, time: %s%n",Functions.getFormattedTime((int)((System.nanoTime() - Variables.start) / 1000000000)));
 
-            Variables.allMinimalNFAs = MergeThread.merge(Variables.allMinimalNFAs,result);
+            Variables.allMinimalDFAs = MergeThread.merge(Variables.allMinimalDFAs,result);
             
-            System.err.printf("%d languages found%n", Variables.allMinimalNFAs.size());
+            System.err.printf("%d languages found%n", Variables.allMinimalDFAs.size());
         }
         
         System.err.printf("%d automata tested%n",Variables.counterOfTestedAutomata);
@@ -189,7 +192,7 @@ public class Experiments {
             }
         }
         // naplnime globalny zoznam jazykov, resp. ich kodov tymi nacitanymi
-        Variables.allMinimalNFAs.allMinDFACodes = automataHashCodes;
+        Variables.allMinimalDFAs.allMinDFACodes = automataHashCodes;
         
         writer.close();
     }
@@ -212,7 +215,7 @@ public class Experiments {
             //System.out.println(first + " " + second + " " + third);
             Tuple hash = new Tuple(first, second);
             //if (counter > 4000000)
-                Variables.allMinimalNFAs.insertValue(hash);
+                Variables.allMinimalDFAs.insertValue(hash);
             if (counter++ % 100000 == 99999){
                 System.err.println(counter + " hashes processed");
             }
@@ -224,16 +227,38 @@ public class Experiments {
     nahodne NKA 5-stavove
     */
     public static void fiveStateNFAs(long numberOfSamples) throws Exception{
-        Experiments.automataFileToHashes(); // nacitame kody jazykov akceptovanych 4 a menej-stavovymi NKA
+        Variables.initialize();
+        Variables.allMinimalDFAs.clear(); // precistime mapu s automatmi
+        Experiments.readAutomataHashes(); // nacitame kody jazykov akceptovanych 4 a menej-stavovymi NKA
         AutomatonIterator it = new AutomatonIterator(5);
         long counter = 0;
-        FastPrint fp = new FastPrint("5StateNFAvsDFA.txt");
+        int time = (int)((System.nanoTime()) / 1000000000);
+
+        FastPrint fp = new FastPrint("5StateNFAvsDFA" + time + ".txt"); // subor, kam sa vypisu rozdiely v poctoch stavov min NFA, DFA
+        FastPrint automata = new FastPrint("5StateAutomata" + time + ".txt"); // subor, kam sa vypisu samotne najdene NFA, DFA
+        automata.println(
+                    "#initial state is fixed to 0 the format of output is the following\n"
+                            + "#/number of the automaton\n"
+                            + "#number of states\n"
+                            + "#id of initial state (-1 if none)\n"
+                            + "#number of final states followed by final states enumeration\n"
+                            + "#number of transitions followed by its enumeration\n"
+                            + "#from_state to_state character\n"
+                            + "#begin of output:\n"
+            );
         
         for(long i = 0;i < numberOfSamples;i++){
+            
+            if (i % 100000 == 0) {
+                int seconds = (int)((System.nanoTime() - Variables.start) / 1000000000);
+                System.err.printf("%d automata generated, time: %s, %d automata in MinimalAutomatonHashMap%n", i, Functions.getFormattedTime(seconds),Variables.allMinimalDFAs.size());
+            }
+            
             Automaton a = it.random();
-            if(Variables.allMinimalNFAs.tryToInsert(a)){
+            if(Variables.allMinimalDFAs.tryToInsert(a)){
                 counter++;
                 fp.println(a.numberOfStates() + " " + a.minimalDFA().numberOfStates());
+                a.print(automata, counter);
             }
         }
         fp.close();

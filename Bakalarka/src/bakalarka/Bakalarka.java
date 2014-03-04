@@ -26,10 +26,6 @@ public class Bakalarka {
     public static void main(String[] args) throws Exception {
         //Experiments.automataDistributionExperiment(3);
         
-        AutomatonIterator it = new AutomatonIterator(5);
-        for(int i = 0; i < 100;i++){
-            System.out.println(it.random());
-        }
         
         /*AutomatonIterator it = new NaiveAutomatonIterator(2);
         int k = 0;
@@ -42,8 +38,18 @@ public class Bakalarka {
         System.out.println(k);*/
 
         //Experiments.automataFileToHashes();
+        //Experiments.generateAllNFAsOfSize(3);
         
-        //Experiments.fiveStateNFAs(100000);
+        //Variables.initialize(); // aby sme inicializovali cas
+
+        //Experiments.generateAllNFAsOfSize(2);
+        System.out.println("run 1");
+        Experiments.fiveStateNFAs(1000000000);
+        System.out.println("run 2");
+        Experiments.fiveStateNFAs(1000000000);
+        System.out.println("run 3");
+        Experiments.fiveStateNFAs(1000000000);
+        
         /*Variables.initialize();
         Experiments.readAutomataHashes();*/
         /*

@@ -23,10 +23,10 @@ public class FastPrint {
     BufferedWriter out;
     
     public FastPrint() throws FileNotFoundException, IOException{
-        out = new BufferedWriter(new FileWriter(Variables.outputFile), 32768);
+        out = new BufferedWriter(new FileWriter(Variables.outputFile,false), 32768);
     }
     
-    // konstruktor dany menom suboru - tento do suboru pridava, neprepise ho cely
+    // konstruktor dany menom suboru - tento do suboru pridava
     public FastPrint(String fileName) throws IOException{
         out = new BufferedWriter(new FileWriter("./" + fileName,true), 32768);
     }

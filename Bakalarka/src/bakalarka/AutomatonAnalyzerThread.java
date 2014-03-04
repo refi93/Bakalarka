@@ -80,10 +80,10 @@ public class AutomatonAnalyzerThread extends Thread {
                     }
                 }
                 try {
-                    if (!Variables.allMinimalNFAs.containsEquivalent(a)){ // prvy test je vyskusat, ci to neni ekvivalentne s niektorym s mensich automatov
+                    if (!Variables.allMinimalDFAs.containsEquivalent(a)){ // prvy test je vyskusat, ci to neni ekvivalentne s niektorym s mensich automatov
                         if(minimalNFAsResult.tryToInsert(a)){
                             automatonCounter++;
-                            a.print(vypisAutomatov,automatonCounter+Variables.allMinimalNFAs.size());
+                            a.print(vypisAutomatov,automatonCounter+Variables.allMinimalDFAs.size());
                             
                             // nasledujuca optimalizacia je implementovana len pre autoamty nad 2-znakovou abecedou
                             if (Variables.alphabet.size() == 2){
@@ -91,7 +91,7 @@ public class AutomatonAnalyzerThread extends Thread {
                                 Variables.counterOfTestedAutomata++;
                                 if(minimalNFAsResult.tryToInsert(switchedA)){ 
                                     automatonCounter++;
-                                    switchedA.print(vypisAutomatov,automatonCounter+Variables.allMinimalNFAs.size());
+                                    switchedA.print(vypisAutomatov,automatonCounter+Variables.allMinimalDFAs.size());
                                 }
                             }
                         }

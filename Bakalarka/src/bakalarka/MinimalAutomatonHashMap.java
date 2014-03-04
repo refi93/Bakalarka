@@ -57,6 +57,7 @@ public class MinimalAutomatonHashMap {
         this.size = 0;
         this.max_collisions = 0;
         this.comparison_count = 0;
+        this.allMinDFACodes.clear();
     }
     
     public long size(){
