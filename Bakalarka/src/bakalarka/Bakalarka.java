@@ -9,6 +9,7 @@ package bakalarka;
 import java.io.File;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Scanner;
 
 
@@ -23,7 +24,14 @@ public class Bakalarka {
     
     
     public static void main(String[] args) throws Exception {
-        AutomatonIterator it = new NaiveAutomatonIterator(2);
+        //Experiments.automataDistributionExperiment(3);
+        
+        AutomatonIterator it = new AutomatonIterator(5);
+        for(int i = 0; i < 100;i++){
+            System.out.println(it.random());
+        }
+        
+        /*AutomatonIterator it = new NaiveAutomatonIterator(2);
         int k = 0;
         while(it.hasNext()){
             it.next();
@@ -31,7 +39,7 @@ public class Bakalarka {
             //System.out.println("");
             k++;
         }
-        System.out.println(k);
+        System.out.println(k);*/
 
         //Experiments.automataFileToHashes();
         

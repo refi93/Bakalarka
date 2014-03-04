@@ -7,6 +7,7 @@
 package bakalarka;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -33,7 +34,7 @@ public class AutomatonIterator implements Iterator{
     Identificator currentInitialStateId;
     // pocet stavov, ktory uvazujeme
     Integer numberOfStates;
-    boolean hasNext;
+    private boolean hasNext;
     
     
     public void printState(FastPrint out) throws IOException{
@@ -148,13 +149,34 @@ public class AutomatonIterator implements Iterator{
         return hasNext;
     }
     
+    
+    /* generujeme nahodne automaty s tym, ze mame zaruku, ze vygenerovane automaty
+    budu mat suvislu delta-funkciu a neprazdnu mnozinu akceptacnych stavov
+    */ 
     public Automaton random() throws Exception{
         MatrixIterator matrixIt = new MatrixIterator(this.numberOfStates);
-        SubsetIterator subsetIt = new SubsetIterator(this.numberOfStates);
+        // chceme iterator bez optimalizacii, aby boli vsetky moznosti rovnako pravdepodobne
+        // inak by napr. pociatocny stav mal 50% pravdepodobnost, ze bude akceptacny, co nechceme
+        SubsetIterator subsetIt = new NaiveSubsetIterator(this.numberOfStates);
         HashMap<Character,Matrix> transitions = new HashMap<>();
         
-        for (Character c : Variables.alphabet){
-            transitions.put(c,matrixIt.random());
+        // tu si ulozime matice susednosti z delta-funkcie
+        ArrayList<Matrix> arr = new ArrayList<>();
+        // generujeme dokym bude suvisla delta-funkcia
+        while(true){
+            // matica sluziaca na overenie suvislosti delta-funkcie
+            Matrix union = new Matrix(0);
+        
+            for (Character c : Variables.alphabet){
+                arr.add(matrixIt.random());
+                union = arr.get(arr.size() - 1).union(union);
+            }
+            if (union.isConnected()) break;
+            arr.clear(); // ak to nie su dobre matice, tak pole s maticami vycistime
+        }
+        
+        for(int i = 0;i < arr.size();i++){
+            transitions.put(Variables.alphabet.get(i),arr.get(i));
         }
         
         return new Automaton(transitions,new Identificator(0),subsetIt.random());

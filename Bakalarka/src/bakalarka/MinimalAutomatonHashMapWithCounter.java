@@ -12,15 +12,15 @@ import java.util.HashSet;
 /**
  *
  * @author raf
+ * funguje podobne ako MinimalAutomatonHashMap, ale pamatame si ku kazdemu jazyku aj
+ * pocet NKA, ktory ho akceptuje, ktore sme sa pokusili vlozit
  */
 public class MinimalAutomatonHashMapWithCounter extends MinimalAutomatonHashMap {
-    HashMap<Tuple,Integer> allMinDFACodes;
-    public int comparison_count = 0;
-    int max_collisions = 0;
+    HashMap<Tuple,Integer> allMinDFACodesWithCounter;
     private long size = 0;
     
     public MinimalAutomatonHashMapWithCounter(){
-        this.allMinDFACodes = new HashMap<>();
+        this.allMinDFACodesWithCounter = new HashMap<>();
     }
     
     
@@ -29,7 +29,7 @@ public class MinimalAutomatonHashMapWithCounter extends MinimalAutomatonHashMap 
     /* overi, ci sa tu nenachadza uz nejaky iny ekvivalentny automat */
     public boolean containsEquivalent(Automaton a) throws Exception{
         Tuple hash = a.myHashCode();
-        return this.allMinDFACodes.containsKey(hash);
+        return this.allMinDFACodesWithCounter.containsKey(hash);
     }
     
     
@@ -38,14 +38,14 @@ public class MinimalAutomatonHashMapWithCounter extends MinimalAutomatonHashMap 
         boolean ret;
         
         // ak sa kod jazyka este nenachadza v mape, vlozime k tomu kodu jazyka pocitadlo nastavene na 0
-        if (!this.allMinDFACodes.containsKey(a.myHashCode())){
+        if (!this.allMinDFACodesWithCounter.containsKey(a.myHashCode())){
             ret = true;
-            this.allMinDFACodes.put(a.myHashCode(), 0);
+            this.allMinDFACodesWithCounter.put(a.myHashCode(), 1);
         }
         else{ // inak zvacsime pocitadlo
-            int x = this.allMinDFACodes.get(a.myHashCode());
+            int x = this.allMinDFACodesWithCounter.get(a.myHashCode());
             x++;
-            this.allMinDFACodes.put(a.myHashCode(), x);
+            this.allMinDFACodesWithCounter.put(a.myHashCode(), x);
             ret = false;
         }
         if (ret) this.size++;
@@ -54,11 +54,11 @@ public class MinimalAutomatonHashMapWithCounter extends MinimalAutomatonHashMap 
     
     /* vlozenie rovno hodnoty bez kontroly - pouziva sa pri mergeovani threadov */
     public void insertValue(Tuple hash){
-        if(!this.allMinDFACodes.containsKey(hash)){
+        if(!this.allMinDFACodesWithCounter.containsKey(hash)){
             this.size++;
         }
         else{
-            this.allMinDFACodes.put(hash, 0);
+            this.allMinDFACodesWithCounter.put(hash, 1);
         }
     }
     
@@ -67,6 +67,6 @@ public class MinimalAutomatonHashMapWithCounter extends MinimalAutomatonHashMap 
         this.size = 0;
         this.max_collisions = 0;
         this.comparison_count = 0;
-        this.allMinDFACodes.clear();
+        this.allMinDFACodesWithCounter.clear();
     }
 }

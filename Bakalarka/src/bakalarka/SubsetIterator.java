@@ -88,7 +88,8 @@ public class SubsetIterator implements Iterator{
     /* vrati nahodnu podmnozinu */
     public HashSet<Identificator> random(){
         long pom = this.state;
-        this.state = Math.abs(Variables.generator.nextLong()) % this.limit;
+        // zaujimaju nas vsetky mozne mnoziny okrem prazdnej
+        this.state = Math.abs(Variables.generator.nextLong()) % (this.limit - 1) + 1;
         HashSet<Identificator> ret = this.next();
         this.state = pom;
         return ret;

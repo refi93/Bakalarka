@@ -238,4 +238,20 @@ public class Experiments {
         }
         fp.close();
     }
+    
+    public static void automataDistributionExperiment(int n) throws Exception{
+        MinimalAutomatonHashMapWithCounter languages = new MinimalAutomatonHashMapWithCounter();
+        for(int i = 1;i <= n;i++){
+            NaiveAutomatonIterator it = new NaiveAutomatonIterator(i);
+            while(it.hasNext()){
+                languages.tryToInsert(it.next());
+            }
+        }
+        
+        FastPrint fp = new FastPrint("AutomataDistribution.txt");
+        for(Tuple t : languages.allMinDFACodesWithCounter.keySet()){
+            fp.println(t + " " + languages.allMinDFACodesWithCounter.get(t));
+        }
+        fp.close();
+    }
 }
