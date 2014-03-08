@@ -1,8 +1,9 @@
 \chapter{Minimalizácia DKA, NKA}
 
 \label{brzozowski}
-\section{Minimalizácia DKA - Brzozowského algoritmus}
+\section{Minimalizácia DKA}
 
+\subsection{Brzozowského algoritmus}
 Je to jeden z algoritmov, pomocou ktorého dokážeme k danému DKA A nájsť minimálny DKA B akceptujúci ten istý jazyk. Samotný algoritmus pracuje veľmi jednoducho, ale najprv si definujme, resp. popíšme základne operácie, ktoré budeme na jeho realizáciu využívať:
 
 \begin{defn}{\textbf {\textit {Reverz konečného automatu}}} $A=(K_A,\Sigma,\delta_A,q_{0},F_A)$ je konečný automat $R(A)=(K_A,\Sigma,\delta_{R(A)},F_A,q_{O})$, pre ktorý platí:
@@ -16,6 +17,37 @@ Na vstupe máme DKA $A=(K_A,\Sigma,\delta_A,q_{0A},F_A)$. Nech operácia $R(A)$ 
 \\
 \centerline{$B=D(R(D(R(A))))$}
 Operácia determinizácie môže mať až exponenciálnu časovú zložitosť vzhľadom na počet stavov pôvodného NKA, keďže toľko stavov môže teoreticky mať DKA ekvivalentný k danému NKA, ako aj naznačovala vyššie uvedená konštrukcia na determinizáciu NKA, avšak v priemernom prípade sa to nejaví byť až také zlé. Takúto časovú zložitosť v konečnom dôsledku dosahuje aj Brzozowského algoritmus, keďže využíva túto operáciu. I keď existujú aj asymptoticky rýchlejšie algoritmy na minimalizáciu NKA, menovite Hopcroftov algoritmus s časovou zložitosťou $O(nslog(n))$, kde $n$ je počet stavov pôvodného DKA a $s$ počet znakov abecedy, ukázalo sa prekvapivo, že aj takýto jednoduchý, i keď pomalší algoritmus bude postačovať pre naše potreby
+
+
+\paragraph{}
+Uvedieme si ešte pre úplnosť ďalší, efektívnejší algoritmus na minimalizáciu DKA, i keď sme ho napokon neimplementovali:
+
+\subsection{Hopcroftov algoritmus}
+Algoritmus si uvedieme podobne, ako je to v \cite{petruchova}.
+\begin{defn}{\textbf {\textit {Rozklad}}} množiny K tvoria po dvojiciach disjunktné množiny $K_1,K_2,...,K_N$ (tzv. triedy rozkladu) také, že ich zjednotenie tvorí práve množinu K. \end{defn}
+
+\begin{defn}{\textbf {\textit {Kongruencia automatu}}} A je je rozklad množiny stavov K taká, že pre každú triedu rozkladu $K_i$ platí:
+\\
+\centerline{$\forall p,q \in K, a \in \Sigma: (p,q \in K_i) \Rightarrow (\delta(p,a),\delta(q,a) \in K_j)$}
+\end{defn}
+
+\begin{defn}Rozklad $\{K_1,K_2,...,K_n\}$ pokladáme za hrubší ako rozklad $\{K_1',K_2',...,K_m'\}$, pokiaľ každá z tried $K_1,...,K_m$ je zjednotením niekoľkých tried z $K_1',...,K_m'$ \end{defn}
+
+Keď sme si už definovali potrebné pojmy, prejdime na samotný algoritmus. Na začiatku budeme uvažovať dve základné triedy rozkladu množiny stavov automatu A, a to množinu akceptačných a tých ostatných, teda neakceptačných stavov, teda množiny $F$ a $F^C$. Tento rozklad budeme postupne zjemňovať pokiaľ to len bude možné a takto dostaneme najhrubšiu kongruenciu automatu A, ktorá definuje stavy hľadaného minimálneho DKA.
+
+\paragraph{}
+Máme rozklad P a množinu dvojíc S = (C,a), kde $a \in \Sigma$ a C je trieda rozkladu P. Budeme pracovať s dvojicami v množine S. Na začiatku $P=\{F,F^C\}$ a $S = (C,a) \forall a \in \Sigma$, kde C je menšia z tried F, F^C. Algoritmus je potom nasledovný:
+
+Vyberieme jednu dvojicu (C,a) z S a pre každú triedu B rozkladu P vykonáme nasledujúce:
+\begin{itemize}
+  \item Overíme, či $(C,a)$ rozdeľuje B na nové triedy rozkladu, t.j. či platí, že:
+  \\
+  \centerline{$\exists p,q \in B: \delta(p,a) \in C \wedge \delta(q,a) \not\in C$}
+  \\ Ak (C,a) nerozdeľuje B, tak prejdeme na ďalšiu triedu B. Ak (C,a) rozdeľuje B, vytvoríme nové triedy $B_1 = \{q|\delta(q,a) \in C\}$ a $B_2 = \{q|\delta(q,a) \not\in C\}$.
+  \item  Triedu B v P zrušíme a nahradíme ju triedami $B_1$ a $B_2$. Teda pre každé $b \in \Sigma$ ak $(B,b) \in S$, tak nahradíme to pármi $(B_1,b)$ a $(B_2,b)$ Ak sa $(B,b)$ v S nenachádza, vyberieme menšiu z množín $B_1$, $B_2$, nech je to $B'$, a pridáme do S dvojicu $(B',b)$.
+\end{itemize}
+Tieto kroky cyklicky opakujeme, až sa množina S vyprázdni. Rozklad P bude reprezentovať stavy výsledného minimálneho DKA a jeho $\delta$-funkcia bude zasa množina S. Akceptačné stavy budú tie triedy, ktoré sú podmnožinami triedy F. Časová zložitosť algoritmu je $O(ns log n)$ kde n je počet stavov DKA na v stupe a s je veľkosť abecedy, ktorú pre naše potreby môžeme pokladať za konštantnú, čiže reálne máme časovú zložitosť $O(n log n)$. Dôkaz správnosti tohto algoritmu je uvedený v \cite{hudakova}.
+
 
 \section{Minimalizácia NKA}
 

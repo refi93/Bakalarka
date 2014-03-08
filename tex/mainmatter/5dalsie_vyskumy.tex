@@ -2,10 +2,94 @@
 
 V tejto kapitole sa budeme zaoberať ďalšími otázkami, ktoré síce nie sú hlavným predmetom tejto práce, ale odpovede na ne sme dostali ako vedľajší produkt nášho výskumu.
 
-\section{NKA do 5 stavov}
-Keď už máme zistené jazyky akceptované NKA do 4 stavov, mohli by sme sa pýtať ako je to pri NKA s 5 stavmi. Aj keby sme zapojili "do hry" optimalizácie, ktoré nám pomohli pri NKA do 4 stavov, zrejme by to trvalo neúnosne dlho. Čo ale môžeme urobiť je, že si vezmeme všetky nájdené jazyky akceptované NKA do 4 stavov a budeme veľakrát generovať náhodné 5-stavové NKA. Následne zistíme, koľkokrát sa nám po vygenerovaní náhodného 5-stavového NKA podarí natrafiť na nový jazyk. Takto môžeme dostať aspoň približný odhad počtu jazykov akceptovaných NKA do 5 stavov.
+\section{Deterministická zložitosť jazykov s nedeterministickou zložitosťou 5}
 
-TODO
+Keď už máme zistené jazyky akceptované NKA do 4 stavov, mohli by sme sa pýtať ako je to pri NKA s 5 stavmi. Aj keby sme zapojili "do hry" optimalizácie, ktoré nám pomohli pri NKA do 4 stavov, zrejme by to trvalo neúnosne dlho. Čo ale môžeme urobiť je, že si vezmeme všetky nájdené jazyky akceptované NKA do 4 stavov a budeme veľakrát generovať náhodné 5-stavové NKA. Ak nájdeme nejaký nový jazyk, zistíme si jeho deterministickú zložitosť. Takto dostaneme vzorku jazykov s nedeterministickou zložitosťou 5, u ktorých môžeme analyzovať ich deterministickú stavovú zložitosť. Aby sme zabezpečili rovnomerný výber naprieč priestorom všetkých 5-stavových NKA, tak sme volili náhodný počiatočný stav, náhodnú množinu akceptačných stavov a dve náhodné matice susednosti reprezentujúce $/delta$-funkciu.
+
+\paragraph{}
+Program našiel po vygenerovaní miliardy náhodných 5-stavových NKA 5 212 695 nových jazykov a ich priemerná deterministická zložitosť bola približne 9.2427. Výsledná distibúcia vyzerá nasledovne:
+\pagebreak
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|c|r|}
+    \hline
+    Deterministická zložitosť & počet & \~\% \\ 
+    \hline
+    5 & 17 040 & 0.326 894 \\
+    \hline
+    6 & 210 762 & 4.043 244 \\
+    \hline
+    7 & 682 295 & 13.089 102 \\
+    \hline
+    8 & 1 176 965 & 22.578 819 \\
+    \hline
+    9 & 1 171 386 & 22.471 792 \\
+    \hline
+    10 & 823 659 & 15.801 020 \\
+    \hline
+    11 & 499 051& 9.573 761 \\
+    \hline
+    12 & 281 152 & 5.393 601 \\
+    \hline
+    13 & 155 863 & 2.990 065 \\
+    \hline
+    14 & 86 740 & 1.664 014 \\
+    \hline
+    15 & 47 259 & 0.906 613 \\
+    \hline
+    16 & 27 164 & 0.521 112 \\
+    \hline
+    17 & 14 671 & 0.281 447 \\
+    \hline
+    18 & 8 114 & 0.155 658 \\
+    \hline
+    19 & 4 551 & 0.087 306 \\
+    \hline
+    20 & 2 494 & 0.047 844 \\
+    \hline
+    21 & 1 445 & 0.027 720 \\
+    \hline
+    22 & 809 & 0.015 519 \\
+    \hline
+    23 & 466 & 0.008 939 \\
+    \hline
+    24 & 311 & 0.005 966 \\
+    \hline
+    25 & 131 & 0.002 513 \\
+    \hline
+    26 & 185 & 0.003 549 \\
+    \hline
+    27 & 57 & 0.001 093 \\
+    \hline
+    28 & 27 & 0.000 517 \\
+    \hline
+    29 & 14 & 0.000 268 \\
+    \hline
+    30 & 29 & 0.000 556 \\
+    \hline
+    31 & 51 & 0.000 978 \\
+    \hline
+    32 & 4 & 0.000 076 \\
+    \hline
+  \end{tabular}
+  \caption{Distribúcia stavových zložitostí pre nájdené jazyky akceptované 5-stavovými NKA}
+\end{table}
+
+
+
+\section{Distribúcia jazykov vzhľadom na počet minimálnych NKA, ktorý ich akceptuje}
+
+\subsection{Popis problému}
+Ďalšia otázka, ktorú si kladieme je, koľko pre daný jazyk existuje neizomorfných minimálnych NKA? Zvlášť by nás mohli zaujímať jazyky, pre ktoré existuje jednoznačný minimálny NKA. Experiment vykonáme tak, že budeme generovať zaradom všetky možné NKA. Popri tom budeme mať HashMapu, kde si budeme pamätať ku kódom jednotlivých jazykov počet vygenerovaných NKA, ktorý tento jazyk akceptujú. Po skončení generovania ešte tieto výsledky utriedime pre lepšiu analýzu.
+
+\subsection{Realizácia}
+Je dôležité si uvedomiť, že treba generovať skutočne všetky NKA, resp. musíme byť redukovaní počtu NKA veľmi opatrní, aby sme priestor NKA zredukovali rovnomerne pre všetky jazyky. Keby sme ,,bezhlavo'' použili tie isté metódy, čo pri experimente, kde sme zisťovali počet jazykov akceptovaných NKA tak je napríklad ťažké predvídať, čo by presne urobila s priestorom NKA optimalizácia spojená s množinou akceptačných stavov, keďže táto by osekala viac množinu NKA, čo majú viacero akceptačných stavov oproti NKA s jedným, resp. menej akceptačnými stavmi a tým pádom by sme nemuseli dostať požadované výsledky. 
+\paragraph{}
+Rozhodli sme sa preto povoliť len optimalizáciu s fixovaním počiatočného stavu na 0, keďže pri nej sa pre každý jazyk počet NKA, ktoré ho akceptujú, zredukuje rovnomerne. Nie je ťažké vidieť, že to bude n-násobne, kde n je počet stavov NKA, ktoré uvažujeme
+\paragraph{}
+Zaiste, dali by sa uvažovať aj ďalšie z predošlých optimalizácii, čo do počtu vygenerovaných NKA, ktoré by osekali priestor možných NKA rovnomerne vzhľadom na jazyky. Nakoľko sme sa ale rozhodli tento experiment vykonať len pre NKA do 3 stavov, tak neboli potrebné. 
+
 \label{safeWordLength}
 \section{Dĺžka slov, ktoré jednoznačne odlíšia dva NKA}
 

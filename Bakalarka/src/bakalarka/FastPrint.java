@@ -27,8 +27,8 @@ public class FastPrint {
     }
     
     // konstruktor dany menom suboru - tento do suboru pridava
-    public FastPrint(String fileName) throws IOException{
-        out = new BufferedWriter(new FileWriter("./" + fileName,true), 32768);
+    public FastPrint(String fileName,boolean preservePrevious) throws IOException{
+        out = new BufferedWriter(new FileWriter("./" + fileName, preservePrevious), 32768);
     }
     
     public static void cleanFile(String fileName) throws IOException{

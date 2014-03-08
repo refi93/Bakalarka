@@ -4,9 +4,9 @@ Konečné automaty majú uplatnenie vo viacerých oblastiach informatiky, naprí
 
 Je známe, že hoci výpočtová sila deterministických konečných automatov (DKA) je ekvivalentná výpočtovej sile nedeterministických konečných automatov (NKA), minimálny DKA môže vzhľadom na ekvivalentný minimálny NKA mať potenciálne až $2^n$ stavov, kde $n$ je počet stavov pôvodného NKA. Pomerne často sa ale môžeme stretnúť s prípadmi, kedy je tento nárast značne menší.
 
-Výhodou NKA, ako sme vyššie spomínali, je menší počet stavov a jednoduchší návrh, keďže tam nie sú také striktné požiadavky. Na druhú stranu, DKA sa jednoduchšie implementujú, keďže to lepšie zodpovedá spôsobu, akým fungujú súčasné počítače a v konečnom dôsledku aj väčšina programovacích jazykov. Preto, a nielen preto, by nás mohlo zaujímať, aké je to v skutočnosti ,,zlé'' alebo ,,dobré'' s tým počtom stavov pri DKA. 
+Výhodou NKA, ako sme vyššie spomínali, je menší počet stavov a jednoduchší návrh, keďže tam nie sú také striktné požiadavky. Na druhú stranu, DKA sa jednoduchšie implementujú, keďže to lepšie zodpovedá spôsobu, akým fungujú súčasné počítače a v konečnom dôsledku aj väčšina programovacích jazykov. Aj preto by nás mohlo zaujímať, aké je to v skutočnosti ,,zlé'' alebo ,,dobré'' s počtom stavov pri DKA. 
 
-Naším cieľom bude tento nárast počtu stavov v priemernom prípade experimentálne odmerať aspoň pre NKA do 4-5 stavov nad binárnou abecedou, prípadne pokúsiť sa nahliadnuť ako to vyzerá pri unárnej alebo trojznakovej abecede.
+Naším cieľom bude tento nárast počtu stavov v priemernom prípade experimentálne odmerať aspoň pre NKA do 4-5 stavov nad binárnou abecedou, prípadne pokúsiť sa nahliadnuť ako to vyzerá pri iných abecedách.
 
 Druhá, nemenej zaujímavá, otázka, na ktorú sa pokúsime odpovedať bude, koľko jedinečných regulárnych jazykov sú schopné akceptovať nedeterministické automaty ohraničené malým počtom stavov nad malou abecedou. Bude to jeden z výsledkov, ktorý vyplynie zo spôsobu, akým budeme náš experiment vykonávať.
 

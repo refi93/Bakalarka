@@ -47,7 +47,7 @@ public class AutomatonAnalyzerThread extends Thread {
         FastPrint vypisAutomatov = null;
         long automatonCounter = (long)0;
         try {
-            vypisAutomatov = new FastPrint(Variables.outputFileForAutomata);
+            vypisAutomatov = new FastPrint(Variables.outputFileForAutomata, true);
             
             vypisAutomatov.println(
                     "#initial state is fixed to 0 the format of output is the following\n"

@@ -16,6 +16,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -234,8 +236,8 @@ public class Experiments {
         long counter = 0;
         int time = (int)((System.nanoTime()) / 1000000000);
 
-        FastPrint fp = new FastPrint("5StateNFAvsDFA" + time + ".txt"); // subor, kam sa vypisu rozdiely v poctoch stavov min NFA, DFA
-        FastPrint automata = new FastPrint("5StateAutomata" + time + ".txt"); // subor, kam sa vypisu samotne najdene NFA, DFA
+        FastPrint fp = new FastPrint("5StateNFAvsDFA" + time + ".txt", false); // subor, kam sa vypisu rozdiely v poctoch stavov min NFA, DFA
+        FastPrint automata = new FastPrint("5StateAutomata" + time + ".txt", false); // subor, kam sa vypisu samotne najdene NFA, DFA
         automata.println(
                     "#initial state is fixed to 0 the format of output is the following\n"
                             + "#/number of the automaton\n"
@@ -266,16 +268,33 @@ public class Experiments {
     
     public static void automataDistributionExperiment(int n) throws Exception{
         MinimalAutomatonHashMapWithCounter languages = new MinimalAutomatonHashMapWithCounter();
+        ArrayList<Tuple> InterestingLanguageHashCodes = new ArrayList<>(); // tu si zapamatame kody jazykov, ktore chceme analyzovat - 
+        // teda tie s nedeterministickou zlozitostou n
+        
         for(int i = 1;i <= n;i++){
             NaiveAutomatonIterator it = new NaiveAutomatonIterator(i);
+            int j = 0;
             while(it.hasNext()){
-                languages.tryToInsert(it.next());
+                j++;
+                Automaton a = it.next();
+                if (languages.tryToInsert(a) && (i == n)){ // zaujimaju nas len n-stavove NKA
+                    InterestingLanguageHashCodes.add(a.myHashCode());
+                }
             }
+            System.out.println(j);
         }
         
-        FastPrint fp = new FastPrint("AutomataDistribution.txt");
-        for(Tuple t : languages.allMinDFACodesWithCounter.keySet()){
+        ArrayList<Integer> x = new ArrayList(); // tu si pamatame pocty
+        FastPrint fp = new FastPrint("AutomataDistribution.txt",false);
+        for(Tuple t : InterestingLanguageHashCodes){
+            x.add(languages.allMinDFACodesWithCounter.get(t));
             fp.println(t + " " + languages.allMinDFACodesWithCounter.get(t));
+        }
+        fp.close();
+        Collections.sort(x);
+        fp = new FastPrint("sortedDistribution.txt",false);
+        for(Integer a : x){
+            fp.println(a.toString());
         }
         fp.close();
     }
