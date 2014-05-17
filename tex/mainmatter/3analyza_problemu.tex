@@ -1,16 +1,16 @@
 \chapter{Analýza problému}
-Jednou z naších hlavných úloh, ako sme v úvode spomínali, je zistiť počet rôznych regulárnych jazykov na 2-znakovej abecede do štyroch stavov, resp. zmerať nárast počtu stavov po prevedení minimálneho NKA na minimálny DKA. Tento nárast budeme merať vzhľadom na jazyky, t.j. pre každý regulárny jazyk práve raz. Tieto dve úlohy teda spolu veľmi úzko súvisia, nakoľko keď generujeme NKA a overujeme, či je minimálny a nebol predtým vygenerovaný nejaký ekvivalentný, pokiaľ je odpoveď kladná, tak vieme, že sme práve narazili na nový regulárny jazyk a tento NKA, resp. minimálny DKA k nemu môžeme zvoliť za reprezentanta. Rozoberme si podrobnejšie, čo na to budeme potrebovať.
+Jednou z našich hlavných úloh, ako sme v úvode spomínali, je zmerať nárast počtu stavov po prevedení minimálneho NKA na minimálny DKA. Ďalšou je zistiť počet rôznych regulárnych jazykov na binárnej abecede do štyroch stavov. Tento nárast budeme merať vzhľadom na jazyky, t.j. pre každý regulárny jazyk práve raz. Tieto dve úlohy spolu veľmi úzko súvisia, nakoľko nárast počtu stavov pri determinizácii budeme merať experimentálne vygenerovaním všetkých jazykov akceptovaných NKA do daného počtu stavov. Rozoberme si podrobnejšie, čo na to budeme potrebovať.
 
 
 \section{Použitý programovací jazyk}
-Na začiatok by sa patrilo spomenúť, v čom budeme implementovať náš experiment. Zvolili sme si Javu. K programu nájdete dokumentáciu v kapitole 6.
+Na implementáciu všetkých experimentov bola zvolená Java. Stručnú dokumentáciu k programu nájde čitateľ v kapitole 6.
 
 \label{genNKA}
 \section{Generovanie NKA}
-NKA budeme generovať vzostupne podľa počtu stavov. Akonáhle vygenerujeme NKA, overíme, či sme už predtým nevygenerovali NKA, ktoré by akceptovalo rovnaký jazyk. Na začiatok by sme si mohli zrátať, koľko NKA by sme vygenerovali, keby sme generovali skutočne všetky:
+NKA budeme generovať vzostupne podľa počtu stavov. Akonáhle vygenerujeme NKA, overíme, či sme už predtým nevygenerovali NKA, ktoré by akceptovalo rovnaký jazyk. Najprv vypočítame, koľko NKA by bolo potrebné vygenerovať, keby sme generovali úplne všetky.
 
 \paragraph{}
-Otázka znie - koľko existuje všetkých možných NKA s n-stavmi pre 2-znakovú abecedu? Ako počiatočný stav si možeme zvoliť ľubovoľný z n stavov, máme teda n možností voľby počiatočného stavu. Za konečné stavy si môžeme zvoliť ľubovoľnú podmnožinu množiny stavov, t.j. máme $2^n$ možností. Ak si $\delta$-funkciu predstavíme ako graf, resp. jeho maticu susednosti, tak medzi n stavmi môže pre 1 znak existovať $n^2$ prechodov, keďže pripúšťame aj slučky.
+Presnejšie, zaujíma nás, koľko existuje všetkých možných NKA s $n$-stavmi pre binárnu abecedu. Ako počiatočný stav si možeme zvoliť ľubovoľný z $n$ stavov, máme teda $n$ možností voľby počiatočného stavu. Za konečné stavy si môžeme zvoliť ľubovoľnú podmnožinu množiny stavov, t.j. máme $2^n$ možností. Ak si $\delta$-funkciu predstavíme ako graf, resp. jeho maticu susednosti, tak medzi $n$ stavmi môže pre jeden znak existovať $n^2$ prechodov, keďže pripúšťame aj slučky. Dokopy máme $2^{n^2}$ možností, ako zvoliť prechody medzi jednotlivými stavmi pre jeden znak. Naša abeceda má však dva znaky, teda možností bude $2^{2n^2}$. Keď to všetko zosumarizujeme, dostávame $n2^n2^{2n^2} = n2^{2n^2 + n}$ možných NKA.
 
 
 \begin{table}[h]
@@ -27,41 +27,41 @@ Otázka znie - koľko existuje všetkých možných NKA s n-stavmi pre 2-znakov�
     \hline
     4 & 274 877 906 944 \\
     \hline
+    5 & $1.8 \times 10^7$ \\
+    \hline
   \end{tabular}
   \caption{Počet všetkých možných NKA s n stavmi}
   \label{tab:pocVsNKA}
 \end{table}
 \paragraph{}
 
-
-Dokopy máme máme $2^{n^2}$ možností ako zvoliť prechody medzi jednotlivými stavmi pre jeden znak. Naša abeceda má ale 2 znaky, teda tých možností bude $2^{2n^2}$. Keď si to všetko spojíme dokopy, dostávame $n2^n2^{2n^2} = n2^{2n^2 + n}$ možných NKA(pozri tabuľku \ref{tab:pocVsNKA}).
+\paragraph{}
+Mohli by sme sa ešte pýtať, či má zmysel generovať aj NKA s prechodmi na $\epsilon$. Odpoveď je, že to zmysel nemá, nakoľko každý automat s prechodmi na $\epsilon$ dokážeme odepsilonovať bez zmeny počtu stavov. Nemôže sa stať, že by sme prechodmi na $\epsilon$ pridali automaty akceptujúce iné regulárne jazyky ako tie, čo prechody na $\epsilon$ nemajú.
 
 \paragraph{}
-Mohli by sme sa ešte pýtať, či má zmysel generovať aj NKA s prechodmi na $\epsilon$. Odpoveď je, že to zmysel nemá, nakoľko každý automat s prechodmi na epsilon dokážeme odepsilonovať bez zmeny počtu stavov, takže nemôže sa stať, žeby sme prechodmi na $\epsilon$ pridali automaty akceptujúce nejaké iné regulárne jazyky ako tie, čo prechody na epsilon nemajú.
+Z tabuľky vidno, že počet automatov prudko rastie a pre $n=4$ je počet NKA príliš veľký, aby sme si mohli dovoliť vygenerovať všetky, o $n=5$ nehovoriac. Mohli by sme sa pýtať, či potrebujeme skutočne všetky. Nemôžeme niektoré vynechať, lebo si budeme istí, že vygenerujeme určite iný ekvivalentný NKA s rovnakým počtom stavov? Odpoveď je, že môžeme a dokonca pomerne významne. Bude to séria optimalizácii, ktoré teraz uvedieme.
 
-\paragraph{}
-Z tabuľky vidno, že ten počet prudko rastie a pre n=4 je počet NKA príliš veľký, aby sme si mohli dovoliť vygenerovať všetky. Ale potrebujeme skutočne všetky? Nemôžme niektoré vynechať, lebo si budeme istí, že vygenerujeme určite iný ekvivalentný NKA s rovnakým počtom stavov? Odpoveď je, že môžme a dokonca pomerne významne. Bude to séria optimalizácii, ktoré si teraz uvedieme:
+\subsection{Fixovanie počiatočného stavu} Ako prvé si môžeme všimnúť, že nemá zmysel skúšať všetky možné počiatočné stavy, lebo ku každému NKA A existuje ekvivalentný izomorfný NKA B (taký, že má len prečíslované stavy), kde počiatočný stav má čislo 0. Tým zredukujeme počet generovaných automatov $n$-násobne, kde $n$ je počet stavov generovaných NKA.
 
-\subsection{Fixovanie počiatočného stavu} Ako prvé si môžeme všimnúť, že nemá zmysel skúšať všetky možné počiatočné stavy, nakoľko ku každému NKA A existuje ekvivalentný izomorfný NKA B (t.j., že má len prečíslované stavy), kde počiatočný stav má čislo 0.
-
-\subsection {Akceptačné stavy} Ďalšia vec, ktorá sa dá obmedziť, je množina akceptačných stavov. Zaujíma nás reálne len ich počet a na poradí až tak nezáleží, jedine na tom, či sa medzi akceptačnými stavmi nachádza aj ten počiatočný alebo nie. Argument je podobný ako minule. K danému NKA A existuje vždy ekvivalentný izomorfný NKA B, ktorého akceptačné stavy odlišné od počiatočného sú očíslované od 1 po k, resp. k-1 (ak 0 je akceptačný), kde k je počet akceptačných stavov NKA A a stav 0 je akceptačný, pokiaľ je akceptačný aj počiatočný stav automatu A. Stačí nám na to zobrať NKA A a v ňom priradiť počiatočnému stavu číslo 0 a akceptačným stavom zaradom čísla 1 až k-1, pokiaľ je 0 akceptačný, inak od 1 po k. Takto namiesto $2^n$ podmnožín stavov nám stačí generovať $(2n - 1)$ podmnožín, keďže prázdnu zjavne testovať nemá zmysel pre $n>1$, keďže automat pre prázdny jazyk ma triviálne 1 stav.
+\subsection {Akceptačné stavy} Ďalšia vec, ktorá sa dá obmedziť, je množina akceptačných stavov. Zaujíma nás reálne len ich počet a na poradí až tak nezáleží. Presnejšie, je dôležité iba to, či sa medzi akceptačnými stavmi nachádza aj počiatočný alebo nie. Argument je podobný ako v predchádzajúcom prípade. K danému NKA A existuje vždy ekvivalentný izomorfný NKA B, ktorého akceptačné stavy odlišné od počiatočného sú očíslované od $1$ po $k$, resp. $k-1$ (ak $0$ je akceptačný), kde $k$ je počet akceptačných stavov NKA A a počiatočný stav $0$ je akceptačný, ak je akceptačný aj počiatočný stav automatu A. Stačí na to zobrať NKA A a v ňom priradiť počiatočnému stavu číslo $0$. Ďalej, pokiaľ je $0$ akceptačný stav, tak ostatným akceptačným stavom priradíme zaradom čísla $1$ až $k-1$, inak od $1$ po $k$. Takto namiesto $2^n$ podmnožín stavov stačí generovať $(2n - 1)$ podmnožín, keďže prázdnu zjavne testovať nemá zmysel pre $n>1$, nakoľko automat pre prázdny jazyk ma zrejme jeden stav.
 
 
 \begin{defn}{\textbf {\textit {Substitúcia NKA podľa permutácie $\pi$ abecedy $\Sigma$.}}} Nech $A = (K,\Sigma,\delta,q_0,F)$ je NKA a $\pi$ je permutácia na abecede $\Sigma$. Potom NKA $S(A,\pi)=(K,\Sigma,\delta',q_0,F)$, kde pre $\delta'$ platí:
 \\
+\\
 \centerline{$\forall a\in \Sigma, p,q \in K: \delta'(p,\pi(a)) = q \Longleftrightarrow \delta(p,a) = q$}
 \end{defn}
-Neformálne - $S(A,\pi)$ je  automat, kde sú v každom prechode vymenené znaky, tak ako určuje permutácia $\pi$. Zjavne jazyk akceptovaný $S(A,\pi)$ má oproti jazyku akceptovanému automatom A iba zamenené znaky podľa permutácie $\pi$, inak má rovnakú štruktúru.
+Neformálne -- $S(A,\pi)$ je  automat, kde sú v každom prechode vymenené znaky tak ako určuje permutácia $\pi$. Zjavne jazyk akceptovaný $S(A,\pi)$ má oproti jazyku akceptovanému automatom A iba zamenené znaky podľa permutácie $\pi$, inak má rovnakú štruktúru.
 
 
-\subsection{Symetria v $\delta$-funkcii.} Môžeme si všimnúť, že pre každý NKA platí, že je minimálny pre jazyk, ktorý akceptuje práve vtedy, keď aj substitúcia tohto NKA podľa ľubovoľnej permutácie $\pi$ abecedy $\Sigma$ je minimálny NKA pre jazyk, kde sú zamenené znaky podľa tejto permutácie. Ak si reprezentujeme $\delta$-funkciu ako n-ticu matíc susednosti, kde $n=|\Sigma|$ (prechody pre každý znak abecedy majú vlastnú maticu susednosti), tak stačí nám teda minimálnosť overovať len pre jednu n-ticu, trebars tú, kde sú tie matice susednosti zoradené lexikograficky vzostupne. Ak nám vyjde, že tento automat minimálny nie je, alebo už predtým sme generovali ekvivalentný, tak vieme, že už nemá ďalej zmysel testovať ostatné permutácie matíc susednosti. Ak nám vyjde, že sme našli NKA pre nový jazyk, tak vtedy otestujeme aj permutácie. Pre dvojznakovú abecedu sme teda práve eliminovali potrebu generovať a testovať skoro polovicu (keďže nad dvomi znakmi sú len 2 permutácie) automatov, za predpokladu, že regulárnych jazykov je rádovo menej oproti NKA, ktoré ich akceptujú, čo sa ukazuje byť pravdivý predpoklad aspoň pre NKA do 4 stavov nad binárnou abecedou.    
+\subsection{Symetria v $\delta$-funkcii.} Všimnime si, že pre každý NKA platí, že je minimálny pre jazyk, ktorý akceptuje práve vtedy, keď aj substitúcia tohto NKA podľa ľubovoľnej permutácie $\pi$ abecedy $\Sigma$ je minimálny NKA pre jazyk so zamenenými znakmi podľa tejto permutácie. Ak si reprezentujeme $\delta$-funkciu ako $n$-ticu matíc susednosti, kde $n=|\Sigma|$ (prechody pre každý znak abecedy majú vlastnú maticu susednosti), tak stačí minimálnosť overovať len pre jednu $n$-ticu, napr. tú, v ktorej sú matice susednosti zoradené lexikograficky vzostupne. Ak sa ukáže, že tento automat minimálny nie je, alebo už predtým sme generovali ekvivalentný, tak vieme, že ďalej nemá zmysel testovať ostatné permutácie matíc susednosti. Ak zistíme, že sme našli NKA pre nový jazyk, tak otestujeme aj permutácie. Pre dvojznakovú abecedu sme týmto práve eliminovali potrebu generovať a testovať skoro polovicu automatov, keďže nad dvomi znakmi sú len dve permutácie. Samozrejme pritom predpokladáme, že regulárnych jazykov je rádovo menej oproti NKA, ktoré ich akceptujú, čo sa ukazuje byť pravdivý predpoklad aspoň pre NKA do 4 stavov nad binárnou abecedou.
 
 
-\subsection{Zahadzovanie nesúvislých $\delta$-funkcii.} NKA s nesúvislou $\delta$-funkciou sú pre nás nezaujímavé, lebo odstránením nedosiahnuteľných stavov zjavne dostaneme menší NKA akceptujúci ten istý jazyk, to znamená, že sám o sebe nemôže byť minimálny. Pokiaľ vidíme, že vygenerovaná matica susednosti pre $\delta$-funkciu (resp. ich bitový or, pokiaľ každý znak má vlastnú maticu susednosti) nereprezentuje súvislý graf, tak môžme ju rovno ignorovať a ušetriť si ďalšie testy.   
+\subsection{Zahadzovanie nesúvislých $\delta$-funkcii.} NKA s nesúvislou $\delta$-funkciou sú pre nás nezaujímavé, lebo odstránením nedosiahnuteľných stavov zjavne dostaneme menší NKA akceptujúci ten istý jazyk. To znamená, že nemôžu byť minimálne. Ak vidíme, že vygenerovaná matica susednosti pre $\delta$-funkciu (resp. ich bitový or, v prípade, že každý znak má vlastnú maticu susednosti) nereprezentuje súvislý graf, tak ju môžeme rovno ignorovať a ušetriť si ďalšie testy.   
 
 
 
-Prikladáme tabuľku obsahujúcu približné počty potrebných vygenerovaných NKA po uplatnení vyššie uvedených optimalizácii:
+Prikladáme tabuľku obsahujúcu približné počty potrebných vygenerovaných NKA po uplatnení spomínaných optimalizácii:
 
 \begin{table}[h]
   \centering
@@ -83,70 +83,86 @@ Prikladáme tabuľku obsahujúcu približné počty potrebných vygenerovaných 
   
   \label{tab:pocVsNKA}
 \end{table}
-Vidno, že pre $n=4$ to už sú pomerne prijateľné počty. Taktiež vidno, že pre $n=1$ to aj tak testovalo všetky NKA, čo je daň za jednoduchšiu implementáciu pre väčšie n. Ostatné hodnoty by mali zodpovedať približne tomu, koľko NKA treba otestovať skutočne po použití vyššie uvedených optimalizácii.
+
+Z tabuľky vidno, že pre $n=4$ ide už o pomerne prijateľné počty.
 
 \section{Testovanie ekvivalencie NKA}
-V predošlej časti sme riešili generovanie NKA, resp. minimalizáciu počtu vygenerovaných NKA. Ako ale efektívne zistiť, či sme už predtým nevygenerovali ekvivalentný NKA? V tejto časti sa na to pozrieme podrobnejšie.
+V predošlej časti sme riešili generovanie NKA, resp. minimalizáciu počtu vygenerovaných NKA. V tejto časti podrobnejše rozoberieme, ako efektívne zistiť, či sme už predtým nevygenerovali ekvivalentný NKA.
 
 \paragraph{}
-Testovať ekvivalenciu dvoch NKA priamo nie je veľmi pohodlné. Jednoduchšie je tento problém previesť na testovanie ekvivalencie DKA. Tam si môžeme vybrať z viacerých možností.
+Testovať ekvivalenciu dvoch NKA priamo nie je veľmi praktické. Jednoduchšie je tento problém previesť na testovanie ekvivalencie DKA. Tam si môžeme vybrať z viacerých možností.
 
-\subsection{Prvý spôsob testovania ekvivalencie DKA}
-Z teórie množín vieme, že $A = B \Longleftrightarrow A^C \cap B^C = \emptyset$, kde A, resp. B sú množiny. Rovnaká myšlienka sa dá aplikovať aj na regulárne jazyky. Výhoda tohto prístupu je, že pre dané DKA dokážeme jednoducho skonštruovať automat pre komplement (vymeníme akceptačné a neakceptačné stavy) a pre prienik jazykov akceptovaných dvomi DKA (konštrukcia pomocou kartézskeho súčinu). Následne na otestovanie, či výsledný automat akceptuje prázdny jazyk, stačí spraviť napríklad prehľadávanie do šírky z počiatočného stavu, aby sme zistili, či existuje cesta z počiatočného stavu do niektorého akceptačného. Ak áno, tak vieme, že existuje slovo, ktoré tento automat akceptuje a jazyk ním akceptovaný nemôže byť prázdny.
+\subsection{Testovanie ekvivalencie DKA s využitím operácie komplementu a kartézskeho súčinu}
+Z teórie množín vieme, že $A = B \Longleftrightarrow A' \cap B' = \emptyset$, kde A, resp. B sú množiny. Rovnaká myšlienka sa dá aplikovať aj na regulárne jazyky. Výhoda tohto prístupu je, že pre dané DKA dokážeme jednoducho skonštruovať automat pre komplement (vymeníme akceptačné a neakceptačné stavy) a pre prienik jazykov akceptovaných dvomi DKA (konštrukcia pomocou kartézskeho súčinu). Následne na otestovanie, či výsledný automat akceptuje prázdny jazyk, stačí spraviť napríklad prehľadávanie do šírky z počiatočného stavu, aby sme zistili, či existuje cesta z počiatočného stavu do niektorého akceptačného. Ak áno, tak vieme, že existuje slovo, ktoré tento automat akceptuje a jazyk ním akceptovaný nemôže byť prázdny. Táto situácia nastane práve vtedy, keď automaty na vstupe nie sú ekvivalentné.
 
-\subsection{Druhý spôsob testovania ekvivalencie DKA}
-Ako sme v prvej kapitole spomínali pri Mihyll-Nerodovej vete (pozri \ref{myhillNerode}), ku každému regulárnemu jazyku existuje jednoznačný DKA až na izomorfizmus, t.j. až na premenovanie stavov. Podľa tohto nám stačí oba NKA, ktoré porovnávame, previesť na minimálne DKA a overiť, či sú izomorfné. Ešte efektívnejšie by bolo, keby sme dokázali nájsť nejaký normálny tvar pre minimálne DKA, t.j. taký, žeby sme naň vedeli jednoznačne previesť dve ekvivalentné minimálne DKA. Ukazuje sa, že taký tvar existuje, nazvime ho kanonický minimálny DKA:
+\subsection{Testovanie ekvivalencie DKA s využitím jednoznačnosti minimálneho DKA}
+Vieme, že ku každému regulárnemu jazyku existuje jednoznačný minimálny DKA až na izomorfizmus, t.j. premenovanie stavov. Podľa tohto stačí oba NKA, ktoré porovnávame, previesť na minimálne DKA a overiť, či sú izomorfné. Ešte efektívnejšie by bolo, keby sme dokázali nájsť normálny, resp. jednoznačne určený tvar pre minimálne DKA. Ukazuje sa, že taký tvar existuje, nazvime ho kanonický minimálny DKA:
 \\
 
 \label{kanMinDKA}
-\begin{defn}{\textbf {\textit {Kanonický minimálny DKA}}} Nech $A = (K,\Sigma,\delta,q_0,F)$ je minimálny DKA pre jazyk L. Kanonický minimálny DKA K(A) dostaneme z A tak, že spustíme prehľadávanie do šírky z počiatočného stavu s tým, že budeme dávať prednosť pri návšteve hranám delta funkcie v abecednom poradí vzhľadom na $\Sigma$. Následne budeme číslovať stavy podľa poradia, v ktorom ich navštívime od 0, ktorú dostane počiatočný stav, keďže z neho začíname.
+\begin{defn}{\textbf {\textit {Kanonický minimálny DKA}}} Nech $A = (K,\Sigma,\delta,q_0,F)$ je minimálny DKA pre jazyk L, majme zobrazenie C, ktoré minimálnemu DKA A priradí minimálny DKA $C(A)$ tak, že spustíme prehľadávanie do šírky z počiatočného stavu s tým, že budeme dávať prednosť pri návšteve hranám $\delta$-funkcie v abecednom poradí vzhľadom na $\Sigma$. Následne budeme číslovať stavy podľa poradia, v ktorom ich navštívime od 0, ktorú dostane počiatočný stav, keďže z neho začíname. Minimálnemu DKA $C(A)$ potom hovoríme kanonický minimálny DKA.
 \end{defn}
-Vidno, že poradie navštevy stavov je jednoznačne dané, kedže v každom okamihu je jednoznačne určené, ktorý vrchol navštívime, jednak samotným prehľadávaním do šírky a jednak tým, že poradie pridávania vrcholov, resp. stavov do fronty je určené poradím znakov v abecede.
+
+\begin{thm}{\textbf {\textit {Kanonický minimálny DKA}}} Nech $A_1$, $A_2$ sú dva rôzne ekvivalentné minimálne DKA, potom $C(A_1) = C(A_2)$.
+\end{thm}
+
+\begin{proof} Majme dva ľubovoľné ekvivalentné minimálne DKA. Vieme, že sú izomorfné. Spustime na oboch prehľadávanie do šírky tak, ako sme popísali vo vete, ktorú dokazujeme. Indukciou dokážeme, že algoritmus uvedený vo vete bude mať rovnaký priebeh na oboch automatoch.
+
+Bázu indukcie urobíme pre počiatočný stav. V oboch DKA im algoritmus priradí index 0, keďže je to prvý stav, ktorý navštívi. Aj susedov pridajú oba behy do fronty v rovnakom poradí, keďže oba automaty majú k hranám (resp. prechodom) priradené rovnaké písmená, z každého stavu vedie práve jeden prechod na každý znak a algoritmus pridáva susedov v abecednom poradí.
+
+Predpokladajme, že algoritmus má rovnaký priebeh na oboch automatoch po očíslovaní $i$ stavov, t.j. má rovnaké stavy vo fronte a doteraz priradil navštíveným vrcholom v oboch automatoch tie isté indexy. 
+
+Môžu nastať dva prípady. Buď je fronta prázdna, čo znamená, že sme navštívili a očíslovali už všetky vrcholy - vtedy je zjavné, že výstupom oboch behov je rovnaké očíslovanie stavov. Pokiaľ fronta nie je prázdna, tak obe inštancie algoritmu vyberú z nej ten istý $i+1$-vý stav a pozrú sa na jeho susedov. Týchto susedov ale oba behy pridajú do fronty v rovnakom poradí - argument je rovnaký ako pri báze indukcie. 
+\end{proof}
+
 
 \paragraph{}
-Na testovanie ekvivalencie nám teda stačí už len porovnať kanonický minimálny DKA ku každému z tých dvoch NKA, či sú rovnaké a to dokážeme už jednoducho.
-
-\paragraph{}
-Keby sme testovali ekvivalenciu so všetkými predošlými nájdenými minimálnymi NKA, resp. reprezentantmi pre každý nájdený jazyk, tak čitaťelovi je určite zrejmé, žeby to čo i len pre pár tisíc jazykov bolo neúnosne pomalé. Jedno z možných riešení je hashovanie, ktoré si rozoberieme v nasledujúcej časti.
+Na testovanie ekvivalencie stačí pre oba NKA určiť ich kanonické minimálne DKA a otestovať, či sú totožné.
 
 
 \section{Hashovanie}
-Cieľom hashovania je obmedziť počet testovaní ekvivalencie s predošlými nájdenými minimálnymi NKA. Hashovacia funkcia by mala každému automatu A, resp. B priradiť jednoznačne číslo tak, aby platilo:
-\\
-\centerline{$L(A) = L(B) \Rightarrow H(A) = H(B)$}
-To znamená, že nám bude stačiť obmedziť sa na automaty s rovnakým hashom, ktorých bude rádovo menej než všetkých dokopy, za predpokladu, že hashovacia funkcia má dostatočne dobrú entropiu.
 
 \paragraph{}
-Existuje viacero spôsobov ako hashovať automaty. Rozoberieme na tomto mieste 3 možné spôsoby.
+Testovanie ekvivalencie priamym porovnávaním so všetkými predošlými nájdenými minimálnymi NKA, resp. reprezentantmi jazykov, ktoré akceptujú, sa ukázalo neefektívne pre naše potreby. Jedno z možných riešení je hashovanie, ktoré si rozoberieme v tejto časti.
+
+\paragraph{}
+Cieľom hashovania je obmedziť počet testovaní ekvivalencie s predošlými nájdenými minimálnymi NKA. Hashovacia funkcia by mala každému automatu A, resp. B priradiť jednoznačne číslo tak, aby platilo:
+\\
+\\
+\centerline{$L(A) = L(B) \Rightarrow H(A) = H(B)$}
+\\
+\\
+To znamená, že postačí obmedziť sa na automaty s rovnakým odtlačkom hashovacej funkcie. Tých bude rádovo menej než všetkých automatov dokopy, za predpokladu, že hashovacia funkcia má dostatočne dobrú entropiu.
+
 
 
 \label{hashSlova}
 \subsection{Hashovanie podľa slov do fixnej dĺžky}
-Spočíva v tom, že ako hash používame množiny slov, resp. ich reprezentáciu pomocou bitsetu (každý prvok má v reťazci priradenú 0 alebo 1 podľa toho, či tam patrí alebo nie). Zvolíme si, napr., že chceme hashovať podľa slov do dĺžky 5, teda otestujeme, ktoré slová do tejto dĺžky akceptuje náš automat a ktoré nie a podľa toho vyplníme reťazec nulami a jednotkami. Pre dĺžku 5 potrebujeme reťazec dĺžky 63, keďže toľko je slov nad binárnou abecedou do dĺžky 5. Pre väčšie dĺžky to už nie je veľmi efektívne nakoľko počet testovaných slov rastie exponenciálne a už pre dĺžku napríklad 10 by sme pre každý vygenerovaný automat museli testovať, či akceptuje alebo nie 1023 slov, čo je neprijateľné, nehovoriac o dĺžke reťazca, ktorý na hashovanie použijeme. Dĺžka 5 sa ale ukazuje byť prijateľná pre NKA do 3 stavov. Pre vačšie NKA už vznikalo príliš veľa kolízii a generovanie sa tým výrazne začalo spomaľovať, keďže každý vygenerovaný automat sa porovnával s desiatkami predošlých, čo je neprijateľné, ak sme mali vygenerovať miliardy automatov.
+Spočíva v tom, že ako hash používame množiny slov, resp. ich reprezentáciu pomocou bitsetu (každý prvok má v reťazci priradenú 0 alebo 1 podľa toho, či tam patrí alebo nie). Zvolíme si, napr., že chceme hashovať podľa slov do dĺžky 5, teda otestujeme, ktoré slová do tejto dĺžky akceptuje náš automat a ktoré nie a podľa toho vyplníme reťazec nulami a jednotkami. Pre dĺžku 5 potrebujeme reťazec dĺžky 63, keďže toľko slov do dĺžky 5 existuje nad binárnou abecedou. Pre väčšie dĺžky to už nie je veľmi efektívne nakoľko počet testovaných slov rastie exponenciálne a už pre dĺžku napríklad 10 by sme pre každý vygenerovaný automat museli testovať, či akceptuje alebo nie 1023 slov, čo je neprijateľné, nehovoriac o dĺžke reťazca, ktorý na hashovanie použijeme. Dĺžka 5 sa ukazuje byť prijateľná pre NKA do 3 stavov. Pre vačšie NKA už vznikalo príliš veľa kolízií a generovanie sa tým výrazne začalo spomaľovať, keďže každý vygenerovaný automat sa porovnával s desiatkami predošlých, čo je neprijateľné, ak sme mali vygenerovať miliardy automatov.
 
 \subsection{Hashovanie podľa vybraných slov}
 Bude to fungovať vpodstate rovnako ako predtým, ale nezameriame sa na všetky slová do nejakej fixnej dĺžky, ale zvolíme si, aké slova budeme testovať. Výhoda za predpokladu, že nájdeme dostatočne "dobré" slová by bola, že zmenšíme počet kombinácii, ktoré nemôžu nastať. Tento prístup je tu len načrtnutý, nakoľko nakoniec nebol reálne využitý, lebo hľadať tieto slová sa ukázalo byť komplikovanejšie a dosiahnuté výsledky aj tak nepredčili predošlý prístup.
 
 \subsection{Hashovanie pomocou ,,odtlačku'' slova}
-Budeme mať množinu slov, ktorú vyskúšame na každom automate, ale nezapamätáme si len, či to slovo bolo akceptované alebo nie. Zapamätáme si okrem toho aj výpočet, resp. pre každý znak slova si zapamätáme, či bol automat v danej chvíli v akceptačnom stave alebo nie. Ak testujeme viacero slov, tak tieto stopy môžeme napríklad navzájom zreťaziť alebo zoxorovať. Opäť, pri testovaní tento prístup nepriniesol významné zlepšenie a pre NKA do 4 stavov by sme sa aj tak s najvyššou pravdepodobnosťou nevyhli neúnosnému počtu kolízii.
+Myšlienku sme čerpali z \cite{petruchova}. Budeme mať množinu slov, ktorú vyskúšame na každom automate. Budeme si ale pamätať nielen to, či slovo bolo akceptované, ale aj výpočet, resp. pre každý znak slova si zapamätáme, či bol automat v danej chvíli v akceptačnom stave alebo nie. Ak testujeme viacero slov, tak tieto stopy môžeme napríklad navzájom zreťaziť alebo zoxorovať. Pri testovaní tento prístup nepriniesol významné zlepšenie a pre NKA do 4 stavov by sme sa aj tak s najvyššou pravdepodobnosťou nevyhli neúnosnému počtu kolízii.
 
 \paragraph{}
-Hashovanie sa teda nejaví byť najvhodnejší prístup na dosiahnutie požadovaných výsledkov. Avšak aj tak prinieslo nejaké výsledky, hlane prvý spôsob, ktoré uvedieme neskôr.
+Hashovanie v tejto forme sa neukázalo byť najvhodnejším prístupom na dosiahnutie požadovaných výsledkov. Napriek tomu, predovšetkým prvý spôsob, priniesol určité výsledky, ktoré uvedieme neskôr.
 
 \label{mapCis}
-\section{Mapovanie automatov na čísla}
+\section{Jednoznačné mapovanie automatov na čísla}
 
-Možno by sme mohli byť trocha ambicióznejší, než vystačiť si s hashovaním. Čo tak skúsiť vymyslieť funkciu, ktorá každému NKA priradí jednoznačne číslo alebo k-ticu čísel tak, že dva automaty majú priradené rovnaké číslo práve vtedy, keď sú ekvivalentné? Výhody sú veľké - čísla sa porovnávajú v počítači veľmi rýchlo a ľahšie sa ukladajú a hashujú. 
+Pokúsme sa navrhnúť funkciu, ktorá každému NKA priradí jednoznačne číslo alebo k-ticu čísel tak, že dva automaty majú priradené rovnaké číslo práve vtedy, keď sú ekvivalentné. Výhody takejto funkcie by boli veľké - čísla sa porovnávajú v počítači veľmi rýchlo, pričom ľahšie sa ukladajú a hashujú. 
 \paragraph{}
 Na prvý pohľad sa to môže zdať ako ťažká úloha, ale už sme spomínali, že ku každému NKA existuje kanonický DKA(\ref{kanMinDKA}). Od tohto poznatku nás delí už len malý krok k tomu, aby sme dostali požadovaný výsledok. Myšlienka je nasledovná:
 \paragraph{}
-K danému NKA zostrojíme minimálny kanonický DKA. Počiatočný stav má číslo 0 pre každý takýto DKA, čiže si ho nepotrebujeme pamätať, môžme to predpokladať. Množinu akceptačných stavov teraz reprezentujeme ako bitset, t.j. v integeri si poznačíme na k-tu pozíciu jednotku, ak stav k je akceptačný, inak si tam poznačíme nulu. Ak NKA na vstupe má 4 stavy, tak minimálny kanonický DKA môže mať najviac 16 stavov, čiže bude nám stačiť 16-bitový integer. 
+K danému NKA zostrojíme minimálny kanonický DKA. Počiatočný stav má číslo 0 pre každý takýto DKA, čiže si ho nepotrebujeme pamätať, môžme to predpokladať. Množinu akceptačných stavov teraz reprezentujeme ako bitset, t.j. v bitovej reprezentácii integeru si poznačíme na k-tu pozíciu jednotku, ak stav k je akceptačný, inak si tam poznačíme nulu. Ak NKA na vstupe má 4 stavy, tak minimálny kanonický DKA môže mať najviac 16 stavov, čiže bude nám stačiť 16-bitový integer. 
 \paragraph{}
-Matice susednosti pre jednotlivé znaky tiež môžeme previesť na integery. Uvažujme maticu susednosti pre znak c takú, že na pozícii [i,j] je jednotka, ak na znak c vedie prechod zo stavu i na stav j, inak je tam nula. Všimnime si, že pre každé DKA platí, že v každom riadku matice susednosti pre každý zo znakov je práve jedna jednotka, samozrejme, za predpokladu, že má úplnú $\delta$-funkciu, a to sme v úvodnej kapitole spomínali, že uvažujeme len také. Ak náš minimálny kanonický DKA má maximálne 16 stavov, tak na zakódovanie jedného riadku nám stačia 4 bity - aby sme si zapamätali pozíciu jednotky v riadku. Na zakódovanie 16x16 matice teda potrebujeme 64 bitov a tieto sa nám presne zmestia do 64-bitového integeru, ktorý máme tiež k dispozícii.
+Matice susednosti pre jednotlivé znaky tiež môžeme previesť na integery. Uvažujme maticu susednosti pre znak c takú, že na pozícii $[i,j]$ je jednotka, ak na znak $c$ vedie prechod zo stavu $i$ na stav $j$, inak je tam nula. Všimnime si, že pre každé DKA platí, že v každom riadku matice susednosti pre každý zo znakov je práve jedna jednotka, samozrejme, za predpokladu, že má úplnú $\delta$-funkciu; v úvodnej kapitole spomínali, že uvažujeme len o takých. Ak náš minimálny kanonický DKA má maximálne 16 stavov, tak na zakódovanie jedného riadku nám stačia 4 bity aby sme si zapamätali pozíciu jednotky v riadku. Na zakódovanie matice typu 16x16 teda potrebujeme 64 bitov a tieto sa nám presne zmestia do 64-bitového integeru, ktorý máme tiež k dispozícii.
 \paragraph{}
-Dostávame napokon zakódovanie každého minimálneho kanonického DKA do trojice celých čísel - jedno 16-bitové a dve 64-bitové, keďže matica susednosti je pre každý znak jedna a uvažujeme 2-znakovú abecedu. Spotrebujeme dokopy teda 144 bitov na jeden minimálny kanonický DKA, čo je na naše účely viac než dostačujúce.
+Napokon dostávame zakódovanie každého minimálneho kanonického DKA do trojice celých čísel - jedno 16-bitové a dve 64-bitové, keďže matica susednosti je pre každý znak jedna a uvažujeme binárnu abecedu. Takže spotrebujeme dovedna 144 bitov na jeden minimálny kanonický DKA, čo je oveľa úspornejšie ako pri predošlom prístupe.
 \paragraph{}
-Keď dokážeme každý NKA jednoznačne zakódovať do trojice integerov podľa jazyka, ktorý akceptuje, tak stačí nám pamätať si len kód a keď vygenerujeme nový NKA, len ho zakódujeme a skontrolujeme, či jeho kód sa nenachádza v hashSete kódov predtým vygenerovaných automatov. Tým si ušetríme mimoriadne veľa procesorového času oproti tomu, keby sme pracne znova a znova testovali DKA na ekvivalenciu "štandardným" spôsobom. Navyše, výhoda je, že rýchlosť sa nebude počtom vygenerovaných NKA znižovať tak drasticky ako tomu bolo predtým, keď sme hashovali priamo NKA.
+Keď dokážeme každý NKA jednoznačne zakódovať do trojice integerov podľa jazyka, ktorý akceptuje, tak stačí nám pamätať si len kód a keď vygenerujeme nový NKA, len ho zakódujeme a skontrolujeme, či jeho kód sa nenachádza v hashSete kódov predtým vygenerovaných automatov. Tým si ušetríme mimoriadne veľa procesorového času oproti tomu, keby sme pracne znova a znova testovali DKA na ekvivalenciu ,,štandardným'' spôsobom. Navyše, výhoda je, že rýchlosť sa nebude počtom vygenerovaných NKA znižovať tak drasticky ako vtedy, keď sme hashovali priamo NKA.
 
 
 

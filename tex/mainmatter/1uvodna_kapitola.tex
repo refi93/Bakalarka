@@ -1,6 +1,6 @@
 \chapter{Základné pojmy a definície}
 
-Celá práca sa bude venovať konečným automatom. Najskôr si definujeme základné pojmy, uvedieme označenia a dokážeme potrebné vety, aby sme mohli ďalej na nich postaviť naše úvahy. Ako zdroj poslúžila kniha \cite{hopcroft}, resp. bakalárska práca \cite{petruchova}, ktorá sa tiež zaoberala konečnými automatmi. Ak by si čitateľ potreboval objasniť najzákladnejšie pojmy ako abeceda, gramatika, jazyk, prípadne ďalšie, tak odporúčame \cite{skripta}. 
+V práci skúmame konečné automaty. Najskôr si definujeme základné pojmy, uvedieme označenie a dokážeme potrebné vety, aby sme mohli ďalej na nich postaviť naše úvahy. Budeme sa držať notácie z \cite{hopcroft}, resp. bakalárska práca \cite{petruchova}, ktorá sa tiež zaoberala konečnými automatmi. Najzákladnejšie pojmy, akými sú napr. abeceda, gramatika, jazyk, možno nájsť v skriptách \cite{skripta}.
 
 \section{Deterministický konečný automat}
 
@@ -32,7 +32,7 @@ $A=(K_A,\Sigma,\delta_A,q_{0A},F_A)$ je minimálny, pokiaľ pre všetky DKA $B =
 Táto veta nám hovorí, že každý regulárny jazyk možno ,,rozbiť'' na niekoľko, resp. konečný počet tried ekvivalencie, pričom jeden z dôsledkov je, že minimálny DKA má práve toľko stavov, koľko tried ekvivalencie má relácia $R_L$. Ďalší dôsledok je, že minimálny DKA k jazyku L je jednoznačný až na izomorfizmus, t.j. až na pomenovanie stavov musia byť dva ekvivalentné minimálne DKA totožné. Dôkaz Myhill-Nerodovej vety nájdete napr. v \cite[Veta 2.9.1]{skripta} a jednoznačnosť minimálneho DKA v \cite[Veta 4.26]{hopcroft}.
 
 \paragraph{}
-Je dobré si uvedomiť, že budeme uvažovať len deterministické automaty s úplnou $\delta$-funkciou, t.j. nemôže sa stať, žeby v niektorom stave nebol definovaný prechod na niektorý znak. Prerobiť automat s neúplnou $delta$-funkciou na automat s úplnou je v každom prípade triviálne - stačí pre nedefinované prechody pridať ,,odpadový'' stav, čiže neprinášajú nejaké zásadné zmenšenie počtu stavov oproti tým s úplnou $\delta$-funkciou. Pri návrhu deterministických automatov sa na túto formalitu častokrát zabúda a odpadový stav sa zamlčí, to si ale my nemôžeme dovoliť, pokiaľ chceme skutočne korektne zmerať nárast počtu stavov oproti nedeterministickým konečným automatom, ktoré teraz ideme definovať.
+Je dobré si uvedomiť, že budeme uvažovať len deterministické automaty s úplnou $\delta$-funkciou, t.j. nemôže sa stať, že by v niektorom stave nebol definovaný prechod na niektorý znak. Samozrejme, je ľahké prerobiť automat s neúplnou $\delta$-funkciou: stačí pre nedefinované prechody pridať ,,odpadový''. Teda automaty s neúplnou $\delta$-funkciou neprinášajú podstatné zmenšenie počtu stavov v porovnaní s automatmi s úplnou $\delta$-funkciou. Pri návrhu deterministických automatov sa na túto formalitu často zabúda a odpadový stav sa zamlčiava. Pre nás je takéto zanedbanie neprípustné, keďže chceme korektne zmerať nárast počtu stavov oproti nedeterministickým konečným automatom, ktoré teraz ideme definovať.
 
 \section{Nedeterministický konečný automat}
 
@@ -41,7 +41,7 @@ konečná množina stavov, $\Sigma$ je konečná vstupná abeceda, $q_0 \in K$ j
 
 \begin{defn}{\textbf {\textit {Krok výpočtu}}} deterministického konečného automatu A je relácia $\vdash_A$ na konfiguráciách definovaná $(q,av)\vdash_A(p,v) \Longleftrightarrow p \in \delta(q,a)$.\end{defn}
 
-Konfigurácia a jazyk akceptovaný NKA sú definované rovnako ako pre DKA. Okrem toho stojí za zmienku, že minimálny NKA pre daný regulárny jazyk nie je jednoznačný, narozdiel od DKA, teda môže existovať viacero možných minimálnych ekvivaletných NKA, ktoré nie sú navzájom izomorfné.
+Konfigurácia a jazyk akceptovaný NKA sú definované rovnako ako pre DKA. Narozdiel od DKA, minimálny NKA nemusí byť jednoznačný, teda môže existovať viacero možných minimálnych ekvivaletných NKA, ktoré nie sú navzájom izomorfné.
 
 
 \section{Determinizácia NKA}
@@ -62,12 +62,12 @@ Samozrejme, pri samotnej implementácii môžeme zanedbať nedosiahnuteľné sta
 
 \section{Stavová zložitosť regulárnych jazykov}
 
-Našim hlavným cieľom je, ako názov práce napovedá, analyzovať ,,deterministickú a nedeterministickú stavovú zložitosť regulárnych jazykov''. Definujme si teda formálnejšie tieto pojmy:
+Pod stavovou zložitosťou automatu rozumieme počet jeho stavov. S tým úzko súvisia nasledujúce pojmy, ktoré si definujeme a zjednodušia nám vyjadrovanie v nasledujúcich kapitolách.
 
-\begin{defn}{\textbf {\textit {Deterministická stavová zložitosť}}} regulárneho jazyka L je počet stavov minimálneho DKA vzhľadom na počet stavov, ktorý tento jazyk akceptuje.
+\begin{defn}{\textbf {\textit {Deterministická stavová zložitosť}}} regulárneho jazyka L je počet stavov minimálneho DKA, ktorý tento jazyk akceptuje.
 \end{defn}
 
-\begin{defn}{\textbf {\textit {Nedeterministická stavová zložitosť}}}  regulárneho jazyka L je počet stavov minimálneho NKA vzhľadom na počet stavov, ktorý tento jazyk akceptuje.
+\begin{defn}{\textbf {\textit {Nedeterministická stavová zložitosť}}}  regulárneho jazyka L je počet stavov minimálneho NKA, ktorý tento jazyk akceptuje.
 \end{defn}
 
-Aby sme sa nemuseli vždy vyjadrovať takto zdĺhavo, tak nedeterministickú a deterministickú stavovú zložitosť budeme skrátene označovať ,,nedeterministická'', resp ,,deterministická zložitosť jazyka''.
+Aby sme sa nemuseli vždy vyjadrovať takto zdĺhavo, tak nedeterministickú a deterministickú stavovú zložitosť budeme skrátene označovať ,,nedeterministická'', resp. ,,deterministická zložitosť jazyka''.

@@ -1,17 +1,18 @@
-\chapter{Ďalšie výskumy}
+\chapter{Ďalší výskum}
 
-V tejto kapitole sa budeme zaoberať ďalšími otázkami, ktoré síce nie sú hlavným predmetom tejto práce, ale odpovede na ne sme dostali ako vedľajší produkt nášho výskumu.
+V tejto kapitole sa okrem iného budeme zaoberať ďalšími otázkami, ktoré síce nie sú hlavným predmetom tejto práce, ale odpovede na ne sme dostali ako vedľajší produkt nášho výskumu, resp. zaujali nás v jeho priebehu.
 
-\section{Deterministická zložitosť jazykov s nedeterministickou zložitosťou 5}
+\subsection{Odhad deterministickej zložitosti jazykov s nedeterministickou zložitosťou 5}
 
-Keď už máme zistené jazyky akceptované NKA do 4 stavov, mohli by sme sa pýtať ako je to pri NKA s 5 stavmi. Aj keby sme zapojili "do hry" optimalizácie, ktoré nám pomohli pri NKA do 4 stavov, zrejme by to trvalo neúnosne dlho. Čo ale môžeme urobiť je, že si vezmeme všetky nájdené jazyky akceptované NKA do 4 stavov a budeme veľakrát generovať náhodné 5-stavové NKA. Ak nájdeme nejaký nový jazyk, zistíme si jeho deterministickú zložitosť. Takto dostaneme vzorku jazykov s nedeterministickou zložitosťou 5, u ktorých môžeme analyzovať ich deterministickú stavovú zložitosť. Aby sme zabezpečili rovnomerný výber naprieč priestorom všetkých 5-stavových NKA, tak sme volili náhodný počiatočný stav, náhodnú množinu akceptačných stavov a dve náhodné matice susednosti reprezentujúce $/delta$-funkciu.
-
+Keď už máme zistené jazyky akceptované NKA do 4 stavov, mohli by sme sa pýtať ako je to pri NKA s 5 stavmi. Aj keby sme zapojili ,,do hry'' optimalizácie, ktoré nám pomohli pri NKA do 4 stavov, zrejme by to trvalo neúnosne dlho. Čo však môžeme urobiť je, že si vezmeme všetky nájdené jazyky akceptované NKA do 4 stavov a budeme veľakrát generovať náhodné 5-stavové NKA. Ak nájdeme nejaký nový jazyk, zistíme jeho deterministickú zložitosť. Takto dostaneme vzorku jazykov s nedeterministickou zložitosťou 5, pri ktorých môžeme analyzovať ich deterministickú stavovú zložitosť. Aby sme zabezpečili rovnomerný výber naprieč priestorom všetkých 5-stavových NKA, tak sme volili náhodný počiatočný stav, náhodnú množinu akceptačných stavov a dve náhodné matice susednosti reprezentujúce $\delta$-funkciu.
 \paragraph{}
-Program našiel po vygenerovaní miliardy náhodných 5-stavových NKA 5 212 695 nových jazykov a ich priemerná deterministická zložitosť bola približne 9.2427. Výsledná distibúcia vyzerá nasledovne:
-\pagebreak
+Program našiel po vygenerovaní miliardy náhodných 5-stavových NKA 5 212 695 nových jazykov a ich priemerná deterministická zložitosť bola približne 9.2427. Keď sme experiment opakovali s 5 miliardami automatov, našlo sa 19 941 523 jazykov a priemerná deterministická zložitosť vyšla približne 9.6558. Výslednú distibúciu pre experiment s 5 miliardami automatov vidno v tabuľke \ref{table:distrTable5}.
+\paragraph{}
+Aby sme získali predstavu, nakoľko dobré sú získané výsledky, vyskúšali sme rovnakú metódu na odhad priemernej deterministickej zložitosti jazykov s nedeterministickou zložitosťou 4. Skúšali sme najprv generovať 5 000 náhodných 4-stavových NKA a dostali sme priemernú deterministickú zložitosť 6.42, pri vygenerovaní 5 miliónov náhodných 4-stavových NKA sme dostali priemernú deterministickú zložitosť 7.26. Vidno, že oproti priemernej deterministickej zložitosti, ktorú sme vyrátali exaktne (9.58), to je oveľa menej, z čoho môžeme usúdiť, že pre 5-stavové NKA bude situácia podobná. Pravdepodobne to bude viac ako 10, hoci samplovaním vyšlo 9.6558. Počet pokusov, 5 000 a 5 miliónov, sme volili tak, aby to približne zodpovedalo pomeru, v akom je 5 miliárd k počtu všetkých 5-stavových NKA (cca. $1,8\times10^{17}$).
 
 \begin{table}[H]
   \centering
+  \resizebox{8cm}{!}{
   \begin{tabular}{|l|c|r|}
     \hline
     Deterministická zložitosť & počet & \~\% \\ 
@@ -73,36 +74,137 @@ Program našiel po vygenerovaní miliardy náhodných 5-stavových NKA 5 212 695
     32 & 4 & 0.000 076 \\
     \hline
   \end{tabular}
+  }
   \caption{Distribúcia stavových zložitostí pre nájdené jazyky akceptované 5-stavovými NKA}
 \end{table}
+\pagebreak
 
+V priemere vyšla menšia deterministická zložitosť, ako pri 4-stavových NKA - tam vyšlo viac ako 9.5. Za predpokladu, že sme korektne naimplementovali test by to mohlo nasvedčovať, že jazyky s nedeterministickou zložitosťou 5 s vyššou deterministickou zložitosťou majú tendenciu byť ,,jednoznačnejšie'' v zmysle, že k ním existuje menej neizomorfných minimálnych NKA. Z toho by vyplývalo, že generovaním náhodných automatov je ťažšie trafiť automat s vysokou deterministickou zložitosťou. Takisto treba vziať do úvahy, že jazyky sme reprezentovali pomocou automatov a generovali sme rovnomerne vzhľadom na priestor všetkých 5-stavových NKA, nie vzhľadom na jazyky nimi akceptované.
 
-
-\section{Distribúcia jazykov vzhľadom na počet minimálnych NKA, ktorý ich akceptuje}
+\section{Distribúcia jazykov vzhľadom na počet rôznych minimálnych NKA, ktoré ich akceptujú}
 
 \subsection{Popis problému}
-Ďalšia otázka, ktorú si kladieme je, koľko pre daný jazyk existuje neizomorfných minimálnych NKA? Zvlášť by nás mohli zaujímať jazyky, pre ktoré existuje jednoznačný minimálny NKA. Experiment vykonáme tak, že budeme generovať zaradom všetky možné NKA. Popri tom budeme mať HashMapu, kde si budeme pamätať ku kódom jednotlivých jazykov počet vygenerovaných NKA, ktorý tento jazyk akceptujú. Po skončení generovania ešte tieto výsledky utriedime pre lepšiu analýzu.
+Ďalšia otázka, ktorú si kladieme je, koľko pre daný jazyk existuje neizomorfných minimálnych NKA. Zvlášť by nás mohli zaujímať jazyky, pre ktoré existuje jednoznačný minimálny NKA. Experiment vykonáme tak, že budeme generovať zaradom všetky možné NKA. Popri tom budeme mať HashMapu, kde si budeme pamätať ku kódom jednotlivých jazykov počet vygenerovaných NKA, ktorý tento jazyk akceptujú. Po skončení generovania ešte tieto výsledky utriedime pre lepšiu analýzu.
 
-\subsection{Realizácia}
-Je dôležité si uvedomiť, že treba generovať skutočne všetky NKA, resp. musíme byť redukovaní počtu NKA veľmi opatrní, aby sme priestor NKA zredukovali rovnomerne pre všetky jazyky. Keby sme ,,bezhlavo'' použili tie isté metódy, čo pri experimente, kde sme zisťovali počet jazykov akceptovaných NKA tak je napríklad ťažké predvídať, čo by presne urobila s priestorom NKA optimalizácia spojená s množinou akceptačných stavov, keďže táto by osekala viac množinu NKA, čo majú viacero akceptačných stavov oproti NKA s jedným, resp. menej akceptačnými stavmi a tým pádom by sme nemuseli dostať požadované výsledky. 
+\subsubsection{Realizácia}
+Na rozdiel od toho, keď nás zaujímali samotné jazyky, pri zisťovaní distribúcie automatov musíme byť oveľa opatrnejší pri redukovaní počtu generovaných NKA, aby sme priestor všetkých možných NKA zmenšili rovnomerne pre všetky jazyky. Keby sme ,,bezhlavo'' použili tie isté metódy ako pri experimente, kde sme zisťovali počet jazykov akceptovaných NKA tak by napríklad bolo ťažké predvídať, čo by presne urobila s priestorom NKA optimalizácia spojená s množinou akceptačných stavov, keďže táto by osekala viac množinu NKA, ktoré majú viacero akceptačných stavov oproti NKA s jedným, resp. menej akceptačnými stavmi a teda by sme nemuseli dostať očakávané výsledky. 
 \paragraph{}
-Rozhodli sme sa preto povoliť len optimalizáciu s fixovaním počiatočného stavu na 0, keďže pri nej sa pre každý jazyk počet NKA, ktoré ho akceptujú, zredukuje rovnomerne. Nie je ťažké vidieť, že to bude n-násobne, kde n je počet stavov NKA, ktoré uvažujeme
+Rozhodli sme sa preto povoliť len optimalizáciu s fixovaním počiatočného stavu na 0, keďže pri nej sa pre každý jazyk počet NKA, ktoré ho akceptujú, zredukuje rovnomerne. Nie je ťažké vidieť, že to bude $n$-násobne, kde $n$ je počet stavov NKA, ktoré uvažujeme
 \paragraph{}
-Zaiste, dali by sa uvažovať aj ďalšie z predošlých optimalizácii, čo do počtu vygenerovaných NKA, ktoré by osekali priestor možných NKA rovnomerne vzhľadom na jazyky. Nakoľko sme sa ale rozhodli tento experiment vykonať len pre NKA do 3 stavov, tak neboli potrebné. 
+Istotne by sa dali uvažovať aj ďalšie z predošlých optimalizácii, čo do počtu vygenerovaných NKA, ktoré by osekali priestor možných NKA rovnomerne vzhľadom na jazyky. Keďže sme sa však rozhodli tento experiment vykonať len pre NKA do 3 stavov, neboli potrebné. 
+
+\subsection{Výsledky}
+
+Ako sme už spomenuli, budeme uvažovať len navzájom neizomorfné NKA, t.j., nedá sa dostať jeden NKA z druhého pomocou prečíslovania stavov. 
+Pre 1-stavové je situácia pomerne jednoduchá - všetky jazyky, okrem prázdneho, majú jednoznačný NKA, na prázdny jazyk pripadajú 4 NKA:
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|c|c|r|}
+    \hline
+    \# NKA & \# jazykov \\ 
+    \hline
+    1 & 4 \\
+    \hline
+    4 & 1 \\
+    \hline
+  \end{tabular}
+  \caption{Distribúcia jazykov vzhľadom na minimálne NKA s 1 stavom, ktoré ich akceptujú}
+\end{table}
+
+S jazykmi s nedeterministickou zložitosťou 2 je to trochu rozmanitejšie. Môžeme si všimnúť, že jazykov s jednoznačným minimálnym NKA je stále veľká prevaha (181 z 208).
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|c|c|r|}
+    \hline
+    \# NKA & \# jazykov \\ 
+    \hline
+    1 & 181 \\
+    \hline
+    2 & 6 \\
+    \hline
+    4 & 6 \\
+    \hline
+    6 & 4 \\
+    \hline
+    10 & 6 \\
+    \hline
+    12 & 2 \\
+    \hline
+    14 & 2 \\
+    \hline
+    28 & 1 \\
+    \hline
+  \end{tabular}
+  \caption{Distribúcia jazykov vzhľadom na minimálne NKA s 2 stavmi, ktoré ich akceptujú}
+\end{table}
+
+Pozrime sa na jazyky s nedeterministickou zložitosťou 3. Výsledky sú príliš rozsiahle, aby sme ich mohli uviesť v plnej miere, preto uvádzame len ich časť, aby si čitateľ mohol utvoriť predstavu. Opäť sa ukazuje, že jazyky s jednoznačným minimálnym NKA majú veľkú prevahu (29 208 z 44 900): 
+
+\begin{table}[H]
+  \centering
+  \resizebox{3cm}{!} {
+  \begin{tabular}{|l|r|r|r|}
+    \hline
+    \# NKA & \# jazykov \\ 
+    \hline
+    1 & 29208 \\
+    \hline
+    2 & 5492 \\
+    \hline
+    3 & 1498 \\
+    \hline
+    4 & 2122 \\
+    \hline
+    5 & 864 \\
+    \hline
+    ... \\
+    \hline
+    1088 & 4 \\
+    \hline
+    1096 & 2 \\
+    \hline
+    1157 & 2 \\
+    \hline
+    2368 & 1 \\
+    \hline
+    6465 & 2 \\
+    \hline
+  \end{tabular}
+  }
+  \caption{Distribúcia jazykov vzhľadom na minimálne NKA s 3 stavmi, ktoré ich akceptujú.}
+\end{table}
+
+Prikladáme ešte zhrňujúcu tabuľku, kde pre jednotlivé nedeterministické zložitosti jazykov nad binárnou abecedou je uvedené, koľko existuje takých, ktoré majú jednoznačný minimálny NKA:
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|c|c|c|c|r|}
+    \hline
+    nedeterministická zložitosť & 1 & 2 & 3 \\ 
+    \hline
+    \# jazykov s jednoznačným NKA & 4 & 181 & 29 208 \\
+    \hline
+  \end{tabular}
+  \caption{Počet jazykov s jednoznačným minimálnym NKA vzhľadom na ich nedeterministickú zložitosť}
+\end{table}
 
 \label{safeWordLength}
 \section{Dĺžka slov, ktoré jednoznačne odlíšia dva NKA}
 
+Bolo by zaujímavé zistiť, koľko je jazykov s jednoznačným minimálnym NKA aj pre vyššie počty stavov, keďže z doterajších výsledkov sa zdá, že to nemusí byť nezanedbateľný počet. Mohli by sme navyše tieto jazyky oddeliť do samostatnej podtriedy regulárnych jazykov a analyzovať ich vlastnosti.
+
 
 \subsection{Popis problému}
-Máme dané 2 NKA, ktoré majú oba najviac n stavov. Otázka znie: ,,Slová do akej dĺžky potrebujeme overiť, aby sme mohli s istotou povedať, že tieto NKA sú ekvivalentné alebo nie?''. Túto dĺžku budeme označovať $\delta_n$. Treba ešte poznamenať, že rátame s tým, že overujeme všetky možné slová do tejto dĺžky.  Ak by $\delta_n$ bola ,,rozumne'' malá, tak by sa to napr. dalo použiť ako pomerne účinný test ekvivalencie dvoch NKA iba s tým, žeby sme overili, ktoré slová do tejto dĺžky oba NKA akceptujú a ak sa obe množiny rovnajú, tak by sme vedeli, že sú ekvivalentné, v opačnom prípade nie. A keby to aj tak nebolo, mohlo by nás to zaujímať čisto zo zvedavosti. 
+Máme dané dva NKA, ktoré majú najviac $n$ stavov. Zaujíma nás, do akej dĺžky potrebujeme overiť slová, ktoré tieto akceptujú/neakceptujú, aby sme mohli s istotou povedať, či tieto NKA sú ekvivalentné alebo nie. Túto dĺžku budeme označovať $\delta_n$. Treba ešte poznamenať, že rátame s tým, že overujeme všetky možné slová do tejto dĺžky.  Ak by $\delta_n$ bola ,,rozumne'' malá, tak by sa to napr. dalo použiť ako pomerne účinný test ekvivalencie dvoch NKA iba s tým, že by sme overili, ktoré slová do tejto dĺžky oba NKA akceptujú, a keby sa tieto dve množiny rovnali, tak by sme vedeli, že sú ekvivalentné, v opačnom prípade nie.
 
 \subsection{Použitá metóda}
-Ako sme predtým spomínali pri metódach hashovania, konkrétne pri hashovaní podľa slov do fixnej dĺžky (\ref{hashSlova}), túto metódu môžeme využiť práve na vyrátanie tejto hodnoty. Jediné, čo budeme robiť je, že zahashujeme každý vygenerovaný NKA týmto hashom a následne overíme pre všetky automaty s rovnakým hashom, či niektorý z nich je alebo nie je ekvivalentný tomuto NKA. Postupne budeme hashovacej funkcii navyšovať jej parameter (t.j. dĺžku, po ktorú overuje všetky slová, či ich daný NKA akceptuje) a zastavíme, keď v každom ,,chlieviku'' bude nanajvýš jeden automat. Veľkosť tohto parametra bude naša hľadaná dĺžka, ktorá jednoznačne odlíši dve NKA.
+Ako sme spomínali pri metódach hashovania, konkrétne pri hashovaní podľa slov do fixnej dĺžky (\ref{hashSlova}), túto metódu môžeme využiť práve na vyrátanie danej hodnoty. Jediné, čo budeme robiť je, že zahashujeme každý vygenerovaný NKA týmto hashom a následne overíme pre všetky automaty s rovnakým hashom, či niektorý z nich je alebo nie je ekvivalentný tomuto NKA. Postupne budeme hashovacej funkcii navyšovať jej parameter (t.j. dĺžku, po ktorú overuje všetky slová, či ich daný NKA akceptuje) a zastavíme, keď v každom ,,chlieviku'' bude nanajvýš jeden automat. Veľkosť tohto parametra bude hľadaná dĺžka, ktorá jednoznačne odlíši dva NKA.
 
 \subsection{Výsledky}
 
-Veľkosť $\delta_n$ sme skúmali pre n-stavové NKA nad dvojznakovou abecedou do 3 stavov, pre väčšie NKA sa už vyššie uvedená metóda javí byť neefektívna.
+Veľkosť $\delta_n$ sme skúmali pre $n$-stavové NKA nad dvojznakovou abecedou do 3 stavov, pre väčšie NKA sa už uvedená metóda javí byť neefektívna.
 
 \begin{table}[h]
   \centering
@@ -116,9 +218,9 @@ Veľkosť $\delta_n$ sme skúmali pre n-stavové NKA nad dvojznakovou abecedou d
   \caption{$\delta_n$ pre n-stavové  NKA nad 2-znakovou abecedou do 3 stavov}
 \end{table}
 
-Ako vidno, nie je to veľmi efektívne, $\delta_n$ pre väčšie n bude rásť zrejme dosť prudko, veď už len pre 3-stavové NKA by sme potreboval overovať $2^12 - 1$, čiže 2047 slov, čo je síce ešte únosné, ale to znamená, že pre väčšie NKA to zrejme budú už milióny až miliardy, čo je zjavne menej efektívne ako riešiť to konvenčne.
-\paragraph{}
-Takže na jednoznačné overenie to zjavne nestačí. Mohlo by nám to ale poslúžiť možno aspoň pravdepodobnostne - pozrime sa, koľko kolízii vzniklo pri jednotlivých nastaveniach dĺžky slova, ktorú sme overovali - budeme ju označovať $\delta$.
+Ako vidno, nie je to veľmi efektívne, $\delta_n$ pre väčšie n bude rásť zrejme dosť prudko, veď už len pre 3-stavové NKA by sme potreboval overovať $2^{11} - 1$, čiže 2047 slov, čo je síce ešte teoreticky prijateľné, ale zrejme pre väčšie NKA to budú už milióny až miliardy, čo je zjavne menej efektívne ako známe algoritmy na testovanie ekvivalencie dvoch NKA.
+
+Takže na jednoznačné overenie to zjavne nestačí. Pozrime sa ešte, koľko kolízii vzniklo pri jednotlivých nastaveniach dĺžky slova, ktorú sme overovali -- budeme ju označovať $\delta$.
 
 Pozrime sa najprv na NKA do 2 stavov:
 \begin{table}[h]
@@ -130,10 +232,10 @@ Pozrime sa najprv na NKA do 2 stavov:
     \# kolízii & 124 & 118 & 70 & 7 & 0 \\
     \hline
   \end{tabular}
-  \caption{počet kolízii pre jednotlivé dĺžky slov pre NKA do 2 stavov}
+  \caption{Počet kolízii pre jednotlivé dĺžky slov pre NKA do 2 stavov}
 \end{table}
 
-A pre NKA do 3 stavov to vyzerá nasledovne:
+Pre NKA do 3 stavov situácia vyzerá nasledovne:
 \begin{table}[h]
   \centering
   \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|c|r|}
@@ -143,9 +245,8 @@ A pre NKA do 3 stavov to vyzerá nasledovne:
     \# kolízii & 28 674 & 28 668 & 28 554 & 24 422 & 12 655 & 3 602 & 1 057 & 232 & 45 & 6 & 2 & 0\\ 
     \hline
   \end{tabular}
-  \caption{počet kolízii pre jednotlivé dĺžky slov pre NKA do 3 stavov}
+  \caption{Počet kolízii pre jednotlivé dĺžky slov pre NKA do 3 stavov}
 \end{table}
 
-Dalo by s týmto samozrejme ,,hrať'' aj ďalej, napr. zistiť, ako sú rozdistribuované kolízie medzi jednotlivými množinami akceptovaných slov, alebo hľadať, ktoré slová sa vyskytujú najčastejšie/najmenej často medzi tými akceptovanými. Nie je to ale hlavný predmet tejto práce, preto sa tomu nebudeme venovať až do takých detailov. Ak by ale čitateľ bol zvedavý, výstupom tejto práce je aj naimplementovaný program, ku ktorému je v nasledujúcej kapitole aj dokumentácia a môže si, okrem iného, tieto testy sám naprogramovať.
 
 

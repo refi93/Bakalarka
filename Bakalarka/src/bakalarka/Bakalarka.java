@@ -43,8 +43,8 @@ public class Bakalarka {
         //Variables.initialize(); // aby sme inicializovali cas
 
         //Experiments.generateAllNFAsOfSize(2);
-        System.out.println("run 1");
-        Experiments.fiveStateNFAs(5000000000L);
+        
+        Experiments.automataDistributionExperiment(3);
         //Experiments.automataDistributionExperiment(3);
         
         /*Variables.initialize();

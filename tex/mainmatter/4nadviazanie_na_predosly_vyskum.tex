@@ -1,14 +1,15 @@
 \chapter{Výsledky a ich náväznosť na predošlý výskum}
 
 
-Cieľom tejto kapitoly bude, ako jej názov napovedá, prepojiť výsledky z článkov napísaných v minulosti na naše výsledky. Pôjde konkrétne o článok Domaratzkého, Kismana a Shallita \cite{shallit}, ktorí sa zaoberali okrem iného enumeráciou regulárnych jazykov akceptovanými n-stavovými NKA, z čoho, podobne ako my, dostali aj výsledky o deterministickej a nedeterministickej stavovej zložitosti týchto regulárnych jazykov.
-
-\paragraph{}
-Zadefinujme nasledovnú funkciu:
+V tejto kapitole zhrnieme výsledky našej práce a ich náväznosť
+na predchádzajúci výskum v tejto oblasti. Pôjde konkrétne o článok Domaratzkého, Kismana a Shallita \cite{shallit}, ktorí sa zaoberali okrem iného enumeráciou regulárnych jazykov akceptovanými $n$-stavovými NKA, z čoho, podobne ako my, dostali aj výsledky o deterministickej a nedeterministickej stavovej zložitosti týchto regulárnych jazykov. Definujme nasledovnú funkciu:
 \\
-$G_k(n)$ = počet rôznych regulárnych jazykov nad k-znakovou abecedou akceptovaných NKA s n stavmi.
-\paragraph{}
-My sme skúmali predovšetkým $G_2(n)$, ale po menšej úprave programu sa dali rátať i $G_1(n)$ a $G_3(n)$. Vo všetkých prípadoch sa nám podarilo zreprodukovať výsledky z \cite{shallit} a k tomu navyše sa nám podarilo dorátať $G_2(4)$. Získané výsledky uvádzame v nasledujúcich tabuľkách:
+\\
+$G_k(n)$ = počet rôznych regulárnych jazykov nad k-znakovou abecedou akceptovaných NKA s $n$ stavmi.
+\\
+\\
+\\
+My sme skúmali predovšetkým $G_2(n)$, ale po menšej úprave programu by sa dali rátať i $G_1(n)$, prípadne $G_3(n)$. Vo všetkých prípadoch sa nám podarilo zreprodukovať výsledky z \cite{shallit} a navyše sa nám podarilo dorátať $G_2(4)$. Získané výsledky uvádzame v nasledujúcich tabuľkách:
 
 \begin{table}[h]
   \centering
@@ -19,19 +20,17 @@ My sme skúmali predovšetkým $G_2(n)$, ale po menšej úprave programu sa dali
     $G_1(n)$ & 3 & 9 & 29 & 88 & 269 \\ 
     \hline
   \end{tabular}
-  \caption{$G_1(n)$ pre $1 \leq n \leq 5$}
+  \caption{$G_1(n)$ pre $1 \leq n \leq 5$.}
   \label{tab:G1n}
 \end{table}
 
-V nasledujúcej tabuľke j označuje počet stavov minimálnych DKA s j stavmi pre nájdené jazyky, ktoré akceptujú NKA s n stavmi:
-\\
-\\
 
-\begin{table}[h]
+\begin{table}[H]
   \centering
+  \resizebox{\linewidth}{!}{
   \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|r|}
     \hline
-    n/j & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18 \\ 
+    $n \backslash j$ & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18 \\ 
     \hline
     1 & 2 & 1 & & & & & & & & & & & & & & & &\\ 
     \hline
@@ -44,12 +43,13 @@ V nasledujúcej tabuľke j označuje počet stavov minimálnych DKA s j stavmi p
     5 & 2 & 4 & 12 & 30 & 78 & 33 & 27 & 29 & 23 & 9 & 6 & 6 & 2 & 3 & 2 & 1 & 1 & 1 \\
     \hline
   \end{tabular}
-  \caption{distribúcia minimálnych DKA pre nájdené minimálne NKA pre $G_1(n)$}
-  \label{tab:G1n}
+  }
+  \caption{Distribúcia minimálnych DKA s $j$ stavmi pre nájdené $n$-stavové minimálne NKA nad unárnou abecedou}
+  \label{tab:G1ndistr}
 \end{table}
 
 \paragraph{}
-Teraz si uvedieme výsledky pre $G_2(n)$, ktoré boli aj jedným z hlavných cieľov tejto práce:
+Ďalej uvedieme výsledky pre $G_2(n)$, ktoré boli aj jedným z hlavných cieľov tejto práce.
 
 \begin{table}[h]
   \centering
@@ -60,16 +60,17 @@ Teraz si uvedieme výsledky pre $G_2(n)$, ktoré boli aj jedným z hlavných cie
     $G_2(n)$ & 5 & 213 & 45 113 & 32 191 450 \\ 
     \hline
   \end{tabular}
-  \caption{$G_2(n)$ pre $1 \leq n \leq 4$}
+  \caption{$G_2(n)$ pre $1 \leq n \leq 4$.}
 \end{table}
 
-Priemerná deterministická zložitosť jazykov s nedeterministickou zložitosťou 4 vychádza približne 9.588. A toto je distribúcia minimálnych DKA a NKA pre nájdené jazyky (tabuľku sme otočili o $90\,^{\circ}$ oproti predošlým, aby sa zmestila):
+Priemerná deterministická zložitosť jazykov s nedeterministickou zložitosťou 4 vychádza približne 9.588. Prikladáme aj distribúciu minimálnych DKA a NKA pre nájdené jazyky (tabuľka \ref{table:distrtab}, otočená o $90\,^{\circ}$ oproti predošlým, aby sa zmestila).
 
 \begin{table}[H]
   \centering
-  \begin{tabular}{|l|c|c|c|c|c|r|}
+  \resizebox{6cm}{!} {
+  \begin{tabular}{|l|r|r|r|r|r|r|}
     \hline
-    j/n & 1 & 2 & 3 & 4 \\
+    $j \backslash n$ & 1 & 2 & 3 & 4 \\
     \hline
     1 & 2 & 2 & 2 & 2 \\
     \hline
@@ -104,10 +105,12 @@ Priemerná deterministická zložitosť jazykov s nedeterministickou zložitosť
     16 & & & & 58 316 \\
     \hline
   \end{tabular}
-  \caption{distribúcia minimálnych DKA pre nájdené minimálne NKA pre $G_2(n)$}
+  }
+  \caption{Distribúcia minimálnych DKA s $j$ stavmi pre nájdené $n$-stavové minimálne NKA nad binárnou abecedou}
+  \label{table:distrtab}
 \end{table}
 
-Prikladáme tiež tabuľku, kde na základe predošlých výsledkov sú k nedeterministickým zložitostiam jazykov vyrátané ich priemerné deterministické zložitosti:
+Prikladáme tiež tabuľku, kde na základe predošlých výsledkov sú k nedeterministickým zložitostiam jazykov vypočítané ich priemerné deterministické zložitosti:
 
 \begin{table}[H]
   \centering
@@ -118,11 +121,12 @@ Prikladáme tiež tabuľku, kde na základe predošlých výsledkov sú k nedete
     priemerná det. zl. (približne) & 1.6 & 3.2355 & 5.7741 & 9.5885 \\ 
     \hline
   \end{tabular}
-  \caption{Priemerné deterministické zložitosti pre jazyky s danými nedeterministickými zložitosťami}
+  \caption{Priemerné deterministické zložitosti pre jazyky s danými nedeterministickými zložitosťami.}
 \end{table}
 
 
 Ešte uvedieme časy - koľko nám jednotlivé výsledky pre $G_2(n)$ trvali vyrátať na stroji, ktorý sme mali k dispozícii (Intel Core i7 ~3GHz, 4 jadrá, 24GB RAM):
+
 
 \begin{table}[H]
   \centering
@@ -130,10 +134,10 @@ Ešte uvedieme časy - koľko nám jednotlivé výsledky pre $G_2(n)$ trvali vyr
     \hline
     n & 1 & 2 & 3 & 4 \\ 
     \hline
-    $čas$ & <1s & <1s & 29s & 168h 30m (7 dní) \\ 
+    čas & <1s & <1s & 29s & 168h 30m (7 dní) \\ 
     \hline
   \end{tabular}
-  \caption{časy výpočtu $G_2(n)$ pre $1 \leq n \leq 5$}
+  \caption{Časy výpočtu $G_2(n)$ pre $1 \leq n \leq 4$.}
 \end{table}
 
-Treba poznamenať, že nakoľko sme úlohu neparalelizovali, tak celý čas sa využíval výkon iba jedného jadra CPU.
+Treba poznamenať, že nakoľko sme úlohu neparalelizovali, tak sa celý čas využíval výkon iba jedného jadra CPU.

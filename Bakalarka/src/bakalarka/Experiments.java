@@ -266,7 +266,85 @@ public class Experiments {
         fp.close();
     }
     
+    
+    /* nacita zo suboru automaty do 4 stavov (predpoklada sa, ze tam su) a zacne generovat
+    nahodne NKA 5-stavove
+    */
+    public static void fourStateNFAs(long numberOfSamples) throws Exception{
+        Variables.initialize();
+        Variables.allMinimalDFAs.clear(); // precistime mapu s automatmi
+        Experiments.readAutomataHashes(); // nacitame kody jazykov akceptovanych 4 a menej-stavovymi NKA
+        AutomatonIterator it = new AutomatonIterator(4);
+        long counter = 0;
+        int time = (int)((System.nanoTime()) / 1000000000);
+
+        FastPrint fp = new FastPrint("4StateNFAvsDFA" + time + ".txt", false); // subor, kam sa vypisu rozdiely v poctoch stavov min NFA, DFA
+        FastPrint automata = new FastPrint("4StateAutomata" + time + ".txt", false); // subor, kam sa vypisu samotne najdene NFA, DFA
+        automata.println(
+                    "#initial state is fixed to 0 the format of output is the following\n"
+                            + "#/number of the automaton\n"
+                            + "#number of states\n"
+                            + "#id of initial state (-1 if none)\n"
+                            + "#number of final states followed by final states enumeration\n"
+                            + "#number of transitions followed by its enumeration\n"
+                            + "#from_state to_state character\n"
+                            + "#begin of output:\n"
+            );
+        
+        for(long i = 0;i < numberOfSamples;i++){
+            
+            if (i % 100000 == 0) {
+                int seconds = (int)((System.nanoTime() - Variables.start) / 1000000000);
+                System.err.printf("%d automata generated, time: %s, %d automata in MinimalAutomatonHashMap%n", i, Functions.getFormattedTime(seconds),Variables.allMinimalDFAs.size());
+            }
+            
+            Automaton a = it.random();
+            if(Variables.allMinimalDFAs.tryToInsert(a)){
+                counter++;
+                fp.println(a.numberOfStates() + " " + a.minimalDFA().numberOfStates());
+                a.print(automata, counter);
+            }
+        }
+        fp.close();
+    }
+    
+    
     public static void automataDistributionExperiment(int n) throws Exception{
+        MinimalAutomatonHashMapWithCounter languages = new MinimalAutomatonHashMapWithCounter();
+        ArrayList<Tuple> InterestingLanguageHashCodes = new ArrayList<>(); // tu si zapamatame kody jazykov, ktore chceme analyzovat - 
+        // teda tie s nedeterministickou zlozitostou n
+        
+        for(int i = 1;i <= n;i++){
+            NaiveAutomatonIterator it = new NaiveAutomatonIterator(i);
+            int j = 0;
+            while(it.hasNext()){
+                j++;
+                Automaton a = it.next();
+                if (languages.tryToInsert(a) && (i == n)){ // zaujimaju nas len n-stavove NKA
+                    InterestingLanguageHashCodes.add(a.myHashCode());
+                }
+            }
+            System.out.println(j);
+        }
+        
+        ArrayList<Integer> x = new ArrayList(); // tu si pamatame pocty
+        FastPrint fp = new FastPrint("AutomataDistribution.txt",false);
+        for(Tuple t : InterestingLanguageHashCodes){
+            x.add(languages.allMinDFACodesWithCounter.get(t));
+            fp.println(t + " " + languages.allMinDFACodesWithCounter.get(t));
+        }
+        fp.close();
+        Collections.sort(x);
+        fp = new FastPrint("sortedDistribution.txt",false);
+        for(Integer a : x){
+            fp.println(a.toString());
+        }
+        fp.close();
+    }
+    
+    /* zisti, ako suvisi pocet minimalnych NKA s deterministickou zlozistostou */
+    //TODO
+    public static void analyzeMinimalNFADistribution(int n) throws Exception{
         MinimalAutomatonHashMapWithCounter languages = new MinimalAutomatonHashMapWithCounter();
         ArrayList<Tuple> InterestingLanguageHashCodes = new ArrayList<>(); // tu si zapamatame kody jazykov, ktore chceme analyzovat - 
         // teda tie s nedeterministickou zlozitostou n
